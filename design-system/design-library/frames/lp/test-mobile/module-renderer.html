@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LP Module Renderer Mobile</title>
+  <style>
+    @import url("https://www.static-immobilienscout24.de/fro/core/8.5.0/css/core.min.css");
+    @import url("https://is24-lp-creator.github.io/lp-creator/core/core-foundations.css");
+    @import url("https://is24-lp-creator.github.io/lp-creator/core/core-buttons.css");
+    @import url("https://is24-lp-creator.github.io/lp-creator/core/core-components.css");
+
+    :root {
+      --module-content-max: 374px;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #ffffff;
+      color: #333333;
+      font-family: "Make It Better", Arial, Roboto, sans-serif;
+      width: 374px;
+      min-width: 374px;
+      max-width: 374px;
+      overflow-x: hidden;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .frame-root {
+      width: 100%;
+      background: #ffffff;
+    }
+
+    .frame-root > * {
+      width: min(100%, var(--module-content-max));
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .frame-root > .grid.gutter,
+    .frame-root > .grid.grid-flex.gutter {
+      width: calc(min(100%, var(--module-content-max)) - 24px);
+    }
+
+    .lp-media__inner {
+      background: #f2f2f2;
+    }
+
+    .lp-media__inner::before {
+      content: none;
+    }
+
+    img[src=""] {
+      visibility: hidden;
+    }
+
+    .palm-one-whole {
+      width: 100% !important;
+    }
+
+    .palm-one-half {
+      width: 50% !important;
+    }
+
+    .hero-split,
+    .hero-bleed-flex,
+    .hero-bleed-flex-centered,
+    .teaser,
+    .teaser-split,
+    .lp-full-bleed {
+      width: 100%;
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    .lp-full-bleed__inner {
+      width: min(100%, var(--module-content-max));
+    }
+
+    .steps-3col__step,
+    .steps-4col__step {
+      position: relative;
+      padding-left: 56px;
+    }
+
+    .steps-3col__step-number,
+    .steps-4col__step-number {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    .steps-3col__step-header,
+    .steps-4col__step-header {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .steps-4col__step-title {
+      margin: 0 0 8px 0;
+    }
+
+    .steps-3col__step-line,
+    .steps-4col__step-line {
+      position: absolute;
+      left: 20px;
+      top: 40px;
+      bottom: -16px;
+      width: 1px;
+      height: auto;
+      background-color: #333333;
+      flex: none;
+    }
+
+    .steps-3col__steps .grid-item:last-child .steps-3col__step-line,
+    .steps-4col__steps .grid-item:last-child .steps-4col__step-line {
+      display: none;
+    }
+
+    .callout__layout {
+      display: block;
+    }
+
+    .callout__media {
+      margin-bottom: 20px;
+    }
+
+    .servicetiles__icon--desktop {
+      display: none;
+    }
+
+    .servicetiles__icon--mobile {
+      display: block;
+    }
+
+    .action-tiles_rle {
+      padding: 64px 16px;
+    }
+
+    .action-tiles_rle .action-tiles_rle__badge {
+      top: -20px;
+      left: 50%;
+      right: auto;
+      transform: translateX(-50%);
+      width: 200px;
+    }
+
+    .action-tiles_rle .action-tiles_rle__body {
+      margin-top: 20px;
+    }
+
+    .action-tiles_rle .checkmark-list {
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      margin-top: 24px;
+    }
+
+    .action-tiles_rle .checkmark-list__item {
+      margin-bottom: 0;
+    }
+
+    .action-tiles_rle .checkmark-list__text {
+      white-space: normal;
+    }
+  </style>
+</head>
+<body>
+  <div class="frame-root" data-root></div>
+  <script src="../test-modules.js"></script>
+  <script>
+    (function(){
+      var params = new URLSearchParams(window.location.search);
+      var moduleId = params.get("module") || "steps-3col";
+      var root = document.querySelector("[data-root]");
+      var modules = window.LP_TEST_MODULES || {};
+      root.innerHTML = modules[moduleId] || modules["steps-3col"] || "";
+    })();
+  </script>
+  <script>
+    (function(){
+      function getHeight(){
+        var body=document.body;
+        var root=document.documentElement;
+        return Math.max(
+          body ? body.scrollHeight : 0,
+          body ? body.offsetHeight : 0,
+          root ? root.clientHeight : 0,
+          root ? root.scrollHeight : 0,
+          root ? root.offsetHeight : 0
+        );
+      }
+      function postHeight(requestId){
+        try {
+          window.parent.postMessage({ type: "component-library:frame-height", height: getHeight(), requestId: requestId || null }, "*");
+        } catch (error) {}
+      }
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", postHeight);
+      } else {
+        postHeight();
+      }
+      window.addEventListener("load", postHeight);
+      window.addEventListener("resize", postHeight);
+      window.addEventListener("message", function(event){
+        if (event.data && event.data.type === "component-library:request-height") {
+          postHeight((event.data && event.data.requestId) || null);
+        }
+      });
+      if (typeof ResizeObserver !== "undefined") {
+        var observer = new ResizeObserver(postHeight);
+        if (document.body) observer.observe(document.body);
+        if (document.documentElement) observer.observe(document.documentElement);
+      }
+      setTimeout(postHeight, 0);
+      setTimeout(postHeight, 120);
+      setTimeout(postHeight, 320);
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>table-comparison</title>
+    <link rel="stylesheet" href="../../../../../email-builder/agent/components.css" />
+    <style>
+      html, body { margin: 0; padding: 0; background: transparent; }
+      body { min-width: 0; }
+      .library-frame-root { padding: 0; }
+    </style>
+  </head>
+  <body>
+    <div class="library-frame-root">
+<!-- MODULE: table-comparison | SNIPPET: emb_table_comparison -->
+<section class="module theme-white" data-module="table-comparison" data-snippet="emb_table_comparison">
+  <div class="module__inner">
+    <div class="table-card">
+      <div class="module__head">
+        <h2 class="module__title module__title--medium" data-export-field="emb_table_comparison_headline" data-export-role="headline">Zwei Wege im direkten Vergleich</h2>
+      </div>
+      <div class="comparison-grid">
+        <section class="comparison-column" data-export-item="table-comparison-column" data-export-index="1">
+          <h3 class="module__title module__title--small" data-export-field="emb_table_comparison_col_1_headline">Selbst organisieren</h3>
+          <div class="comparison-column__rule" aria-hidden="true"></div>
+          <div class="comparison-list">
+            <p class="comparison-item" data-export-field="emb_table_comparison_row_1_col_1_body" data-export-index="1">Sie koordinieren Inhalte, Rueckfragen und Freigaben manuell.</p>
+            <p class="comparison-item" data-export-field="emb_table_comparison_row_2_col_1_body" data-export-index="2">Status und Resonanz muessen ueber mehrere Kanaele zusammengefuehrt werden.</p>
+            <p class="comparison-item" data-export-field="emb_table_comparison_row_3_col_1_body" data-export-index="3">Anpassungen kosten mehr Abstimmung im laufenden Prozess.</p>
+          </div>
+        </section>
+        <section class="comparison-column" data-export-item="table-comparison-column" data-export-index="2">
+          <h3 class="module__title module__title--small" data-export-field="emb_table_comparison_col_2_headline">Digital begleitet</h3>
+          <div class="comparison-column__rule" aria-hidden="true"></div>
+          <div class="comparison-list">
+            <p class="comparison-item" data-export-field="emb_table_comparison_row_1_col_2_body" data-export-index="1">Sie behalten Inhalte, Sichtbarkeit und Reaktionen in einem Ablauf im Blick.</p>
+            <p class="comparison-item" data-export-field="emb_table_comparison_row_2_col_2_body" data-export-index="2">Resonanz und naechste Schritte bleiben fuer alle Beteiligten nachvollziehbar.</p>
+            <p class="comparison-item" data-export-field="emb_table_comparison_row_3_col_2_body" data-export-index="3">Optimierungen lassen sich schneller und klarer in die Mail uebernehmen.</p>
+          </div>
+        </section>
+      </div>
+      <div class="module__cta-row">
+        <a class="button-outline-strong" href="https://www.immobilienscout24.de" target="_blank" rel="noreferrer" data-token-attr-href="links.default_cta" data-export-field="emb_table_comparison_button_label" data-export-url-field="emb_table_comparison_button_url" data-export-role="cta">Beratung anfragen</a>
+      </div>
+    </div>
+  </div>
+</section>
+<script src="../token-runtime.js" defer></script>
+
+    </div>
+  <script>
+(function(){
+  function getHeight(){
+    var body=document.body;
+    var root=document.documentElement;
+    return Math.max(
+      body ? body.scrollHeight : 0,
+      body ? body.offsetHeight : 0,
+      root ? root.clientHeight : 0,
+      root ? root.scrollHeight : 0,
+      root ? root.offsetHeight : 0
+    );
+  }
+  function postHeight(){
+    try {
+      window.parent.postMessage({ type: "component-library:frame-height", height: getHeight() }, "*");
+    } catch (error) {}
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", postHeight);
+  } else {
+    postHeight();
+  }
+  window.addEventListener("load", postHeight);
+  window.addEventListener("resize", postHeight);
+  window.addEventListener("message", function(event){
+    if (event.data && event.data.type === "component-library:request-height") {
+      postHeight();
+    }
+  });
+  if (typeof ResizeObserver !== "undefined") {
+    var observer = new ResizeObserver(postHeight);
+    if (document.body) observer.observe(document.body);
+    if (document.documentElement) observer.observe(document.documentElement);
+  }
+  setTimeout(postHeight, 0);
+  setTimeout(postHeight, 120);
+  setTimeout(postHeight, 320);
+})();
+</script>
+</body>
+</html>

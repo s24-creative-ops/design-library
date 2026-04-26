@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LP Hero Bleed Flex</title>
+  <style>
+    @import url("https://www.static-immobilienscout24.de/fro/core/8.5.0/css/core.min.css");
+    @import url("https://is24-lp-creator.github.io/lp-creator/core/core-foundations.css");
+    @import url("https://is24-lp-creator.github.io/lp-creator/core/core-buttons.css");
+    @import url("https://is24-lp-creator.github.io/lp-creator/core/core-components.css");
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #ffffff;
+      color: #333333;
+      font-family: "Make It Better", Arial, Roboto, sans-serif;
+      width: 414px;
+      min-width: 414px;
+      max-width: 414px;
+      overflow-x: hidden;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .frame-root {
+      width: 100%;
+      background: #ffffff;
+    }
+
+    .hero-bleed-flex,
+    .hero-bleed-flex__image {
+      width: 100%;
+      margin-left: 0;
+    }
+
+    .hero-bleed-flex__content {
+      width: min(100%, 1170px);
+      margin: 0 auto;
+      padding-inline: 0;
+    }
+
+    .hero-bleed-flex__image .lp-media__inner {
+      background: #f2f2f2;
+    }
+
+    .hero-bleed-flex__image .lp-media__inner::before {
+      content: none;
+    }
+
+    .hero-bleed-flex__space-m {
+      height: 60px;
+    }
+
+    .hero-bleed-flex__content {
+      width: min(100%, 374px);
+    }
+
+    .palm-one-whole {
+      width: 100% !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="frame-root">
+    <div class="hero-bleed-flex">
+      <div class="hero-bleed-flex__image lp-media lp-media--cover" aria-hidden="true">
+        <div class="lp-media__inner"></div>
+      </div>
+
+      <div class="hero-bleed-flex__inner">
+        <div class="hero-bleed-flex__space-m"></div>
+        <div class="hero-bleed-flex__content">
+          <div class="grid grid-flex gutter">
+            <div class="grid-item one-half palm-one-whole">
+              <div class="lp-radius-24 lp-color-white padding-l">
+                <h1 class="font-heading-large-bold margin-bottom-s">Headline-large-bold</h1>
+                <p class="font-body-large-regular margin-bottom-m">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <a class="ai-button button-filled-brand">Lorem ipsum</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-bleed-flex__space-m"></div>
+      </div>
+    </div>
+  </div>
+  <script>
+    (function(){
+      function getHeight(){
+        var body=document.body;
+        var root=document.documentElement;
+        return Math.max(
+          body ? body.scrollHeight : 0,
+          body ? body.offsetHeight : 0,
+          root ? root.clientHeight : 0,
+          root ? root.scrollHeight : 0,
+          root ? root.offsetHeight : 0
+        );
+      }
+      function postHeight(requestId){
+        try {
+          window.parent.postMessage({ type: "component-library:frame-height", height: getHeight(), requestId: requestId || null }, "*");
+        } catch (error) {}
+      }
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", postHeight);
+      } else {
+        postHeight();
+      }
+      window.addEventListener("load", postHeight);
+      window.addEventListener("resize", postHeight);
+      window.addEventListener("message", function(event){
+        if (event.data && event.data.type === "component-library:request-height") {
+          postHeight((event.data && event.data.requestId) || null);
+        }
+      });
+      if (typeof ResizeObserver !== "undefined") {
+        var observer = new ResizeObserver(postHeight);
+        if (document.body) observer.observe(document.body);
+        if (document.documentElement) observer.observe(document.documentElement);
+      }
+      setTimeout(postHeight, 0);
+      setTimeout(postHeight, 120);
+      setTimeout(postHeight, 320);
+    })();
+  </script>
+</body>
+</html>

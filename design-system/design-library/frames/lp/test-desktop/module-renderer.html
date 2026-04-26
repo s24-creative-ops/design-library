@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LP Module Renderer</title>
+  <style>
+    @import url("https://www.static-immobilienscout24.de/fro/core/8.5.0/css/core.min.css");
+    @import url("https://is24-lp-creator.github.io/lp-creator/core/core-foundations.css");
+    @import url("https://is24-lp-creator.github.io/lp-creator/core/core-buttons.css");
+    @import url("https://is24-lp-creator.github.io/lp-creator/core/core-components.css");
+
+    :root {
+      --module-content-max: 1170px;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #ffffff;
+      color: #333333;
+      font-family: "Make It Better", Arial, Roboto, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .frame-root {
+      width: 100%;
+      background: #ffffff;
+    }
+
+    .frame-root > * {
+      width: min(100%, var(--module-content-max));
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .frame-root > .grid.gutter,
+    .frame-root > .grid.grid-flex.gutter {
+      width: calc(min(100%, var(--module-content-max)) - 24px);
+    }
+
+    .lp-media__inner {
+      background: #f2f2f2;
+    }
+
+    .lp-media__inner::before {
+      content: none;
+    }
+
+    img[src=""] {
+      visibility: hidden;
+    }
+
+    .lp-full-bleed {
+      width: 100%;
+      margin-left: 0;
+      margin-right: 0;
+      overflow: hidden;
+    }
+
+    .hero-split,
+    .hero-bleed-flex,
+    .hero-bleed-flex-centered,
+    .teaser,
+    .teaser-split {
+      width: 100%;
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    .lp-full-bleed:has(.action-tiles_rle) {
+      overflow: visible;
+    }
+
+    .lp-full-bleed__inner {
+      width: min(100%, var(--module-content-max));
+      max-width: var(--module-content-max);
+      margin: 0 auto;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .lp-sticky-footer {
+      position: static;
+      left: auto;
+      right: auto;
+      bottom: auto;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .lp-sticky-footer::before {
+      content: none;
+    }
+
+    .lp-sticky-footer__inner {
+      padding: 0;
+    }
+
+    .counter-animated__item > [class^="font-heading-"],
+    .counter-animated__item > [class*=" font-heading-"] {
+      font-weight: 700 !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="frame-root" data-root></div>
+  <script src="../test-modules.js"></script>
+  <script>
+    (function(){
+      var params = new URLSearchParams(window.location.search);
+      var moduleId = params.get("module") || "steps-3col";
+      var root = document.querySelector("[data-root]");
+      var modules = window.LP_TEST_MODULES || {};
+      root.innerHTML = modules[moduleId] || modules["steps-3col"] || "";
+    })();
+  </script>
+  <script>
+    (function(){
+      function getHeight(){
+        var body=document.body;
+        var root=document.documentElement;
+        return Math.max(
+          body ? body.scrollHeight : 0,
+          body ? body.offsetHeight : 0,
+          root ? root.clientHeight : 0,
+          root ? root.scrollHeight : 0,
+          root ? root.offsetHeight : 0
+        );
+      }
+      function postHeight(requestId){
+        try {
+          window.parent.postMessage({ type: "component-library:frame-height", height: getHeight(), requestId: requestId || null }, "*");
+        } catch (error) {}
+      }
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", postHeight);
+      } else {
+        postHeight();
+      }
+      window.addEventListener("load", postHeight);
+      window.addEventListener("resize", postHeight);
+      window.addEventListener("message", function(event){
+        if (event.data && event.data.type === "component-library:request-height") {
+          postHeight((event.data && event.data.requestId) || null);
+        }
+      });
+      if (typeof ResizeObserver !== "undefined") {
+        var observer = new ResizeObserver(postHeight);
+        if (document.body) observer.observe(document.body);
+        if (document.documentElement) observer.observe(document.documentElement);
+      }
+      setTimeout(postHeight, 0);
+      setTimeout(postHeight, 120);
+      setTimeout(postHeight, 320);
+    })();
+  </script>
+</body>
+</html>

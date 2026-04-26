@@ -1,0 +1,85 @@
+version: 1
+purpose: active_module_catalog
+active_modules:
+  - id: logo
+    snippet: emb_logo
+    preview: preview/modules/logo.html
+    email: email/modules/emb_logo.html
+    role: required_shell
+  - id: logo-centered
+    snippet: emb_logo_centered
+    preview: preview/modules/logo-centered.html
+    email: email/modules/emb_logo_centered.html
+  - id: hero-image-top
+    snippet: emb_hero_image_top
+    preview: preview/modules/hero-image-top.html
+    email: email/modules/emb_hero_image_top.html
+    role: required_shell
+  - id: hero-image-top-bleed
+    snippet: emb_hero_image_top_bleed
+    preview: preview/modules/hero-image-top-bleed.html
+    email: email/modules/emb_hero_image_top_bleed.html
+  - id: hero-cta-top
+    snippet: emb_hero_cta_top
+    preview: preview/modules/hero-cta-top.html
+    email: email/modules/emb_hero_cta_top.html
+  - id: hero-cta-top-no-bottom
+    snippet: emb_hero_cta_top_no_bottom
+    preview: preview/modules/hero-cta-top-no-bottom.html
+    email: email/modules/emb_hero_cta_top_no_bottom.html
+  - id: teaser-1col
+    snippet: emb_teaser_1col
+    preview: preview/modules/teaser-1col.html
+    email: email/modules/emb_teaser_1col.html
+  - id: teaser-2col-horizontal
+    snippet: emb_teaser_2col_horizontal
+    preview: preview/modules/teaser-2col-horizontal.html
+    email: email/modules/emb_teaser_2col_horizontal.html
+  - id: teaser-2col-vertical
+    snippet: emb_teaser_2col_vertical
+    preview: preview/modules/teaser-2col-vertical.html
+    email: email/modules/emb_teaser_2col_vertical.html
+  - id: teaser-2col-alternating
+    snippet: emb_teaser_2col_alternating
+    preview: preview/modules/teaser-2col-alternating.html
+    email: email/modules/emb_teaser_2col_alternating.html
+  - id: teaser-2col-listing
+    snippet: emb_teaser_2col_listing
+    preview: preview/modules/teaser-2col-listing.html
+    email: email/modules/emb_teaser_2col_listing.html
+  - id: benefits-3col
+    snippet: emb_benefits_3col
+    preview: preview/modules/benefits-3col.html
+    email: email/modules/emb_benefits_3col.html
+  - id: steps-3col
+    snippet: emb_steps_3col
+    preview: preview/modules/steps-3col.html
+    email: email/modules/emb_steps_3col.html
+  - id: steps-horizontal
+    snippet: emb_steps_horizontal
+    preview: preview/modules/steps-horizontal.html
+    email: email/modules/emb_steps_horizontal.html
+  - id: table
+    snippet: emb_table
+    preview: preview/modules/table.html
+    email: email/modules/emb_table.html
+  - id: table-comparison
+    snippet: emb_table_comparison
+    preview: preview/modules/table-comparison.html
+    email: email/modules/emb_table_comparison.html
+  - id: contact
+    snippet: emb_contact
+    preview: preview/modules/contact.html
+    email: email/modules/emb_contact.html
+  - id: footer
+    snippet: emb_footer_marketing
+    preview: preview/modules/footer.html
+    email: email/modules/emb_footer_marketing.html
+    role: required_shell
+excluded_modules:
+  - id: logo-viessmann
+    reason: legacy_special_case
+  - id: servicetiles-4up
+    reason: intentionally_outside_active_core
+  - id: teaser-2col-listing-compact
+    reason: intentionally_outside_active_core

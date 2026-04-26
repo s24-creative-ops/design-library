@@ -1,0 +1,9 @@
+{
+  "default_brand": "immoscout24",
+  "brands": {
+    "immoscout24": {
+      "design_tokens": "../../design-system/tokens/brands/immoscout24.json",
+      "component_library": "../../design-system/design-library/index.html"
+    }
+  }
+}

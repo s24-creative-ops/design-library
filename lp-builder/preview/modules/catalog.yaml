@@ -1,0 +1,111 @@
+version: 1
+purpose: active_lp_preview_module_catalog
+source_snapshot:
+  html: component-library.html
+  css:
+    - core-foundations.css
+    - core-buttons.css
+    - core-components.css
+  js:
+    - core-interactions.js
+active_modules:
+  - id: hero-bleed-flex
+    category: heros
+    preview: preview/modules/hero-bleed-flex.html
+    source_title: "HERO BLEED FLEX"
+  - id: hero-bleed-flex-centered
+    category: heros
+    preview: preview/modules/hero-bleed-flex-centered.html
+    source_title: "HERO BLEED FLEX CENTERED"
+  - id: hero-split
+    category: heros
+    preview: preview/modules/hero-split.html
+    source_title: "HERO SPLIT"
+  - id: teaser-2col
+    category: teaser
+    preview: preview/modules/teaser-2col.html
+    source_title: "TEASER 2COL"
+  - id: teaser-3col
+    category: teaser
+    preview: preview/modules/teaser-3col.html
+    source_title: "TEASER 3COL"
+  - id: teaser-4col
+    category: teaser
+    preview: preview/modules/teaser-4col.html
+    source_title: "TEASER 4COL"
+  - id: teaser-split-image-right
+    category: teaser
+    preview: preview/modules/teaser-split-image-right.html
+    source_title: "TEASER SPLIT IMAGE RIGHT"
+  - id: teaser-split-image-left
+    category: teaser
+    preview: preview/modules/teaser-split-image-left.html
+    source_title: "TEASER SPLIT IMAGE LEFT"
+  - id: steps-3col
+    category: steps
+    preview: preview/modules/steps-3col.html
+    source_title: "STEPS 3COL"
+  - id: steps-4col
+    category: steps
+    preview: preview/modules/steps-4col.html
+    source_title: "STEPS 4COL"
+  - id: accordion
+    category: accordion
+    preview: preview/modules/accordion.html
+    source_title: "ACCORDION"
+  - id: counter-animated
+    category: counter
+    preview: preview/modules/counter-animated.html
+    source_title: "COUNTER ANIMATED"
+  - id: callout--base
+    category: callouts
+    preview: preview/modules/callout--base.html
+    source_title: "CALLOUT BASE"
+  - id: callout--illu
+    category: callouts
+    preview: preview/modules/callout--illu.html
+    source_title: "CALLOUT ILLU"
+  - id: callout--expert
+    category: callouts
+    preview: preview/modules/callout--expert.html
+    source_title: "CALLOUT EXPERT"
+  - id: benefits-3col
+    category: benefits
+    preview: preview/modules/benefits-3col.html
+    source_title: "BENEFITS 3COL"
+  - id: benefits-2col
+    category: benefits
+    preview: preview/modules/benefits-2col.html
+    source_title: "BENEFITS 2COL"
+  - id: ekomi-reviews
+    category: reviews
+    preview: preview/modules/ekomi-reviews.html
+    source_title: "EKOMI REVIEWS"
+  - id: servicetiles
+    category: service-tiles
+    preview: preview/modules/servicetiles.html
+    source_title: "SERVICE TILES"
+  - id: checkmark-list
+    category: checkmark-list
+    preview: preview/modules/checkmark-list.html
+    source_title: "CHECKMARK-LIST"
+  - id: lp-sticky-footer
+    category: sticky-footer
+    preview: preview/modules/lp-sticky-footer.html
+    source_title: "Component: Sticky Footer"
+  - id: content-cards-2col
+    category: content-cards
+    preview: preview/modules/content-cards-2col.html
+    source_title: "content-cards-2col"
+  - id: content-cards-3col
+    category: content-cards
+    preview: preview/modules/content-cards-3col.html
+    source_title: "content-cards-3col"
+  - id: action-tiles_rle
+    category: action-tiles
+    preview: preview/modules/action-tiles_rle.html
+    source_title: "action-tiles_rle"
+  - id: video--youtube
+    category: video
+    preview: preview/modules/video--youtube.html
+    source_title: "VIDEO MODULE - YOUTUBE"

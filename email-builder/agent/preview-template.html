@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>E-Mail Vorschau</title>
+  <!-- PREVIEW TEMPLATE RULE: Keep this file as the exact shell source for every preview. -->
+  <!-- PREVIEW TEMPLATE RULE: Keep this stylesheet reference aligned to agent/components.css in the compact agent layer. -->
+  <link rel="stylesheet" href="./components.css" />
+</head>
+<body>
+  <div class="preview-shell">
+    <main class="preview-canvas">
+      <section class="module preview-subject" data-preview-slot="subject">
+        <div class="module__inner">
+          <!-- PREVIEW TEMPLATE RULE: Only the text inside [data-preview-subject-text] and [data-preview-preheader-text] may be replaced. -->
+          <div class="preview-subject__stack">
+            <p class="preview-subject__line preview-subject__line--subject">Subject: <span data-preview-subject-text>Hier steht der Vorschlag fuer Subject</span></p>
+            <p class="preview-subject__line preview-subject__line--preheader">Preheader: <span data-preview-preheader-text>Hier steht der Vorschlag fuer Preheader</span></p>
+          </div>
+        </div>
+      </section>
+      <!-- PREVIEW TEMPLATE RULE: Insert module blocks only between the two module slot markers below. -->
+      <!-- MODULE SLOT: Insert the selected module blocks from preview-modules.html here. -->
+      <!-- Keep the active module composition in builder logic, not hardcoded in this shell. -->
+    </main>
+  </div>
+</body>
+</html>

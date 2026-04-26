@@ -3,479 +3,2667 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ImmoScout24 Design Library</title>
+  <title>Design Library</title>
   <style>
     :root {
-      --bg: #f6f1ea;
-      --surface: #fffdf9;
-      --ink: #1f1f1f;
-      --muted: #676767;
-      --line: #ddd4ca;
-      --accent: #3df5dc;
-      --accent-strong: #1dcfb7;
-      --shadow: 0 18px 50px rgba(51, 51, 51, 0.08);
-      --radius-xl: 28px;
-      --radius-l: 20px;
-      --radius-m: 14px;
+      --sidebar-width: 224px;
+      --sidebar-visible-width: 224px;
+      --sidebar-collapsed-peek: 0px;
+      --content-pad: 32px;
+      --surface: #ffffff;
+      --surface-soft: #f7f4ef;
+      --stroke: #e4dfd7;
+      --stroke-dashed: #d6d6d6;
+      --text: #333333;
+      --text-soft: #6d6d6d;
+      --module-width-desktop-email: 800px;
+      --module-width-mobile-email: 400px;
+      --module-width-desktop-lp: 1170px;
+      --module-width-mobile-lp: 414px;
+      --module-width-current: var(--module-width-desktop-email);
     }
 
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
     body {
       margin: 0;
-      font-family: "Avenir Next", "Segoe UI", Arial, sans-serif;
-      background:
-        radial-gradient(circle at top right, rgba(61, 245, 220, 0.28), transparent 22%),
-        linear-gradient(180deg, #fffaf4 0%, var(--bg) 100%);
-      color: var(--ink);
-    }
-
-    .shell {
-      width: min(1200px, calc(100vw - 32px));
-      margin: 0 auto;
-      padding: 24px 0 56px;
-    }
-
-    .hero {
+      padding: 0;
       background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow);
-      padding: 28px;
-      margin-bottom: 24px;
-      overflow: hidden;
+      color: var(--text);
+      font-family: "Make It Better", Arial, Roboto, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+    }
+
+    .test-shell {
+      min-height: 100vh;
+      background: var(--surface);
+    }
+
+    .test-shell.is-sidebar-collapsed {
+      --sidebar-visible-width: var(--sidebar-collapsed-peek);
+    }
+
+    .test-shell.is-page-email:not(.is-mobile-preview) {
+      --module-width-current: var(--module-width-desktop-email);
+    }
+
+    .test-shell.is-page-email.is-mobile-preview {
+      --module-width-current: var(--module-width-mobile-email);
+    }
+
+    .test-shell.is-page-lp:not(.is-mobile-preview) {
+      --module-width-current: var(--module-width-desktop-lp);
+    }
+
+    .test-shell.is-page-lp.is-mobile-preview {
+      --module-width-current: var(--module-width-mobile-lp);
+    }
+
+    .test-shell.is-page-tokens {
+      --module-width-current: 1000px;
+    }
+
+    .test-shell.is-page-home {
+      --module-width-current: 1000px;
+    }
+
+    .test-sidebar {
+      position: fixed;
+      inset: 0 auto 0 0;
+      z-index: 20;
+      width: var(--sidebar-width);
+      padding: 24px;
+      background: var(--surface-soft);
+      border-right: 1px solid var(--stroke);
+      display: grid;
+      align-content: start;
+      gap: 24px;
+      transform: translateX(calc(-1 * (var(--sidebar-width) - var(--sidebar-visible-width))));
+      transition: transform 220ms ease;
+      overflow-x: visible;
+      overflow-y: auto;
+    }
+
+    .test-sidebar__header {
       position: relative;
+      margin-bottom: 4px;
     }
 
-    .hero::after {
-      content: "";
-      position: absolute;
-      right: -40px;
-      top: -40px;
-      width: 180px;
-      height: 180px;
-      border-radius: 50%;
-      background: rgba(61, 245, 220, 0.28);
-      filter: blur(10px);
+    .test-brand {
+      display: grid;
+      gap: 0;
+      margin-bottom: 0;
+      min-width: 0;
     }
 
-    .eyebrow {
+    .test-logo {
+      display: block;
+      width: 150px;
+      max-width: 100%;
+    }
+
+    .test-logo img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .test-nav {
+      display: grid;
+      gap: 10px;
+    }
+
+    .test-nav__group {
+      display: grid;
+      gap: 10px;
+    }
+
+    .test-nav__group-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      min-height: 20px;
+      color: var(--text-soft);
+      font-size: 11px;
+      line-height: 1.2;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      user-select: none;
+    }
+
+    .test-nav__group-status {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: #ffffff;
-      border: 1px solid var(--line);
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      position: relative;
-      z-index: 1;
+      justify-content: center;
+      min-width: 18px;
+      font-size: 16px;
+      line-height: 1;
+      color: var(--text-soft);
+      transform: translateY(-1px);
     }
 
-    .eyebrow::before {
-      content: "";
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--accent);
-      box-shadow: 0 0 0 6px rgba(61, 245, 220, 0.18);
+    .test-nav__group-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      cursor: pointer;
+      appearance: none;
     }
 
-    h1 {
-      margin: 18px 0 10px;
-      font-size: clamp(34px, 6vw, 62px);
-      line-height: 0.96;
-      letter-spacing: -0.04em;
-      position: relative;
-      z-index: 1;
-      max-width: 9ch;
+    .test-nav__group-toggle:hover,
+    .test-nav__group-toggle:focus-visible {
+      color: var(--text);
+      outline: none;
     }
 
-    .hero p {
-      margin: 0;
-      max-width: 70ch;
-      color: var(--muted);
-      font-size: 18px;
-      line-height: 1.6;
-      position: relative;
-      z-index: 1;
+    .test-nav__group.is-collapsed .test-nav__list {
+      display: none;
     }
 
-    .stats {
+    .test-nav__list {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-      margin-top: 24px;
-      position: relative;
-      z-index: 1;
+      gap: 4px;
     }
 
-    .stat {
-      padding: 18px;
-      border-radius: var(--radius-l);
-      background: #fff;
-      border: 1px solid var(--line);
-    }
-
-    .stat strong {
-      display: block;
-      font-size: 28px;
-      margin-bottom: 6px;
-    }
-
-    .stat span {
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .nav {
+    .test-nav__link {
       display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 24px;
-    }
-
-    .nav a {
+      align-items: center;
+      gap: 8px;
+      min-height: 34px;
+      padding: 0 10px;
+      border-radius: 10px;
+      color: var(--text-soft);
       text-decoration: none;
-      color: var(--ink);
-      background: rgba(255,255,255,0.8);
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      padding: 11px 16px;
-      font-weight: 700;
       font-size: 14px;
+      line-height: 1.3;
     }
 
-    .grid {
-      display: grid;
-      gap: 24px;
+    .test-nav__link-icon {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
 
-    .panel {
+    .test-nav__link:hover,
+    .test-nav__link:focus-visible,
+    .test-nav__link.is-active {
+      background: rgba(255, 255, 255, 0.92);
+      color: var(--text);
+      font-weight: 700;
+      outline: none;
+    }
+
+    .test-main {
+      min-width: 0;
+      margin-left: var(--sidebar-visible-width);
+      padding: 24px var(--content-pad) 48px;
       background: var(--surface);
-      border: 1px solid var(--line);
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow);
-      padding: 24px;
+      position: relative;
+      transition: margin-left 220ms ease;
     }
 
-    .panel h2 {
-      margin: 0 0 8px;
-      font-size: clamp(24px, 3vw, 34px);
-      line-height: 1.05;
-      letter-spacing: -0.03em;
+    .test-sidebar__toggle {
+      position: fixed;
+      top: 20px;
+      left: calc(var(--sidebar-visible-width) + 20px);
+      z-index: 40;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border: 1px solid #d9d9d9;
+      border-radius: 50%;
+      padding: 0;
+      background: #ffffff;
+      color: rgba(39, 39, 39, 0.72);
+      cursor: pointer;
+      appearance: none;
+      transition: left 220ms ease, color 180ms ease, border-color 180ms ease;
     }
 
-    .panel > p,
-    .subtle {
+    .test-shell.is-sidebar-collapsed .test-sidebar__toggle {
+      left: 20px;
+    }
+
+    .test-sidebar__toggle:hover,
+    .test-sidebar__toggle:focus-visible {
+      color: var(--text);
+      outline: none;
+    }
+
+    .test-sidebar__toggle svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: transform 180ms ease;
+    }
+
+    .test-shell.is-sidebar-collapsed .test-sidebar__toggle svg {
+      transform: rotate(180deg);
+    }
+
+    .test-toolbar {
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto 24px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .test-shell.is-page-home .test-toolbar,
+    .test-shell.is-page-tokens .test-toolbar {
+      display: none;
+    }
+
+    .test-shell.is-page-lp .test-toolbar {
+      max-width: none;
+    }
+
+    .test-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border: 1px solid #d9d9d9;
+      border-radius: 50%;
+      padding: 0;
+      background: #ffffff;
+      color: rgba(39, 39, 39, 0.72);
+      cursor: pointer;
+      appearance: none;
+    }
+
+    .test-toggle[aria-pressed="true"] {
+      border-color: rgba(39, 39, 39, 0.18);
+      color: var(--text);
+      background: #ffffff;
+    }
+
+    .test-toggle:hover,
+    .test-toggle:focus-visible {
+      color: var(--text);
+      outline: none;
+    }
+
+    .test-toggle svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .test-content {
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .test-shell.is-page-lp .test-content {
+      max-width: none;
+    }
+
+    .test-shell.is-page-tokens .test-content {
+      max-width: 1120px;
+    }
+
+    .test-main::before,
+    .test-main::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background-image: repeating-linear-gradient(
+        to bottom,
+        var(--stroke-dashed) 0 6px,
+        transparent 6px 14px
+      );
+      background-repeat: repeat-y;
+      background-size: 1px 14px;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .test-main::before {
+      left: calc(50% - (var(--module-width-current) / 2));
+    }
+
+    .test-main::after {
+      left: calc(50% + (var(--module-width-current) / 2));
+    }
+
+    .test-shell.is-page-lp:not(.is-mobile-preview) .test-main::before,
+    .test-shell.is-page-lp:not(.is-mobile-preview) .test-main::after,
+    .test-shell.is-page-home .test-main::before,
+    .test-shell.is-page-home .test-main::after,
+    .test-shell.is-page-tokens .test-main::before,
+    .test-shell.is-page-tokens .test-main::after {
+      display: none;
+    }
+
+    .test-page {
+      display: none;
+    }
+
+    .test-page.is-active {
+      display: block;
+    }
+
+    .test-home {
+      width: 100%;
+      max-width: 760px;
+      padding-top: 40px;
+    }
+
+    .test-home__title {
+      margin: 0 0 12px;
+      font-size: 48px;
+      line-height: 58px;
+      font-weight: 700;
+    }
+
+    .test-home__text {
       margin: 0;
-      color: var(--muted);
-      line-height: 1.6;
+      max-width: 34em;
+      font-size: 16px;
+      line-height: 24px;
+      color: var(--text-soft);
+    }
+
+    .test-shell.is-page-tokens [data-mobile-toggle] {
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .token-page {
+      display: grid;
+      gap: 28px;
     }
 
     .token-section {
-      margin-top: 22px;
+      display: none;
+      gap: 24px;
     }
 
-    .token-section h3 {
-      margin: 0 0 14px;
-      font-size: 18px;
-    }
-
-    .swatches {
+    .token-section.is-active {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    }
+
+    .token-section__header {
+      display: grid;
+      gap: 8px;
+      padding-top: 50px;
+    }
+
+    .token-section__title {
+      margin: 0;
+      font-size: 30px;
+      line-height: 1.1;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .token-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 16px;
+    }
+
+    .token-grid--wide {
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    }
+
+    .token-card {
+      display: grid;
       gap: 12px;
+      padding: 18px;
+      border: 1px solid var(--stroke);
+      border-radius: 16px;
+      background: #ffffff;
     }
 
-    .swatch {
-      border: 1px solid var(--line);
-      border-radius: var(--radius-m);
+    .token-card__swatch {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      background: #ffffff;
+    }
+
+    .token-card__shape {
+      width: 100%;
+      height: 72px;
+      background: #f5f5f5;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    .token-card--minimal {
+      gap: 10px;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+    }
+
+    .token-card--minimal .token-card__swatch,
+    .token-card--minimal .token-card__shape {
+      border: 0;
+    }
+
+    .token-card__spacing {
+      display: flex;
+      align-items: center;
+      height: 56px;
+    }
+
+    .token-card__spacing-bar {
+      height: 12px;
+      border-radius: 999px;
+      background: #333333;
+    }
+
+    .token-card__border-line {
+      width: 100%;
+      background: #333333;
+    }
+
+    .token-card__ratio {
+      width: 100%;
+      border-radius: 12px;
+      background: #f5f5f5;
+      border: 1px solid rgba(0, 0, 0, 0.06);
       overflow: hidden;
-      background: #fff;
+      position: relative;
+      height: 0;
     }
 
-    .swatch-chip {
-      height: 92px;
-      border-bottom: 1px solid var(--line);
+    .token-card__ratio-inner {
+      position: absolute;
+      inset: 0;
+      background: #f5f5f5;
     }
 
-    .swatch-copy {
-      padding: 12px;
-      font-size: 13px;
-      line-height: 1.5;
+    .token-card__label {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      min-height: 28px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: #f2f2f2;
+      color: #676767;
+      font-size: 12px;
+      line-height: 1;
+      font-weight: 700;
     }
 
-    .swatch-copy strong,
-    .token-line strong {
-      display: block;
-      font-size: 13px;
-      margin-bottom: 2px;
+    .token-card__title {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.3;
+      font-weight: 700;
+      color: var(--text);
     }
 
-    .token-lines {
+    .token-card__meta {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 6px;
+    }
+
+    .token-card__meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 13px;
+      line-height: 1.4;
+      color: var(--text-soft);
+    }
+
+    .token-card__meta-row code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 12px;
+      color: var(--text);
+      background: #f7f7f7;
+      border-radius: 6px;
+      padding: 2px 6px;
+    }
+
+    .token-card__code {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 12px;
+      line-height: 1.2;
+      color: var(--text-soft);
+    }
+
+    .token-card__copy-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .token-copy-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: rgba(39, 39, 39, 0.72);
+      cursor: pointer;
+      appearance: none;
+    }
+
+    .token-copy-button:hover,
+    .token-copy-button:focus-visible {
+      color: var(--text);
+      outline: none;
+    }
+
+    .token-copy-button.is-copied {
+      color: var(--text);
+    }
+
+    .token-copy-button__icon {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .token-copy-button__check {
+      display: none;
+      width: 20px;
+      height: 20px;
+      background-image: url("https://www.static-immobilienscout24.de/statpic/_/ae25c93f00cf707c6c92965a14d7fe50_checkmark.svg");
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+    }
+
+    .token-copy-button.is-copied .token-copy-button__icon {
+      display: none;
+    }
+
+    .token-copy-button.is-copied .token-copy-button__check {
+      display: block;
+    }
+
+    .token-button-preview {
+      display: grid;
+      gap: 50px;
+    }
+
+    .token-button-preview__row {
+      display: grid;
+      gap: 50px;
+      justify-items: start;
+    }
+
+    .token-button-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 48px;
+      padding: 0 26px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-size: 16px;
+      line-height: 16px;
+      font-weight: 700;
+      text-align: center;
+      box-sizing: border-box;
+      white-space: nowrap;
+      transition: background-color .2s ease, border-color .2s ease, color .2s ease;
+    }
+
+    .token-button-chip[data-hover-bg]:hover {
+      background: var(--hover-bg) !important;
+      color: var(--hover-text) !important;
+      border-color: var(--hover-border) !important;
+    }
+
+    .token-chevron-link {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      color: #333333;
+      text-decoration: underline;
+      font-size: 16px;
+      line-height: 16px;
+      font-weight: 700;
+      font-family: "Make It Better", Arial, Roboto, sans-serif;
+    }
+
+    .token-chevron-link__icon {
+      display: block;
+      width: 8px;
+      height: 16px;
+      margin-left: 2px;
+      margin-right: 8px;
+    }
+
+    .token-typography-list {
+      display: grid;
+      gap: 28px;
+    }
+
+    .token-typography-item {
+      display: grid;
+      gap: 10px;
+      padding: 0;
+    }
+
+    .token-typography-item__line {
+      display: flex;
+      align-items: center;
       gap: 10px;
     }
 
-    .token-line {
-      padding: 14px;
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: var(--radius-m);
-      font-size: 14px;
-      line-height: 1.5;
+    .token-typography-item__meta {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      color: #C4C4C4;
+      font-size: 12px;
+      line-height: 1.2;
+      text-align: left;
     }
 
-    .module-wrap {
+    .token-typography-sample {
+      margin: 0;
+      color: var(--text);
+    }
+
+    .token-typography-source {
+      display: inline-flex;
+      width: fit-content;
+      color: #676767;
+      font-size: 12px;
+      line-height: 1.2;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .token-typography-pair {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 14px;
-      margin-top: 18px;
+      gap: 6px;
     }
 
-    .module-card {
-      padding: 16px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius-m);
-      background: #fff;
-      min-height: 92px;
+    .token-section-group {
+      display: grid;
+      gap: 16px;
     }
 
-    .module-card strong {
+    [data-token-colors] {
+      display: grid;
+      gap: 50px;
+    }
+
+    .token-section-group__title {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.2;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .test-module-row {
+      position: relative;
+      width: 100%;
+    }
+
+    .test-section {
+      display: none;
+    }
+
+    .test-section.is-active {
       display: block;
-      margin-bottom: 6px;
-      font-size: 15px;
     }
 
-    .module-card span {
+    .test-shell:not(.is-mobile-preview) #email-heros .test-module-row + .test-module-row {
+      margin-top: 50px;
+    }
+
+    .test-shell:not(.is-mobile-preview) #lp-heros .test-module-row + .test-module-row {
+      margin-top: 200px;
+    }
+
+    .test-shell:not(.is-mobile-preview) .test-page[data-page="lp"] .test-section .test-module-row + .test-module-row {
+      margin-top: 200px;
+    }
+
+    .test-shell:not(.is-mobile-preview) #lp-callouts .test-module-row + .test-module-row {
+      margin-top: 50px;
+    }
+
+    .test-shell:not(.is-mobile-preview) #lp-teaser .test-module-row + .test-module-row {
+      margin-top: 200px;
+    }
+
+    .test-shell:not(.is-mobile-preview) #lp-teaser .test-module-row:has(.module-copy[data-module="teaser-split-image-left"]) {
+      margin-top: 50px;
+    }
+
+    .test-shell:not(.is-mobile-preview) #email-heros.is-active,
+    .test-shell:not(.is-mobile-preview) #lp-heros.is-active {
+      padding-bottom: 200px;
+    }
+
+    .test-shell.is-mobile-preview.is-page-lp .test-section .test-module-row + .test-module-row {
+      margin-top: 80px;
+    }
+
+    .test-module-frame {
+      width: min(100%, var(--module-width-current));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .test-shell.is-page-lp:not(.is-mobile-preview) .test-module-frame {
+      width: 100%;
+    }
+
+    .test-shell.is-mobile-preview.is-page-lp .test-section .test-module-row:not(.test-module-row--bleed) .test-module-frame {
+      width: min(100%, calc(var(--module-width-current) - 40px));
+    }
+
+    .test-shell.is-mobile-preview.is-page-lp .test-section .test-module-row.test-module-row--bleed .test-module-frame {
+      width: min(100%, var(--module-width-current));
+    }
+
+    .test-module-frame iframe {
       display: block;
-      color: var(--muted);
+      width: 100%;
+      min-height: 120px;
+      border: 0;
+      background: transparent;
+    }
+
+    .module-copy {
+      position: absolute;
+      top: 20px;
+      right: 0;
+      z-index: 4;
+    }
+
+    .module-copy__button {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border: 1px solid #d9d9d9;
+      border-radius: 50%;
+      padding: 0;
+      background: #ffffff;
+      color: rgba(39, 39, 39, 0.72);
+      cursor: pointer;
+      appearance: none;
+    }
+
+    .module-copy__button:hover,
+    .module-copy__button:focus-visible {
+      color: var(--text);
+      outline: none;
+    }
+
+    .module-copy__icon--default {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .module-copy__icon--success {
+      display: none;
+      width: 20px;
+      height: 20px;
+      background-image: url("https://www.static-immobilienscout24.de/statpic/_/ae25c93f00cf707c6c92965a14d7fe50_checkmark.svg");
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+    }
+
+    .module-copy__name {
+      position: absolute;
+      top: 50%;
+      right: calc(100% + 8px);
+      transform: translateY(-50%) translateX(8px);
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 0 10px;
+      border: 1px solid #d9d9d9;
+      border-radius: 8px;
+      background: #ffffff;
+      color: #6a6a69;
       font-size: 13px;
-      line-height: 1.5;
+      line-height: 1;
+      font-weight: 600;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 160ms ease, transform 160ms ease;
+      box-shadow: 0 8px 18px rgba(25, 25, 25, 0.08);
     }
 
-    .footer-note {
-      margin-top: 24px;
-      padding: 16px 18px;
-      border-radius: var(--radius-m);
-      background: #fff;
-      border: 1px dashed var(--line);
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.6;
+    .module-copy__button:hover .module-copy__name,
+    .module-copy__button:focus-visible .module-copy__name {
+      opacity: 1;
+      transform: translateY(-50%) translateX(0);
     }
 
-    .loading,
-    .error {
-      margin-top: 18px;
-      padding: 16px 18px;
-      border-radius: var(--radius-m);
-      font-size: 14px;
-      line-height: 1.6;
+    .module-copy.is-copied .module-copy__icon--default {
+      display: none;
     }
 
-    .loading {
-      background: rgba(61, 245, 220, 0.14);
-      border: 1px solid rgba(61, 245, 220, 0.4);
+    .module-copy.is-copied .module-copy__icon--success {
+      display: block;
     }
 
-    .error {
-      background: #fff1ed;
-      border: 1px solid #ffb79f;
+    .test-lp-module {
+      width: min(100%, var(--module-width-current));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      background: #ffffff;
     }
 
-    @media (max-width: 760px) {
-      .shell { width: min(100vw - 20px, 1200px); padding-top: 12px; }
-      .hero, .panel { padding: 18px; border-radius: 22px; }
-      .stats { grid-template-columns: 1fr; }
-      .swatches, .token-lines, .module-wrap { grid-template-columns: 1fr; }
+    .test-shell.is-page-lp:not(.is-mobile-preview) .test-lp-module {
+      width: 100%;
+    }
+
+    .grid {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .grid-item {
+      min-width: 0;
+    }
+
+    .gutter {
+      margin-left: -12px;
+      margin-right: -12px;
+    }
+
+    .gutter > .grid-item {
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+
+    .one-half {
+      width: 50%;
+    }
+
+    .one-whole {
+      width: 100%;
+    }
+
+    .margin-bottom-s {
+      margin-bottom: 16px;
+    }
+
+    .margin-bottom-m {
+      margin-bottom: 24px;
+    }
+
+    .padding-l {
+      padding: 32px;
+    }
+
+    .lp-radius-24 {
+      border-radius: 24px;
+    }
+
+    .lp-color-white {
+      background: #ffffff;
+    }
+
+    .lp-media {
+      position: relative;
+      overflow: hidden;
+      background: #efefef;
+    }
+
+    .lp-media--cover {
+      height: 100%;
+    }
+
+    .lp-media__inner {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, #f4f1eb 0%, #ece8e1 100%);
+    }
+
+    .lp-media__inner::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0) 48%),
+        linear-gradient(225deg, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0) 52%);
+    }
+
+    .font-heading-large-bold {
+      margin: 0;
+      color: var(--text);
+      font-size: 34px;
+      line-height: 44px;
+      font-weight: 700;
+    }
+
+    .font-body-large-regular {
+      margin: 0;
+      color: var(--text);
+      font-size: 16px;
+      line-height: 24px;
+      font-weight: 400;
+    }
+
+    .ai-button.button-filled-brand {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 12px 28px;
+      border-radius: 999px;
+      background: #3df5dc;
+      border: 0;
+      color: #333333;
+      font-size: 16px;
+      line-height: 24px;
+      font-weight: 700;
+      text-decoration: none;
+      width: fit-content;
+    }
+
+    .hero-split,
+    .hero-bleed-flex,
+    .hero-bleed-flex-centered {
+      width: 100%;
+    }
+
+    .hero-split {
+      position: relative;
+      min-height: 520px;
+    }
+
+    .hero-split__visual {
+      position: absolute;
+      inset: 0;
+      background: transparent;
+    }
+
+    .hero-split__visual.lp-media {
+      background: transparent;
+    }
+
+    .hero-split__visual .lp-media__inner {
+      background: transparent;
+    }
+
+    .hero-split__visual .lp-media__inner::before {
+      content: none;
+    }
+
+    .hero-split__inner {
+      position: relative;
+      z-index: 1;
+      width: min(100%, var(--module-width-current));
+      margin: 0 auto;
+      min-height: 520px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      align-items: stretch;
+    }
+
+    .hero-split__text {
+      display: grid;
+      align-content: center;
+      gap: 16px;
+      max-width: 360px;
+      padding: 48px 0;
+    }
+
+    .hero-split__spacer {
+      min-height: 1px;
+    }
+
+    .hero-bleed-flex__image,
+    .hero-bleed-flex-centered__image {
+      height: 420px;
+    }
+
+    .hero-bleed-flex__space-m,
+    .hero-bleed-flex-centered__space-m {
+      height: 80px;
+    }
+
+    .hero-bleed-flex__inner > .hero-bleed-flex__space-m:last-child,
+    .hero-bleed-flex-centered__inner > .hero-bleed-flex-centered__space-m:last-child {
+      height: 180px;
+    }
+
+    .hero-bleed-flex__content {
+      width: min(100%, var(--module-width-current));
+      margin-top: -260px;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-bleed-flex-centered__content {
+      width: min(48%, 560px);
+      margin: -260px auto 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-bleed-flex-centered__content .grid {
+      justify-content: center;
+    }
+
+    @media (max-width: 980px) {
+      .test-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .test-sidebar {
+        position: static;
+        height: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--stroke);
+      }
+
+      .font-heading-large-bold {
+        font-size: 28px;
+        line-height: 36px;
+      }
+
+      .padding-l {
+        padding: 24px;
+      }
+
+      .gutter {
+        margin-left: -10px;
+        margin-right: -10px;
+      }
+
+      .gutter > .grid-item {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+    }
+
+    .test-shell.is-mobile-preview .hero-split {
+      min-height: auto;
+    }
+
+    .test-shell.is-mobile-preview .hero-split__inner {
+      min-height: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .test-shell.is-mobile-preview .hero-split__visual {
+      position: relative;
+      height: 180px;
+    }
+
+    .test-shell.is-mobile-preview .hero-split__text {
+      max-width: none;
+      padding: 16px 0 24px;
+    }
+
+    .test-shell.is-mobile-preview .hero-split__spacer {
+      display: none;
+    }
+
+    .test-shell.is-mobile-preview .hero-bleed-flex__image,
+    .test-shell.is-mobile-preview .hero-bleed-flex-centered__image {
+      height: 260px;
+    }
+
+    .test-shell.is-mobile-preview .hero-bleed-flex__space-m,
+    .test-shell.is-mobile-preview .hero-bleed-flex-centered__space-m {
+      height: 56px;
+    }
+
+    .test-shell.is-mobile-preview .hero-bleed-flex__inner > .hero-bleed-flex__space-m:last-child,
+    .test-shell.is-mobile-preview .hero-bleed-flex-centered__inner > .hero-bleed-flex-centered__space-m:last-child {
+      height: 132px;
+    }
+
+    .test-shell.is-mobile-preview .hero-bleed-flex__content,
+    .test-shell.is-mobile-preview .hero-bleed-flex-centered__content {
+      width: 100%;
+      margin-top: -120px;
+    }
+
+    .test-shell.is-mobile-preview .one-half,
+    .test-shell.is-mobile-preview .palm-one-whole {
+      width: 100%;
+    }
+
+    .test-shell.is-mobile-preview .hero-bleed-flex-centered__content .grid {
+      justify-content: stretch;
+    }
+
+    .test-shell.is-mobile-preview .hero-bleed-flex-centered__content .grid-item {
+      width: 100%;
     }
   </style>
 </head>
 <body>
-  <div class="shell">
-    <section class="hero">
-      <div class="eyebrow">ImmoScout24 Design Library</div>
-      <h1>Source-of-Truth fuer Tokens und Module.</h1>
-      <p>Diese veroeffentlichbare Library ist auf ein klares Prinzip ausgerichtet: Design-Tokens kommen aus dem JSON, und die inhaltlichen Bausteine folgen den aktuellen Modul-Katalogen aus Email- und LP-Builder.</p>
-      <div class="stats">
-        <div class="stat"><strong id="token-count">-</strong><span>Token-Gruppen aus dem JSON</span></div>
-        <div class="stat"><strong id="email-count">18</strong><span>aktive Email-Module</span></div>
-        <div class="stat"><strong id="lp-count">25</strong><span>aktive LP-Module</span></div>
+  <svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
+    <symbol id="nav-icon-hero" viewBox="0 0 16 16">
+      <rect x="1.5" y="2" width="13" height="12" rx="2"></rect>
+      <path d="M7 2v12"></path>
+      <path d="M1.5 5.5h5.5"></path>
+    </symbol>
+    <symbol id="nav-icon-teaser" viewBox="0 0 16 16">
+      <rect x="1.5" y="3" width="5.5" height="10" rx="1.5"></rect>
+      <rect x="9" y="3" width="5.5" height="10" rx="1.5"></rect>
+    </symbol>
+    <symbol id="nav-icon-steps" viewBox="0 0 16 16">
+      <circle cx="3" cy="8" r="1.5"></circle>
+      <circle cx="8" cy="8" r="1.5"></circle>
+      <circle cx="13" cy="8" r="1.5"></circle>
+      <path d="M4.5 8h2"></path>
+      <path d="M9.5 8h2"></path>
+    </symbol>
+    <symbol id="nav-icon-accordion" viewBox="0 0 16 16">
+      <rect x="2" y="2.5" width="12" height="4" rx="1.2"></rect>
+      <rect x="2" y="9.5" width="12" height="4" rx="1.2"></rect>
+      <path d="M10.5 4.5l1.5 1.5 1.5-1.5"></path>
+      <path d="M10.5 11.5l1.5 1.5 1.5-1.5"></path>
+    </symbol>
+    <symbol id="nav-icon-counter" viewBox="0 0 16 16">
+      <path d="M2 13.5h12"></path>
+      <path d="M4 12V8"></path>
+      <path d="M8 12V5"></path>
+      <path d="M12 12V3"></path>
+    </symbol>
+    <symbol id="nav-icon-callout" viewBox="0 0 16 16">
+      <path d="M3 3.5h10a1.5 1.5 0 0 1 1.5 1.5v4A1.5 1.5 0 0 1 13 10.5H8l-3.5 2v-2H3A1.5 1.5 0 0 1 1.5 9V5A1.5 1.5 0 0 1 3 3.5z"></path>
+    </symbol>
+    <symbol id="nav-icon-benefits" viewBox="0 0 16 16">
+      <circle cx="8" cy="8" r="5.5"></circle>
+      <path d="M5.5 8.2l1.6 1.7 3.4-3.8"></path>
+    </symbol>
+    <symbol id="nav-icon-reviews" viewBox="0 0 16 16">
+      <path d="M8 2.2l1.7 3.5 3.8.5-2.8 2.7.7 3.9L8 11.1 4.6 12.8l.7-3.9L2.5 6.2l3.8-.5L8 2.2z"></path>
+    </symbol>
+    <symbol id="nav-icon-tiles" viewBox="0 0 16 16">
+      <rect x="2" y="2" width="4.5" height="4.5" rx="1"></rect>
+      <rect x="9.5" y="2" width="4.5" height="4.5" rx="1"></rect>
+      <rect x="2" y="9.5" width="4.5" height="4.5" rx="1"></rect>
+      <rect x="9.5" y="9.5" width="4.5" height="4.5" rx="1"></rect>
+    </symbol>
+    <symbol id="nav-icon-checklist" viewBox="0 0 16 16">
+      <path d="M6.8 4h7"></path>
+      <path d="M6.8 8h7"></path>
+      <path d="M6.8 12h7"></path>
+      <path d="M2.4 4.2l1 1 1.8-2"></path>
+      <path d="M2.4 8.2l1 1 1.8-2"></path>
+      <path d="M2.4 12.2l1 1 1.8-2"></path>
+    </symbol>
+    <symbol id="nav-icon-footer" viewBox="0 0 16 16">
+      <rect x="2" y="3" width="12" height="10" rx="1.5"></rect>
+      <path d="M2 10.5h12"></path>
+    </symbol>
+    <symbol id="nav-icon-cards" viewBox="0 0 16 16">
+      <rect x="4" y="3" width="9" height="10" rx="1.5"></rect>
+      <path d="M3 11H2.5A1.5 1.5 0 0 1 1 9.5V4.5A1.5 1.5 0 0 1 2.5 3H3"></path>
+    </symbol>
+    <symbol id="nav-icon-action" viewBox="0 0 16 16">
+      <rect x="2" y="3" width="8" height="8" rx="1.5"></rect>
+      <path d="M9.5 9.5l3 3"></path>
+      <path d="M9.5 12.5V9.5h3"></path>
+    </symbol>
+    <symbol id="nav-icon-video" viewBox="0 0 16 16">
+      <rect x="1.5" y="3" width="13" height="10" rx="1.6"></rect>
+      <path d="M6.5 5.7l4 2.3-4 2.3z"></path>
+    </symbol>
+    <symbol id="nav-icon-text" viewBox="0 0 16 16">
+      <path d="M2.5 4h11"></path>
+      <path d="M5 4v8"></path>
+      <path d="M3.8 12h2.4"></path>
+      <path d="M8 7h5.5"></path>
+      <path d="M8 10h4"></path>
+    </symbol>
+    <symbol id="nav-icon-tools" viewBox="0 0 16 16">
+      <path d="M3 4h10"></path>
+      <path d="M3 8h10"></path>
+      <path d="M3 12h10"></path>
+      <circle cx="6" cy="4" r="1.2"></circle>
+      <circle cx="10" cy="8" r="1.2"></circle>
+      <circle cx="7" cy="12" r="1.2"></circle>
+    </symbol>
+    <symbol id="nav-icon-logo" viewBox="0 0 16 16">
+      <rect x="2" y="3" width="12" height="10" rx="1.5"></rect>
+      <circle cx="6" cy="7" r="1.5"></circle>
+      <path d="M3.5 11l3.2-2.8 2.1 1.8 3-2.8 1.7 1.6"></path>
+    </symbol>
+    <symbol id="nav-icon-contact" viewBox="0 0 16 16">
+      <rect x="2" y="3.5" width="12" height="9" rx="1.5"></rect>
+      <path d="M3.5 5l4.5 3.5L12.5 5"></path>
+    </symbol>
+    <symbol id="nav-icon-table" viewBox="0 0 16 16">
+      <rect x="2" y="3" width="12" height="10" rx="1.2"></rect>
+      <path d="M2 6.5h12"></path>
+      <path d="M6 3v10"></path>
+      <path d="M10 3v10"></path>
+    </symbol>
+    <symbol id="nav-icon-image" viewBox="0 0 16 16">
+      <rect x="2" y="3" width="12" height="10" rx="1.5"></rect>
+      <circle cx="5.3" cy="6" r="1"></circle>
+      <path d="M3.5 11l3-3 2.1 1.8 2.7-3 1.7 1.8"></path>
+    </symbol>
+  </svg>
+  <section class="test-shell" data-shell>
+    <aside class="test-sidebar">
+      <div class="test-sidebar__header">
+        <div class="test-brand">
+          <a class="test-logo" href="#home" aria-label="Zur Startseite">
+            <img src="https://media.ffycdn.net/eu/scout24/JvvnE2L3rC4TdjgTbNTq.svg" alt="ImmoScout24" />
+          </a>
+        </div>
       </div>
-    </section>
-
-    <nav class="nav">
-      <a href="#tokens">Tokens</a>
-      <a href="#email-modules">Email</a>
-      <a href="#lp-modules">Landing Pages</a>
-      <a href="#prinzip">Prinzip</a>
-    </nav>
-
-    <div class="grid">
-      <section class="panel" id="tokens">
-        <h2>Design Tokens</h2>
-        <p>Geladen aus <code>design-system/tokens/brands/immoscout24.json</code>.</p>
-        <div id="token-loading" class="loading">Token-JSON wird geladen ...</div>
-        <div id="token-error" class="error" hidden></div>
-        <div id="token-content" hidden>
-          <div class="token-section">
-            <h3>Farben</h3>
-            <div class="swatches" id="color-swatches"></div>
+      <nav class="test-nav" aria-label="Library Navigation">
+        <div class="test-nav__group" data-nav-group>
+          <div class="test-nav__group-header">
+            <span>Design Tokens</span>
+            <button class="test-nav__group-toggle" type="button" aria-label="Design Tokens ein- oder ausklappen" aria-expanded="true" data-nav-toggle>
+              <span class="test-nav__group-status" aria-hidden="true">-</span>
+            </button>
           </div>
-          <div class="token-section">
-            <h3>Spacing</h3>
-            <div class="token-lines" id="spacing-lines"></div>
-          </div>
-          <div class="token-section">
-            <h3>Radius</h3>
-            <div class="token-lines" id="radius-lines"></div>
-          </div>
-          <div class="token-section">
-            <h3>Typografie</h3>
-            <div class="token-lines" id="type-lines"></div>
-          </div>
-          <div class="token-section">
-            <h3>Buttons</h3>
-            <div class="token-lines" id="button-lines"></div>
+          <div class="test-nav__list">
+            <a class="test-nav__link" href="#tokens-colors"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-tools"></use></svg><span>Colors</span></a>
+            <a class="test-nav__link" href="#tokens-buttons"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-tools"></use></svg><span>Buttons</span></a>
+            <a class="test-nav__link" href="#tokens-typography"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-text"></use></svg><span>Typography</span></a>
+            <a class="test-nav__link" href="#tokens-radius"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-tools"></use></svg><span>Radius</span></a>
+            <a class="test-nav__link" href="#tokens-spacing"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-tools"></use></svg><span>Spacing</span></a>
+            <a class="test-nav__link" href="#tokens-borders"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-tools"></use></svg><span>Borders</span></a>
+            <a class="test-nav__link" href="#tokens-ratios"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-image"></use></svg><span>Ratios</span></a>
+            <a class="test-nav__link" href="#tokens-image-formats"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-image"></use></svg><span>Image Formats</span></a>
           </div>
         </div>
-      </section>
 
-      <section class="panel" id="email-modules">
-        <h2>Email Builder</h2>
-        <p>Aktive Modul-IDs aus dem aktuellen Email-Katalog.</p>
-        <div class="module-wrap" id="email-list"></div>
-      </section>
-
-      <section class="panel" id="lp-modules">
-        <h2>LP Builder</h2>
-        <p>Aktive Modul-IDs aus dem aktuellen LP-Katalog.</p>
-        <div class="module-wrap" id="lp-list"></div>
-      </section>
-
-      <section class="panel" id="prinzip">
-        <h2>Library-Prinzip</h2>
-        <p class="subtle">Diese Veroeffentlichung bildet das Arbeitsprinzip bewusst sichtbar ab.</p>
-        <div class="footer-note">
-          Tokens werden direkt aus dem Brand-JSON geladen. Die Modul-Bereiche spiegeln die aktiven Kataloge von Email- und LP-Builder. Damit bleibt die Library in ihrer Struktur auf die eigentlichen Source-Artefakte ausgerichtet und nicht auf eine separate, manuell gepflegte Parallelwelt.
+        <div class="test-nav__group" data-nav-group>
+          <div class="test-nav__group-header">
+            <span>Email Builder</span>
+            <button class="test-nav__group-toggle" type="button" aria-label="Email Builder ein- oder ausklappen" aria-expanded="true" data-nav-toggle>
+              <span class="test-nav__group-status" aria-hidden="true">-</span>
+            </button>
+          </div>
+          <div class="test-nav__list">
+            <a class="test-nav__link" href="#email-logo"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-logo"></use></svg><span>Logo</span></a>
+            <a class="test-nav__link" href="#email-heros"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-hero"></use></svg><span>Heros</span></a>
+            <a class="test-nav__link" href="#email-teaser"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-teaser"></use></svg><span>Teaser</span></a>
+            <a class="test-nav__link" href="#email-benefits"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-benefits"></use></svg><span>Benefits</span></a>
+            <a class="test-nav__link" href="#email-steps"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-steps"></use></svg><span>Steps</span></a>
+            <a class="test-nav__link" href="#email-contact"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-contact"></use></svg><span>Contact</span></a>
+            <a class="test-nav__link" href="#email-tables"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-table"></use></svg><span>Tables</span></a>
+            <a class="test-nav__link" href="#email-footer"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-footer"></use></svg><span>Footer</span></a>
+          </div>
         </div>
-      </section>
-    </div>
-  </div>
+
+        <div class="test-nav__group" data-nav-group>
+          <div class="test-nav__group-header">
+            <span>Landing Page Builder</span>
+            <button class="test-nav__group-toggle" type="button" aria-label="Landing Page Builder ein- oder ausklappen" aria-expanded="true" data-nav-toggle>
+              <span class="test-nav__group-status" aria-hidden="true">-</span>
+            </button>
+          </div>
+          <div class="test-nav__list">
+            <a class="test-nav__link" href="#lp-heros"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-hero"></use></svg><span>Heros</span></a>
+            <a class="test-nav__link" href="#lp-teaser"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-teaser"></use></svg><span>Teaser</span></a>
+            <a class="test-nav__link" href="#lp-steps"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-steps"></use></svg><span>Steps</span></a>
+            <a class="test-nav__link" href="#lp-accordion"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-accordion"></use></svg><span>Accordion</span></a>
+            <a class="test-nav__link" href="#lp-counter"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-counter"></use></svg><span>Counter</span></a>
+            <a class="test-nav__link" href="#lp-callouts"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-callout"></use></svg><span>Callouts</span></a>
+            <a class="test-nav__link" href="#lp-benefits"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-benefits"></use></svg><span>Benefits</span></a>
+            <a class="test-nav__link" href="#lp-reviews"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-reviews"></use></svg><span>Reviews</span></a>
+            <a class="test-nav__link" href="#lp-service-tiles"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-tiles"></use></svg><span>Service Tiles</span></a>
+            <a class="test-nav__link" href="#lp-checkmark-list"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-checklist"></use></svg><span>Checkmark List</span></a>
+            <a class="test-nav__link" href="#lp-sticky-footer"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-footer"></use></svg><span>Sticky Footer</span></a>
+            <a class="test-nav__link" href="#lp-content-cards"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-cards"></use></svg><span>Content Cards</span></a>
+            <a class="test-nav__link" href="#lp-action-tiles"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-action"></use></svg><span>Action Tiles</span></a>
+            <a class="test-nav__link" href="#lp-video"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-video"></use></svg><span>Video</span></a>
+          </div>
+        </div>
+      </nav>
+    </aside>
+
+    <button class="test-sidebar__toggle" type="button" aria-label="Sidebar ein- oder ausklappen" title="Sidebar ein- oder ausklappen" data-sidebar-toggle>
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M15 6l-6 6 6 6"></path>
+      </svg>
+    </button>
+
+    <main class="test-main">
+      <div class="test-toolbar">
+        <button class="test-toggle" type="button" aria-pressed="false" aria-label="Mobile Preview umschalten" title="Mobile Preview umschalten" data-mobile-toggle>
+          <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="7" y="2" width="10" height="20" rx="2" ry="2" fill="none" stroke="currentColor" stroke-width="2"></rect>
+            <circle cx="12" cy="18" r="1" fill="currentColor"></circle>
+          </svg>
+        </button>
+      </div>
+
+      <div class="test-content">
+        <section class="test-page" data-page="home">
+          <section class="test-section is-active" id="home">
+            <div class="test-home">
+              <h2 class="test-home__title">Design Library</h2>
+              <p class="test-home__text">Die Library enthaelt den Landing Page Builder, den Email Builder und die verbindlichen Design Tokens auf einer gemeinsamen technischen Basis.</p>
+            </div>
+          </section>
+        </section>
+
+        <section class="test-page" data-page="tokens">
+          <div class="token-page">
+            <section class="token-section" id="tokens-colors">
+              <div class="token-section__header">
+                <h2 class="token-section__title">Colors</h2>
+              </div>
+              <div data-token-colors></div>
+            </section>
+
+            <section class="token-section" id="tokens-buttons">
+              <div class="token-section__header">
+                <h2 class="token-section__title">Buttons</h2>
+              </div>
+              <div class="token-grid token-grid--wide" data-token-buttons></div>
+            </section>
+
+            <section class="token-section" id="tokens-typography">
+              <div class="token-section__header">
+                <h2 class="token-section__title">Typography</h2>
+              </div>
+              <div class="token-typography-list" data-token-typography></div>
+            </section>
+
+            <section class="token-section" id="tokens-radius">
+              <div class="token-section__header">
+                <h2 class="token-section__title">Radius</h2>
+              </div>
+              <div class="token-grid" data-token-radius></div>
+            </section>
+
+            <section class="token-section" id="tokens-spacing">
+              <div class="token-section__header">
+                <h2 class="token-section__title">Spacing</h2>
+              </div>
+              <div class="token-grid" data-token-spacing></div>
+            </section>
+
+            <section class="token-section" id="tokens-borders">
+              <div class="token-section__header">
+                <h2 class="token-section__title">Borders</h2>
+              </div>
+              <div class="token-grid token-grid--wide" data-token-borders></div>
+            </section>
+
+            <section class="token-section" id="tokens-ratios">
+              <div class="token-section__header">
+                <h2 class="token-section__title">Ratios</h2>
+              </div>
+              <div class="token-grid token-grid--wide" data-token-ratios></div>
+            </section>
+
+            <section class="token-section" id="tokens-image-formats">
+              <div class="token-section__header">
+                <h2 class="token-section__title">Image Formats</h2>
+              </div>
+              <div class="token-grid token-grid--wide" data-token-image-formats></div>
+            </section>
+          </div>
+        </section>
+
+        <section class="test-page is-active" data-page="email">
+          <section class="test-section" id="email-logo">
+            <div class="test-module-row">
+              <div class="module-copy" data-module="logo">
+                <button class="module-copy__button" type="button" aria-label="logo kopieren" title="logo kopieren">
+                  <span class="module-copy__name">logo</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe
+                  src="./frames/email/snippets/logo.html"
+                  title="logo test preview"
+                  loading="lazy"
+                  data-src-desktop="./frames/email/snippets/logo.html"
+                  data-src-mobile="./frames/email/test-mobile/logo.html"
+                  data-frame-id="logo"></iframe>
+              </div>
+            </div>
+            <div class="test-module-row">
+              <div class="module-copy" data-module="logo-centered">
+                <button class="module-copy__button" type="button" aria-label="logo-centered kopieren" title="logo-centered kopieren">
+                  <span class="module-copy__name">logo-centered</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe
+                  src="./frames/email/snippets/logo-centered.html"
+                  title="logo-centered test preview"
+                  loading="lazy"
+                  data-src-desktop="./frames/email/snippets/logo-centered.html"
+                  data-src-mobile="./frames/email/test-mobile/logo-centered.html"
+                  data-frame-id="logo-centered"></iframe>
+              </div>
+            </div>
+          </section>
+
+          <section class="test-section is-active" id="email-heros">
+            <div class="test-module-row">
+              <div class="module-copy" data-module="hero-image-top">
+                <button class="module-copy__button" type="button" aria-label="hero-image-top kopieren" title="hero-image-top kopieren">
+                  <span class="module-copy__name">hero-image-top</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe
+                  src="./frames/email/test-desktop/hero-image-top.html"
+                  title="hero-image-top test preview"
+                  loading="lazy"
+                  data-src-desktop="./frames/email/test-desktop/hero-image-top.html"
+                  data-src-mobile="./frames/email/test-mobile/hero-image-top.html"
+                  data-frame-id="hero-image-top"></iframe>
+              </div>
+            </div>
+            <div class="test-module-row">
+              <div class="module-copy" data-module="hero-image-top-bleed">
+                <button class="module-copy__button" type="button" aria-label="hero-image-top-bleed kopieren" title="hero-image-top-bleed kopieren">
+                  <span class="module-copy__name">hero-image-top-bleed</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe
+                  src="./frames/email/test-desktop/hero-image-top-bleed.html"
+                  title="hero-image-top-bleed test preview"
+                  loading="lazy"
+                  data-src-desktop="./frames/email/test-desktop/hero-image-top-bleed.html"
+                  data-src-mobile="./frames/email/test-mobile/hero-image-top-bleed.html"
+                  data-frame-id="hero-image-top-bleed"></iframe>
+              </div>
+            </div>
+            <div class="test-module-row">
+              <div class="module-copy" data-module="hero-cta-top">
+                <button class="module-copy__button" type="button" aria-label="hero-cta-top kopieren" title="hero-cta-top kopieren">
+                  <span class="module-copy__name">hero-cta-top</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe
+                  src="./frames/email/test-desktop/hero-cta-top.html"
+                  title="hero-cta-top test preview"
+                  loading="lazy"
+                  data-src-desktop="./frames/email/test-desktop/hero-cta-top.html"
+                  data-src-mobile="./frames/email/test-mobile/hero-cta-top.html"
+                  data-frame-id="hero-cta-top"></iframe>
+              </div>
+            </div>
+            <div class="test-module-row">
+              <div class="module-copy" data-module="hero-cta-top-no-bottom">
+                <button class="module-copy__button" type="button" aria-label="hero-cta-top-no-bottom kopieren" title="hero-cta-top-no-bottom kopieren">
+                  <span class="module-copy__name">hero-cta-top-no-bottom</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe
+                  src="./frames/email/test-desktop/hero-cta-top-no-bottom.html"
+                  title="hero-cta-top-no-bottom test preview"
+                  loading="lazy"
+                  data-src-desktop="./frames/email/test-desktop/hero-cta-top-no-bottom.html"
+                  data-src-mobile="./frames/email/test-mobile/hero-cta-top-no-bottom.html"
+                  data-frame-id="hero-cta-top-no-bottom"></iframe>
+              </div>
+            </div>
+          </section>
+
+          <section class="test-section" id="email-teaser">
+            <div class="test-module-row">
+              <div class="module-copy" data-module="teaser-1col">
+                <button class="module-copy__button" type="button" aria-label="teaser-1col kopieren" title="teaser-1col kopieren">
+                  <span class="module-copy__name">teaser-1col</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe src="./frames/email/snippets/teaser-1col.html" title="teaser-1col test preview" loading="lazy" data-src-desktop="./frames/email/snippets/teaser-1col.html" data-src-mobile="./frames/email/test-mobile/teaser-1col.html" data-frame-id="teaser-1col"></iframe>
+              </div>
+            </div>
+            <div class="test-module-row">
+              <div class="module-copy" data-module="teaser-2col-vertical">
+                <button class="module-copy__button" type="button" aria-label="teaser-2col-vertical kopieren" title="teaser-2col-vertical kopieren">
+                  <span class="module-copy__name">teaser-2col-vertical</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe src="./frames/email/snippets/teaser-2col-vertical.html" title="teaser-2col-vertical test preview" loading="lazy" data-src-desktop="./frames/email/snippets/teaser-2col-vertical.html" data-src-mobile="./frames/email/test-mobile/teaser-2col-vertical.html" data-frame-id="teaser-2col-vertical"></iframe>
+              </div>
+            </div>
+            <div class="test-module-row">
+              <div class="module-copy" data-module="teaser-2col-horizontal">
+                <button class="module-copy__button" type="button" aria-label="teaser-2col-horizontal kopieren" title="teaser-2col-horizontal kopieren">
+                  <span class="module-copy__name">teaser-2col-horizontal</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe src="./frames/email/snippets/teaser-2col-horizontal.html" title="teaser-2col-horizontal test preview" loading="lazy" data-src-desktop="./frames/email/snippets/teaser-2col-horizontal.html" data-src-mobile="./frames/email/test-mobile/teaser-2col-horizontal.html" data-frame-id="teaser-2col-horizontal"></iframe>
+              </div>
+            </div>
+            <div class="test-module-row">
+              <div class="module-copy" data-module="teaser-2col-alternating">
+                <button class="module-copy__button" type="button" aria-label="teaser-2col-alternating kopieren" title="teaser-2col-alternating kopieren">
+                  <span class="module-copy__name">teaser-2col-alternating</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe src="./frames/email/snippets/teaser-2col-alternating.html" title="teaser-2col-alternating test preview" loading="lazy" data-src-desktop="./frames/email/snippets/teaser-2col-alternating.html" data-src-mobile="./frames/email/test-mobile/teaser-2col-alternating.html" data-frame-id="teaser-2col-alternating"></iframe>
+              </div>
+            </div>
+            <div class="test-module-row">
+              <div class="module-copy" data-module="teaser-2col-listing">
+                <button class="module-copy__button" type="button" aria-label="teaser-2col-listing kopieren" title="teaser-2col-listing kopieren">
+                  <span class="module-copy__name">teaser-2col-listing</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe src="./frames/email/snippets/teaser-2col-listing.html" title="teaser-2col-listing test preview" loading="lazy" data-src-desktop="./frames/email/snippets/teaser-2col-listing.html" data-src-mobile="./frames/email/test-mobile/teaser-2col-listing.html" data-frame-id="teaser-2col-listing"></iframe>
+              </div>
+            </div>
+          </section>
+
+          <section class="test-section" id="email-benefits">
+            <div class="test-module-row">
+              <div class="module-copy" data-module="benefits-3col">
+                <button class="module-copy__button" type="button" aria-label="benefits-3col kopieren" title="benefits-3col kopieren">
+                  <span class="module-copy__name">benefits-3col</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe
+                  src="./frames/email/snippets/benefits-3col.html"
+                  title="benefits-3col test preview"
+                  loading="lazy"
+                  data-src-desktop="./frames/email/snippets/benefits-3col.html"
+                  data-src-mobile="./frames/email/test-mobile/benefits-3col.html"
+                  data-frame-id="benefits-3col"></iframe>
+              </div>
+            </div>
+          </section>
+
+          <section class="test-section" id="email-steps">
+            <div class="test-module-row">
+              <div class="module-copy" data-module="steps-3col">
+                <button class="module-copy__button" type="button" aria-label="steps-3col kopieren" title="steps-3col kopieren">
+                  <span class="module-copy__name">steps-3col</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe
+                  src="./frames/email/snippets/steps-3col.html"
+                  title="steps-3col test preview"
+                  loading="lazy"
+                  data-src-desktop="./frames/email/snippets/steps-3col.html"
+                  data-src-mobile="./frames/email/test-mobile/steps-3col.html"
+                  data-frame-id="steps-3col"></iframe>
+              </div>
+            </div>
+            <div class="test-module-row">
+              <div class="module-copy" data-module="steps-horizontal">
+                <button class="module-copy__button" type="button" aria-label="steps-horizontal kopieren" title="steps-horizontal kopieren">
+                  <span class="module-copy__name">steps-horizontal</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe
+                  src="./frames/email/snippets/steps-horizontal.html"
+                  title="steps-horizontal test preview"
+                  loading="lazy"
+                  data-src-desktop="./frames/email/snippets/steps-horizontal.html"
+                  data-src-mobile="./frames/email/test-mobile/steps-horizontal.html"
+                  data-frame-id="steps-horizontal"></iframe>
+              </div>
+            </div>
+          </section>
+
+          <section class="test-section" id="email-contact">
+            <div class="test-module-row">
+              <div class="module-copy" data-module="contact">
+                <button class="module-copy__button" type="button" aria-label="contact kopieren" title="contact kopieren">
+                  <span class="module-copy__name">contact</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe
+                  src="./frames/email/snippets/contact.html"
+                  title="contact test preview"
+                  loading="lazy"
+                  data-src-desktop="./frames/email/snippets/contact.html"
+                  data-src-mobile="./frames/email/test-mobile/contact.html"
+                  data-frame-id="contact"></iframe>
+              </div>
+            </div>
+          </section>
+
+          <section class="test-section" id="email-tables">
+            <div class="test-module-row">
+              <div class="module-copy" data-module="table">
+                <button class="module-copy__button" type="button" aria-label="table kopieren" title="table kopieren">
+                  <span class="module-copy__name">table</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe
+                  src="./frames/email/snippets/table.html"
+                  title="table test preview"
+                  loading="lazy"
+                  data-src-desktop="./frames/email/snippets/table.html"
+                  data-src-mobile="./frames/email/test-mobile/table.html"
+                  data-frame-id="table"></iframe>
+              </div>
+            </div>
+            <div class="test-module-row">
+              <div class="module-copy" data-module="table-comparison">
+                <button class="module-copy__button" type="button" aria-label="table-comparison kopieren" title="table-comparison kopieren">
+                  <span class="module-copy__name">table-comparison</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe
+                  src="./frames/email/snippets/table-comparison.html"
+                  title="table-comparison test preview"
+                  loading="lazy"
+                  data-src-desktop="./frames/email/snippets/table-comparison.html"
+                  data-src-mobile="./frames/email/test-mobile/table-comparison.html"
+                  data-frame-id="table-comparison"></iframe>
+              </div>
+            </div>
+          </section>
+
+          <section class="test-section" id="email-footer">
+            <div class="test-module-row">
+              <div class="module-copy" data-module="footer">
+                <button class="module-copy__button" type="button" aria-label="footer kopieren" title="footer kopieren">
+                  <span class="module-copy__name">footer</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe
+                  src="./frames/email/snippets/footer.html"
+                  title="footer test preview"
+                  loading="lazy"
+                  data-src-desktop="./frames/email/snippets/footer.html"
+                  data-src-mobile="./frames/email/test-mobile/footer.html"
+                  data-frame-id="footer"></iframe>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <section class="test-page" data-page="lp">
+          <section class="test-section" id="lp-heros">
+            <div class="test-module-row">
+              <div class="module-copy" data-module="hero-split">
+                <button class="module-copy__button" type="button" aria-label="hero-split kopieren" title="hero-split kopieren">
+                  <span class="module-copy__name">hero-split</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe
+                  src="../../lp-builder/preview/modules/hero-split.html"
+                  title="lp hero-split test preview"
+                  loading="lazy"
+                  data-src-desktop="../../lp-builder/preview/modules/hero-split.html"
+                  data-src-mobile="../../lp-builder/preview/modules/hero-split.html"
+                  data-frame-id="lp-hero-split"></iframe>
+              </div>
+            </div>
+
+            <div class="test-module-row test-module-row--bleed">
+              <div class="module-copy" data-module="hero-bleed-flex">
+                <button class="module-copy__button" type="button" aria-label="hero-bleed-flex kopieren" title="hero-bleed-flex kopieren">
+                  <span class="module-copy__name">hero-bleed-flex</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe
+                  src="../../lp-builder/preview/modules/hero-bleed-flex.html"
+                  title="lp hero-bleed-flex test preview"
+                  loading="lazy"
+                  data-src-desktop="../../lp-builder/preview/modules/hero-bleed-flex.html"
+                  data-src-mobile="../../lp-builder/preview/modules/hero-bleed-flex.html"
+                  data-frame-id="lp-hero-bleed-flex"></iframe>
+              </div>
+            </div>
+
+            <div class="test-module-row test-module-row--bleed">
+              <div class="module-copy" data-module="hero-bleed-flex-centered">
+                <button class="module-copy__button" type="button" aria-label="hero-bleed-flex-centered kopieren" title="hero-bleed-flex-centered kopieren">
+                  <span class="module-copy__name">hero-bleed-flex-centered</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe
+                  src="../../lp-builder/preview/modules/hero-bleed-flex-centered.html"
+                  title="lp hero-bleed-flex-centered test preview"
+                  loading="lazy"
+                  data-src-desktop="../../lp-builder/preview/modules/hero-bleed-flex-centered.html"
+                  data-src-mobile="../../lp-builder/preview/modules/hero-bleed-flex-centered.html"
+                  data-frame-id="lp-hero-bleed-flex-centered"></iframe>
+              </div>
+            </div>
+          </section>
+
+          <section class="test-section" id="lp-teaser">
+            <div class="test-module-row">
+              <div class="module-copy" data-module="teaser-2col">
+                <button class="module-copy__button" type="button" aria-label="teaser-2col kopieren" title="teaser-2col kopieren">
+                  <span class="module-copy__name">teaser-2col</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe src="../../lp-builder/preview/modules/teaser-2col.html" title="lp teaser-2col test preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/teaser-2col.html" data-src-mobile="../../lp-builder/preview/modules/teaser-2col.html" data-frame-id="lp-teaser-2col"></iframe>
+              </div>
+            </div>
+            <div class="test-module-row">
+              <div class="module-copy" data-module="teaser-3col">
+                <button class="module-copy__button" type="button" aria-label="teaser-3col kopieren" title="teaser-3col kopieren">
+                  <span class="module-copy__name">teaser-3col</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe src="../../lp-builder/preview/modules/teaser-3col.html" title="lp teaser-3col test preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/teaser-3col.html" data-src-mobile="../../lp-builder/preview/modules/teaser-3col.html" data-frame-id="lp-teaser-3col"></iframe>
+              </div>
+            </div>
+            <div class="test-module-row">
+              <div class="module-copy" data-module="teaser-4col">
+                <button class="module-copy__button" type="button" aria-label="teaser-4col kopieren" title="teaser-4col kopieren">
+                  <span class="module-copy__name">teaser-4col</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe src="../../lp-builder/preview/modules/teaser-4col.html" title="lp teaser-4col test preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/teaser-4col.html" data-src-mobile="../../lp-builder/preview/modules/teaser-4col.html" data-frame-id="lp-teaser-4col"></iframe>
+              </div>
+            </div>
+            <div class="test-module-row">
+              <div class="module-copy" data-module="teaser-split-image-right">
+                <button class="module-copy__button" type="button" aria-label="teaser-split-image-right kopieren" title="teaser-split-image-right kopieren">
+                  <span class="module-copy__name">teaser-split-image-right</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe src="../../lp-builder/preview/modules/teaser-split-image-right.html" title="lp teaser-split-image-right test preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/teaser-split-image-right.html" data-src-mobile="../../lp-builder/preview/modules/teaser-split-image-right.html" data-frame-id="lp-teaser-split-image-right"></iframe>
+              </div>
+            </div>
+            <div class="test-module-row">
+              <div class="module-copy" data-module="teaser-split-image-left">
+                <button class="module-copy__button" type="button" aria-label="teaser-split-image-left kopieren" title="teaser-split-image-left kopieren">
+                  <span class="module-copy__name">teaser-split-image-left</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe src="../../lp-builder/preview/modules/teaser-split-image-left.html" title="lp teaser-split-image-left test preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/teaser-split-image-left.html" data-src-mobile="../../lp-builder/preview/modules/teaser-split-image-left.html" data-frame-id="lp-teaser-split-image-left"></iframe>
+              </div>
+            </div>
+          </section>
+
+          <section class="test-section" id="lp-steps">
+            <div class="test-module-row">
+              <div class="module-copy" data-module="steps-3col">
+                <button class="module-copy__button" type="button" aria-label="steps-3col kopieren" title="steps-3col kopieren">
+                  <span class="module-copy__name">steps-3col</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe src="../../lp-builder/preview/modules/steps-3col.html" title="lp steps-3col test preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/steps-3col.html" data-src-mobile="../../lp-builder/preview/modules/steps-3col.html" data-frame-id="lp-steps-3col"></iframe>
+              </div>
+            </div>
+            <div class="test-module-row">
+              <div class="module-copy" data-module="steps-4col">
+                <button class="module-copy__button" type="button" aria-label="steps-4col kopieren" title="steps-4col kopieren">
+                  <span class="module-copy__name">steps-4col</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe src="../../lp-builder/preview/modules/steps-4col.html" title="lp steps-4col test preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/steps-4col.html" data-src-mobile="../../lp-builder/preview/modules/steps-4col.html" data-frame-id="lp-steps-4col"></iframe>
+              </div>
+            </div>
+          </section>
+
+          <section class="test-section" id="lp-accordion">
+            <div class="test-module-row">
+              <div class="module-copy" data-module="accordion">
+                <button class="module-copy__button" type="button" aria-label="accordion kopieren" title="accordion kopieren">
+                  <span class="module-copy__name">accordion</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe src="../../lp-builder/preview/modules/accordion.html" title="lp accordion test preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/accordion.html" data-src-mobile="../../lp-builder/preview/modules/accordion.html" data-frame-id="lp-accordion"></iframe>
+              </div>
+            </div>
+          </section>
+
+          <section class="test-section" id="lp-counter">
+            <div class="test-module-row">
+              <div class="module-copy" data-module="counter-animated">
+                <button class="module-copy__button" type="button" aria-label="counter-animated kopieren" title="counter-animated kopieren">
+                  <span class="module-copy__name">counter-animated</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe src="../../lp-builder/preview/modules/counter-animated.html" title="lp counter-animated test preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/counter-animated.html" data-src-mobile="../../lp-builder/preview/modules/counter-animated.html" data-frame-id="lp-counter-animated"></iframe>
+              </div>
+            </div>
+          </section>
+
+          <section class="test-section" id="lp-callouts">
+            <div class="test-module-row">
+              <div class="module-copy" data-module="callout--base">
+                <button class="module-copy__button" type="button" aria-label="callout--base kopieren" title="callout--base kopieren">
+                  <span class="module-copy__name">callout--base</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe src="../../lp-builder/preview/modules/callout--base.html" title="lp callout--base test preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/callout--base.html" data-src-mobile="../../lp-builder/preview/modules/callout--base.html" data-frame-id="lp-callout-base"></iframe>
+              </div>
+            </div>
+            <div class="test-module-row">
+              <div class="module-copy" data-module="callout--illu">
+                <button class="module-copy__button" type="button" aria-label="callout--illu kopieren" title="callout--illu kopieren">
+                  <span class="module-copy__name">callout--illu</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe src="../../lp-builder/preview/modules/callout--illu.html" title="lp callout--illu test preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/callout--illu.html" data-src-mobile="../../lp-builder/preview/modules/callout--illu.html" data-frame-id="lp-callout-illu"></iframe>
+              </div>
+            </div>
+            <div class="test-module-row">
+              <div class="module-copy" data-module="callout--expert">
+                <button class="module-copy__button" type="button" aria-label="callout--expert kopieren" title="callout--expert kopieren">
+                  <span class="module-copy__name">callout--expert</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe src="../../lp-builder/preview/modules/callout--expert.html" title="lp callout--expert test preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/callout--expert.html" data-src-mobile="../../lp-builder/preview/modules/callout--expert.html" data-frame-id="lp-callout-expert"></iframe>
+              </div>
+            </div>
+          </section>
+
+          <section class="test-section" id="lp-benefits">
+            <div class="test-module-row">
+              <div class="module-copy" data-module="benefits-3col">
+                <button class="module-copy__button" type="button" aria-label="benefits-3col kopieren" title="benefits-3col kopieren">
+                  <span class="module-copy__name">benefits-3col</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe src="../../lp-builder/preview/modules/benefits-3col.html" title="lp benefits-3col test preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/benefits-3col.html" data-src-mobile="../../lp-builder/preview/modules/benefits-3col.html" data-frame-id="lp-benefits-3col"></iframe>
+              </div>
+            </div>
+            <div class="test-module-row">
+              <div class="module-copy" data-module="benefits-2col">
+                <button class="module-copy__button" type="button" aria-label="benefits-2col kopieren" title="benefits-2col kopieren">
+                  <span class="module-copy__name">benefits-2col</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe src="../../lp-builder/preview/modules/benefits-2col.html" title="lp benefits-2col test preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/benefits-2col.html" data-src-mobile="../../lp-builder/preview/modules/benefits-2col.html" data-frame-id="lp-benefits-2col"></iframe>
+              </div>
+            </div>
+          </section>
+
+          <section class="test-section" id="lp-reviews">
+            <div class="test-module-row">
+              <div class="module-copy" data-module="ekomi-reviews">
+                <button class="module-copy__button" type="button" aria-label="ekomi-reviews kopieren" title="ekomi-reviews kopieren">
+                  <span class="module-copy__name">ekomi-reviews</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe src="../../lp-builder/preview/modules/ekomi-reviews.html" title="lp ekomi-reviews test preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/ekomi-reviews.html" data-src-mobile="../../lp-builder/preview/modules/ekomi-reviews.html" data-frame-id="lp-ekomi-reviews"></iframe>
+              </div>
+            </div>
+          </section>
+
+          <section class="test-section" id="lp-service-tiles">
+            <div class="test-module-row">
+              <div class="module-copy" data-module="servicetiles">
+                <button class="module-copy__button" type="button" aria-label="servicetiles kopieren" title="servicetiles kopieren">
+                  <span class="module-copy__name">servicetiles</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe src="../../lp-builder/preview/modules/servicetiles.html" title="lp servicetiles test preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/servicetiles.html" data-src-mobile="../../lp-builder/preview/modules/servicetiles.html" data-frame-id="lp-servicetiles"></iframe>
+              </div>
+            </div>
+          </section>
+
+          <section class="test-section" id="lp-checkmark-list">
+            <div class="test-module-row">
+              <div class="module-copy" data-module="checkmark-list">
+                <button class="module-copy__button" type="button" aria-label="checkmark-list kopieren" title="checkmark-list kopieren">
+                  <span class="module-copy__name">checkmark-list</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe src="../../lp-builder/preview/modules/checkmark-list.html" title="lp checkmark-list test preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/checkmark-list.html" data-src-mobile="../../lp-builder/preview/modules/checkmark-list.html" data-frame-id="lp-checkmark-list"></iframe>
+              </div>
+            </div>
+          </section>
+
+          <section class="test-section" id="lp-sticky-footer">
+            <div class="test-module-row">
+              <div class="module-copy" data-module="lp-sticky-footer">
+                <button class="module-copy__button" type="button" aria-label="lp-sticky-footer kopieren" title="lp-sticky-footer kopieren">
+                  <span class="module-copy__name">lp-sticky-footer</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe src="../../lp-builder/preview/modules/lp-sticky-footer.html" title="lp sticky-footer test preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/lp-sticky-footer.html" data-src-mobile="../../lp-builder/preview/modules/lp-sticky-footer.html" data-frame-id="lp-sticky-footer"></iframe>
+              </div>
+            </div>
+          </section>
+
+          <section class="test-section" id="lp-content-cards">
+            <div class="test-module-row">
+              <div class="module-copy" data-module="content-cards-2col">
+                <button class="module-copy__button" type="button" aria-label="content-cards-2col kopieren" title="content-cards-2col kopieren">
+                  <span class="module-copy__name">content-cards-2col</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe src="../../lp-builder/preview/modules/content-cards-2col.html" title="lp content-cards-2col test preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/content-cards-2col.html" data-src-mobile="../../lp-builder/preview/modules/content-cards-2col.html" data-frame-id="lp-content-cards-2col"></iframe>
+              </div>
+            </div>
+            <div class="test-module-row">
+              <div class="module-copy" data-module="content-cards-3col">
+                <button class="module-copy__button" type="button" aria-label="content-cards-3col kopieren" title="content-cards-3col kopieren">
+                  <span class="module-copy__name">content-cards-3col</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe src="../../lp-builder/preview/modules/content-cards-3col.html" title="lp content-cards-3col test preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/content-cards-3col.html" data-src-mobile="../../lp-builder/preview/modules/content-cards-3col.html" data-frame-id="lp-content-cards-3col"></iframe>
+              </div>
+            </div>
+          </section>
+
+          <section class="test-section" id="lp-action-tiles">
+            <div class="test-module-row test-module-row--bleed">
+              <div class="module-copy" data-module="action-tiles_rle">
+                <button class="module-copy__button" type="button" aria-label="action-tiles_rle kopieren" title="action-tiles_rle kopieren">
+                  <span class="module-copy__name">action-tiles_rle</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe src="../../lp-builder/preview/modules/action-tiles_rle.html" title="lp action-tiles_rle test preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/action-tiles_rle.html" data-src-mobile="../../lp-builder/preview/modules/action-tiles_rle.html" data-frame-id="lp-action-tiles-rle"></iframe>
+              </div>
+            </div>
+          </section>
+
+          <section class="test-section" id="lp-video">
+            <div class="test-module-row">
+              <div class="module-copy" data-module="video--youtube">
+                <button class="module-copy__button" type="button" aria-label="video--youtube kopieren" title="video--youtube kopieren">
+                  <span class="module-copy__name">video--youtube</span>
+                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                  <span class="module-copy__icon--success" aria-hidden="true"></span>
+                </button>
+              </div>
+              <div class="test-module-frame">
+                <iframe src="../../lp-builder/preview/modules/video--youtube.html" title="lp video--youtube test preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/video--youtube.html" data-src-mobile="../../lp-builder/preview/modules/video--youtube.html" data-frame-id="lp-video-youtube"></iframe>
+              </div>
+            </div>
+          </section>
+        </section>
+      </div>
+    </main>
+  </section>
 
   <script>
-    const EMAIL_MODULES = [
-      'logo', 'logo-centered', 'hero-image-top', 'hero-image-top-bleed', 'hero-cta-top', 'hero-cta-top-no-bottom',
-      'teaser-1col', 'teaser-2col-horizontal', 'teaser-2col-vertical', 'teaser-2col-alternating', 'teaser-2col-listing',
-      'benefits-3col', 'steps-3col', 'steps-horizontal', 'table', 'table-comparison', 'contact', 'footer'
-    ];
+    (function () {
+      var TOKEN_SOURCE = '../tokens/brands/immoscout24.json';
+      var TOKENS = null;
+      var DEFAULT_ROUTE = { page: 'home', sectionId: 'home' };
+      var FRAME_LOADING_HEIGHT = 120;
+      var shell = document.querySelector('[data-shell]');
+      var mobileToggle = document.querySelector('[data-mobile-toggle]');
+      var sidebarToggle = document.querySelector('[data-sidebar-toggle]');
+      var navGroupToggles = Array.from(document.querySelectorAll('[data-nav-toggle]'));
+      var navLinks = Array.from(document.querySelectorAll('.test-nav__link'));
+      var pages = Array.from(document.querySelectorAll('.test-page'));
+      var sections = Array.from(document.querySelectorAll('.test-section'));
+      var frames = Array.from(document.querySelectorAll('iframe[data-frame-id]'));
+      var frameRequestCounter = 0;
+      var tokenSections = Array.from(document.querySelectorAll('.token-section'));
+      var tokenHosts = Array.from(document.querySelectorAll(
+        '[data-token-colors], [data-token-buttons], [data-token-typography], [data-token-radius], [data-token-spacing], [data-token-borders], [data-token-ratios], [data-token-image-formats]'
+      ));
 
-    const LP_MODULES = [
-      'hero-bleed-flex', 'hero-bleed-flex-centered', 'hero-split', 'teaser-2col', 'teaser-3col', 'teaser-4col',
-      'teaser-split-image-right', 'teaser-split-image-left', 'steps-3col', 'steps-4col', 'accordion', 'counter-animated',
-      'callout--base', 'callout--illu', 'callout--expert', 'benefits-3col', 'benefits-2col', 'ekomi-reviews',
-      'servicetiles', 'checkmark-list', 'lp-sticky-footer', 'content-cards-2col', 'content-cards-3col',
-      'action-tiles_rle', 'video--youtube'
-    ];
-
-    function renderModuleList(targetId, values, sourceLabel) {
-      const root = document.getElementById(targetId);
-      root.innerHTML = values.map((value) => `
-        <article class="module-card">
-          <strong>${value}</strong>
-          <span>Quelle: ${sourceLabel}</span>
-        </article>
-      `).join('');
-    }
-
-    function flattenColors(tokens) {
-      const groups = [];
-      const palette = tokens.colors?.palette || {};
-      Object.entries(palette).forEach(([family, colors]) => {
-        Object.entries(colors).forEach(([name, value]) => {
-          groups.push({ label: `${family}.${name}`, value });
+      function renderTokenState(message) {
+        tokenHosts.forEach(function (host) {
+          host.innerHTML = '<p style="margin:0;color:#6d6d6d;font-size:14px;line-height:1.5;">' + message + '</p>';
         });
-      });
-      const semantic = tokens.colors?.semantic || {};
-      Object.entries(semantic).forEach(([family, colors]) => {
-        Object.entries(colors).forEach(([name, value]) => {
-          groups.push({ label: `${family}.${name}`, value });
-        });
-      });
-      return groups;
-    }
-
-    function renderLineTokens(targetId, entries) {
-      const root = document.getElementById(targetId);
-      root.innerHTML = entries.map(([key, value]) => `
-        <div class="token-line">
-          <strong>${key}</strong>
-          <span>${value}</span>
-        </div>
-      `).join('');
-    }
-
-    async function initTokens() {
-      const loading = document.getElementById('token-loading');
-      const error = document.getElementById('token-error');
-      const content = document.getElementById('token-content');
-
-      try {
-        const response = await fetch('../tokens/brands/immoscout24.json');
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
-        const tokens = await response.json();
-
-        const colors = flattenColors(tokens);
-        document.getElementById('token-count').textContent = ['colors', 'spacing', 'radius', 'typography', 'buttons'].length;
-
-        document.getElementById('color-swatches').innerHTML = colors.map(({ label, value }) => `
-          <div class="swatch">
-            <div class="swatch-chip" style="background:${value}"></div>
-            <div class="swatch-copy">
-              <strong>${label}</strong>
-              <span>${value}</span>
-            </div>
-          </div>
-        `).join('');
-
-        renderLineTokens('spacing-lines', Object.entries(tokens.spacing || {}));
-        renderLineTokens('radius-lines', Object.entries(tokens.radius || {}));
-
-        const typeEntries = [];
-        Object.entries(tokens.typography?.heading || {}).forEach(([name, cfg]) => {
-          typeEntries.push([`heading.${name}`, `${cfg.desktop.fontSize} / ${cfg.desktop.lineHeight}`]);
-        });
-        Object.entries(tokens.typography?.body || {}).forEach(([name, cfg]) => {
-          typeEntries.push([`body.${name}`, `${cfg.desktop.fontSize} / ${cfg.desktop.lineHeight}`]);
-        });
-        renderLineTokens('type-lines', typeEntries);
-
-        const buttonEntries = Object.entries(tokens.buttons?.variants || {}).map(([name, cfg]) => {
-          const lpDefault = cfg.lp?.default;
-          return [name, lpDefault ? `${lpDefault.background} / ${lpDefault.text}` : 'defined'];
-        });
-        renderLineTokens('button-lines', buttonEntries);
-
-        loading.hidden = true;
-        content.hidden = false;
-      } catch (err) {
-        loading.hidden = true;
-        error.hidden = false;
-        error.textContent = `Token-JSON konnte nicht geladen werden: ${String(err)}`;
       }
-    }
 
-    document.getElementById('email-count').textContent = String(EMAIL_MODULES.length);
-    document.getElementById('lp-count').textContent = String(LP_MODULES.length);
-    renderModuleList('email-list', EMAIL_MODULES, 'email-builder/preview/modules/catalog.yaml');
-    renderModuleList('lp-list', LP_MODULES, 'lp-builder/preview/modules/catalog.yaml');
-    initTokens();
+      function loadTokens() {
+        renderTokenState('Tokens werden geladen...');
+
+        return fetch(TOKEN_SOURCE)
+          .then(function (response) {
+            if (!response.ok) {
+              throw new Error('HTTP ' + response.status);
+            }
+            return response.json();
+          })
+          .then(function (tokens) {
+            TOKENS = tokens;
+            renderTokenCards();
+          })
+          .catch(function (error) {
+            console.warn('design-library token load failed', error);
+            renderTokenState('Tokens konnten nicht geladen werden. Bitte pruefe die Datei ' + TOKEN_SOURCE + '.');
+          });
+      }
+
+      function createMetaRow(label, value) {
+        return '<div class="token-card__meta-row"><span>' + label + '</span><code>' + value + '</code></div>';
+      }
+
+      function createCodeValue(value) {
+        return '<code class="token-card__code">' + value + '</code>';
+      }
+
+      function createColorCopyRow(value) {
+        return '<div class="token-card__copy-row">' +
+          '<code class="token-card__code">' + value + '</code>' +
+          '<button class="token-copy-button" type="button" data-copy-value="' + value + '" aria-label="' + value + ' kopieren" title="' + value + ' kopieren">' +
+            '<svg class="token-copy-button__icon" viewBox="0 0 24 24" aria-hidden="true">' +
+              '<rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>' +
+              '<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>' +
+            '</svg>' +
+            '<span class="token-copy-button__check" aria-hidden="true"></span>' +
+          '</button>' +
+        '</div>';
+      }
+
+      function createCopyButton(value, label) {
+        return '<button class="token-copy-button" type="button" data-copy-value="' + value + '" aria-label="' + label + ' kopieren" title="' + label + ' kopieren">' +
+          '<svg class="token-copy-button__icon" viewBox="0 0 24 24" aria-hidden="true">' +
+            '<rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>' +
+            '<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>' +
+          '</svg>' +
+          '<span class="token-copy-button__check" aria-hidden="true"></span>' +
+        '</button>';
+      }
+
+      function bindCopyButtons(root) {
+        if (!root) return;
+        root.querySelectorAll('.token-copy-button').forEach(function (button) {
+          if (button.dataset.copyBound === 'true') return;
+          button.dataset.copyBound = 'true';
+          button.addEventListener('click', function () {
+            var value = button.dataset.copyValue || '';
+            if (!value || !navigator.clipboard || !navigator.clipboard.writeText) return;
+            navigator.clipboard.writeText(value).then(function () {
+              button.classList.add('is-copied');
+              window.setTimeout(function () {
+                button.classList.remove('is-copied');
+              }, 1200);
+            });
+          });
+        });
+      }
+
+      function formatTokenName(name) {
+        return String(name)
+          .replace(/([a-z])([A-Z])/g, '$1 $2')
+          .replace(/([A-Za-z])(\d)/g, '$1 $2')
+          .replace(/[-_]+/g, ' ')
+          .replace(/\b\w/g, function (char) { return char.toUpperCase(); });
+      }
+
+      function getTokenValue(path) {
+        if (path === 'transparent') return 'transparent';
+        return path.split('.').reduce(function (acc, key) {
+          return acc && acc[key];
+        }, TOKENS);
+      }
+
+      function renderTokenCards() {
+        var colorsHost = document.querySelector('[data-token-colors]');
+        if (colorsHost) {
+          function renderColorGroup(title, entries) {
+            return '<section class="token-section-group">' +
+              '<h3 class="token-section-group__title">' + title + '</h3>' +
+              '<div class="token-grid">' +
+                entries.map(function (entry) {
+                  var hexValue = String(entry[1]).toUpperCase();
+                  return '<article class="token-card token-card--minimal">' +
+                    '<div class="token-card__swatch" style="background:' + entry[1] + ';"></div>' +
+                    '<div class="token-card__meta">' +
+                      '<h3 class="token-card__title">' + formatTokenName(entry[0]) + '</h3>' +
+                      createColorCopyRow(hexValue) +
+                    '</div>' +
+                  '</article>';
+                }).join('') +
+              '</div>' +
+            '</section>';
+          }
+
+          var neutrals = [
+            ['charcoal', TOKENS.colors.palette.shared.charcoal],
+            ['white', TOKENS.colors.palette.shared.white],
+            ['sand', TOKENS.colors.palette.shared.sand]
+          ];
+          var greys = [
+            ['grey1', TOKENS.colors.palette.shared.grey1],
+            ['grey2', TOKENS.colors.palette.shared.grey2],
+            ['grey3', TOKENS.colors.palette.shared.grey3],
+            ['grey4', TOKENS.colors.palette.shared.grey4],
+            ['grey5', TOKENS.colors.palette.shared.grey5],
+            ['grey6', TOKENS.colors.palette.shared.grey6]
+          ];
+          var lpColors = [
+            ['teal', TOKENS.colors.palette.lp.teal],
+            ['yellow', TOKENS.colors.palette.lp.yellow],
+            ['blue', TOKENS.colors.palette.lp.blue],
+            ['purple', TOKENS.colors.palette.lp.purple],
+            ['orange', TOKENS.colors.palette.lp.orange]
+          ];
+          var emailColors = Object.entries(TOKENS.colors.palette.email);
+          colorsHost.innerHTML =
+            renderColorGroup('LP Colors', lpColors) +
+            renderColorGroup('E-Mail Colors', emailColors) +
+            renderColorGroup('Neutrals', neutrals) +
+            renderColorGroup('Grautöne', greys);
+          bindCopyButtons(colorsHost);
+        }
+
+        var buttonHost = document.querySelector('[data-token-buttons]');
+        if (buttonHost) {
+          function renderButtonChip(label, config, hoverConfig) {
+            var attrs = '';
+            if (hoverConfig) {
+              attrs =
+                ' data-hover-bg="true"' +
+                ' style="background:' + getTokenValue(config.background) +
+                ';color:' + getTokenValue(config.text) +
+                ';border:1px solid ' + getTokenValue(config.border) +
+                ';--hover-bg:' + getTokenValue(hoverConfig.background) +
+                ';--hover-text:' + getTokenValue(hoverConfig.text) +
+                ';--hover-border:' + getTokenValue(hoverConfig.border) + ';"';
+            } else {
+              attrs =
+                ' style="background:' + getTokenValue(config.background) +
+                ';color:' + getTokenValue(config.text) +
+                ';border:1px solid ' + getTokenValue(config.border) + ';"';
+            }
+            return '<div class="token-button-chip"' + attrs + '>' + label + '</div>';
+          }
+
+          function renderChevronLink(label) {
+            return '<a class="token-chevron-link" href="#0">' +
+              '<img class="token-chevron-link__icon" src="https://library.eu.iterable.com/33/98/a178a6459c3c432291d8c25be0f40928-emb_chevron-icon.png" width="8" height="16" alt="">' +
+              '<span>' + label + '</span>' +
+            '</a>';
+          }
+
+          var lpButtons = TOKENS.buttons.canonical_types.map(function (key) {
+            var variant = TOKENS.buttons.variants[key];
+            return renderButtonChip(key, variant.lp.default, variant.lp.hover);
+          });
+
+          lpButtons.push(renderChevronLink('chevron-link'));
+
+          buttonHost.innerHTML =
+            '<div class="token-button-preview__row">' + lpButtons.join('') + '</div>';
+        }
+
+        var typeHost = document.querySelector('[data-token-typography]');
+        if (typeHost) {
+          var items = [];
+          items.push(
+            '<article class="token-typography-item">' +
+              '<p class="token-typography-sample" style="font-size:32px; line-height:1.2; font-weight:400;">Make It Better</p>' +
+              '<a class="token-typography-source" href="https://www.static-immobilienscout24.de/fro/make-it-better/1.0.0/makeitbetter.css" target="_blank" rel="noopener noreferrer">makeitbetter.css</a>' +
+            '</article>'
+          );
+          Object.entries(TOKENS.typography.heading).forEach(function (entry) {
+            var desktop = entry[1].desktop;
+            var mobile = entry[1].mobile;
+            var regularTokenName = 'heading-' + entry[0] + '-regular';
+            var boldTokenName = 'heading-' + entry[0] + '-bold';
+            items.push(
+              '<article class="token-typography-item">' +
+                '<div class="token-typography-pair">' +
+                  '<div class="token-typography-item__line">' +
+                    '<p class="token-typography-sample" style="font-size:' + desktop.fontSize + '; line-height:' + desktop.lineHeight + '; font-weight:' + TOKENS.typography.fontWeight.regular + ';">Heading ' + entry[0] + ' regular</p>' +
+                    createCopyButton(regularTokenName, regularTokenName) +
+                  '</div>' +
+                  '<div class="token-typography-item__line">' +
+                    '<p class="token-typography-sample" style="font-size:' + desktop.fontSize + '; line-height:' + desktop.lineHeight + '; font-weight:' + TOKENS.typography.fontWeight.bold + ';">Heading ' + entry[0] + ' bold</p>' +
+                    createCopyButton(boldTokenName, boldTokenName) +
+                  '</div>' +
+                '</div>' +
+                '<div class="token-typography-item__meta"><span>Desktop ' + desktop.fontSize + ' | ' + desktop.lineHeight + '</span><span>Mobile ' + mobile.fontSize + ' | ' + mobile.lineHeight + '</span></div>' +
+              '</article>'
+            );
+          });
+          Object.entries(TOKENS.typography.body).forEach(function (entry) {
+            var desktop = entry[1].desktop;
+            var mobile = entry[1].mobile;
+            var regularTokenName = 'body-' + entry[0] + '-regular';
+            var boldTokenName = 'body-' + entry[0] + '-bold';
+            items.push(
+              '<article class="token-typography-item">' +
+                '<div class="token-typography-pair">' +
+                  '<div class="token-typography-item__line">' +
+                    '<p class="token-typography-sample" style="font-size:' + desktop.fontSize + '; line-height:' + desktop.lineHeight + '; font-weight:' + TOKENS.typography.fontWeight.regular + ';">Body ' + entry[0] + ' regular lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>' +
+                    createCopyButton(regularTokenName, regularTokenName) +
+                  '</div>' +
+                  '<div class="token-typography-item__line">' +
+                    '<p class="token-typography-sample" style="font-size:' + desktop.fontSize + '; line-height:' + desktop.lineHeight + '; font-weight:' + TOKENS.typography.fontWeight.bold + ';">Body ' + entry[0] + ' bold lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>' +
+                    createCopyButton(boldTokenName, boldTokenName) +
+                  '</div>' +
+                '</div>' +
+                '<div class="token-typography-item__meta"><span>Desktop ' + desktop.fontSize + ' | ' + desktop.lineHeight + '</span><span>Mobile ' + mobile.fontSize + ' | ' + mobile.lineHeight + '</span></div>' +
+              '</article>'
+            );
+          });
+          typeHost.innerHTML = items.join('');
+          bindCopyButtons(typeHost);
+        }
+
+        var radiusHost = document.querySelector('[data-token-radius]');
+        if (radiusHost) {
+          radiusHost.innerHTML = Object.entries(TOKENS.radius).map(function (entry) {
+            return '<article class="token-card token-card--minimal">' +
+              '<div class="token-card__shape" style="border-radius:' + entry[1] + ';"></div>' +
+              '<div class="token-card__meta">' +
+                '<h3 class="token-card__title">' + formatTokenName(entry[0]) + '</h3>' +
+                createCodeValue(entry[1]) +
+              '</div>' +
+            '</article>';
+          }).join('');
+        }
+
+        var spacingHost = document.querySelector('[data-token-spacing]');
+        if (spacingHost) {
+          spacingHost.innerHTML = Object.entries(TOKENS.spacing).map(function (entry) {
+            return '<article class="token-card">' +
+              '<div class="token-card__spacing"><div class="token-card__spacing-bar" style="width:' + entry[1] + ';"></div></div>' +
+              '<div class="token-card__meta">' +
+                '<h3 class="token-card__title">spacing-' + entry[0] + '</h3>' +
+                createMetaRow('Value', entry[1]) +
+              '</div>' +
+            '</article>';
+          }).join('');
+        }
+
+        var bordersHost = document.querySelector('[data-token-borders]');
+        if (bordersHost) {
+          bordersHost.innerHTML = Object.entries(TOKENS.borders).map(function (entry) {
+            var style = entry[0] === 'none' ? 'transparent' : '#333333';
+            var height = entry[0] === 'none' ? '1px' : entry[1];
+            return '<article class="token-card">' +
+              '<div class="token-card__border-line" style="height:' + height + '; background:' + style + ';"></div>' +
+              '<div class="token-card__meta">' +
+                '<h3 class="token-card__title">' + entry[0] + '</h3>' +
+                createMetaRow('Value', entry[1]) +
+              '</div>' +
+            '</article>';
+          }).join('');
+        }
+
+        var ratiosHost = document.querySelector('[data-token-ratios]');
+        if (ratiosHost) {
+          ratiosHost.innerHTML = Object.entries(TOKENS.ratios).map(function (entry) {
+            var parts = entry[0].split(':').map(function (part) { return Number(part); });
+            var paddingTop = parts.length === 2 && parts[0] ? ((parts[1] / parts[0]) * 100).toFixed(2) + '%' : '56.25%';
+            return '<article class="token-card">' +
+              '<div class="token-card__ratio" style="padding-top:' + paddingTop + ';"><div class="token-card__ratio-inner"></div></div>' +
+              '<div class="token-card__meta">' +
+                '<h3 class="token-card__title">' + entry[0] + '</h3>' +
+                createMetaRow('Value', entry[1]) +
+              '</div>' +
+            '</article>';
+          }).join('');
+        }
+
+        var formatsHost = document.querySelector('[data-token-image-formats]');
+        if (formatsHost) {
+          var formatMarkup = [];
+          [['Email', TOKENS.imageFormats.email], ['LP', TOKENS.imageFormats.lp]].forEach(function (group) {
+            Object.entries(group[1]).forEach(function (entry) {
+              var dims = entry[1].match(/(\\d+) x (\\d+)/i);
+              var paddingTop = dims ? ((Number(dims[2]) / Number(dims[1])) * 100).toFixed(2) + '%' : '56.25%';
+              formatMarkup.push(
+                '<article class="token-card">' +
+                  '<div class="token-card__label">' + group[0] + '</div>' +
+                  '<div class="token-card__ratio" style="padding-top:' + paddingTop + ';"><div class="token-card__ratio-inner"></div></div>' +
+                  '<div class="token-card__meta">' +
+                    '<h3 class="token-card__title">' + entry[0] + '</h3>' +
+                    createMetaRow('Value', entry[1]) +
+                  '</div>' +
+                '</article>'
+              );
+            });
+          });
+          formatsHost.innerHTML = formatMarkup.join('');
+        }
+      }
+
+      if (sidebarToggle) {
+        sidebarToggle.addEventListener('click', function () {
+          shell.classList.toggle('is-sidebar-collapsed');
+        });
+      }
+
+      navGroupToggles.forEach(function (toggle) {
+        toggle.addEventListener('click', function () {
+          var group = toggle.closest('[data-nav-group]');
+          if (!group) return;
+          var isCollapsed = group.classList.toggle('is-collapsed');
+          toggle.setAttribute('aria-expanded', String(!isCollapsed));
+          var status = toggle.querySelector('.test-nav__group-status');
+          if (status) {
+            status.textContent = isCollapsed ? '+' : '-';
+          }
+        });
+      });
+
+      document.querySelectorAll('.module-copy').forEach(function (copy) {
+        var button = copy.querySelector('.module-copy__button');
+        var moduleName = copy.dataset.module;
+        if (!button || !moduleName) return;
+
+        button.addEventListener('click', function () {
+          if (!navigator.clipboard || !navigator.clipboard.writeText) return;
+          navigator.clipboard.writeText(moduleName).then(function () {
+            copy.classList.add('is-copied');
+            setTimeout(function () {
+              copy.classList.remove('is-copied');
+            }, 700);
+          });
+        });
+      });
+
+      function setCurrentPage(pageName) {
+        shell.classList.toggle('is-page-home', pageName === 'home');
+        shell.classList.toggle('is-page-email', pageName === 'email');
+        shell.classList.toggle('is-page-lp', pageName === 'lp');
+        shell.classList.toggle('is-page-tokens', pageName === 'tokens');
+        pages.forEach(function (page) {
+          page.classList.toggle('is-active', page.dataset.page === pageName);
+        });
+      }
+
+      function setActiveSection(sectionId) {
+        sections.forEach(function (section) {
+          section.classList.toggle('is-active', section.id === sectionId);
+        });
+        tokenSections.forEach(function (section) {
+          section.classList.toggle('is-active', section.id === sectionId);
+        });
+        navLinks.forEach(function (link) {
+          var isActive = link.getAttribute('href') === '#' + sectionId;
+          link.classList.toggle('is-active', isActive);
+          link.setAttribute('aria-current', isActive ? 'page' : 'false');
+        });
+      }
+
+      function resolveRoute() {
+        var hash = window.location.hash.replace('#', '');
+        if (!hash || !document.getElementById(hash)) {
+          return DEFAULT_ROUTE;
+        }
+        if (hash === 'home') {
+          return { page: 'home', sectionId: hash };
+        }
+        if (hash.indexOf('tokens-') === 0) {
+          return { page: 'tokens', sectionId: hash };
+        }
+        if (hash.indexOf('lp-') === 0) {
+          return { page: 'lp', sectionId: hash };
+        }
+        return { page: 'email', sectionId: hash };
+      }
+
+      function applyRoute() {
+        var route = resolveRoute();
+        setCurrentPage(route.page);
+        setActiveSection(route.sectionId);
+        window.setTimeout(requestVisibleFrameHeights, 0);
+        window.setTimeout(requestVisibleFrameHeights, 80);
+        window.setTimeout(requestVisibleFrameHeights, 220);
+      }
+
+      function requestVisibleFrameHeights() {
+        frames.forEach(function (frame) {
+          var section = frame.closest('.test-section');
+          var page = frame.closest('.test-page');
+          if (!section || !page) return;
+          if (!section.classList.contains('is-active')) return;
+          if (!page.classList.contains('is-active')) return;
+          if (frame.dataset.pendingSourceChange === 'true') return;
+          scheduleFrameHeightRequests(frame);
+        });
+      }
+
+      function requestFrameHeight(frame) {
+        var requestId = 'req-' + (++frameRequestCounter);
+        frame.dataset.requestId = requestId;
+        try {
+          frame.contentWindow.postMessage({ type: 'component-library:request-height', requestId: requestId }, '*');
+        } catch (error) {}
+      }
+
+      function applyMeasuredFrameHeight(sourceWindow, nextHeight, requestId) {
+        if (!nextHeight) return;
+        var frame = frames.find(function (item) {
+          return item.contentWindow === sourceWindow;
+        });
+        if (!frame) return;
+        if (!requestId || frame.dataset.requestId !== requestId) return;
+        frame.style.height = nextHeight + 'px';
+        frame.height = String(nextHeight);
+      }
+
+      function scheduleFrameHeightRequests(frame) {
+        requestFrameHeight(frame);
+        window.setTimeout(function () {
+          requestFrameHeight(frame);
+        }, 80);
+        window.setTimeout(function () {
+          requestFrameHeight(frame);
+        }, 220);
+      }
+
+      function applyFrameSourceMode() {
+        var mode = shell.classList.contains('is-mobile-preview') ? 'mobile' : 'desktop';
+        frames.forEach(function (frame) {
+          var nextSource = mode === 'mobile' ? frame.dataset.srcMobile : frame.dataset.srcDesktop;
+          if (nextSource && frame.getAttribute('src') !== nextSource) {
+            frame.dataset.requestId = '';
+            frame.dataset.pendingSourceChange = 'true';
+            frame.style.height = FRAME_LOADING_HEIGHT + 'px';
+            frame.height = String(FRAME_LOADING_HEIGHT);
+            frame.setAttribute('src', nextSource);
+            return;
+          }
+          frame.dataset.pendingSourceChange = 'false';
+          scheduleFrameHeightRequests(frame);
+        });
+      }
+
+      mobileToggle.addEventListener('click', function () {
+        var isMobile = shell.classList.toggle('is-mobile-preview');
+        mobileToggle.setAttribute('aria-pressed', String(isMobile));
+        applyFrameSourceMode();
+        window.setTimeout(requestVisibleFrameHeights, 0);
+        window.setTimeout(requestVisibleFrameHeights, 80);
+        window.setTimeout(requestVisibleFrameHeights, 220);
+      });
+
+      window.addEventListener('hashchange', applyRoute);
+      window.addEventListener('message', function (event) {
+        if (!event.data || event.data.type !== 'component-library:frame-height') return;
+        applyMeasuredFrameHeight(event.source, Number(event.data.height) || 0, event.data.requestId || '');
+      });
+      frames.forEach(function (frame) {
+        frame.addEventListener('load', function () {
+          frame.dataset.pendingSourceChange = 'false';
+          var section = frame.closest('.test-section');
+          var page = frame.closest('.test-page');
+          if (!section || !page) return;
+          if (!section.classList.contains('is-active')) return;
+          if (!page.classList.contains('is-active')) return;
+          scheduleFrameHeightRequests(frame);
+        });
+      });
+
+      applyRoute();
+      applyFrameSourceMode();
+      loadTokens();
+    }());
   </script>
 </body>
 </html>

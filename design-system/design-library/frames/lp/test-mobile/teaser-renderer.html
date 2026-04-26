@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LP Teaser Renderer Mobile</title>
+  <style>
+    @import url("https://www.static-immobilienscout24.de/fro/core/8.5.0/css/core.min.css");
+    @import url("https://is24-lp-creator.github.io/lp-creator/core/core-foundations.css");
+    @import url("https://is24-lp-creator.github.io/lp-creator/core/core-buttons.css");
+    @import url("https://is24-lp-creator.github.io/lp-creator/core/core-components.css");
+
+    :root {
+      --module-content-max: 374px;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #ffffff;
+      color: #333333;
+      font-family: "Make It Better", Arial, Roboto, sans-serif;
+      width: 374px;
+      min-width: 374px;
+      max-width: 374px;
+      overflow-x: hidden;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .frame-root {
+      width: 100%;
+      background: #ffffff;
+    }
+
+    .teaser,
+    .teaser-split {
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .palm-one-whole {
+      width: 100% !important;
+    }
+
+    .palm-one-half {
+      width: 50% !important;
+    }
+
+    .teaser-split__grid {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .teaser-split-image-right .teaser-split__media-col {
+      order: 1;
+    }
+
+    .teaser-split-image-right .teaser-split__content-col {
+      order: 2;
+    }
+
+    .lp-media__inner {
+      background: #f2f2f2;
+    }
+
+    .lp-media__inner::before {
+      content: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="frame-root" data-root></div>
+  <script>
+    (function(){
+      var params = new URLSearchParams(window.location.search);
+      var moduleId = params.get("module") || "teaser-2col";
+      var root = document.querySelector("[data-root]");
+      var chevron = "https://www.immobilienscout24.de/content/dam/claude-lp-creator/assets/Chevron.svg";
+      var modules = {
+        "teaser-2col": `
+          <div class="teaser teaser-2col">
+            <div class="grid grid-flex gutter margin-bottom-l">
+              <div class="grid-item one-whole">
+                <h2 class="font-heading-medium-bold">Headline-medium-bold</h2>
+              </div>
+            </div>
+            <div class="grid grid-flex gutter">
+              <article class="grid-item one-half palm-one-whole margin-bottom-l">
+                <div class="teaser__card">
+                  <div class="teaser__body">
+                    <div class="lp-media lp-media--4x3 lp-radius-24 margin-bottom-m"><div class="lp-media__inner"></div></div>
+                    <h3 class="font-heading-small-bold margin-bottom-s">Headline-small-bold</h3>
+                    <p class="font-body-large-regular margin-bottom-s">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                  </div>
+                  <div class="teaser__footer">
+                    <a class="teaser-grid__textlink">
+                      <img src="${chevron}" alt="" class="teaser-grid__textlink-icon" width="16" height="16" loading="lazy" />
+                      <span class="font-body-large-bold">Lorem ipsum</span>
+                    </a>
+                  </div>
+                </div>
+              </article>
+              <article class="grid-item one-half palm-one-whole margin-bottom-l">
+                <div class="teaser__card">
+                  <div class="teaser__body">
+                    <div class="lp-media lp-media--4x3 lp-radius-24 margin-bottom-m"><div class="lp-media__inner"></div></div>
+                    <h3 class="font-heading-small-bold margin-bottom-s">Headline-small-bold</h3>
+                    <p class="font-body-large-regular margin-bottom-s">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                  </div>
+                  <div class="teaser__footer">
+                    <a class="teaser-grid__textlink">
+                      <img src="${chevron}" alt="" class="teaser-grid__textlink-icon" width="16" height="16" loading="lazy" />
+                      <span class="font-body-large-bold">Lorem ipsum</span>
+                    </a>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        `,
+        "teaser-3col": `
+          <div class="teaser teaser-3col">
+            <div class="grid grid-flex gutter margin-bottom-l">
+              <div class="grid-item one-whole">
+                <h2 class="font-heading-medium-bold">Headline-medium-bold</h2>
+              </div>
+            </div>
+            <div class="grid grid-flex gutter">
+              ${[1,2,3].map(function(){
+                return `<article class="grid-item one-third palm-one-whole margin-bottom-l">
+                  <div class="teaser__card">
+                    <div class="teaser__body">
+                      <div class="lp-media lp-media--4x3 lp-radius-24 margin-bottom-m"><div class="lp-media__inner"></div></div>
+                      <h3 class="font-heading-small-bold margin-bottom-s">Headline-small-bold</h3>
+                      <p class="font-body-large-regular margin-bottom-s">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                    <div class="teaser__footer"><a class="teaser-grid__textlink"><img src="${chevron}" alt="" class="teaser-grid__textlink-icon" width="16" height="16" loading="lazy" /><span class="font-body-large-bold">Lorem ipsum</span></a></div>
+                  </div>
+                </article>`;
+              }).join("")}
+            </div>
+          </div>
+        `,
+        "teaser-4col": `
+          <div class="teaser teaser-4col">
+            <div class="grid grid-flex gutter margin-bottom-l">
+              <div class="grid-item one-whole">
+                <h2 class="font-heading-medium-bold">Headline-medium-bold</h2>
+              </div>
+            </div>
+            <div class="grid grid-flex gutter">
+              ${[
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.",
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore."
+              ].map(function(text){
+                return `<article class="grid-item one-fourth palm-one-whole margin-bottom-l">
+                  <div class="teaser__card">
+                    <div class="teaser__body">
+                      <div class="lp-media lp-media--4x3 lp-radius-24 margin-bottom-m"><div class="lp-media__inner"></div></div>
+                      <h3 class="font-heading-small-bold margin-bottom-s">Headline-small-bold</h3>
+                      <p class="font-body-large-regular margin-bottom-s">${text}</p>
+                    </div>
+                    <div class="teaser__footer"><a class="teaser-grid__textlink"><img src="${chevron}" alt="" class="teaser-grid__textlink-icon" width="16" height="16" loading="lazy" /><span class="font-body-large-bold">Lorem ipsum</span></a></div>
+                  </div>
+                </article>`;
+              }).join("")}
+            </div>
+          </div>
+        `,
+        "teaser-split-image-right": `
+          <div class="teaser-split teaser-split-image-right">
+            <div class="grid grid-flex gutter teaser-split__grid">
+              <div class="grid-item one-half palm-one-whole teaser-split__content-col">
+                <div class="teaser-split__content">
+                  <p class="font-body-large-regular margin-bottom-xs">Lorem ipsum</p>
+                  <h2 class="font-heading-medium-bold margin-bottom-s">Headline-medium-bold</h2>
+                  <p class="font-body-large-regular margin-bottom-m">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                  <div class="teaser-split__cta"><a class="ai-button button-outline-weak">Lorem ipsum</a></div>
+                </div>
+              </div>
+              <div class="grid-item one-half palm-one-whole teaser-split__media-col">
+                <div class="lp-media lp-media--4x3 lp-radius-24 teaser-split__media"><div class="lp-media__inner"></div></div>
+              </div>
+            </div>
+          </div>
+        `,
+        "teaser-split-image-left": `
+          <div class="teaser-split teaser-split-image-left">
+            <div class="grid grid-flex gutter teaser-split__grid">
+              <div class="grid-item one-half palm-one-whole teaser-split__media-col">
+                <div class="lp-media lp-media--4x3 lp-radius-24 teaser-split__media"><div class="lp-media__inner"></div></div>
+              </div>
+              <div class="grid-item one-half palm-one-whole teaser-split__content-col">
+                <div class="teaser-split__content">
+                  <p class="font-body-large-regular margin-bottom-xs">Lorem ipsum</p>
+                  <h2 class="font-heading-medium-bold margin-bottom-s">Headline-medium-bold</h2>
+                  <p class="font-body-large-regular margin-bottom-m">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                  <div class="teaser-split__cta"><a class="ai-button button-outline-weak">Lorem ipsum</a></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+      };
+      root.innerHTML = modules[moduleId] || modules["teaser-2col"];
+    })();
+  </script>
+  <script>
+    (function(){
+      function getHeight(){
+        var body=document.body;
+        var root=document.documentElement;
+        return Math.max(
+          body ? body.scrollHeight : 0,
+          body ? body.offsetHeight : 0,
+          root ? root.clientHeight : 0,
+          root ? root.scrollHeight : 0,
+          root ? root.offsetHeight : 0
+        );
+      }
+      function postHeight(requestId){
+        try {
+          window.parent.postMessage({ type: "component-library:frame-height", height: getHeight(), requestId: requestId || null }, "*");
+        } catch (error) {}
+      }
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", postHeight);
+      } else {
+        postHeight();
+      }
+      window.addEventListener("load", postHeight);
+      window.addEventListener("resize", postHeight);
+      window.addEventListener("message", function(event){
+        if (event.data && event.data.type === "component-library:request-height") {
+          postHeight((event.data && event.data.requestId) || null);
+        }
+      });
+      if (typeof ResizeObserver !== "undefined") {
+        var observer = new ResizeObserver(postHeight);
+        if (document.body) observer.observe(document.body);
+        if (document.documentElement) observer.observe(document.documentElement);
+      }
+      setTimeout(postHeight, 0);
+      setTimeout(postHeight, 120);
+      setTimeout(postHeight, 320);
+    })();
+  </script>
+</body>
+</html>

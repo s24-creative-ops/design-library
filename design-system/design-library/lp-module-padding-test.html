@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LP Module Padding Test</title>
+  <style>
+    :root {
+      --surface: #ffffff;
+      --surface-soft: #f7f4ef;
+      --stroke: #e4dfd7;
+      --stroke-dashed: #d6d6d6;
+      --text: #333333;
+      --text-soft: #6d6d6d;
+      --module-width-desktop-lp: 1170px;
+      --module-width-mobile-lp: 414px;
+      --module-width-current: var(--module-width-desktop-lp);
+      --content-pad: 32px;
+      --frame-loading-height: 240px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--surface);
+      color: var(--text);
+      font-family: "Make It Better", Arial, Roboto, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+    }
+
+    .audit-shell {
+      min-height: 100vh;
+      background: var(--surface);
+    }
+
+    .audit-shell.is-mobile-preview {
+      --module-width-current: var(--module-width-mobile-lp);
+    }
+
+    .audit-shell:not(.is-mobile-preview) {
+      --module-width-current: var(--module-width-desktop-lp);
+    }
+
+    .audit-toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      justify-content: flex-end;
+      padding: 20px var(--content-pad);
+      background: linear-gradient(to bottom, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.85));
+      backdrop-filter: blur(6px);
+    }
+
+    .audit-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border: 1px solid #d9d9d9;
+      border-radius: 50%;
+      padding: 0;
+      background: #ffffff;
+      color: rgba(39, 39, 39, 0.72);
+      cursor: pointer;
+      appearance: none;
+    }
+
+    .audit-toggle[aria-pressed="true"] {
+      border-color: rgba(39, 39, 39, 0.18);
+      color: var(--text);
+    }
+
+    .audit-toggle svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .audit-main {
+      position: relative;
+      padding: 0 var(--content-pad) 48px;
+    }
+
+    .audit-main::before,
+    .audit-main::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background-image: repeating-linear-gradient(
+        to bottom,
+        var(--stroke-dashed) 0 8px,
+        transparent 8px 16px
+      );
+      opacity: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .audit-shell.is-mobile-preview .audit-main::before,
+    .audit-shell.is-mobile-preview .audit-main::after {
+      opacity: 1;
+    }
+
+    .audit-main::before {
+      left: calc(50% - (var(--module-width-current) / 2));
+    }
+
+    .audit-main::after {
+      left: calc(50% + (var(--module-width-current) / 2));
+    }
+
+    .audit-content {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+    }
+
+    .audit-row {
+      position: relative;
+      width: 100%;
+      margin: 0;
+    }
+
+    .audit-spacer-row {
+      position: relative;
+      width: 100%;
+      height: 80px;
+    }
+
+    .audit-spacer-row--l {
+      height: 40px;
+    }
+
+    .audit-row--bleed .audit-frame {
+      width: 100%;
+    }
+
+    .audit-row:not(.audit-row--bleed) .audit-frame {
+      width: 100%;
+    }
+
+    .audit-frame {
+      margin: 0 auto;
+      display: block;
+      background: transparent;
+    }
+
+    .audit-shell.is-mobile-preview .audit-row:not(.audit-row--bleed) .audit-frame {
+      width: min(100%, calc(var(--module-width-current) - 40px));
+    }
+
+    .audit-frame iframe {
+      display: block;
+      width: 100%;
+      height: var(--frame-loading-height);
+      min-height: var(--frame-loading-height);
+      border: 0;
+      background: transparent;
+      overflow: hidden;
+    }
+
+    @media (max-width: 740px) {
+      .audit-spacer-row {
+        height: 50px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section class="audit-shell" data-shell>
+    <div class="audit-toolbar">
+      <button class="audit-toggle" type="button" aria-pressed="false" aria-label="Mobile Preview umschalten" title="Mobile Preview umschalten" data-mobile-toggle>
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="7" y="2" width="10" height="20" rx="2" ry="2"></rect>
+          <circle cx="12" cy="18" r="1" fill="currentColor"></circle>
+        </svg>
+      </button>
+    </div>
+
+    <main class="audit-main">
+      <div class="audit-content">
+        <section class="audit-spacer-row" data-spacer-name="lp-spacer-xl" aria-hidden="true"></section>
+
+        <section class="audit-row">
+          <div class="audit-frame">
+            <iframe src="../../lp-builder/preview/modules/teaser-2col.html" title="LP teaser-2col preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/teaser-2col.html" data-src-mobile="../../lp-builder/preview/modules/teaser-2col.html" data-frame-id="lp-teaser-2col"></iframe>
+          </div>
+        </section>
+
+        <section class="audit-spacer-row" data-spacer-name="lp-spacer-xl" aria-hidden="true"></section>
+
+        <section class="audit-row">
+          <div class="audit-frame">
+            <iframe src="../../lp-builder/preview/modules/teaser-3col.html" title="LP teaser-3col preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/teaser-3col.html" data-src-mobile="../../lp-builder/preview/modules/teaser-3col.html" data-frame-id="lp-teaser-3col"></iframe>
+          </div>
+        </section>
+
+        <section class="audit-spacer-row" data-spacer-name="lp-spacer-xl" aria-hidden="true"></section>
+
+        <section class="audit-row">
+          <div class="audit-frame">
+            <iframe src="../../lp-builder/preview/modules/teaser-4col.html" title="LP teaser-4col preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/teaser-4col.html" data-src-mobile="../../lp-builder/preview/modules/teaser-4col.html" data-frame-id="lp-teaser-4col"></iframe>
+          </div>
+        </section>
+
+        <section class="audit-spacer-row" data-spacer-name="lp-spacer-xl" aria-hidden="true"></section>
+
+        <section class="audit-row">
+          <div class="audit-frame">
+            <iframe src="../../lp-builder/preview/modules/teaser-split-image-right.html" title="LP teaser-split-image-right preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/teaser-split-image-right.html" data-src-mobile="../../lp-builder/preview/modules/teaser-split-image-right.html" data-frame-id="lp-teaser-split-image-right"></iframe>
+          </div>
+        </section>
+
+        <section class="audit-spacer-row audit-spacer-row--l" data-spacer-name="lp-spacer-l" aria-hidden="true"></section>
+
+        <section class="audit-row">
+          <div class="audit-frame">
+            <iframe src="../../lp-builder/preview/modules/teaser-split-image-left.html" title="LP teaser-split-image-left preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/teaser-split-image-left.html" data-src-mobile="../../lp-builder/preview/modules/teaser-split-image-left.html" data-frame-id="lp-teaser-split-image-left"></iframe>
+          </div>
+        </section>
+
+        <section class="audit-spacer-row" data-spacer-name="lp-spacer-xl" aria-hidden="true"></section>
+
+        <section class="audit-row">
+          <div class="audit-frame">
+            <iframe src="../../lp-builder/preview/modules/steps-3col.html" title="LP steps-3col preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/steps-3col.html" data-src-mobile="../../lp-builder/preview/modules/steps-3col.html" data-frame-id="lp-steps-3col"></iframe>
+          </div>
+        </section>
+
+        <section class="audit-spacer-row" data-spacer-name="lp-spacer-xl" aria-hidden="true"></section>
+
+        <section class="audit-row">
+          <div class="audit-frame">
+            <iframe src="../../lp-builder/preview/modules/steps-4col.html" title="LP steps-4col preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/steps-4col.html" data-src-mobile="../../lp-builder/preview/modules/steps-4col.html" data-frame-id="lp-steps-4col"></iframe>
+          </div>
+        </section>
+
+        <section class="audit-spacer-row" data-spacer-name="lp-spacer-xl" aria-hidden="true"></section>
+
+        <section class="audit-row">
+          <div class="audit-frame">
+            <iframe src="../../lp-builder/preview/modules/accordion.html" title="LP accordion preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/accordion.html" data-src-mobile="../../lp-builder/preview/modules/accordion.html" data-frame-id="lp-accordion"></iframe>
+          </div>
+        </section>
+
+        <section class="audit-spacer-row" data-spacer-name="lp-spacer-xl" aria-hidden="true"></section>
+
+        <section class="audit-row">
+          <div class="audit-frame">
+            <iframe src="../../lp-builder/preview/modules/counter-animated.html" title="LP counter-animated preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/counter-animated.html" data-src-mobile="../../lp-builder/preview/modules/counter-animated.html" data-frame-id="lp-counter-animated"></iframe>
+          </div>
+        </section>
+
+        <section class="audit-spacer-row" data-spacer-name="lp-spacer-xl" aria-hidden="true"></section>
+
+        <section class="audit-row">
+          <div class="audit-frame">
+            <iframe src="../../lp-builder/preview/modules/callout--base.html" title="LP callout--base preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/callout--base.html" data-src-mobile="../../lp-builder/preview/modules/callout--base.html" data-frame-id="lp-callout-base"></iframe>
+          </div>
+        </section>
+
+        <section class="audit-spacer-row" data-spacer-name="lp-spacer-xl" aria-hidden="true"></section>
+
+        <section class="audit-row">
+          <div class="audit-frame">
+            <iframe src="../../lp-builder/preview/modules/callout--illu.html" title="LP callout--illu preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/callout--illu.html" data-src-mobile="../../lp-builder/preview/modules/callout--illu.html" data-frame-id="lp-callout-illu"></iframe>
+          </div>
+        </section>
+
+        <section class="audit-spacer-row" data-spacer-name="lp-spacer-xl" aria-hidden="true"></section>
+
+        <section class="audit-row">
+          <div class="audit-frame">
+            <iframe src="../../lp-builder/preview/modules/callout--expert.html" title="LP callout--expert preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/callout--expert.html" data-src-mobile="../../lp-builder/preview/modules/callout--expert.html" data-frame-id="lp-callout-expert"></iframe>
+          </div>
+        </section>
+
+        <section class="audit-spacer-row" data-spacer-name="lp-spacer-xl" aria-hidden="true"></section>
+
+        <section class="audit-row">
+          <div class="audit-frame">
+            <iframe src="../../lp-builder/preview/modules/benefits-3col.html" title="LP benefits-3col preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/benefits-3col.html" data-src-mobile="../../lp-builder/preview/modules/benefits-3col.html" data-frame-id="lp-benefits-3col"></iframe>
+          </div>
+        </section>
+
+        <section class="audit-spacer-row" data-spacer-name="lp-spacer-xl" aria-hidden="true"></section>
+
+        <section class="audit-row">
+          <div class="audit-frame">
+            <iframe src="../../lp-builder/preview/modules/benefits-2col.html" title="LP benefits-2col preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/benefits-2col.html" data-src-mobile="../../lp-builder/preview/modules/benefits-2col.html" data-frame-id="lp-benefits-2col"></iframe>
+          </div>
+        </section>
+
+        <section class="audit-spacer-row" data-spacer-name="lp-spacer-xl" aria-hidden="true"></section>
+
+        <section class="audit-row">
+          <div class="audit-frame">
+            <iframe src="../../lp-builder/preview/modules/ekomi-reviews.html" title="LP ekomi-reviews preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/ekomi-reviews.html" data-src-mobile="../../lp-builder/preview/modules/ekomi-reviews.html" data-frame-id="lp-ekomi-reviews"></iframe>
+          </div>
+        </section>
+
+        <section class="audit-spacer-row" data-spacer-name="lp-spacer-xl" aria-hidden="true"></section>
+
+        <section class="audit-row">
+          <div class="audit-frame">
+            <iframe src="../../lp-builder/preview/modules/servicetiles.html" title="LP servicetiles preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/servicetiles.html" data-src-mobile="../../lp-builder/preview/modules/servicetiles.html" data-frame-id="lp-servicetiles"></iframe>
+          </div>
+        </section>
+
+        <section class="audit-spacer-row" data-spacer-name="lp-spacer-xl" aria-hidden="true"></section>
+
+        <section class="audit-row">
+          <div class="audit-frame">
+            <iframe src="../../lp-builder/preview/modules/checkmark-list.html" title="LP checkmark-list preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/checkmark-list.html" data-src-mobile="../../lp-builder/preview/modules/checkmark-list.html" data-frame-id="lp-checkmark-list"></iframe>
+          </div>
+        </section>
+
+        <section class="audit-spacer-row" data-spacer-name="lp-spacer-xl" aria-hidden="true"></section>
+
+        <section class="audit-row">
+          <div class="audit-frame">
+            <iframe src="../../lp-builder/preview/modules/lp-sticky-footer.html" title="LP sticky-footer preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/lp-sticky-footer.html" data-src-mobile="../../lp-builder/preview/modules/lp-sticky-footer.html" data-frame-id="lp-sticky-footer"></iframe>
+          </div>
+        </section>
+
+        <section class="audit-spacer-row" data-spacer-name="lp-spacer-xl" aria-hidden="true"></section>
+
+        <section class="audit-row">
+          <div class="audit-frame">
+            <iframe src="../../lp-builder/preview/modules/content-cards-2col.html" title="LP content-cards-2col preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/content-cards-2col.html" data-src-mobile="../../lp-builder/preview/modules/content-cards-2col.html" data-frame-id="lp-content-cards-2col"></iframe>
+          </div>
+        </section>
+
+        <section class="audit-spacer-row" data-spacer-name="lp-spacer-xl" aria-hidden="true"></section>
+
+        <section class="audit-row">
+          <div class="audit-frame">
+            <iframe src="../../lp-builder/preview/modules/content-cards-3col.html" title="LP content-cards-3col preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/content-cards-3col.html" data-src-mobile="../../lp-builder/preview/modules/content-cards-3col.html" data-frame-id="lp-content-cards-3col"></iframe>
+          </div>
+        </section>
+
+        <section class="audit-spacer-row" data-spacer-name="lp-spacer-xl" aria-hidden="true"></section>
+
+        <section class="audit-row audit-row--bleed">
+          <div class="audit-frame">
+            <iframe src="../../lp-builder/preview/modules/action-tiles_rle.html" title="LP action-tiles_rle preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/action-tiles_rle.html" data-src-mobile="../../lp-builder/preview/modules/action-tiles_rle.html" data-frame-id="lp-action-tiles-rle"></iframe>
+          </div>
+        </section>
+
+        <section class="audit-spacer-row" data-spacer-name="lp-spacer-xl" aria-hidden="true"></section>
+
+        <section class="audit-row">
+          <div class="audit-frame">
+            <iframe src="../../lp-builder/preview/modules/video--youtube.html" title="LP video--youtube preview" loading="lazy" data-src-desktop="../../lp-builder/preview/modules/video--youtube.html" data-src-mobile="../../lp-builder/preview/modules/video--youtube.html" data-frame-id="lp-video-youtube"></iframe>
+          </div>
+        </section>
+      </div>
+    </main>
+  </section>
+
+  <script>
+    (function () {
+      var FRAME_LOADING_HEIGHT = 240;
+      var shell = document.querySelector('[data-shell]');
+      var mobileToggle = document.querySelector('[data-mobile-toggle]');
+      var frames = Array.from(document.querySelectorAll('iframe[data-frame-id]'));
+      var frameRequestCounter = 0;
+
+      function requestFrameHeight(frame) {
+        var requestId = 'req-' + (++frameRequestCounter);
+        frame.dataset.requestId = requestId;
+        try {
+          frame.contentWindow.postMessage({ type: 'component-library:request-height', requestId: requestId }, '*');
+        } catch (error) {}
+      }
+
+      function scheduleFrameHeightRequests(frame) {
+        requestFrameHeight(frame);
+        window.setTimeout(function () { requestFrameHeight(frame); }, 80);
+        window.setTimeout(function () { requestFrameHeight(frame); }, 220);
+      }
+
+      function requestVisibleFrameHeights() {
+        frames.forEach(function (frame) {
+          if (frame.dataset.pendingSourceChange === 'true') return;
+          scheduleFrameHeightRequests(frame);
+        });
+      }
+
+      function applyMeasuredFrameHeight(sourceWindow, nextHeight, requestId) {
+        if (!nextHeight) return;
+        var frame = frames.find(function (item) {
+          return item.contentWindow === sourceWindow;
+        });
+        if (!frame) return;
+        if (!requestId || frame.dataset.requestId !== requestId) return;
+        frame.style.height = nextHeight + 'px';
+        frame.height = String(nextHeight);
+      }
+
+      function applyFrameSourceMode() {
+        var mode = shell.classList.contains('is-mobile-preview') ? 'mobile' : 'desktop';
+        frames.forEach(function (frame) {
+          var nextSource = mode === 'mobile' ? frame.dataset.srcMobile : frame.dataset.srcDesktop;
+          if (nextSource && frame.getAttribute('src') !== nextSource) {
+            frame.dataset.requestId = '';
+            frame.dataset.pendingSourceChange = 'true';
+            frame.style.height = FRAME_LOADING_HEIGHT + 'px';
+            frame.height = String(FRAME_LOADING_HEIGHT);
+            frame.setAttribute('src', nextSource);
+            return;
+          }
+          frame.dataset.pendingSourceChange = 'false';
+          scheduleFrameHeightRequests(frame);
+        });
+      }
+
+      mobileToggle.addEventListener('click', function () {
+        var isMobile = shell.classList.toggle('is-mobile-preview');
+        mobileToggle.setAttribute('aria-pressed', String(isMobile));
+        applyFrameSourceMode();
+        window.setTimeout(requestVisibleFrameHeights, 0);
+        window.setTimeout(requestVisibleFrameHeights, 80);
+        window.setTimeout(requestVisibleFrameHeights, 220);
+      });
+
+      window.addEventListener('message', function (event) {
+        if (!event.data || event.data.type !== 'component-library:frame-height') return;
+        applyMeasuredFrameHeight(event.source, Number(event.data.height) || 0, event.data.requestId || '');
+      });
+
+      frames.forEach(function (frame) {
+        frame.addEventListener('load', function () {
+          frame.dataset.pendingSourceChange = 'false';
+          scheduleFrameHeightRequests(frame);
+        });
+      });
+
+      applyFrameSourceMode();
+      requestVisibleFrameHeights();
+    }());
+  </script>
+</body>
+</html>

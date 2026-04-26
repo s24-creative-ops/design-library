@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>hero-cta-top-no-bottom</title>
+    <link rel="stylesheet" href="../../../../../email-builder/agent/components.css" />
+    <style>
+      html, body { margin: 0; padding: 0; background: transparent; }
+      body { min-width: 0; }
+      .library-frame-root { padding: 0; }
+    </style>
+  </head>
+  <body>
+    <div class="library-frame-root">
+<!-- MODULE: hero-cta-top-no-bottom | SNIPPET: emb_hero_cta_top_no_bottom -->
+<section class="module theme-white" data-module="hero-cta-top-no-bottom" data-snippet="emb_hero_cta_top_no_bottom">
+  <div class="module__inner">
+    <div class="module__hero-area module__hero-area--head">
+      <div class="module__head">
+        <div class="module__hero-meta">
+          <p class="module__eyebrow" data-export-field="emb_hero_cta_top_no_bottom_preheadline" data-export-role="preheadline">Digitales Immobilienprodukt</p>
+          <span class="module__badge is-hidden">Badge</span>
+        </div>
+        <h2 class="module__title" data-export-field="emb_hero_cta_top_no_bottom_headline" data-export-role="headline">Vermarkten Sie Ihre Immobilie digital, klar und zeitsparend</h2>
+      </div>
+      <div class="module__hero-spacer module__hero-spacer--25" aria-hidden="true"></div>
+    </div>
+    <div class="module__hero-flow">
+      <div class="module__hero-area module__hero-area--copy">
+        <div class="module__copy">
+          <div class="module-rich-full-body module-rich-full-body--hero" data-export-field="emb_hero_cta_top_no_bottom_body" data-export-role="richtext">
+            <p class="module__body" data-export-role="body-paragraph" data-export-index="1">Mit einem digitalen Vermarktungspaket gewinnen Sie mehr Übersicht und bringen Ihre Vermarktung einfacher in den Alltag.</p>
+          </div>
+          <div class="module__hero-spacer module__hero-spacer--button" aria-hidden="true"></div>
+          <div class="module__cta-row">
+            <a class="button-outline-strong" href="https://www.immobilienscout24.de" target="_blank" rel="noreferrer" data-token-attr-href="links.default_cta" data-export-field="emb_hero_cta_top_no_bottom_button_label" data-export-url-field="emb_hero_cta_top_no_bottom_button_url" data-export-role="cta">Lorem ipsum dolor</a>
+          </div>
+          <div class="module__hero-spacer module__hero-spacer--35" aria-hidden="true"></div>
+        </div>
+      </div>
+      <div class="module__hero-area module__hero-area--image">
+        <div class="media media--hero">
+          <div
+            class="preview-image-placeholder preview-image-placeholder--16x9 preview-image-placeholder--pad-lg"
+            data-image-field="emb_hero_cta_top_no_bottom_image_url"
+            data-image-alt-field="emb_hero_cta_top_no_bottom_image_alt"
+          >
+            <div class="preview-image-placeholder__text">
+              <p class="preview-image-placeholder__meta">16:9 | 960 x 540 px<br />(Hi-Res 1920 x 1080)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script src="../token-runtime.js" defer></script>
+
+    </div>
+  <script>
+(function(){
+  function getHeight(){
+    var body=document.body;
+    var root=document.documentElement;
+    return Math.max(
+      body ? body.scrollHeight : 0,
+      body ? body.offsetHeight : 0,
+      root ? root.clientHeight : 0,
+      root ? root.scrollHeight : 0,
+      root ? root.offsetHeight : 0
+    );
+  }
+  function postHeight(){
+    try {
+      window.parent.postMessage({ type: "component-library:frame-height", height: getHeight() }, "*");
+    } catch (error) {}
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", postHeight);
+  } else {
+    postHeight();
+  }
+  window.addEventListener("load", postHeight);
+  window.addEventListener("resize", postHeight);
+  window.addEventListener("message", function(event){
+    if (event.data && event.data.type === "component-library:request-height") {
+      postHeight();
+    }
+  });
+  if (typeof ResizeObserver !== "undefined") {
+    var observer = new ResizeObserver(postHeight);
+    if (document.body) observer.observe(document.body);
+    if (document.documentElement) observer.observe(document.documentElement);
+  }
+  setTimeout(postHeight, 0);
+  setTimeout(postHeight, 120);
+  setTimeout(postHeight, 320);
+})();
+</script>
+</body>
+</html>

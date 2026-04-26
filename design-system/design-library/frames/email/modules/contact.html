@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>contact</title>
+    <link rel="stylesheet" href="../../../../../email-builder/agent/components.css" />
+    <style>
+      html, body { margin: 0; padding: 0; background: transparent; }
+      body { min-width: 0; }
+      .library-frame-root { padding: 0; }
+    </style>
+  </head>
+  <body>
+    <div class="library-frame-root">
+<!-- MODULE: contact | SNIPPET: emb_contact -->
+<section class="module theme-white" data-module="contact" data-snippet="emb_contact">
+  <div class="module__inner">
+    <div class="contact-card">
+      <div class="contact-head">
+        <div class="contact-placeholder" aria-hidden="true"></div>
+        <div class="contact-head__copy">
+          <h2 class="module__title module__title--medium" data-export-field="emb_contact_headline" data-export-role="headline">Wir sind fuer Sie da</h2>
+          <p class="module__body" data-export-field="emb_contact_body_intro" data-export-role="intro">Sie moechten Ihre Mail oder Ihren Builder-Stand gemeinsam schaerfen? Unser Team unterstuetzt Sie gern beim naechsten Schritt.</p>
+        </div>
+      </div>
+      <div class="contact-copy">
+        <p class="contact-phone" data-export-field="emb_contact_phone" data-export-role="phone">030 12345678</p>
+        <p class="module__body" data-export-field="emb_contact_phone_hours" data-export-role="phone-hours">Montag bis Freitag, 9 bis 18 Uhr</p>
+        <p class="module__body" data-export-field="emb_contact_email_intro" data-export-role="email-intro">Oder schreiben Sie uns direkt per E-Mail:</p>
+        <p class="module__body"><a class="contact-link" href="mailto:beratung@immobilienscout24.de" data-token-attr-href="contact.email_url" data-token-text="contact.email_address" data-export-field="emb_contact_email_address" data-export-url-field="emb_contact_email_url" data-export-role="email-link">beratung@immobilienscout24.de</a></p>
+        <p class="contact-signoff"><span data-export-field="emb_contact_closing_line_1" data-export-role="closing-line" data-export-index="1">Viele Gruesse</span><br><span data-export-field="emb_contact_closing_line_2" data-export-role="closing-line" data-export-index="2">Ihr Builder-Team</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+<script src="../token-runtime.js" defer></script>
+
+    </div>
+  <script>
+(function(){
+  function getHeight(){
+    var body=document.body;
+    var root=document.documentElement;
+    return Math.max(
+      body ? body.scrollHeight : 0,
+      body ? body.offsetHeight : 0,
+      root ? root.clientHeight : 0,
+      root ? root.scrollHeight : 0,
+      root ? root.offsetHeight : 0
+    );
+  }
+  function postHeight(){
+    try {
+      window.parent.postMessage({ type: "component-library:frame-height", height: getHeight() }, "*");
+    } catch (error) {}
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", postHeight);
+  } else {
+    postHeight();
+  }
+  window.addEventListener("load", postHeight);
+  window.addEventListener("resize", postHeight);
+  window.addEventListener("message", function(event){
+    if (event.data && event.data.type === "component-library:request-height") {
+      postHeight();
+    }
+  });
+  if (typeof ResizeObserver !== "undefined") {
+    var observer = new ResizeObserver(postHeight);
+    if (document.body) observer.observe(document.body);
+    if (document.documentElement) observer.observe(document.documentElement);
+  }
+  setTimeout(postHeight, 0);
+  setTimeout(postHeight, 120);
+  setTimeout(postHeight, 320);
+})();
+</script>
+</body>
+</html>

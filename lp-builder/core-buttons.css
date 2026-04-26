@@ -1,0 +1,218 @@
+
+ :root {
+  --lp-button-filled-default-bg: #333333;
+  --lp-button-filled-default-text: #FFFFFF;
+  --lp-button-filled-default-border: #333333;
+  --lp-button-filled-default-hover-bg: #484848;
+  --lp-button-filled-default-hover-text: #FFFFFF;
+  --lp-button-filled-default-hover-border: #484848;
+
+  --lp-button-filled-brand-bg: #3DF5DC;
+  --lp-button-filled-brand-text: #333333;
+  --lp-button-filled-brand-border: #3DF5DC;
+  --lp-button-filled-brand-hover-bg: #55E6CB;
+  --lp-button-filled-brand-hover-text: #333333;
+  --lp-button-filled-brand-hover-border: #55E6CB;
+
+  --lp-button-outline-strong-bg: #FFFFFF;
+  --lp-button-outline-strong-text: #333333;
+  --lp-button-outline-strong-border: #333333;
+  --lp-button-outline-strong-hover-bg: #E8E5E3;
+  --lp-button-outline-strong-hover-text: #333333;
+  --lp-button-outline-strong-hover-border: #333333;
+
+  --lp-button-outline-weak-bg: #FFFFFF;
+  --lp-button-outline-weak-text: #333333;
+  --lp-button-outline-weak-border: #BDBBB9;
+  --lp-button-outline-weak-hover-bg: #E8E5E3;
+  --lp-button-outline-weak-hover-text: #333333;
+  --lp-button-outline-weak-hover-border: #333333;
+}
+
+/* Basis immer explizit an <a> binden (AEM-sicher) */
+a.ai-button,
+a.ai-button:link,
+a.ai-button:visited{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  height:48px;
+  padding:0 26px;
+  border-radius:var(--border-radius-rounded);
+  font-family:"Make It Better", Arial, Roboto, sans-serif;
+
+  font-size:16px;
+  line-height:16px;
+  font-weight:700;
+
+  border:1px solid transparent;
+  box-sizing:border-box;
+
+  cursor:pointer;
+  white-space:nowrap;
+
+  text-decoration:none !important;
+  user-select:none;
+  -webkit-tap-highlight-color:transparent;
+
+  transition:background-color .2s ease, border-color .2s ease, color .2s ease;
+}
+
+@media (max-width:668px){
+  a.ai-button{
+    width:100%;
+  }
+}
+
+/* Hover / Active / Focus immer explizit */
+a.ai-button:hover,
+a.ai-button:active,
+a.ai-button:focus,
+a.ai-button:focus-visible{
+  text-decoration:none !important;
+  outline:none !important;
+  box-shadow:none !important;
+}
+
+/* Disabled-State */
+a.ai-button.is-disabled,
+a.ai-button[aria-disabled="true"]{
+  opacity:.5;
+  cursor:not-allowed;
+  pointer-events:none;
+}
+
+
+/* =========================================================
+   BUTTON VARIANTS
+   ========================================================= */
+
+/* ---------- Filled: Default ---------- */
+a.ai-button.button-filled-default{
+  background-color:var(--lp-button-filled-default-bg);
+  color:var(--lp-button-filled-default-text) !important;
+  border-color:var(--lp-button-filled-default-border);
+}
+
+
+a.ai-button.button-filled-default:hover,
+a.ai-button.button-filled-default:active{
+  background-color:var(--lp-button-filled-default-hover-bg);
+  color:var(--lp-button-filled-default-hover-text) !important;
+  border-color:var(--lp-button-filled-default-hover-border);
+}
+
+
+/* ---------- Filled: Brand ---------- */
+a.ai-button.button-filled-brand{
+  background-color:var(--lp-button-filled-brand-bg);
+  color:var(--lp-button-filled-brand-text) !important;
+  border-color:var(--lp-button-filled-brand-border);
+}
+
+
+a.ai-button.button-filled-brand:hover,
+a.ai-button.button-filled-brand:active{
+  background-color:var(--lp-button-filled-brand-hover-bg);
+  color:var(--lp-button-filled-brand-hover-text) !important;
+  border-color:var(--lp-button-filled-brand-hover-border);
+}
+
+
+/* ---------- Outline: Strong ---------- */
+a.ai-button.button-outline-strong{
+  background-color:var(--lp-button-outline-strong-bg);
+  color:var(--lp-button-outline-strong-text) !important;
+  border-color:var(--lp-button-outline-strong-border);
+}
+
+
+a.ai-button.button-outline-strong:hover,
+a.ai-button.button-outline-strong:active{
+  background-color:var(--lp-button-outline-strong-hover-bg);
+  color:var(--lp-button-outline-strong-hover-text) !important;
+  border-color:var(--lp-button-outline-strong-hover-border);
+}
+
+
+/* ---------- Outline: Weak ---------- */
+a.ai-button.button-outline-weak{
+  background-color:var(--lp-button-outline-weak-bg);
+  color:var(--lp-button-outline-weak-text) !important;
+  border-color:var(--lp-button-outline-weak-border);
+}
+
+
+a.ai-button.button-outline-weak:hover,
+a.ai-button.button-outline-weak:active{
+  background-color:var(--lp-button-outline-weak-hover-bg);
+  color:var(--lp-button-outline-weak-hover-text) !important;
+  border-color:var(--lp-button-outline-weak-hover-border);
+}
+
+
+/* =========================================================
+   TEXTLINKS – GLOBAL
+   ========================================================= */
+
+a.ai-textlink,
+a.ai-textlink:link,
+a.ai-textlink:visited{
+  font-size:16px;
+  line-height:24px;   /* body-standard */
+  font-weight:700;    /* bold */
+
+  color:#333333 !important;
+  text-decoration:none;
+}
+
+
+a.ai-textlink:hover,
+a.ai-textlink:active{
+  color:#333333 !important;
+  text-decoration:underline;
+}
+
+
+a.ai-textlink:focus,
+a.ai-textlink:focus-visible{
+  outline:none;
+  color:#333333 !important;
+  text-decoration:underline;
+}
+
+
+/* =========================================================
+   CHEVRON TEXTLINK – TEASER PATTERN
+   ========================================================= */
+
+a.teaser-grid__textlink,
+a.teaser-grid__textlink:link,
+a.teaser-grid__textlink:visited,
+a.teaser-grid__textlink:active,
+a.teaser-grid__textlink:focus,
+a.teaser-grid__textlink:focus-visible{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+
+  color:#333333 !important;
+
+  text-decoration:underline !important;
+  text-decoration-color:currentColor;
+  text-underline-offset:2px;
+
+  outline:none;
+  box-shadow:none;
+
+  font-size:16px;
+  line-height:24px;
+  font-weight:700;
+}
+
+
+.teaser-grid__textlink-icon{
+  display:inline-block;
+  flex:0 0 auto;
+}

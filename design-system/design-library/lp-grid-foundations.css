@@ -1,0 +1,74 @@
+/* Minimal standalone grid layer for LP Builder modules on GitHub Pages.
+   These classes mirror the legacy layout helpers that are available in AEM
+   but missing from the public LP core bundle. */
+
+.grid,
+.grid-flex {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  width: 100%;
+  min-width: 0;
+}
+
+.grid::after,
+.grid-flex::after {
+  content: none;
+}
+
+.grid-item {
+  display: block;
+  flex: 0 0 100%;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+.one-whole {
+  flex-basis: 100%;
+  width: 100%;
+  max-width: 100%;
+}
+
+.one-half {
+  flex-basis: 50%;
+  width: 50%;
+  max-width: 50%;
+}
+
+.one-third {
+  flex-basis: 33.3333%;
+  width: 33.3333%;
+  max-width: 33.3333%;
+}
+
+.one-fourth {
+  flex-basis: 25%;
+  width: 25%;
+  max-width: 25%;
+}
+
+.gutter {
+  margin-left: -10px;
+  margin-right: -10px;
+  row-gap: 20px;
+}
+
+.gutter > .grid-item {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+@media (max-width: 668px) {
+  .palm-one-whole {
+    flex-basis: 100%;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .palm-one-half {
+    flex-basis: 50%;
+    width: 50%;
+    max-width: 50%;
+  }
+}

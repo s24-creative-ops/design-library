@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LP Preview: video--youtube</title>
+  <link rel="stylesheet" href="https://www.static-immobilienscout24.de/fro/core/8.5.0/css/core.min.css" />
+  <link rel="stylesheet" href="../../core-foundations.css" />
+  <link rel="stylesheet" href="../../core-buttons.css" />
+  <link rel="stylesheet" href="../../core-components.css" />
+  <link rel="stylesheet" href="../frame-base.css" />
+</head>
+<body data-module-id="video--youtube" data-module-category="video">
+  <!-- MODULE: video--youtube | CATEGORY: video | SOURCE: VIDEO MODULE - YOUTUBE -->
+  <main class="frame-root">
+<section class="video-module  video--youtube">
+  <div class="video-module__inner">
+
+    <h2 class="video-module__title margin-bottom-xl">
+      Your video title goes here
+    </h2>
+
+    <div class="lp-media lp-media--16x9 lp-radius-24 video-module__media" aria-label="Video poster">
+      <div class="lp-media__inner">
+
+        <img src="https://img.youtube.com/vi/SxkN--CkcwU/maxresdefault.jpg"
+              alt="Video poster"
+              class="lp-img-fluid video-module__poster"
+              loading="lazy" />
+
+        <button type="button"
+                class="video-module__play lp-color-teal"
+                aria-label="Play video"
+                data-video-id="SxkN--CkcwU">
+
+          <svg width="70" height="70" viewBox="0 0 70 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M14.5833 61.25V8.75L61.25 35L14.5833 61.25ZM20.4166 18.515V51.4879L49.5833 35.0029L20.4166 18.515Z" fill="#333333"/>
+          </svg>
+
+        </button>
+
+        <iframe
+          class="video-module__player"
+          frameborder="0"
+          allow="autoplay; encrypted-media"
+          allowfullscreen
+          hidden>
+        </iframe>
+
+      </div>
+    </div>
+
+    <p class="video-module__notice">
+      Mit Klick auf das Video wird eine Verbindung zu YouTube hergestellt.
+    </p>
+
+  </div>
+</section>
+  </main>
+  <script src="../../core-interactions.js" defer></script>
+  <script src="../frame-bridge.js" defer></script>
+</body>
+</html>
