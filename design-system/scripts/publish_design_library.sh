@@ -16,12 +16,29 @@ fi
 
 git -C "$TARGET_DIR" status --short
 
+WORKTREE_CLEAN=0
+AHEAD_COUNT=0
+
 if git -C "$TARGET_DIR" diff --quiet && git -C "$TARGET_DIR" diff --cached --quiet && [ -z "$(git -C "$TARGET_DIR" ls-files --others --exclude-standard)" ]; then
+  WORKTREE_CLEAN=1
+fi
+
+if git -C "$TARGET_DIR" rev-parse --abbrev-ref '@{upstream}' >/dev/null 2>&1; then
+  AHEAD_COUNT="$(git -C "$TARGET_DIR" rev-list --count '@{upstream}..HEAD')"
+fi
+
+if [ "$WORKTREE_CLEAN" -eq 1 ] && [ "$AHEAD_COUNT" -eq 0 ]; then
   echo ""
   echo "Keine Aenderungen zum Committen."
   exit 0
 fi
 
-git -C "$TARGET_DIR" add .
-git -C "$TARGET_DIR" commit -m "$COMMIT_MESSAGE"
+if [ "$WORKTREE_CLEAN" -eq 0 ]; then
+  git -C "$TARGET_DIR" add .
+  git -C "$TARGET_DIR" commit -m "$COMMIT_MESSAGE"
+else
+  echo ""
+  echo "Arbeitskopie ist sauber, aber es gibt noch lokale Commits zum Pushen."
+fi
+
 git -C "$TARGET_DIR" push origin main
