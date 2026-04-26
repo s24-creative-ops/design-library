@@ -1,0 +1,372 @@
+{
+  "brand": "ImmoScout24",
+  "status": "active_source_of_truth",
+  "notes": [
+    "Diese Datei ist die zentrale Quelle fuer die verbindlichen Design-Tokens von ImmoScout24.",
+    "Builder- und Library-Dateien sollen ihre Token-Wahrheit aus dieser Datei ableiten.",
+    "Abweichungen in LP Builder oder Email Builder gelten als Migrations- oder Integrationskonflikte und nicht als zweite Token-Quelle."
+  ],
+  "logo": {
+    "default": {
+      "src": "https://www.static-immobilienscout24.de/fro/ite/_/IS24-Logo_horizontal_left_white.png",
+      "alt": "Logo ImmoScout24",
+      "width": 185,
+      "height": 47,
+      "link": "https://www.immobilienscout24.de/",
+      "title": "ImmoScout24"
+    }
+  },
+  "links": {
+    "website": "https://www.immobilienscout24.de/",
+    "default_cta": "https://www.immobilienscout24.de/",
+    "mein_suchprofil": "https://www.immobilienscout24.de/meinsuchprofil/meinsuchprofilanlage/",
+    "website_label": "immobilienscout24.de",
+    "privacy": "https://www.immobilienscout24.de/agb/datenschutz.html",
+    "imprint": "https://www.immobilienscout24.de/impressum.html",
+    "app_store": "https://itunes.apple.com/de/app/immobilienscout24/id342157367?mt=8",
+    "google_play": "https://play.google.com/store/apps/details?id=de.is24.android&hl=de"
+  },
+  "contact": {
+    "email_address": "beratung@immobilienscout24.de",
+    "email_url": "mailto:beratung@immobilienscout24.de"
+  },
+  "assets": {
+    "checkmark_circle_48": "https://www.static-immobilienscout24.de/fro/emb/_/s24_checkmark_circle_48.png",
+    "thumb_up_48": "https://library.eu.iterable.com/33/98/d8ed736f1b5f427a92b67270fdd44469-s24_thump_up_48.png",
+    "app_store_badge": "https://d15k2d11r6t6rl.cloudfront.net/pub/bfra/tgru1zsx/i36/uhu/m14/d1284a48-db27-4f3b-a434-ab9a625d0dd4.png",
+    "google_play_badge": "https://d15k2d11r6t6rl.cloudfront.net/pub/bfra/tgru1zsx/nrd/s3d/49k/b78e3fcd-6303-429c-a29d-691d73c0d01d.png"
+  },
+  "colors": {
+    "palette": {
+      "shared": {
+        "charcoal": "#333333",
+        "white": "#FFFFFF",
+        "sand": "#FBF8F6",
+        "grey1": "#F5F5F5",
+        "grey2": "#EAEAEA",
+        "grey3": "#E0E0E0",
+        "grey4": "#C4C4C4",
+        "grey5": "#ADADAD",
+        "grey6": "#676767"
+      },
+      "lp": {
+        "teal": "#3DF5DC",
+        "orange": "#FF9626",
+        "yellow": "#EFF933",
+        "blue": "#24E3FF",
+        "purple": "#D5AAFF"
+      },
+      "email": {
+        "teal": "#74FFDF",
+        "yellow": "#F5F200",
+        "blue": "#00DFFF",
+        "red": "#FF9015"
+      }
+    },
+    "semantic": {
+      "shared": {
+        "link": "#2267E8"
+      },
+    "lp": {
+      "hoverTeal": "#55E6CB",
+      "hoverCharcoal": "#484848",
+      "hoverSand": "#FBF8F6",
+      "hoverSoft": "#E8E5E3",
+      "borderSoft": "#E0E0E0",
+      "borderWeak": "#BDBBB9",
+      "textMuted": "#6A6A69",
+      "mediaPlaceholder": "#EAEAEA"
+    },
+    "email": {
+      "textPrimary": "#333333",
+      "textSecondary": "#676767",
+      "textMuted": "#ADADAD",
+      "textPlaceholder": "#676767",
+      "surfaceGray": "#F5F5F5",
+      "borderSoft": "#EAEAEA",
+      "borderStrong": "#C4C4C4",
+      "borderSubtle": "#E0E0E0",
+      "tableDivider": "#E0E0E0"
+    }
+  }
+  },
+  "radius": {
+    "none": "0",
+    "2": "2px",
+    "4": "4px",
+    "8": "8px",
+    "12": "12px",
+    "16": "16px",
+    "24": "24px",
+    "40": "40px",
+    "pill": "999px"
+  },
+  "ratios": {
+    "16:9": "16:9",
+    "4:3": "4:3"
+  },
+  "imageFormats": {
+    "email": {
+      "heroSplit": "1040 x 600 px",
+      "heroBleed": "1200 x 600 px"
+    },
+    "lp": {
+      "heroSplit": "1200 x 675 px",
+      "heroSplitHiRes": "2400 x 1350 px",
+      "heroBleed": "1920 x 600 px",
+      "heroBleedHiRes": "3840 x 1200 px"
+    }
+  },
+  "spacing": {
+    "100": "4px",
+    "200": "8px",
+    "300": "12px",
+    "400": "16px",
+    "600": "24px",
+    "800": "32px",
+    "1000": "40px",
+    "1500": "60px"
+  },
+  "layoutExceptions": {
+    "lpSpacers": {
+      "xl": {
+        "desktop": "80px",
+        "mobile": "50px"
+      },
+      "l": {
+        "desktop": "40px",
+        "mobile": "40px"
+      },
+      "notes": [
+        "LP Builder setzt vertikale Abstaende zwischen Modulen ueber dedizierte Spacer-Module und nicht ueber die globalen COSMA-Spacing-Tokens.",
+        "lp-spacer-xl wird regulaer zwischen Content-Modulen verwendet.",
+        "lp-spacer-l wird als Sonderfall zwischen direkt aufeinanderfolgenden teaser-split-Modulen verwendet."
+      ]
+    },
+    "emailRendering": {
+      "multiColumnTeasers": {
+        "internalSpacer": "8px",
+        "notes": [
+          "Mehrspaltige Email-Teaser behalten interne Spacer-Werte fuer saubere visuelle Buendigkeit und stabile Mobile-Umbrueche.",
+          "Diese Werte werden bewusst nicht aus den globalen Spacing-Tokens abgeleitet."
+        ]
+      },
+      "buttons": {
+        "innerPadding": "15px 26px",
+        "notes": [
+          "Der innere CTA-Button-Aufbau in Email-Snippets bleibt rendertechnisch auf 15px 26px, obwohl die sichtbare Button-Geometrie dem Button-Token entspricht."
+        ]
+      },
+      "stepsHorizontal": {
+        "columnGap": "19px",
+        "notes": [
+          "steps-horizontal verwendet feste Zwischenbreiten fuer die Email-Tabellenstruktur und den mobilen Umbruch."
+        ]
+      }
+    },
+    "lpImplementation": {
+      "carouselPagination": {
+        "lineHeight": "1",
+        "notes": [
+          "Die Carousel-Pagination nutzt line-height:1 als technische Kreis-/Dot-Logik und nicht als sichtbare Typografie."
+        ]
+      },
+      "formRecaptchaError": {
+        "fontSize": "14px",
+        "notes": [
+          "Die ReCaptcha-Fehlermeldung im LP-Formular bleibt vorerst eine Implementierungs-Ausnahme und ist aktuell nicht an die globale Typografie-Tokens gebunden."
+        ]
+      }
+    }
+  },
+  "borders": {
+    "none": "0",
+    "thin": "1px"
+  },
+  "typography": {
+    "fontFamily": {
+      "base": "\"Make It Better\", Arial, Roboto, sans-serif"
+    },
+    "fontWeight": {
+      "regular": 400,
+      "bold": 700
+    },
+    "heading": {
+      "xl": {
+        "desktop": {
+          "fontSize": "48px",
+          "lineHeight": "58px"
+        },
+        "mobile": {
+          "fontSize": "32px",
+          "lineHeight": "40px"
+        }
+      },
+      "l": {
+        "desktop": {
+          "fontSize": "34px",
+          "lineHeight": "44px"
+        },
+        "mobile": {
+          "fontSize": "28px",
+          "lineHeight": "36px"
+        }
+      },
+      "m": {
+        "desktop": {
+          "fontSize": "26px",
+          "lineHeight": "36px"
+        },
+        "mobile": {
+          "fontSize": "24px",
+          "lineHeight": "34px"
+        }
+      },
+      "s": {
+        "desktop": {
+          "fontSize": "20px",
+          "lineHeight": "30px"
+        },
+        "mobile": {
+          "fontSize": "20px",
+          "lineHeight": "30px"
+        }
+      },
+      "xs": {
+        "desktop": {
+          "fontSize": "18px",
+          "lineHeight": "28px"
+        },
+        "mobile": {
+          "fontSize": "18px",
+          "lineHeight": "28px"
+        }
+      }
+    },
+    "body": {
+      "standard": {
+        "desktop": {
+          "fontSize": "16px",
+          "lineHeight": "24px"
+        },
+        "mobile": {
+          "fontSize": "16px",
+          "lineHeight": "24px"
+        }
+      },
+      "hint": {
+        "desktop": {
+          "fontSize": "12px",
+          "lineHeight": "18px"
+        },
+        "mobile": {
+          "fontSize": "12px",
+          "lineHeight": "18px"
+        }
+      }
+    }
+  },
+  "buttons": {
+    "canonical_types": [
+      "button-filled-brand",
+      "button-filled-default",
+      "button-outline-strong",
+      "button-outline-weak"
+    ],
+    "base": {
+      "height": "48px",
+      "paddingInline": "26px",
+      "fontSize": "16px",
+      "lineHeight": "16px",
+      "fontWeight": 700,
+      "borderWidth": "1px",
+      "radius": "999px"
+    },
+    "variants": {
+      "button-filled-brand": {
+        "lp": {
+          "default": {
+            "background": "colors.palette.lp.teal",
+            "text": "colors.palette.shared.charcoal",
+            "border": "colors.palette.lp.teal"
+          },
+          "hover": {
+            "background": "colors.semantic.lp.hoverTeal",
+            "text": "colors.palette.shared.charcoal",
+            "border": "colors.semantic.lp.hoverTeal"
+          }
+        },
+        "email": {
+          "default": {
+            "background": "colors.palette.email.teal",
+            "text": "colors.palette.shared.charcoal",
+            "border": "colors.palette.email.teal"
+          }
+        }
+      },
+      "button-filled-default": {
+        "lp": {
+          "default": {
+            "background": "colors.palette.shared.charcoal",
+            "text": "colors.palette.shared.white",
+            "border": "colors.palette.shared.charcoal"
+          },
+          "hover": {
+            "background": "colors.semantic.lp.hoverCharcoal",
+            "text": "colors.palette.shared.white",
+            "border": "colors.semantic.lp.hoverCharcoal"
+          }
+        },
+        "email": {
+          "default": {
+            "background": "colors.palette.shared.charcoal",
+            "text": "colors.palette.shared.white",
+            "border": "colors.palette.shared.charcoal"
+          }
+        }
+      },
+      "button-outline-strong": {
+        "lp": {
+          "default": {
+            "background": "colors.palette.shared.white",
+            "text": "colors.palette.shared.charcoal",
+            "border": "colors.palette.shared.charcoal"
+          },
+          "hover": {
+            "background": "colors.semantic.lp.hoverSoft",
+            "text": "colors.palette.shared.charcoal",
+            "border": "colors.palette.shared.charcoal"
+          }
+        },
+        "email": {
+          "default": {
+            "background": "colors.palette.shared.white",
+            "text": "colors.palette.shared.charcoal",
+            "border": "colors.palette.shared.charcoal"
+          }
+        }
+      },
+      "button-outline-weak": {
+        "lp": {
+          "default": {
+            "background": "colors.palette.shared.white",
+            "text": "colors.palette.shared.charcoal",
+            "border": "colors.semantic.lp.borderWeak"
+          },
+          "hover": {
+            "background": "colors.semantic.lp.hoverSoft",
+            "text": "colors.palette.shared.charcoal",
+            "border": "colors.palette.shared.charcoal"
+          }
+        },
+        "email": {
+          "default": {
+            "background": "colors.palette.shared.white",
+            "text": "colors.palette.shared.charcoal",
+            "border": "colors.semantic.lp.borderWeak"
+          }
+        }
+      }
+    }
+  }
+}
