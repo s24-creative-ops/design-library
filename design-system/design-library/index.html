@@ -788,7 +788,7 @@
 
     .token-card--color .token-card__copy-row {
       align-items: flex-start;
-      gap: 10px;
+      gap: 6px;
     }
 
     .token-card--color .token-card__code {
@@ -2371,9 +2371,9 @@
           var emailColors = Object.entries(TOKENS.colors.palette.email);
           colorsHost.innerHTML =
             '<div class="token-color-columns">' +
-              renderColorGroup('Shared Colors', sharedColors) +
               renderColorGroup('LP Colors', lpColors) +
               renderColorGroup('E-Mail Colors', emailColors) +
+              renderColorGroup('Grautöne', sharedColors) +
             '</div>';
           bindCopyButtons(colorsHost);
         }
