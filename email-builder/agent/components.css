@@ -712,7 +712,15 @@ a {
 
 .module-rich-full-body--hero {
   display: grid;
-  gap: var(--space-16);
+  gap: 0;
+}
+
+.module-rich-full-body--hero > * + * {
+  margin-top: var(--space-16);
+}
+
+.module-rich-full-body--hero > [data-export-role="salutation"] + * {
+  margin-top: var(--space-8);
 }
 
 .module-rich-full-body--hero p,
