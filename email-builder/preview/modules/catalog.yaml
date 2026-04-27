@@ -43,10 +43,6 @@ active_modules:
     snippet: emb_teaser_2col_alternating
     preview: preview/modules/teaser-2col-alternating.html
     email: email/modules/emb_teaser_2col_alternating.html
-  - id: teaser-2col-text-image
-    snippet: emb_teaser_2col_text_image
-    preview: preview/modules/teaser-2col-text-image.html
-    email: email/modules/emb_teaser_2col_text_image.html
   - id: teaser-2col-listing
     snippet: emb_teaser_2col_listing
     preview: preview/modules/teaser-2col-listing.html
