@@ -119,6 +119,7 @@ Wenn kein Thema genannt ist:
 | `teaser-2col-horizontal` | `emb_teaser_2col_horizontal` |
 | `teaser-2col-vertical` | `emb_teaser_2col_vertical` |
 | `teaser-2col-alternating` | `emb_teaser_2col_alternating` |
+| `teaser-2col-text-image` | `emb_teaser_2col_text_image` |
 | `teaser-2col-listing` | `emb_teaser_2col_listing` |
 | `benefits-3col` | `emb_benefits_3col` |
 | `steps-3col` | `emb_steps_3col` |
@@ -207,6 +208,7 @@ Bewusst nicht angebunden:
 - `teaser-2col-horizontal` nutzt bis zu vier Items; `show_item_2..4` folgen exakt der sichtbaren Item-Anzahl.
 - `teaser-2col-vertical` nutzt genau zwei Spalten.
 - `teaser-2col-alternating` nutzt genau zwei Zeilen.
+- `teaser-2col-text-image` nutzt genau eine Split-Zeile mit Text links und Bild rechts.
 - `teaser-2col-listing` nutzt bis zu vier Items; sichtbare spaetere Zeilen duerfen nie auf `col_1_*` reduziert werden.
 - Fehlende echte Bild-URL nutzt den passenden `16:9`- oder `4:3`-Placeholder aus dem technischen Mapping.
 

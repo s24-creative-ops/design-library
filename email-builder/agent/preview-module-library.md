@@ -59,6 +59,8 @@ Regeln:
 - `teaser-2col-alternating`
   - `emb_teaser_2col_alternating_col_1_image_url`
   - `emb_teaser_2col_alternating_col_2_image_url`
+- `teaser-2col-text-image`
+  - `emb_teaser_2col_text_image_image_url`
 - `teaser-2col-listing`
   - `emb_teaser_2col_listing_col_1_image_url`
   - `emb_teaser_2col_listing_col_2_image_url`
@@ -203,6 +205,19 @@ Regeln:
   - zweite Zeile: Bild-URL, Bild-Alt, Body, Link-Label, Link-URL
 - Bildformat in der Preview: `4:3 | 800 x 600 px` pro Zeile
 - Fuellhinweis: die feste zweizeilige Alternating-Struktur beibehalten
+
+### `teaser-2col-text-image`
+
+- Snippet: `emb_teaser_2col_text_image`
+- Preview-Quelle: `preview-modules.html`, Block `data-module="teaser-2col-text-image"`
+- Sichtbare Felder:
+  - Bild-URL
+  - Bild-Alt
+  - Body
+  - Link-Label
+  - Link-URL
+- Bildformat in der Preview: `4:3 | 800 x 600 px`
+- Fuellhinweis: feste Split-Struktur mit Text links und Bild rechts beibehalten
 
 ### `teaser-2col-listing`
 
