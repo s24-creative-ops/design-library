@@ -115,7 +115,6 @@ Wenn kein Thema genannt ist:
 | `hero-image-top-bleed` | `emb_hero_image_top_bleed` |
 | `hero-cta-top` | `emb_hero_cta_top` |
 | `hero-cta-top-no-bottom` | `emb_hero_cta_top_no_bottom` |
-| `eyebrow-headline-button` | `emb_eyebrow_headline_button` |
 | `teaser-1col` | `emb_teaser_1col` |
 | `teaser-2col-horizontal` | `emb_teaser_2col_horizontal` |
 | `teaser-2col-vertical` | `emb_teaser_2col_vertical` |
@@ -201,12 +200,6 @@ Bewusst nicht angebunden:
 - Hero-Strukturwuensche werden nur durch Modultausch geloest, nie durch internes Umordnen.
 - `preheadline` und Badge sind gegenseitig exklusiv.
 - Fehlende echte Bild-URL nutzt den passenden Hero-Placeholder aus dem technischen Mapping.
-
-### `eyebrow-headline-button`
-
-- Kompakter CTA-Block mit optionalem Eyebrow, Headline und genau einem Button.
-- Kein Hero-Ersatz: Pflicht-Hero, Logo und Footer-Regeln bleiben unveraendert.
-- Das Modul exportiert keine Bild-, Badge- oder Richtext-Felder.
 
 ### Teaser-Module
 
