@@ -1,196 +1,326 @@
-# AGENTS.md
+ZWECK
+Dieses Dokument definiert den vollständigen Arbeitsprozess für den E-Mail Builder (EMB).
+Es ist die einzige maßgebliche Quelle für:
 
-## Zweck
+* Modul-Erstellung
+* Modul-Integration
+* Automatisierte Verarbeitung durch Codex
 
-Diese Datei ist die einzige zentrale Prozess- und Steuerdatei fuer `email-builder/`.
+---
 
-Sie definiert:
-- die vereinfachte aktive Struktur
-- die Einordnung unter `GPT Agents/`
-- was Preview-Wahrheit ist
-- was E-Mail-Wahrheit ist
-- was die gemeinsame Token-Wahrheit ist
-- was der kompakte Agent-Arbeitslayer ist
-- wie Codex bei neuen oder geaenderten Modulen und Templates vorgeht
+## SYSTEMKONTEXT
 
-## Uebergeordnete Projektstruktur
+Der E-Mail Builder ist Teil einer übergeordneten Projektstruktur:
 
-Dieses Projekt ist Teil der Top-Level-Struktur unter `GPT Agents/`:
-
-- `GPT Agents/email-builder/`
-- `GPT Agents/lp-builder/`
-- `GPT Agents/design-system/`
+* email-builder/
+* lp-builder/
+* design-system/
 
 Dabei gilt:
-- `email-builder/` bleibt die technische E-Mail-Produktionsstruktur.
-- `lp-builder/` ist als technische Schwesterstruktur vorbereitet.
-- `design-system/` ist die gemeinsame Token- und Component-Library-Ebene.
-- `design-system/` ist sichtbare Hauptoberflaeche fuer Tokens und Vorschau.
-- `../.publish/design-library-repo/` ist der generierte Publish-Mirror fuer `s24-creative-ops/design-library`.
 
-## Aktive Struktur in `email-builder/`
+* email-builder/ enthält die vollständige Logik für E-Mail-Erstellung und Export
+* design-system/ enthält Tokens und die visuelle Design-Library
+* lp-builder/ ist ein separates System und nutzt eine eigene Logik
 
-Die aktive Struktur ist jetzt bewusst schlicht:
+Dieses Dokument gilt ausschließlich für email-builder/.
 
-- `preview/`
-- `email/`
-- `agent/`
+---
 
-### `preview/`
+## WAHRHEITSEBENEN
 
-`preview/` ist die aktive Wahrheit fuer Vorschau und Arbeitsmodell.
+Im System existieren klare Zuständigkeiten:
 
-Hier liegen:
-- `preview/modules/<modul>.html`
-- `preview/modules/catalog.yaml`
-- `preview/modules/rules.md`
-- `preview/templates/<template>.html`
-- `preview/templates/catalog.yaml`
-- `preview/templates/rules.md`
-- `preview/brand-map.json`
-
-### `email/`
-
-`email/` ist die aktive Wahrheit fuer die finale E-Mail-HTML.
-
-Hier liegen:
-- `email/modules/<snippet>.html`
-- `email/templates/<template>.html`
-
-Es gibt keinen separaten aktiven Iterable-Spiegel mehr, solange diese Dateien bereits die operative E-Mail-Fassung tragen.
-
-### `agent/`
-
-`agent/` ist der kompakte Arbeitslayer fuer Codex.
-
-Er ist keine zweite Produktionswahrheit. Er wird aus `preview/` und `email/` nachgezogen.
-
-## Gemeinsame Design-Ebene
-
-Die gemeinsame Design-Ebene liegt uebergeordnet in `../design-system/`.
+* preview/ = Vorschau-Wahrheit (visuelles Modell)
+* email/ = Produktions-Wahrheit (finale E-Mail HTML)
+* design-system/tokens/ = Design-Wahrheit (Farben, Typografie etc.)
+* agent/ = abgeleiteter Arbeitslayer (keine eigene Wahrheit)
 
 Wichtig:
-- `../design-system/tokens/` ist die fuehrende Token-Ebene fuer Builder.
-- `../design-system/design-library/` ist die sichtbare Hauptoberflaeche fuer Vorschau und Team-QA.
-- `../.publish/design-library-repo/` ist der lokale Mirror fuer den spaeteren GitHub-Publish der echten Library.
-- Die technische E-Mail-Wahrheit liegt weiterhin in `preview/` und `email/`.
 
-## Prioritaet der Wahrheit
+* Export basiert ausschließlich auf email/ und export-map.json
+* Preview dient nur der visuellen Darstellung
 
-Es gilt immer:
-1. `preview/` ist die Vorschau-Wahrheit.
-2. `email/` ist die finale E-Mail-Wahrheit.
-3. `../design-system/tokens/` ist die gemeinsame Token-Wahrheit.
-4. `../design-system/design-library/` ist die sichtbare Preview-Wahrheit fuer Menschen.
-5. `agent/` ist der abgeleitete Arbeitslayer.
+---
 
-## Arbeitsregel fuer Codex
+## ROLLE DES AGENT-LAYERS
 
-Bei neuen oder geaenderten Modulen und Templates arbeitet Codex immer in dieser Reihenfolge:
-1. Erst `preview/` aktualisieren.
-2. Dann `email/` aktualisieren.
-3. Danach pruefen, ob `../design-system/tokens/` betroffen ist.
-4. Danach die sichtbare Library-Datei in `../design-system/design-library/` nachziehen.
-5. Danach den Publish-Mirror synchronisieren:
-   `python3 ../design-system/scripts/sync_design_library_publish.py`
-6. Danach pruefen, welche kompakten Agent-Dateien in `agent/` nachgezogen werden muessen.
-7. Offene Luecken klar markieren statt sie zu kaschieren.
+Der Ordner agent/ ist keine eigenständige Produktionsquelle.
 
-## Pflichtpfad bei Modul-Arbeit
+Er ist ein verdichteter Arbeitslayer für Codex und wird aus:
 
-Wenn ein Modul neu entsteht oder geaendert wird:
-1. `preview/modules/<modul>.html` aktualisieren.
-2. `email/modules/<snippet>.html` aktualisieren.
-3. Falls noetig `preview/modules/catalog.yaml` aktualisieren.
-4. Falls noetig `preview/brand-map.json` nachziehen.
-5. Falls noetig `preview/modules/rules.md` nachziehen.
-6. Falls noetig `../design-system/tokens/brands/immoscout24.json` mitziehen.
-7. Danach die sichtbare Library unter `../design-system/design-library/index.html` aktualisieren.
-8. Danach den Publish-Mirror synchronisieren:
-   `python3 ../design-system/scripts/sync_design_library_publish.py`
-9. Danach den Agent-Layer aktualisieren:
-   `agent/preview-modules.html`, `agent/builder-library.md`, `agent/preview-module-library.md`, `agent/components.css`
+* preview/
+* email/
 
-## Pflichtpfad bei Template-Arbeit
+abgeleitet.
 
-Wenn ein Template neu entsteht oder geaendert wird:
-1. `preview/templates/<template>.html` aktualisieren.
-2. `email/templates/<template>.html` aktualisieren.
-3. Falls noetig `preview/templates/catalog.yaml` aktualisieren.
-4. Falls noetig `preview/brand-map.json` nachziehen.
-5. Falls noetig `preview/templates/rules.md` nachziehen.
-6. Falls noetig `../design-system/tokens/brands/immoscout24.json` mitziehen.
-7. Danach pruefen, ob `../design-system/design-library/index.html` fuer sichtbare Template-Darstellung mitgezogen werden muss.
-8. Danach den Publish-Mirror synchronisieren:
-   `python3 ../design-system/scripts/sync_design_library_publish.py`
-9. Danach den Agent-Layer aktualisieren:
-   `agent/preview-template.html`, `agent/export-rules.md`, `agent/builder-library.md`, `agent/components.css`
+Änderungen im agent/ dürfen niemals die einzige Quelle sein.
+Alle Änderungen müssen immer zuerst in preview/ und/oder email/ erfolgen.
 
-## Synchronisationslogik
+---
 
-Die operative Nachziehlogik liegt ebenfalls in dieser Datei.
+KONTEXT
+Dieses Dokument definiert den vollständigen Arbeitsprozess für den E-Mail Builder (EMB).
+Es ist die einzige maßgebliche Quelle für:
 
-Grundsatz:
-- `preview/` modelliert die technische Vorschau-Basis.
-- `email/` traegt die finale E-Mail-HTML.
-- `../design-system/tokens/` traegt die gemeinsamen Design-Tokens.
-- `../design-system/design-library/` zeigt die sichtbare Vorschau fuer Menschen.
-- `agent/` verdichtet dieselbe Wahrheit in einen kompakten Arbeitslayer.
+* Modul-Erstellung
+* Modul-Integration
+* Automatisierte Verarbeitung durch Codex
 
-Bei Modul-Aenderungen immer zusammen denken:
-- `preview/modules/<modul>.html`
-- `email/modules/<snippet>.html`
-- `preview/modules/catalog.yaml`
-- `preview/brand-map.json`
-- `preview/modules/rules.md`
-- `../design-system/tokens/brands/immoscout24.json`
-- `../design-system/design-library/index.html`
-- `agent/preview-modules.html`
-- `agent/preview-module-library.md`
-- `agent/builder-library.md`
-- `agent/components.css`
+KONTEXT
+Der E-Mail Builder (EMB) ist ein System zur Erstellung von Marketing-E-Mails
+auf Basis von modularen Snippets (Iterable).
 
-Bei Template-Aenderungen immer zusammen denken:
-- `preview/templates/<template>.html`
-- `email/templates/<template>.html`
-- `preview/templates/catalog.yaml`
-- `preview/brand-map.json`
-- `preview/templates/rules.md`
-- `../design-system/tokens/brands/immoscout24.json`
-- `../design-system/design-library/index.html`
-- `agent/preview-template.html`
-- `agent/export-rules.md`
-- `agent/builder-library.md`
-- `agent/components.css`
+Der Workflow besteht aus:
 
-## Tokens
+* Preview-Generierung (HTML)
+* Modul-Auswahl
+* Export in Snippets + JSON
 
-Die gemeinsame aktive Token-Datei fuer den aktuellen E-Mail-Stand liegt unter
-`../design-system/tokens/brands/immoscout24.json`.
+Diese Datei definiert, wie neue Module in dieses System integriert werden.
 
-Wichtig:
-- Die Datei ist noch keine vollstaendige Token-Quelle.
-- Sie buendelt aktuell nur sicher sichtbare Grundwerte.
-- Vor einer spaeteren strengeren Token-Logik muss entschieden werden, welche Werte dort dauerhaft leben und welche spaeter in ein breiteres Brand-System wandern.
+---
 
-## Aktive Ausschluesse
+## GRUNDPRINZIPIEN
 
-In diesem Struktur-Schritt nicht aktiv migrieren oder inhaltlich umbauen:
-- `servicetiles-4up`
-- `template-vissmann` / `viessmann`
-- `logo-viessmann`
-- `teaser-2col-listing-compact`
+1. Es gibt drei Phasen:
+   Phase 1: Co-Creation (User + Agent)
+   Phase 2: Codex Automation (vollautomatisch)
+   Phase 3: Manuelle QA (User)
 
-## Alltag fuer den Agent
+2. Ein Modul darf niemals direkt in Builder, Export oder Snippets erstellt werden.
 
-Wenn Codex schnell arbeitsfaehig sein muss, ist der bevorzugte Einstieg:
-1. `AGENTS.md`
-2. `agent/systemprompt.md`
-3. `agent/builder-library.md`
-4. `agent/preview-module-library.md`
-5. `agent/preview-rules.md`
-6. `agent/export-rules.md`
-7. `agent/preview-template.html`
-8. `agent/preview-modules.html`
-9. `agent/components.css`
-10. die konkret betroffenen Dateien unter `preview/` und `email/`
+3. Jedes Modul MUSS zuerst in der Development Zone entstehen:
+   email-builder/development/modules/
+
+4. Export basiert ausschließlich auf:
+
+   * agent/export-map.json
+   * email/modules/
+
+   NICHT auf Preview HTML.
+
+5. Bestehende Muster, Strukturen und Klassen dürfen nicht neu erfunden werden.
+
+---
+
+## PHASE 1 — CO-CREATION (USER + AGENT)
+
+Ziel:
+Definition und visuelle Ausarbeitung eines neuen Moduls.
+
+Ort:
+
+* email-builder/development/modules/
+* Development Umgebung (Sandbox)
+
+Inhalt:
+
+* Modul-Zweck
+* Layout / Struktur
+* Inhalte / editierbare Felder
+* Regeln (z. B. Richtext, optional sichtbar, etc.)
+* Naming (module_id, Felder)
+
+Output:
+
+* funktionierendes Preview-Modul
+* alle relevanten Felder und Regeln definiert
+
+Abschluss:
+Phase 2 darf erst starten, wenn der User explizit bestätigt:
+"Modul ist freigegeben"
+
+---
+
+## PHASE 2 — CODEX AUTOMATION (PFLICHT, ATOMAR)
+
+Diese Phase wird vollständig von Codex ausgeführt.
+Kein Schritt darf ausgelassen werden.
+
+Reihenfolge ist strikt einzuhalten.
+
+WICHTIG:
+
+* Jeder Schritt MUSS aktiv ausgeführt werden (kein "ist bereits vorhanden" als Begründung zum Überspringen)
+* Codex darf NICHT nur prüfen, sondern MUSS alle relevanten Dateien aktiv erstellen oder aktualisieren
+* Wenn Inhalte bereits existieren, müssen sie validiert und ggf. überschrieben werden, um Konsistenz sicherzustellen
+
+---
+
+1. PREVIEW MODUL FINALISIEREN
+
+---
+
+* Datei prüfen/erstellen:
+  preview/modules/<module>.html
+
+* Sicherstellen:
+
+  * korrektes data-module
+  * alle data-export-field / data-image-field / data-export-url-field gesetzt
+
+---
+
+2. MODUL REGISTRIEREN
+
+---
+
+* Datei:
+  preview/modules/catalog.yaml
+
+* Ergänzen:
+
+  * id
+  * snippet
+  * preview
+  * email
+
+---
+
+3. PRODUKTIONS-SNIPPET ERSTELLEN
+
+---
+
+* Datei:
+  email/modules/emb_<module>.html
+
+* Regeln:
+
+  * gleiche Struktur wie Preview
+  * Variablenformat:
+    emb_<module>_<field>
+  * kein HTML in Variablen
+
+---
+
+4. EXPORT-MAPPING DEFINIEREN
+
+---
+
+* Datei:
+  agent/export-map.json
+
+* Ergänzen:
+
+  * module_id
+  * snippet_name
+  * alle Felder:
+
+    * type
+    * required
+    * default
+
+* Pflicht:
+  Keine fehlenden required fields
+
+---
+
+5. AGENT RUNTIME INTEGRATION
+
+---
+
+Alle agent-relevanten Dateien müssen synchron aktualisiert werden.
+
+* agent/preview-modules.html aktualisieren
+* agent/preview-module-library.md ergänzen
+* agent/builder-library.md ergänzen
+* agent/preview-styles.css prüfen und nur bei Bedarf erweitern
+
+Diese Dateien bilden gemeinsam die Runtime des Builders und müssen konsistent sein.
+
+---
+
+6. PRODUKTIONS-CSS PRÜFEN
+
+---
+
+* Dateien:
+  email/templates/template-main.html
+  email/templates/template-main-opt.html
+
+* Nur anpassen wenn Layout betroffen ist
+
+---
+
+7. DESIGN LIBRARY INTEGRATION
+
+---
+
+* Dateien:
+  design-system/design-library/index.html
+  design-system/design-library/frames/email/modules/<module>.html
+  design-system/design-library/frames/email/snippets/<module>.html
+  design-system/design-library/frames/email/test-mobile/<module>.html
+
+---
+
+8. SYNC AUSFÜHREN
+
+---
+
+* Befehl:
+  python3 design-system/scripts/sync_design_library_publish.py
+
+* Ziel:
+  .publish/design-library-repo aktualisieren
+
+---
+
+9. KONSISTENZ-CHECK
+
+---
+
+Sicherstellen:
+
+* Alle Phase-2 Dateien wurden aktiv verändert oder validiert (kein reines "keine Änderung nötig")
+
+* Modul existiert in:
+
+  * Preview
+  * Catalog
+  * Snippet
+  * Export-Map
+  * Builder
+
+* Naming konsistent:
+  module_id vs emb_<module>
+
+* alle required Felder vorhanden
+
+---
+
+PHASE 2 IST NUR ABGESCHLOSSEN,
+WENN ALLE OBIGEN SCHRITTE ERFÜLLT SIND
+--------------------------------------
+
+---
+
+## PHASE 3 — MANUELLE QA (USER)
+
+Ziel:
+Finale Validierung im echten System
+
+User Aufgaben:
+
+* Snippet in Iterable prüfen/anlegen
+* Template prüfen
+* Test-Mail im Builder erstellen
+* visuelle QA durchführen
+
+---
+
+## KRITISCHE REGELN
+
+* Keine Module ohne export-map Eintrag
+* Keine neuen Felder ohne Mapping
+* Keine inkonsistenten Namen
+* Keine Änderungen am Publish-Mirror direkt
+* Keine neuen strukturellen Patterns ohne Abstimmung
+
+---
+
+## TRIGGER
+
+Phase 2 startet ausschließlich wenn der User sagt:
+
+"Modul ist freigegeben"

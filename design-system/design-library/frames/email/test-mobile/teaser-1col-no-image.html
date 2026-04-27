@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>emb_hero_cta_top snippet preview</title>
+  <title>emb_teaser_1col_no_image snippet preview</title>
   <!--[if mso]>
   <xml>
     <w:WordDocument xmlns:w="urn:schemas-microsoft-com:office:word"><w:DontUseAdvancedTypographyReadingMail/></w:WordDocument>
@@ -30,13 +30,7 @@
     }
     .module-rich-full-body--hero {
       display: grid;
-      gap: 0;
-    }
-    .module-rich-full-body--hero > * + * {
-      margin-top: 16px;
-    }
-    .module-rich-full-body--hero > p:first-child + * {
-      margin-top: 8px;
+      gap: 16px;
     }
     .module-rich-full-body--hero p,
     .module-rich-full-body--hero ul,
@@ -47,21 +41,21 @@
     .module-rich-full-body--hero ol {
       padding-left: 24px;
     }
-    .module-rich-full-body--teaser-1col p {
+    .module-rich-full-body--teaser-1col-no-image p {
       margin: 0 0 16px;
     }
-    .module-rich-full-body--teaser-1col p:last-child {
+    .module-rich-full-body--teaser-1col-no-image p:last-child {
       margin-bottom: 0;
     }
-    .module-rich-full-body--teaser-1col ul,
-    .module-rich-full-body--teaser-1col ol {
+    .module-rich-full-body--teaser-1col-no-image ul,
+    .module-rich-full-body--teaser-1col-no-image ol {
       margin: 16px 0 0;
       padding-left: 22px;
     }
-    .module-rich-full-body--teaser-1col li {
+    .module-rich-full-body--teaser-1col-no-image li {
       margin: 0 0 4px;
     }
-    .module-rich-full-body--teaser-1col li:last-child {
+    .module-rich-full-body--teaser-1col-no-image li:last-child {
       margin-bottom: 0;
     }
     @media (max-width:620px) {
@@ -97,8 +91,8 @@
       .module-12-head-pad { padding: 24px 20px 0 !important; }
       .module-12-body-pad { padding: 12px 20px 0 !important; }
       .module-hero-variant-body-pad { padding: 12px 20px 40px !important; }
-      .module-teaser-1col-body-pad { padding: 12px 20px 40px !important; }
-      .module-teaser-1col-body-pad-spaced { padding: 24px 20px 40px !important; }
+      .module-teaser-1col-no-image-body-pad { padding: 12px 20px 40px !important; }
+      .module-teaser-1col-no-image-body-pad-spaced { padding: 24px 20px 40px !important; }
       .module-12-no-bottom-heading h1 { font-size: 28px !important; line-height: 1.3 !important; }
       .module-12-no-bottom-head-pad { padding: 24px 20px 0 !important; }
       .module-12-no-bottom-body-pad { padding: 12px 20px 0 !important; }
@@ -113,8 +107,8 @@
       .module-hero-head-pad { padding-top: 40px !important; }
       .module-hero-image-pad--bleed { padding-left: 0 !important; padding-right: 0 !important; }
       .module-hero-spacer-25 { height: 24px !important; line-height: 24px !important; font-size: 24px !important; }
-      .module-hero-spacer-35 { height: 32px !important; line-height: 32px !important; font-size: 32px !important; }
-      .module-hero-spacer-button { height: 16px !important; line-height: 16px !important; font-size: 16px !important; }
+      .module-hero-spacer-35 { height: 30px !important; line-height: 30px !important; font-size: 30px !important; }
+      .module-hero-spacer-button { height: 24px !important; line-height: 24px !important; font-size: 24px !important; }
       .module-hero-bottom-spacer { height: 24px !important; line-height: 24px !important; font-size: 24px !important; }
       .module-logo-pad { padding: 24px 20px 0 !important; }
       .module-logo-main-image { width: 165px !important; max-width: 165px !important; height: auto !important; }
@@ -195,8 +189,8 @@
 
 
 
-
-<table class="row module-block" data-module="hero-button-top" data-snippet="emb_hero_cta_top" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;background-color:#ffffff;">
+<!-- Active email snippet: emb_teaser_1col_no_image -->
+<table class="row module-block" data-module="teaser-1col-no-image" data-snippet="emb_teaser_1col_no_image" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;background-color:{{emb_teaser_1col_no_image_bg_color}};">
   <tbody><tr><td>
     <table class="row-content" align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;color:#333333;width:600px;margin:0 auto;" width="600">
       <tbody>
@@ -204,28 +198,43 @@
           <td class="column column-1" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;font-weight:400;text-align:left;vertical-align:top;">
             <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
               <tr>
-                <td class="module-12-no-bottom-head-pad" style="padding-left:40px;padding-right:40px;padding-top:60px;">
-                  
+                <td class="module-12-head-pad" style="padding-left:40px;padding-right:40px;padding-top:60px;">
+                  <!--{{#ifEq emb_teaser_1col_no_image_show_preheadline true}}-->
                   <table class="paragraph_block" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
                     <tr>
                       <td style="width:100%;padding-top:0;">
                         <div style="color:#333333;direction:ltr;font-family:'Make It Better',Arial,Roboto,sans-serif;font-size:16px;font-weight:400;letter-spacing:0;line-height:24px;text-align:left;mso-line-height-alt:24px;">
-                          <p style="margin:0;">Lorem ipsum</p>
+                          <p style="margin:0;">{{emb_teaser_1col_no_image_preheadline}}</p>
                         </div>
                       </td>
                     </tr>
                   </table>
 
                   <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td height="12" style="line-height:12px;font-size:12px;">&nbsp;</td></tr></table>
-                  
+                  <!--{{/ifEq}}-->
 
-                  
-                  <!--Lorem ipsum-->
+                  <!--{{#ifEq emb_teaser_1col_no_image_show_preheadline false}}-->
+                  <!--{{#ifEq emb_teaser_1col_no_image_show_badge true}}-->
+                  <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
+                    <tr>
+                      <td style="padding:0;">
+                        <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                          <tr>
+                            <td style="background-color:{{emb_teaser_1col_no_image_badge_bg_color}};color:{{emb_teaser_1col_no_image_badge_text_color}};font-family:'Make It Better',Arial,Roboto,sans-serif;font-size:16px;font-weight:700;line-height:24px;padding:6px 8px;">{{emb_teaser_1col_no_image_badge_label}}</td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
 
-                  <table class="module-12-no-bottom-heading heading_block" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
+                  <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td height="12" style="line-height:12px;font-size:12px;">&nbsp;</td></tr></table>
+                  <!--{{/ifEq}}-->
+                  <!--{{/ifEq}}-->
+
+                  <table class="module-12-heading heading_block" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
                     <tr>
                       <td style="text-align:center;width:100%;">
-                        <h1 class="font-heading-large-regular" style="margin:0;color:#333333;direction:ltr;font-family:'Make It Better',Arial,Roboto,sans-serif;font-size:34px;font-weight:700;letter-spacing:normal;line-height:1.3;text-align:left;mso-line-height-alt:44px;">Lorem ipsum dolor sit amet</h1>
+                        <h1 class="font-heading-medium-regular" style="margin:0;color:#333333;direction:ltr;font-family:'Make It Better',Arial,Roboto,sans-serif;font-size:26px;font-weight:700;letter-spacing:normal;line-height:1.4;text-align:left;mso-line-height-alt:36px;">{{emb_teaser_1col_no_image_headline}}</h1>
                       </td>
                     </tr>
                   </table>
@@ -239,44 +248,31 @@
           <td class="column column-1" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;font-weight:400;text-align:left;vertical-align:top;">
             <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
               <tr>
-                <td class="module-12-body-pad module-hero-variant-body-pad" style="padding-bottom:60px;padding-left:40px;padding-right:40px;padding-top:25px;">
+                <td class="module-12-body-pad module-teaser-1col-no-image-body-pad" style="padding-bottom:60px;padding-left:40px;padding-right:40px;padding-top:20px;">
                   <table class="paragraph_block" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
                     <tr>
                       <td style="width:100%;padding-top:0;">
-                        <div class="module-rich-full-body module-rich-full-body--hero" style="color:#333333;direction:ltr;font-family:'Make It Better',Arial,Roboto,sans-serif;font-size:16px;font-weight:400;letter-spacing:0;line-height:24px;text-align:left;mso-line-height-alt:24px;">
-                          <p style="margin:0;">Hallo Anrede,</p>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                        </div>
+                        <div class="module-rich-full-body module-rich-full-body--teaser-1col-no-image" style="color:#333333;direction:ltr;font-family:'Make It Better',Arial,Roboto,sans-serif;font-size:16px;font-weight:400;letter-spacing:0;line-height:24px;text-align:left;mso-line-height-alt:24px;">{{{emb_teaser_1col_no_image_body}}}</div>
                       </td>
                     </tr>
                   </table>
 
-                  <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td class="module-hero-spacer-button" height="16" style="height:16px;line-height:16px;font-size:16px;">&nbsp;</td></tr></table>
+                  <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td height="20" style="line-height:24px;font-size:24px;">&nbsp;</td></tr></table>
 
                   <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                     <tr>
                       <td>
-                        <a href="https://www.immobilienscout24.de/" target="_blank" style="text-decoration:none;">
+                        <a href="{{emb_teaser_1col_no_image_button_url}}" target="_blank" style="text-decoration:none;">
                           <!--[if mso]>
-                          <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" href="https://www.immobilienscout24.de/" style="height:48px;width:186px;v-text-anchor:middle;" arcsize="95%" fillcolor="#74ffdf" strokecolor="#74ffdf" strokeweight="1px">
+                          <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" href="{{emb_teaser_1col_no_image_button_url}}" style="height:48px;width:197px;v-text-anchor:middle;" arcsize="97%" fillcolor="{{emb_teaser_1col_no_image_button_bg_color}}" strokecolor="{{emb_teaser_1col_no_image_button_border_color}}" strokeweight="1px">
                             <w:anchorlock/>
-                            <center style="color:#333333;font-family:'Make It Better',Arial,Roboto,sans-serif;font-size:16px;font-weight:700;">Lorem ipsum</center>
+                            <center style="color:#333333;font-family:'Make It Better',Arial,Roboto,sans-serif;font-size:16px;line-height:16px;font-weight:700;">{{emb_teaser_1col_no_image_button_label}}</center>
                           </v:roundrect>
                           <![endif]-->
                           <!--[if !mso]><!-- -->
-                          <span style="background-color:#74ffdf;border:1px solid #74ffdf;border-radius:999px;color:#333333;display:inline-block;font-family:'Make It Better',Arial,Roboto,sans-serif;font-size:16px;font-weight:700;line-height:24px;text-align:center;"><span style="padding:12px 26px;display:block;">Lorem ipsum</span></span>
+                          <span style="background-color:{{emb_teaser_1col_no_image_button_bg_color}};border:1px solid {{emb_teaser_1col_no_image_button_border_color}};border-radius:999px;color:#333333;display:inline-block;font-family:'Make It Better',Arial,Roboto,sans-serif;font-size:16px;font-weight:700;line-height:16px;text-align:center;height:48px;box-sizing:border-box;"><span style="padding:15px 26px;display:block;">{{emb_teaser_1col_no_image_button_label}}</span></span>
                           <!--<![endif]-->
                         </a>
-                      </td>
-                    </tr>
-                  </table>
-
-                  <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td class="module-hero-spacer-35" height="32" style="height:32px;line-height:32px;font-size:32px;">&nbsp;</td></tr></table>
-
-                  <table class="image_block" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
-                    <tr>
-                      <td style="width:100%;padding-right:0;padding-left:0;">
-                        <img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%221200%22%20height%3D%22675%22%20viewBox%3D%220%200%201200%20675%22%3E%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20fill%3D%22%23f2f2f2%22/%3E%3C/svg%3E" style="display:block;height:auto;border:0;width:100%;max-width:100%;border-radius:16px;" width="520" alt="Lorem ipsum" title="" height="auto">
                       </td>
                     </tr>
                   </table>
@@ -290,58 +286,9 @@
     </table>
   </td></tr></tbody>
 </table>
+</td>
+</tr>
+</tbody>
 </table>
-<script>
-(function(){
-  function getHeight(){
-    var body=document.body;
-    var root=document.documentElement;
-    return Math.max(
-      body ? body.scrollHeight : 0,
-      body ? body.offsetHeight : 0,
-      root ? root.clientHeight : 0,
-      root ? root.scrollHeight : 0,
-      root ? root.offsetHeight : 0
-    );
-  }
-  function postHeight(requestId){
-    try {
-      window.parent.postMessage({ type: "component-library:frame-height", height: getHeight(), requestId: requestId || null }, "*");
-    } catch (error) {}
-  }
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", postHeight);
-  } else {
-    postHeight();
-  }
-  window.addEventListener("load", postHeight);
-  window.addEventListener("resize", postHeight);
-  window.addEventListener("message", function(event){
-    if (event.data && event.data.type === "component-library:request-height") {
-      postHeight((event.data && event.data.requestId) || null);
-    }
-  });
-  if (typeof ResizeObserver !== "undefined") {
-    var observer = new ResizeObserver(postHeight);
-    if (document.body) observer.observe(document.body);
-    if (document.documentElement) observer.observe(document.documentElement);
-  }
-  setTimeout(postHeight, 0);
-  setTimeout(postHeight, 120);
-  setTimeout(postHeight, 320);
-})();
-</script>
-<script>
-(function(){
-  document.documentElement.style.width = "400px";
-  document.documentElement.style.minWidth = "400px";
-  document.documentElement.style.maxWidth = "400px";
-  document.documentElement.style.margin = "0 auto";
-  document.body.style.width = "400px";
-  document.body.style.minWidth = "400px";
-  document.body.style.maxWidth = "400px";
-  document.body.style.margin = "0 auto";
-})();
-</script>
 </body>
 </html>

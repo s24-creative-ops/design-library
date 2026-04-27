@@ -30,7 +30,13 @@
     }
     .module-rich-full-body--hero {
       display: grid;
-      gap: 16px;
+      gap: 0;
+    }
+    .module-rich-full-body--hero > * + * {
+      margin-top: 16px;
+    }
+    .module-rich-full-body--hero > p:first-child + * {
+      margin-top: 8px;
     }
     .module-rich-full-body--hero p,
     .module-rich-full-body--hero ul,

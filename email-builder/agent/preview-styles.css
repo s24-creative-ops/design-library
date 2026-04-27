@@ -712,7 +712,15 @@ a {
 
 .module-rich-full-body--hero {
   display: grid;
-  gap: var(--space-16);
+  gap: 0;
+}
+
+.module-rich-full-body--hero > * + * {
+  margin-top: var(--space-16);
+}
+
+.module-rich-full-body--hero > [data-export-role="salutation"] + * {
+  margin-top: var(--space-8);
 }
 
 .module-rich-full-body--hero p,
@@ -1203,8 +1211,8 @@ a {
 
   .module__inner {
     width: 100%;
-    padding-left: 24px;
-    padding-right: 24px;
+    padding-left: 20px;
+    padding-right: 20px;
   }
 
   .module[data-module="hero"] .module__inner,
@@ -1226,8 +1234,8 @@ a {
   .module[data-module="hero-cta-top"] .module__hero-image-wrap--bleed,
   .module[data-module="hero-cta-top-no-bottom"] .module__hero-image-wrap--bleed,
   .media--bleed {
-    width: calc(100% + 48px);
-    margin-left: -24px;
+    width: calc(100% + 40px);
+    margin-left: -20px;
   }
 
   .module__logo-partner {

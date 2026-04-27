@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Email Builder State",
+  "type": "object",
+  "required": [
+    "modules"
+  ],
+  "properties": {
+    "campaignId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "templateId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "subject": {
+      "type": "string"
+    },
+    "preheader": {
+      "type": "string"
+    },
+    "modules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "instance_id",
+          "module_id",
+          "snippet_name",
+          "content"
+        ],
+        "properties": {
+          "instance_id": {
+            "type": "string"
+          },
+          "module_id": {
+            "type": "string"
+          },
+          "snippet_name": {
+            "type": "string"
+          },
+          "content": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "meta": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      }
+    }
+  },
+  "x-rules": [
+    "module_id muss in export-map.json existieren.",
+    "snippet_name muss zum module_id in export-map.json passen.",
+    "Jeder Key in content muss ein erlaubtes Feld fuer dieses Modul in export-map.json sein.",
+    "Required Felder werden nur aus content oder Default der export-map.json befuellt.",
+    "Felder ohne content und ohne Default werden nicht erfunden.",
+    "content ist die einzige Exportquelle fuer Iterable-Variablen.",
+    "content darf keine freien HTML-Werte enthalten.",
+    "meta enthaelt nur nicht-exportrelevante Informationen wie position oder item_count."
+  ]
+}
