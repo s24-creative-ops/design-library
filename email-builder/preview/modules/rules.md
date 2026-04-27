@@ -53,7 +53,6 @@ Aktive Kernmodule:
 - `hero-cta-top`
 - `hero-cta-top-no-bottom`
 - `teaser-1col`
-- `teaser-1col-eyebrow`
 - `teaser-2col-horizontal`
 - `teaser-2col-vertical`
 - `teaser-2col-alternating`

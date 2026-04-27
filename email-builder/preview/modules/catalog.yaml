@@ -31,10 +31,6 @@ active_modules:
     snippet: emb_teaser_1col
     preview: preview/modules/teaser-1col.html
     email: email/modules/emb_teaser_1col.html
-  - id: teaser-1col-eyebrow
-    snippet: emb_teaser_1col_eyebrow
-    preview: preview/modules/teaser-1col-eyebrow.html
-    email: email/modules/emb_teaser_1col_eyebrow.html
   - id: teaser-2col-horizontal
     snippet: emb_teaser_2col_horizontal
     preview: preview/modules/teaser-2col-horizontal.html
