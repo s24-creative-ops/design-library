@@ -52,6 +52,7 @@ Aktive Kernmodule:
 - `hero-image-top-bleed`
 - `hero-cta-top`
 - `hero-cta-top-no-bottom`
+- `eyebrow-headline-button`
 - `teaser-1col`
 - `teaser-2col-horizontal`
 - `teaser-2col-vertical`

@@ -27,6 +27,10 @@ active_modules:
     snippet: emb_hero_cta_top_no_bottom
     preview: preview/modules/hero-cta-top-no-bottom.html
     email: email/modules/emb_hero_cta_top_no_bottom.html
+  - id: eyebrow-headline-button
+    snippet: emb_eyebrow_headline_button
+    preview: preview/modules/eyebrow-headline-button.html
+    email: email/modules/emb_eyebrow_headline_button.html
   - id: teaser-1col
     snippet: emb_teaser_1col
     preview: preview/modules/teaser-1col.html

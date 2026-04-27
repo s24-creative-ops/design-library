@@ -77,6 +77,16 @@
     "emb_hero_cta_top_no_bottom_button_border_color": "#74ffdf",
     "emb_hero_cta_top_no_bottom_button_label": "Lorem ipsum"
   },
+  "emb_eyebrow_headline_button": {
+    "emb_eyebrow_headline_button_bg_color": "#ffffff",
+    "emb_eyebrow_headline_button_show_preheadline": "true",
+    "emb_eyebrow_headline_button_preheadline": "Lorem ipsum",
+    "emb_eyebrow_headline_button_headline": "Lorem ipsum dolor sit amet",
+    "emb_eyebrow_headline_button_button_url": "https://www.immobilienscout24.de/",
+    "emb_eyebrow_headline_button_button_bg_color": "#74ffdf",
+    "emb_eyebrow_headline_button_button_border_color": "#74ffdf",
+    "emb_eyebrow_headline_button_button_label": "Lorem ipsum"
+  },
   "emb_benefits_3col": {
     "emb_benefits_3col_bg_color": "#ffffff",
     "emb_benefits_3col_headline": "Lorem ipsum dolor sit amet",

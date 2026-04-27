@@ -158,6 +158,17 @@ Regeln:
 - Bildformat in der Preview: `16:9 | 960 x 540 px`
 - Fuellhinweis: feste Hero-Variante ohne unteren Modulabschluss beibehalten; die Preview-Anrede bleibt immer `Hallo Anrede,`
 
+### `eyebrow-headline-button`
+
+- Snippet: `emb_eyebrow_headline_button`
+- Preview-Quelle: `preview-modules.html`, Block `data-module="eyebrow-headline-button"`
+- Sichtbare Felder:
+  - optionales Eyebrow
+  - Headline
+  - Button-Label
+  - Button-URL
+- Fuellhinweis: kompakten CTA-Block mit Eyebrow, Headline und genau einem Button beibehalten
+
 ### `teaser-1col`
 
 - Snippet: `emb_teaser_1col`
