@@ -13,6 +13,7 @@ Diese Datei ist der kompakte Preview-Katalog fuer den Agent-Alltag.
 | `hero-cta-top` | `preview/modules/hero-cta-top.html` | `email/modules/emb_hero_cta_top.html` |
 | `hero-cta-top-no-bottom` | `preview/modules/hero-cta-top-no-bottom.html` | `email/modules/emb_hero_cta_top_no_bottom.html` |
 | `teaser-1col` | `preview/modules/teaser-1col.html` | `email/modules/emb_teaser_1col.html` |
+| `teaser-1col-eyebrow` | `preview/modules/teaser-1col-eyebrow.html` | `email/modules/emb_teaser_1col_eyebrow.html` |
 | `teaser-2col-horizontal` | `preview/modules/teaser-2col-horizontal.html` | `email/modules/emb_teaser_2col_horizontal.html` |
 | `teaser-2col-vertical` | `preview/modules/teaser-2col-vertical.html` | `email/modules/emb_teaser_2col_vertical.html` |
 | `teaser-2col-alternating` | `preview/modules/teaser-2col-alternating.html` | `email/modules/emb_teaser_2col_alternating.html` |

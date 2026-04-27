@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>teaser-1col-eyebrow</title>
+    <link rel="stylesheet" href="../../../../../email-builder/agent/preview-styles.css" />
+    <style>
+      html, body { margin: 0; padding: 0; background: transparent; }
+      body { min-width: 0; }
+      .library-frame-root { padding: 0; }
+    </style>
+  </head>
+  <body>
+    <div class="library-frame-root">
+<!-- Source: email-builder/agent/preview-modules.html -->
+<!-- MODULE: teaser-1col-eyebrow | SNIPPET: emb_teaser_1col_eyebrow -->
+<section class="module theme-gray" data-module="teaser-1col-eyebrow" data-snippet="emb_teaser_1col_eyebrow">
+  <div class="module__inner">
+    <div class="teaser-single">
+      <div class="module__head">
+        <p class="module__eyebrow" data-export-field="emb_teaser_1col_eyebrow_preheadline" data-export-role="preheadline">Ratgeber fuer Eigentuemer</p>
+        <h2 class="module__title module__title--large" data-export-field="emb_teaser_1col_eyebrow_headline" data-export-role="headline">So bringen Sie mehr Klarheit in Ihre Vermarktung</h2>
+      </div>
+      <div class="module__copy">
+        <div class="module__teaser-richtext" data-export-field="emb_teaser_1col_eyebrow_body" data-export-role="richtext">
+          <p class="module__body" data-export-role="body-paragraph" data-export-index="1">Erklaeren Sie ein Thema kompakt und fuehren Sie Leserinnen und Leser direkt ueber einen Chevron-Link zum naechsten Schritt.</p>
+        </div>
+        <a class="teaser-link" href="https://www.immobilienscout24.de" target="_blank" rel="noreferrer" data-token-attr-href="links.default_cta" data-export-field="emb_teaser_1col_eyebrow_chevron_label" data-export-url-field="emb_teaser_1col_eyebrow_chevron_url" data-export-role="item-link">Mehr erfahren</a>
+      </div>
+    </div>
+  </div>
+</section>
+<script src="../token-runtime.js" defer></script>
+
+    </div>
+  <script>
+(function(){
+  function getHeight(){
+    var body=document.body;
+    var root=document.documentElement;
+    return Math.max(
+      body ? body.scrollHeight : 0,
+      body ? body.offsetHeight : 0,
+      root ? root.clientHeight : 0,
+      root ? root.scrollHeight : 0,
+      root ? root.offsetHeight : 0
+    );
+  }
+  function postHeight(){
+    try {
+      window.parent.postMessage({ type: "component-library:frame-height", height: getHeight() }, "*");
+    } catch (error) {}
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", postHeight);
+  } else {
+    postHeight();
+  }
+  window.addEventListener("load", postHeight);
+  window.addEventListener("resize", postHeight);
+  window.addEventListener("message", function(event){
+    if (event.data && event.data.type === "component-library:request-height") {
+      postHeight();
+    }
+  });
+  if (typeof ResizeObserver !== "undefined") {
+    var observer = new ResizeObserver(postHeight);
+    if (document.body) observer.observe(document.body);
+    if (document.documentElement) observer.observe(document.documentElement);
+  }
+  setTimeout(postHeight, 0);
+  setTimeout(postHeight, 120);
+  setTimeout(postHeight, 320);
+})();
+</script>
+</body>
+</html>
