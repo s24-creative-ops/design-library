@@ -19,6 +19,10 @@ active_modules:
     snippet: emb_hero_image_top_bleed
     preview: preview/modules/hero-image-top-bleed.html
     email: email/modules/emb_hero_image_top_bleed.html
+  - id: hero-image-head-copy-bleed-center
+    snippet: emb_hero_image_head_copy_bleed_center
+    preview: preview/modules/hero-image-head-copy-bleed-center.html
+    email: email/modules/emb_hero_image_head_copy_bleed_center.html
   - id: hero-cta-top
     snippet: emb_hero_cta_top
     preview: preview/modules/hero-cta-top.html
@@ -47,6 +51,10 @@ active_modules:
     snippet: emb_teaser_2col_listing
     preview: preview/modules/teaser-2col-listing.html
     email: email/modules/emb_teaser_2col_listing.html
+  - id: teaser-2col-gallery
+    snippet: emb_teaser_2col_gallery
+    preview: preview/modules/teaser-2col-gallery.html
+    email: email/modules/emb_teaser_2col_gallery.html
   - id: benefits-3col
     snippet: emb_benefits_3col
     preview: preview/modules/benefits-3col.html
@@ -77,8 +85,6 @@ active_modules:
     email: email/modules/emb_footer_marketing.html
     role: required_shell
 excluded_modules:
-  - id: logo-viessmann
-    reason: legacy_special_case
   - id: servicetiles-4up
     reason: intentionally_outside_active_core
   - id: teaser-2col-listing-compact

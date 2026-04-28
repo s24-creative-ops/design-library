@@ -50,6 +50,7 @@ Aktive Kernmodule:
 - `logo-centered`
 - `hero-image-top`
 - `hero-image-top-bleed`
+- `hero-image-head-copy-bleed-center`
 - `hero-cta-top`
 - `hero-cta-top-no-bottom`
 - `teaser-1col`
@@ -57,6 +58,7 @@ Aktive Kernmodule:
 - `teaser-2col-vertical`
 - `teaser-2col-alternating`
 - `teaser-2col-listing`
+- `teaser-2col-gallery`
 - `benefits-3col`
 - `steps-3col`
 - `steps-horizontal`
@@ -66,6 +68,5 @@ Aktive Kernmodule:
 - `footer`
 
 Bewusst ausserhalb des aktiven Kernpfads:
-- `logo-viessmann`
 - `servicetiles-4up`
 - `teaser-2col-listing-compact`

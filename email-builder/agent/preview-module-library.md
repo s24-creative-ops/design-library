@@ -39,6 +39,8 @@ Regeln:
   - `emb_hero_image_top_image_url`
 - `hero-image-top-bleed`
   - `emb_hero_image_top_bleed_image_url`
+- `hero-image-head-copy-bleed-center`
+  - `emb_hero_image_head_copy_bleed_center_image_url`
 - `hero-cta-top`
   - `emb_hero_cta_top_image_url`
 - `hero-cta-top-no-bottom`
@@ -53,6 +55,11 @@ Regeln:
   - `emb_teaser_2col_horizontal_col_2_image_url`
   - `emb_teaser_2col_horizontal_col_3_image_url`
   - `emb_teaser_2col_horizontal_col_4_image_url`
+- `teaser-2col-gallery`
+  - `emb_teaser_2col_gallery_col_1_image_url`
+  - `emb_teaser_2col_gallery_col_2_image_url`
+  - `emb_teaser_2col_gallery_col_3_image_url`
+  - `emb_teaser_2col_gallery_col_4_image_url`
 
 ### 4:3-Slots
 
@@ -85,15 +92,6 @@ Regeln:
 - Fuellhinweis: verwenden, wenn das Standard-Logo zentriert statt linksbuendig erscheinen soll
 - Technische Regel: statisches Export-Snippet ohne Parameter.
 
-### `logo-viessmann`
-
-- Snippet: `emb_logo_viessmann`
-- Preview-Quelle: `preview-modules.html`, Block `data-module="logo-viessmann"`
-- Sichtbare Felder:
-  - Logo
-- Fuellhinweis: nur fuer das Template `Viessmann` verwenden
-- Technische Regel: derzeit nicht exportfaehig, solange kein lokales `emb_logo_viessmann.html` vorhanden ist und das Modul deshalb nicht in `export-map.json` registriert ist.
-
 ### `hero-image-top`
 
 - Snippet: `emb_hero_image_top`
@@ -125,6 +123,20 @@ Regeln:
   - Bild-Alt
 - Bildformat in der Preview: `16:9 | 960 x 540 px`
 - Fuellhinweis: feste Hero-Variante mit Bleed-Bild oberhalb von Body und CTA beibehalten; die Preview-Anrede bleibt immer `Hallo Anrede,`
+
+### `hero-image-head-copy-bleed-center`
+
+- Snippet: `emb_hero_image_head_copy_bleed_center`
+- Preview-Quelle: `preview-modules.html`, Block `data-module="hero-image-head-copy-bleed-center"`
+- Sichtbare Felder:
+  - Bild-URL
+  - Bild-Alt
+  - Headline
+  - Body
+  - Button-Label
+  - Button-URL
+- Bildformat in der Preview: `16:9 | 1200 x 600 px`
+- Fuellhinweis: feste Hero-Variante mit Bleed-Bild oben, zentrierter Headline, zentriertem Body und gefuelltem Brand-CTA beibehalten
 
 ### `hero-cta-top`
 
@@ -214,6 +226,18 @@ Regeln:
   - optionaler Abschluss-CTA mit Button-Label und Button-URL
 - Bildformat in der Preview: `4:3 | 800 x 600 px` pro Item
 - Fuellhinweis: die hinterlegte Listing-Struktur beibehalten; den Abschluss-CTA nur bei Bedarf einblenden und sonst verborgen lassen
+
+### `teaser-2col-gallery`
+
+- Snippet: `emb_teaser_2col_gallery`
+- Preview-Quelle: `preview-modules.html`, Block `data-module="teaser-2col-gallery"`
+- Sichtbare Felder:
+  - Headline
+  - zwei bis vier Bild-URLs
+  - zwei bis vier Bild-Alt-Texte
+  - optionales Mobile-Flag fuer die untere Bildreihe
+- Bildformat in der Preview: `16:9 | 960 x 540 px` pro Bild
+- Fuellhinweis: obere Reihe immer mit zwei Bildern befuellen; die untere Reihe nur ueber `show_item_3` und `show_item_4` erweitern
 
 ### `benefits-3col`
 

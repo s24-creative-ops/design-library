@@ -3,24 +3,48 @@
 Diese Datei enthaelt die fachliche Builder-Logik fuer Startkomposition, Pflichtmodule, Templates und Moduluebersicht.
 Die technische Export-Wahrheit liegt in `export-map.json`.
 
+## Composition-Templates
+
+- Operative Composition-Templates liegen im flachen `agent/`-Ordner, aber immer namespacet ueber `template_id`.
+- Die operativen Dateinamen werden immer aus `template_id` abgeleitet:
+  - `template-<template_id>.definition.json`
+  - `template-<template_id>.preview.html`
+- Neue Templates entstehen zuerst unter `development/templates/<template_id>/` und bleiben dort reine Sandbox.
+- Aus `development/templates/` darf nie operative Builder- oder Export-Wahrheit abgeleitet werden.
+- Ein Composition-Template ist nur aktiv nutzbar, wenn diese beiden Dateien vorhanden sind und der Status in `template-<template_id>.definition.json` auf `active` steht.
+- Bei Template-Nutzung ist `template-<template_id>.preview.html` die visuelle Preview-Basis.
+- `template-<template_id>.definition.json` ist die verbindliche Agent-Logik.
+- Regeln duerfen niemals aus `template-<template_id>.preview.html` abgeleitet werden.
+- Vorhandene CSS- und Asset-Links aus `template-<template_id>.preview.html` muessen bei Template-Nutzung unveraendert erhalten bleiben.
+- Die Slot-Reihenfolge aus `template-<template_id>.definition.json` ist verbindlich.
+- Neue Modultypen ausserhalb der Slots sind verboten.
+- Entfernen oder Duplizieren ist nur erlaubt, wenn `template-<template_id>.definition.json` es erlaubt.
+- Jedes Composition-Template braucht zusaetzlich ein eigenes Iterable-Basistemplate unter `email/templates/<template_id>.html`.
+- Dieses Iterable-Basistemplate enthaelt nur E-Mail-Shell, benoetigtes CSS und Content-Einfuegepunkt, aber keine festen Module oder festen Snippet-Calls.
+- Aktuell bekanntes aktives Composition-Template:
+  - `searcher-standard`
+    - `template-searcher-standard.definition.json`
+    - `template-searcher-standard.preview.html`
+    - Iterable Template-ID `611779`
+
 ## Startlogik
 
 Nutze genau diese Reihenfolge:
 
 1. Direkte User-Module
-2. Bekanntes Template
+2. Explizit angefordertes aktives Composition-Template
 3. Standard-Blueprint
 
 - Alle Startpfade duerfen nur Module verwenden, die in `preview-module-library.md` und `preview-modules.html` vorhanden sind.
 - Im Bootstrap-Start darf Preview, Composition oder Builder-State noch fehlen.
 - Mit dem ersten erfolgreichen Preview-Render wird die Startkomposition zur aktuellen Composition.
 - Mit jedem erfolgreichen Preview-Render wird parallel ein strukturierter `email_state` aktualisiert.
-- Vor dem finalen Export muss die Mail immer einem Produkt oder Template zugeordnet sein, damit produktspezifische Export-Regeln korrekt aufgeloest werden koennen.
+- Wenn der User explizit ein bekanntes aktives Composition-Template anfordert, gewinnt dieses Template vor dem Standard-Blueprint.
+- Wenn kein Template genannt wird, bleibt der normale Mail-Flow mit dem Standard-Blueprint unveraendert.
 
 ## Pflichtmodule
 
 - Standard: `logo`, `hero-image-top`, `footer`
-- Template `Viessmann`: `logo-viessmann`, `hero-image-top`, `footer`
 - Logo steht immer an Position `1`.
 - Hero steht immer an Position `2`.
 - Footer steht immer an letzter Position.
@@ -66,39 +90,17 @@ Wenn kein Thema genannt ist:
 - keine Rueckfragepflicht fuer den ersten Wurf
 - Fuer Demo-CTAs ohne explizites User-Ziel die kanonische Standard-URL `https://www.immobilienscout24.de/` verwenden.
 
-## Templates
-
-### Viessmann
-
-- User-Aliasse: `Viessmann`, `Viessmann E-Mail`
-- Technische Template-ID: `template-vissmann`
-- Iterable-Basis-Template: `594116`
-- Derzeit nur preview-faehig. Export ist gesperrt, solange kein lokales `emb_logo_viessmann.html` vorhanden ist.
-- Feste Modulfolge:
-  1. `logo-viessmann`
-  2. `hero-image-top`
-  3. `teaser-2col-listing`
-  4. `footer`
-
-## Produktgesteuerte Anrede
-
-- Alle Hero-Varianten enthalten immer eine Anrede direkt oberhalb des Hero-Bodytexts.
-- In der Preview lautet diese Anrede immer `Hallo Anrede,`.
-- Beim Export wird die Hero-Anrede anhand des gewaehlten Produkts oder Templates aus `product-salutations.json` befuellt.
-- Wenn kein Produkttreffer vorhanden ist, bleibt der Export-Fallback `Hallo Anrede,`.
-- Die Produktzuordnung darf ueber benannte Produkte, bekannte User-Aliasse oder das aktive Template erfolgen.
-
 ## Direkte User-Module
 
 - Bei direkter Modulliste die User-Reihenfolge uebernehmen.
 - Fehlende Pflichtmodule automatisch ergaenzen.
 - Allgemeine Mails nutzen `logo`.
-- Viessmann-Previews nutzen `logo-viessmann`.
 - Eine unspezifische `hero`-Anforderung wird immer als `hero-image-top` aufgeloest.
 - Bei Hero-Strukturwuenschen immer die passende feste Hero-Variante einsetzen und das Modul austauschen.
 - Im Hero sind keine freie Umordnung und keine interne Variantenlogik zulaessig.
 - `Bild nach unten` bedeutet Wechsel zu `hero-cta-top`.
 - `Bleed` bedeutet Wechsel zu `hero-image-top-bleed`.
+- `Bild zuerst, zentriert und Bleed` bedeutet Wechsel zu `hero-image-head-copy-bleed-center`.
 - `Bild nach unten ohne unteren Abschluss` bedeutet Wechsel zu `hero-cta-top-no-bottom`.
 - Pflicht-Ergaenzung:
   - fehlendes Logo an Position `1`
@@ -113,6 +115,7 @@ Wenn kein Thema genannt ist:
 | `logo-centered` | `emb_logo_centered` |
 | `hero-image-top` | `emb_hero_image_top` |
 | `hero-image-top-bleed` | `emb_hero_image_top_bleed` |
+| `hero-image-head-copy-bleed-center` | `emb_hero_image_head_copy_bleed_center` |
 | `hero-cta-top` | `emb_hero_cta_top` |
 | `hero-cta-top-no-bottom` | `emb_hero_cta_top_no_bottom` |
 | `teaser-1col` | `emb_teaser_1col` |
@@ -120,6 +123,7 @@ Wenn kein Thema genannt ist:
 | `teaser-2col-vertical` | `emb_teaser_2col_vertical` |
 | `teaser-2col-alternating` | `emb_teaser_2col_alternating` |
 | `teaser-2col-listing` | `emb_teaser_2col_listing` |
+| `teaser-2col-gallery` | `emb_teaser_2col_gallery` |
 | `benefits-3col` | `emb_benefits_3col` |
 | `steps-3col` | `emb_steps_3col` |
 | `steps-horizontal` | `emb_steps_horizontal` |
@@ -130,7 +134,6 @@ Wenn kein Thema genannt ist:
 
 Bewusst nicht angebunden:
 
-- `logo-viessmann`
 - `servicetiles-4up`
 
 ## CTA-Button-Typen
@@ -154,8 +157,7 @@ Bewusst nicht angebunden:
 ## Export-Basis
 
 - Freie oder Blueprint-Mails nutzen das Basis-Template `569946`.
-- `Viessmann` nutzt das Basis-Template `594116`.
-- `Exportiere die Mail zu Iterable` nutzt fuer die aktuelle Preview immer genau die bereits zu dieser Preview gehoerende Campaign oder erzeugt beim ersten Export genau eine neue Campaign auf Basis des passenden Iterable-Basis-Templates.
+- `Exportiere die Mail zu Iterable` nutzt fuer die aktuelle Preview immer genau die bereits zu dieser Preview gehoerende Campaign oder erzeugt beim ersten Export genau eine neue Campaign auf Basis des festen Iterable-Basis-Templates.
 - Draft ist kein Standard- und kein Fallback-Ziel.
 
 ## Technische Export-Hinweise
@@ -187,20 +189,106 @@ Bewusst nicht angebunden:
 - Nur verwenden, wenn das Standard-Logo zentriert statt linksbuendig erscheinen soll.
 - Statisches Snippet ohne Export-Parameter.
 
-### `logo-viessmann`
-
-- Snippet: `emb_logo_viessmann`
-- Nur fuer das Template `Viessmann` verwenden.
-- Derzeit nicht exportfaehig, solange das lokale Snippet fehlt.
-
 ### Hero-Module
 
-- `hero-image-top`, `hero-image-top-bleed`, `hero-cta-top` und `hero-cta-top-no-bottom` sind feste Varianten.
-- Alle Hero-Varianten fuehren die Anrede als eigenes Feld vor dem Richtext-Body.
+- `hero-image-top`, `hero-image-top-bleed`, `hero-image-head-copy-bleed-center`, `hero-cta-top` und `hero-cta-top-no-bottom` sind feste Varianten.
 - Hero-Strukturwuensche werden nur durch Modultausch geloest, nie durch internes Umordnen.
 - `preheadline` und Badge sind gegenseitig exklusiv.
 - Fehlende echte Bild-URL nutzt den passenden Hero-Placeholder aus dem technischen Mapping.
 
+### `hero-image-top`
+
+- Snippet: `emb_hero_image_top`
+- Verbindlicher Snippet-Call-Vertrag: genau 15 Parameter in dieser Reihenfolge
+  - `emb_hero_image_top_bg_color`
+  - `emb_hero_image_top_show_preheadline`
+  - `emb_hero_image_top_preheadline`
+  - `emb_hero_image_top_show_badge`
+  - `emb_hero_image_top_badge_label`
+  - `emb_hero_image_top_badge_bg_color`
+  - `emb_hero_image_top_badge_text_color`
+  - `emb_hero_image_top_headline`
+  - `emb_hero_image_top_image_url`
+  - `emb_hero_image_top_image_alt`
+  - `emb_hero_image_top_body`
+  - `emb_hero_image_top_button_url`
+  - `emb_hero_image_top_button_bg_color`
+  - `emb_hero_image_top_button_border_color`
+  - `emb_hero_image_top_button_label`
+
+### `hero-image-top-bleed`
+
+- Snippet: `emb_hero_image_top_bleed`
+- Verbindlicher Snippet-Call-Vertrag: genau 15 Parameter in dieser Reihenfolge
+  - `emb_hero_image_top_bleed_bg_color`
+  - `emb_hero_image_top_bleed_show_preheadline`
+  - `emb_hero_image_top_bleed_preheadline`
+  - `emb_hero_image_top_bleed_show_badge`
+  - `emb_hero_image_top_bleed_badge_label`
+  - `emb_hero_image_top_bleed_badge_bg_color`
+  - `emb_hero_image_top_bleed_badge_text_color`
+  - `emb_hero_image_top_bleed_headline`
+  - `emb_hero_image_top_bleed_image_url`
+  - `emb_hero_image_top_bleed_image_alt`
+  - `emb_hero_image_top_bleed_body`
+  - `emb_hero_image_top_bleed_button_url`
+  - `emb_hero_image_top_bleed_button_bg_color`
+  - `emb_hero_image_top_bleed_button_border_color`
+  - `emb_hero_image_top_bleed_button_label`
+
+### `hero-image-head-copy-bleed-center`
+
+- Snippet: `emb_hero_image_head_copy_bleed_center`
+- Verbindlicher Snippet-Call-Vertrag: genau 9 Parameter in dieser Reihenfolge
+  - `emb_hero_image_head_copy_bleed_center_bg_color`
+  - `emb_hero_image_head_copy_bleed_center_image_url`
+  - `emb_hero_image_head_copy_bleed_center_image_alt`
+  - `emb_hero_image_head_copy_bleed_center_headline`
+  - `emb_hero_image_head_copy_bleed_center_body`
+  - `emb_hero_image_head_copy_bleed_center_button_url`
+  - `emb_hero_image_head_copy_bleed_center_button_bg_color`
+  - `emb_hero_image_head_copy_bleed_center_button_border_color`
+  - `emb_hero_image_head_copy_bleed_center_button_label`
+
+### `hero-cta-top`
+
+- Snippet: `emb_hero_cta_top`
+- Verbindlicher Snippet-Call-Vertrag: genau 15 Parameter in dieser Reihenfolge
+  - `emb_hero_cta_top_bg_color`
+  - `emb_hero_cta_top_show_preheadline`
+  - `emb_hero_cta_top_preheadline`
+  - `emb_hero_cta_top_show_badge`
+  - `emb_hero_cta_top_badge_label`
+  - `emb_hero_cta_top_badge_bg_color`
+  - `emb_hero_cta_top_badge_text_color`
+  - `emb_hero_cta_top_headline`
+  - `emb_hero_cta_top_body`
+  - `emb_hero_cta_top_button_url`
+  - `emb_hero_cta_top_button_bg_color`
+  - `emb_hero_cta_top_button_border_color`
+  - `emb_hero_cta_top_button_label`
+  - `emb_hero_cta_top_image_url`
+  - `emb_hero_cta_top_image_alt`
+
+### `hero-cta-top-no-bottom`
+
+- Snippet: `emb_hero_cta_top_no_bottom`
+- Verbindlicher Snippet-Call-Vertrag: genau 15 Parameter in dieser Reihenfolge
+  - `emb_hero_cta_top_no_bottom_bg_color`
+  - `emb_hero_cta_top_no_bottom_show_preheadline`
+  - `emb_hero_cta_top_no_bottom_preheadline`
+  - `emb_hero_cta_top_no_bottom_show_badge`
+  - `emb_hero_cta_top_no_bottom_badge_label`
+  - `emb_hero_cta_top_no_bottom_badge_bg_color`
+  - `emb_hero_cta_top_no_bottom_badge_text_color`
+  - `emb_hero_cta_top_no_bottom_headline`
+  - `emb_hero_cta_top_no_bottom_body`
+  - `emb_hero_cta_top_no_bottom_button_url`
+  - `emb_hero_cta_top_no_bottom_button_bg_color`
+  - `emb_hero_cta_top_no_bottom_button_border_color`
+  - `emb_hero_cta_top_no_bottom_button_label`
+  - `emb_hero_cta_top_no_bottom_image_url`
+  - `emb_hero_cta_top_no_bottom_image_alt`
 ### Teaser-Module
 
 - `teaser-1col` behaelt Bild, Richtextbereich und CTA.
@@ -208,6 +296,8 @@ Bewusst nicht angebunden:
 - `teaser-2col-vertical` nutzt genau zwei Spalten.
 - `teaser-2col-alternating` nutzt genau zwei Zeilen.
 - `teaser-2col-listing` nutzt bis zu vier Items; sichtbare spaetere Zeilen duerfen nie auf `col_1_*` reduziert werden.
+- `teaser-2col-gallery` nutzt immer zwei Bilder in der ersten Reihe; `show_item_3` und `show_item_4` erweitern die untere Reihe.
+- `teaser-2col-gallery` erlaubt zusaetzlich `hide_bottom_row_mobile`; damit verschwindet die untere Reihe nur in der mobilen Ausgabe.
 - Fehlende echte Bild-URL nutzt den passenden `16:9`- oder `4:3`-Placeholder aus dem technischen Mapping.
 
 ### `benefits-3col`
