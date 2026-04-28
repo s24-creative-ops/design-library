@@ -334,12 +334,6 @@
           "default": "#333333"
         },
         {
-          "name": "emb_hero_image_textbox_cta_center_button_text_color",
-          "type": "color",
-          "required": true,
-          "default": "#FFFFFF"
-        },
-        {
           "name": "emb_hero_image_textbox_cta_center_button_label",
           "type": "text",
           "required": true,
