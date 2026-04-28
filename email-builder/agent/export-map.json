@@ -270,6 +270,84 @@
       ]
     },
     {
+      "module_id": "hero-image-textbox-cta-center",
+      "snippet_name": "emb_hero_image_textbox_cta_center",
+      "fields": [
+        {
+          "name": "emb_hero_image_textbox_cta_center_bg_color",
+          "type": "color",
+          "required": true,
+          "default": "#FFFFFF"
+        },
+        {
+          "name": "emb_hero_image_textbox_cta_center_headline",
+          "type": "text",
+          "required": true,
+          "default": ""
+        },
+        {
+          "name": "emb_hero_image_textbox_cta_center_image_url",
+          "type": "image_url",
+          "required": true,
+          "default": "https://library.eu.iterable.com/33/98/b9799c74eec5412c8fb0c995dd52f19c-emb_placeholder_16x9.png"
+        },
+        {
+          "name": "emb_hero_image_textbox_cta_center_image_alt",
+          "type": "text",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "emb_hero_image_textbox_cta_center_body",
+          "type": "rich_full",
+          "required": true,
+          "default": ""
+        },
+        {
+          "name": "emb_hero_image_textbox_cta_center_question",
+          "type": "text",
+          "required": true,
+          "default": ""
+        },
+        {
+          "name": "emb_hero_image_textbox_cta_center_entry_text",
+          "type": "text",
+          "required": true,
+          "default": ""
+        },
+        {
+          "name": "emb_hero_image_textbox_cta_center_button_url",
+          "type": "url",
+          "required": true,
+          "default": ""
+        },
+        {
+          "name": "emb_hero_image_textbox_cta_center_button_bg_color",
+          "type": "color",
+          "required": true,
+          "default": "#333333"
+        },
+        {
+          "name": "emb_hero_image_textbox_cta_center_button_border_color",
+          "type": "color",
+          "required": true,
+          "default": "#333333"
+        },
+        {
+          "name": "emb_hero_image_textbox_cta_center_button_text_color",
+          "type": "color",
+          "required": true,
+          "default": "#FFFFFF"
+        },
+        {
+          "name": "emb_hero_image_textbox_cta_center_button_label",
+          "type": "text",
+          "required": true,
+          "default": ""
+        }
+      ]
+    },
+    {
       "module_id": "hero-cta-top",
       "snippet_name": "emb_hero_cta_top",
       "fields": [

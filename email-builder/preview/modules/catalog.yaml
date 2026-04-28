@@ -23,6 +23,10 @@ active_modules:
     snippet: emb_hero_image_head_copy_bleed_center
     preview: preview/modules/hero-image-head-copy-bleed-center.html
     email: email/modules/emb_hero_image_head_copy_bleed_center.html
+  - id: hero-image-textbox-cta-center
+    snippet: emb_hero_image_textbox_cta_center
+    preview: preview/modules/hero-image-textbox-cta-center.html
+    email: email/modules/emb_hero_image_textbox_cta_center.html
   - id: hero-cta-top
     snippet: emb_hero_cta_top
     preview: preview/modules/hero-cta-top.html

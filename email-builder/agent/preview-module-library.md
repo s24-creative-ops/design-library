@@ -41,6 +41,8 @@ Regeln:
   - `emb_hero_image_top_bleed_image_url`
 - `hero-image-head-copy-bleed-center`
   - `emb_hero_image_head_copy_bleed_center_image_url`
+- `hero-image-textbox-cta-center`
+  - `emb_hero_image_textbox_cta_center_image_url`
 - `hero-cta-top`
   - `emb_hero_cta_top_image_url`
 - `hero-cta-top-no-bottom`
@@ -137,6 +139,22 @@ Regeln:
   - Button-URL
 - Bildformat in der Preview: `16:9 | 1200 x 600 px`
 - Fuellhinweis: feste Hero-Variante mit Bleed-Bild oben, zentrierter Headline, zentriertem Body und gefuelltem Brand-CTA beibehalten
+
+### `hero-image-textbox-cta-center`
+
+- Snippet: `emb_hero_image_textbox_cta_center`
+- Preview-Quelle: `preview-modules.html`, Block `data-module="hero-image-textbox-cta-center"`
+- Sichtbare Felder:
+  - Headline
+  - Bild-URL
+  - Bild-Alt
+  - Body
+  - Kurzfrage
+  - Feldtext in der Kontur-Flaeche
+  - Button-Label
+  - Button-URL
+- Bildformat in der Preview: `16:9 | 960 x 540 px`
+- Fuellhinweis: zentrierte Headline, Bild, zweistufiger Copy-Bereich, Kontur-Flaeche und gefuellter CTA bleiben in dieser Reihenfolge erhalten
 
 ### `hero-cta-top`
 

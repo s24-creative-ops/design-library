@@ -116,6 +116,7 @@ Wenn kein Thema genannt ist:
 | `hero-image-top` | `emb_hero_image_top` |
 | `hero-image-top-bleed` | `emb_hero_image_top_bleed` |
 | `hero-image-head-copy-bleed-center` | `emb_hero_image_head_copy_bleed_center` |
+| `hero-image-textbox-cta-center` | `emb_hero_image_textbox_cta_center` |
 | `hero-cta-top` | `emb_hero_cta_top` |
 | `hero-cta-top-no-bottom` | `emb_hero_cta_top_no_bottom` |
 | `teaser-1col` | `emb_teaser_1col` |
@@ -250,6 +251,23 @@ Bewusst nicht angebunden:
   - `emb_hero_image_head_copy_bleed_center_button_border_color`
   - `emb_hero_image_head_copy_bleed_center_button_label`
 
+### `hero-image-textbox-cta-center`
+
+- Snippet: `emb_hero_image_textbox_cta_center`
+- Verbindlicher Snippet-Call-Vertrag: genau 12 Parameter in dieser Reihenfolge
+  - `emb_hero_image_textbox_cta_center_bg_color`
+  - `emb_hero_image_textbox_cta_center_headline`
+  - `emb_hero_image_textbox_cta_center_image_url`
+  - `emb_hero_image_textbox_cta_center_image_alt`
+  - `emb_hero_image_textbox_cta_center_body`
+  - `emb_hero_image_textbox_cta_center_question`
+  - `emb_hero_image_textbox_cta_center_entry_text`
+  - `emb_hero_image_textbox_cta_center_button_url`
+  - `emb_hero_image_textbox_cta_center_button_bg_color`
+  - `emb_hero_image_textbox_cta_center_button_border_color`
+  - `emb_hero_image_textbox_cta_center_button_text_color`
+  - `emb_hero_image_textbox_cta_center_button_label`
+
 ### `hero-cta-top`
 
 - Snippet: `emb_hero_cta_top`
@@ -289,6 +307,7 @@ Bewusst nicht angebunden:
   - `emb_hero_cta_top_no_bottom_button_label`
   - `emb_hero_cta_top_no_bottom_image_url`
   - `emb_hero_cta_top_no_bottom_image_alt`
+
 ### Teaser-Module
 
 - `teaser-1col` behaelt Bild, Richtextbereich und CTA.
