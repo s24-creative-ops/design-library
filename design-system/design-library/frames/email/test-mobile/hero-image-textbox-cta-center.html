@@ -250,15 +250,31 @@
       root ? root.offsetHeight : 0
     );
   }
-  function postHeight(){
-    var height=getHeight();
-    if(window.parent&&window.parent!==window){
-      window.parent.postMessage({type:'design-library:frame-height',height:height},'*');
-    }
+  function postHeight(requestId){
+    try {
+      window.parent.postMessage({ type: "component-library:frame-height", height: getHeight(), requestId: requestId || null }, "*");
+    } catch (error) {}
   }
-  window.addEventListener('load', postHeight);
-  window.addEventListener('resize', postHeight);
-  setTimeout(postHeight, 60);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", postHeight);
+  } else {
+    postHeight();
+  }
+  window.addEventListener("load", postHeight);
+  window.addEventListener("resize", postHeight);
+  window.addEventListener("message", function(event){
+    if (event.data && event.data.type === "component-library:request-height") {
+      postHeight((event.data && event.data.requestId) || null);
+    }
+  });
+  if (typeof ResizeObserver !== "undefined") {
+    var observer = new ResizeObserver(postHeight);
+    if (document.body) observer.observe(document.body);
+    if (document.documentElement) observer.observe(document.documentElement);
+  }
+  setTimeout(postHeight, 0);
+  setTimeout(postHeight, 120);
+  setTimeout(postHeight, 320);
 })();
 </script>
 </html>
