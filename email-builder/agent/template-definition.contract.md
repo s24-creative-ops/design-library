@@ -79,7 +79,7 @@ Jede `template-<template_id>.definition.json` MUSS genau diese Top-Level-Felder 
 - `<template_id>` darin MUSS exakt dem Feld `template_id` entsprechen
 - die Preview-Datei darf fertige Preview-Module enthalten
 - CSS- und Asset-Links aus der Preview duerfen nicht frei neu erzeugt, geraten oder normalisiert werden
-- der kanonische CSS-Link fuer operative Template-Previews ist `https://s24-creative-ops.github.io/email-builder/agent/preview-styles.css`
+- der kanonische CSS-Link fuer operative Template-Previews ist `https://s24-creative-ops.github.io/email-builder/preview-styles.css`
 
 ### `iterable_template_id`
 
