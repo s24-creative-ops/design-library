@@ -254,7 +254,7 @@ Bewusst nicht angebunden:
 ### `hero-image-textbox-cta-center`
 
 - Snippet: `emb_hero_image_textbox_cta_center`
-- Verbindlicher Snippet-Call-Vertrag: genau 12 Parameter in dieser Reihenfolge
+- Verbindlicher Snippet-Call-Vertrag: genau 13 Parameter in dieser Reihenfolge
   - `emb_hero_image_textbox_cta_center_bg_color`
   - `emb_hero_image_textbox_cta_center_headline`
   - `emb_hero_image_textbox_cta_center_image_url`
@@ -263,6 +263,7 @@ Bewusst nicht angebunden:
   - `emb_hero_image_textbox_cta_center_body`
   - `emb_hero_image_textbox_cta_center_question`
   - `emb_hero_image_textbox_cta_center_entry_text`
+  - `emb_hero_image_textbox_cta_center_entry_url`
   - `emb_hero_image_textbox_cta_center_button_url`
   - `emb_hero_image_textbox_cta_center_button_bg_color`
   - `emb_hero_image_textbox_cta_center_button_border_color`

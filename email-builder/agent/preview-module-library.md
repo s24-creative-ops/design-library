@@ -153,6 +153,7 @@ Regeln:
   - Body
   - Kurzfrage
   - Feldtext in der Kontur-Flaeche
+  - Link der Kontur-Flaeche
   - Button-Label
   - Button-URL
 - Bildformat in der Preview: `16:9 | 960 x 540 px`

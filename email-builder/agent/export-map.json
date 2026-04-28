@@ -322,6 +322,12 @@
           "default": "z.B. 10115 Berlin"
         },
         {
+          "name": "emb_hero_image_textbox_cta_center_entry_url",
+          "type": "url",
+          "required": true,
+          "default": "https://www.immobilienscout24.de/"
+        },
+        {
           "name": "emb_hero_image_textbox_cta_center_button_url",
           "type": "url",
           "required": true,
