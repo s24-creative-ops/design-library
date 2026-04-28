@@ -298,6 +298,12 @@
           "default": ""
         },
         {
+          "name": "emb_hero_image_textbox_cta_center_salutation",
+          "type": "text",
+          "required": true,
+          "default": "Hallo Anrede,"
+        },
+        {
           "name": "emb_hero_image_textbox_cta_center_body",
           "type": "rich_full",
           "required": true,
@@ -313,7 +319,7 @@
           "name": "emb_hero_image_textbox_cta_center_entry_text",
           "type": "text",
           "required": true,
-          "default": ""
+          "default": "z.B. 10115 Berlin"
         },
         {
           "name": "emb_hero_image_textbox_cta_center_button_url",

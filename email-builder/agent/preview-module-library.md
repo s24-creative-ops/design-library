@@ -145,16 +145,18 @@ Regeln:
 - Snippet: `emb_hero_image_textbox_cta_center`
 - Preview-Quelle: `preview-modules.html`, Block `data-module="hero-image-textbox-cta-center"`
 - Sichtbare Felder:
+  - Hintergrundfarbe
   - Headline
   - Bild-URL
   - Bild-Alt
+  - Anrede
   - Body
   - Kurzfrage
   - Feldtext in der Kontur-Flaeche
   - Button-Label
   - Button-URL
 - Bildformat in der Preview: `16:9 | 960 x 540 px`
-- Fuellhinweis: zentrierte Headline, Bild, zweistufiger Copy-Bereich, Kontur-Flaeche und gefuellter CTA bleiben in dieser Reihenfolge erhalten
+- Fuellhinweis: zentrierte Headline, Bild, zweistufiger Copy-Bereich, Kontur-Flaeche und gefuellter CTA bleiben in dieser Reihenfolge erhalten; die Preview-Anrede bleibt immer `Hallo Anrede,`
 
 ### `hero-cta-top`
 
