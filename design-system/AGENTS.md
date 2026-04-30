@@ -29,6 +29,9 @@ Fuer die sichtbare Library gilt:
 2. `tokens/brands/immoscout24.json` ist die aktive Token-Wahrheit.
 3. `email-builder/preview/`, `email-builder/email/`, `email-builder/agent/` liefern die relevanten Email-Quellen.
 4. `lp-builder/preview/` und die aktiven LP-Core-Dateien liefern die relevanten LP-Quellen.
+5. Email-Module in der sichtbaren Design Library werden nicht per iframe gerendert, sondern als statisch eingebettete Fragmente aus `email-builder/preview/modules/`.
+6. `design-library/frames/email/`, `frames/email/snippets/`, `frames/email/test-desktop/` und `frames/email/test-mobile/` sind keine aktive Quelle mehr fuer die sichtbare Email-Library.
+7. Wenn ein sichtbares Email-Preview-Modul in `email-builder/preview/modules/` geaendert wird, muss die statische Einbettung in `design-library/index.html` mit aktualisiert und danach der Publish-Mirror neu synchronisiert werden.
 
 ## Publish-Mirror
 
@@ -56,7 +59,9 @@ Wenn eine Aenderung sichtbare Auswirkungen auf die Library haben kann:
 3. `email-builder/` oder `lp-builder/` pruefen und aktualisieren, falls Modulquellen betroffen sind
 4. `python3 design-system/scripts/sync_design_library_publish.py` ausfuehren
 5. den Mirror unter `../.publish/design-library-repo/` auf den neuen Stand pruefen
-6. danach den GitHub-Stand aktualisieren
+6. wenn der Mirror ein Git-Checkout mit nutzbarem Remote ist, den bestehenden Publish-Prozess ueber den Mirror-Checkout aktualisieren, optional ueber `bash design-system/scripts/publish_design_library.sh`
+7. wenn kein nutzbarer Mirror-Checkout oder kein klarer Push-Zugang vorliegt, stoppen und den fehlenden Publish-Schritt berichten
+8. am Ende berichten, ob der Publish-Mirror synchron ist und ob ein GitHub-Update durchgefuehrt wurde oder warum nicht
 
 ## Grundsatz
 

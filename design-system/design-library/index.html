@@ -4,6 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Design Library</title>
+  <link rel="stylesheet" href="../../email-builder/agent/preview-styles.css" />
   <style>
     :root {
       --sidebar-width: 224px;
@@ -892,6 +893,212 @@
       background: transparent;
     }
 
+    .test-email-preview {
+      display: block;
+      width: 100%;
+    }
+
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .desktop_hide,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .desktop_hide table {
+      display: table !important;
+      max-height: none !important;
+      overflow: visible !important;
+    }
+
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .mobile_hide {
+      display: none !important;
+      min-height: 0;
+      max-height: 0;
+      max-width: 0;
+      overflow: hidden;
+      font-size: 0;
+    }
+
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module__inner {
+      width: 100%;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="teaser-1col"] .module__inner,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="loft-snl-copy-cta"] .module__inner,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="loft-snl-copy-sections-cta"] .module__inner {
+      padding-top: var(--space-40);
+      padding-bottom: var(--space-40);
+    }
+
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero"] .module__inner,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-top"] .module__inner,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-top-bleed"] .module__inner,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-head-copy-bleed-center"] .module__inner,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-cta-top"] .module__inner,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-cta-top-no-bottom"] .module__inner {
+      padding-top: var(--space-40);
+      padding-bottom: var(--space-40);
+    }
+
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-cta-top-no-bottom"] .module__inner {
+      padding-bottom: 0;
+    }
+
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-head-copy-bleed-center"] .module__inner {
+      padding-top: 20px;
+    }
+
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero"] .module__hero-image-wrap--bleed,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-top"] .module__hero-image-wrap--bleed,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-top-bleed"] .module__hero-image-wrap--bleed,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-cta-top"] .module__hero-image-wrap--bleed,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-cta-top-no-bottom"] .module__hero-image-wrap--bleed,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .media--bleed {
+      width: calc(100% + 40px);
+      margin-left: -20px;
+    }
+
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module__logo-partner {
+      gap: 12px;
+    }
+
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module__logo-main-image {
+      width: var(--logo-width-mobile-main);
+      max-width: var(--logo-width-mobile-main);
+      height: auto;
+    }
+
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module__logo-partner-image {
+      width: var(--logo-width-mobile-partner);
+      max-width: var(--logo-width-mobile-partner);
+    }
+
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module__hero-spacer--25 {
+      height: var(--space-20);
+    }
+
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module__hero-spacer--35 {
+      height: var(--space-30);
+    }
+
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module__hero-spacer--button {
+      height: var(--space-20);
+    }
+
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module__title,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module__title--xxlarge,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module__title--xlarge {
+      font-size: 32px;
+      line-height: var(--line-height-title-mobile-large);
+    }
+
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero"] .module__title,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-top"] .module__title,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-top-bleed"] .module__title,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-head-copy-bleed-center"] .module__title,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-textbox-cta-center"] .module__title,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-cta-top"] .module__title,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-cta-top-no-bottom"] .module__title,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module--hero .module__title,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module__title--hero {
+      font-size: 28px;
+      line-height: var(--line-height-title-mobile-hero);
+    }
+
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-head-copy-bleed-center"] .module__hero-spacer--25 {
+      height: 8px;
+    }
+
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-head-copy-bleed-center"] .module__title,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module__title--medium {
+      font-size: 24px;
+      line-height: var(--line-height-title-mobile-medium);
+    }
+
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-head-copy-bleed-center"] .module__hero-spacer--button {
+      height: 8px;
+    }
+
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-textbox-cta-center"] .module__hero-spacer--32 {
+      height: var(--space-24);
+    }
+
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module__title--small {
+      font-size: 20px;
+      line-height: var(--line-height-title-mobile-small);
+    }
+
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module__title--xsmall {
+      font-size: 18px;
+      line-height: var(--line-height-title-mobile-xsmall);
+    }
+
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .cards-3,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .benefits-columns,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .steps-grid,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .teaser-columns,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .teaser-split,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .teaser-split--reverse,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .listing-row,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .comparison-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .step {
+      grid-template-columns: 40px minmax(0, 1fr);
+      align-items: start;
+    }
+
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .step > :not(.step__line) {
+      grid-column: 2;
+    }
+
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .step__line {
+      grid-row: 1 / span 3;
+      padding-top: 0;
+    }
+
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .step__line::before {
+      left: 20px;
+      right: auto;
+      top: 40px;
+      width: 1px;
+      min-height: 36px;
+      height: calc(100% + 8px);
+      transform: none;
+    }
+
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .gallery-grid__row--mobile-hide {
+      display: none;
+    }
+
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .data-table {
+      table-layout: auto;
+    }
+
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .data-table th {
+      font-size: var(--font-size-caption-mobile);
+      line-height: var(--line-height-button);
+    }
+
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .data-table td {
+      font-size: var(--font-size-meta);
+      line-height: var(--line-height-meta);
+    }
+
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .data-table th,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .data-table td {
+      word-break: break-word;
+      overflow-wrap: anywhere;
+    }
+
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .media--listing {
+      width: var(--listing-media-width);
+      max-width: var(--listing-media-width);
+    }
+
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .teaser-split--reverse .teaser-split__media,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .teaser-split--reverse .teaser-split__copy {
+      order: initial;
+    }
+
     .module-copy {
       position: absolute;
       top: 20px;
@@ -1557,13 +1764,32 @@
                 </button>
               </div>
               <div class="test-module-frame">
-                <iframe
-                  src="./frames/email/snippets/logo.html"
-                  title="logo test preview"
-                  loading="lazy"
-                  data-src-desktop="./frames/email/snippets/logo.html"
-                  data-src-mobile="./frames/email/test-mobile/logo.html"
-                  data-frame-id="logo"></iframe>
+                <div class="test-email-preview" data-email-preview-module="logo">
+<!-- MODULE: logo | SNIPPET: emb_logo -->
+<section class="module theme-white" data-module="logo" data-snippet="emb_logo">
+  <div class="module__inner module__inner--logo">
+    <a
+      class="module__logo-link"
+      href="https://www.immobilienscout24.de/"
+      title="ImmoScout24"
+      data-token-attr-href="links.website"
+      data-token-attr-title="logo.default.title"
+    >
+      <img
+        class="module__logo-image"
+        src="https://www.static-immobilienscout24.de/fro/ite/_/IS24-Logo_horizontal_left_white.png"
+        alt="Logo ImmoScout24"
+        width="185"
+        height="47"
+        data-token-attr-src="logo.default.src"
+        data-token-attr-alt="logo.default.alt"
+        data-token-attr-width="logo.default.width"
+        data-token-attr-height="logo.default.height"
+      />
+    </a>
+  </div>
+</section>
+                </div>
               </div>
             </div>
             <div class="test-module-row">
@@ -1575,13 +1801,34 @@
                 </button>
               </div>
               <div class="test-module-frame">
-                <iframe
-                  src="./frames/email/snippets/logo-centered.html"
-                  title="logo-centered test preview"
-                  loading="lazy"
-                  data-src-desktop="./frames/email/snippets/logo-centered.html"
-                  data-src-mobile="./frames/email/test-mobile/logo-centered.html"
-                  data-frame-id="logo-centered"></iframe>
+                <div class="test-email-preview" data-email-preview-module="logo-centered">
+<!-- MODULE: logo-centered | SNIPPET: emb_logo_centered -->
+<section class="module theme-white" data-module="logo-centered" data-snippet="emb_logo_centered">
+  <div class="module__inner module__inner--logo module__inner--logo-centered">
+    <a
+      class="module__logo-link"
+      href="https://www.immobilienscout24.de/"
+      title="ImmoScout24"
+      data-token-attr-href="links.website"
+      data-token-attr-title="logo.default.title"
+      style="display:inline-block;"
+    >
+      <img
+        class="module__logo-image"
+        src="https://www.static-immobilienscout24.de/fro/ite/_/IS24-Logo_horizontal_center_white.png"
+        alt="Logo ImmoScout24"
+        width="198"
+        height="47"
+        style="display:block;padding:0;text-align:center;background:rgba(255,255,255,0);"
+        data-token-attr-src="logo.centered.src"
+        data-token-attr-alt="logo.centered.alt"
+        data-token-attr-width="logo.centered.width"
+        data-token-attr-height="logo.centered.height"
+      />
+    </a>
+  </div>
+</section>
+                </div>
               </div>
             </div>
           </section>
@@ -1596,13 +1843,50 @@
                 </button>
               </div>
               <div class="test-module-frame">
-                <iframe
-                  src="./frames/email/test-desktop/hero-image-top.html"
-                  title="hero-image-top test preview"
-                  loading="lazy"
-                  data-src-desktop="./frames/email/test-desktop/hero-image-top.html"
-                  data-src-mobile="./frames/email/test-mobile/hero-image-top.html"
-                  data-frame-id="hero-image-top"></iframe>
+                <div class="test-email-preview" data-email-preview-module="hero-image-top">
+<!-- MODULE: hero-image-top | SNIPPET: emb_hero_image_top -->
+<section class="module theme-white" data-module="hero-image-top" data-snippet="emb_hero_image_top">
+  <div class="module__inner">
+    <div class="module__hero-area module__hero-area--head">
+      <div class="module__head">
+        <div class="module__hero-meta">
+          <p class="module__eyebrow" data-export-field="emb_hero_image_top_preheadline" data-export-role="preheadline">Digitales Immobilienprodukt</p>
+          <span class="module__badge is-hidden">Badge</span>
+        </div>
+        <h2 class="module__title" data-export-field="emb_hero_image_top_headline" data-export-role="headline">Vermarkten Sie Ihre Immobilie digital, klar und zeitsparend</h2>
+      </div>
+      <div class="module__hero-spacer module__hero-spacer--25" aria-hidden="true"></div>
+    </div>
+    <div class="module__hero-flow">
+      <div class="module__hero-area module__hero-area--image">
+        <div class="media media--hero">
+          <div
+            class="preview-image-placeholder preview-image-placeholder--16x9 preview-image-placeholder--pad-lg"
+            data-image-field="emb_hero_image_top_image_url"
+            data-image-alt-field="emb_hero_image_top_image_alt"
+          >
+            <div class="preview-image-placeholder__text">
+              <p class="preview-image-placeholder__meta">16:9 | 960 x 540 px<br />(Hi-Res 1920 x 1080)</p>
+            </div>
+          </div>
+        </div>
+        <div class="module__hero-spacer module__hero-spacer--35" aria-hidden="true"></div>
+      </div>
+        <div class="module__hero-area module__hero-area--copy">
+        <div class="module__copy">
+          <div class="module-rich-full-body module-rich-full-body--hero" data-export-field="emb_hero_image_top_body" data-export-role="richtext">
+            <p class="module__body" data-export-role="body-paragraph" data-export-index="1">Mit einem digitalen Vermarktungspaket gewinnen Sie mehr Übersicht und bringen Ihre Vermarktung einfacher in den Alltag.</p>
+          </div>
+          <div class="module__hero-spacer module__hero-spacer--button" aria-hidden="true"></div>
+          <div class="module__cta-row">
+            <a class="button-outline-strong" href="https://www.immobilienscout24.de" target="_blank" rel="noreferrer" data-token-attr-href="links.default_cta" data-export-field="emb_hero_image_top_button_label" data-export-url-field="emb_hero_image_top_button_url" data-export-role="cta">Lorem ipsum dolor</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+                </div>
               </div>
             </div>
             <div class="test-module-row">
@@ -1614,13 +1898,50 @@
                 </button>
               </div>
               <div class="test-module-frame">
-                <iframe
-                  src="./frames/email/test-desktop/hero-image-top-bleed.html"
-                  title="hero-image-top-bleed test preview"
-                  loading="lazy"
-                  data-src-desktop="./frames/email/test-desktop/hero-image-top-bleed.html"
-                  data-src-mobile="./frames/email/test-mobile/hero-image-top-bleed.html"
-                  data-frame-id="hero-image-top-bleed"></iframe>
+                <div class="test-email-preview" data-email-preview-module="hero-image-top-bleed">
+<!-- MODULE: hero-image-top-bleed | SNIPPET: emb_hero_image_top_bleed -->
+<section class="module theme-white" data-module="hero-image-top-bleed" data-snippet="emb_hero_image_top_bleed">
+  <div class="module__inner">
+    <div class="module__hero-area module__hero-area--head">
+      <div class="module__head">
+        <div class="module__hero-meta">
+          <p class="module__eyebrow" data-export-field="emb_hero_image_top_bleed_preheadline" data-export-role="preheadline">Digitales Immobilienprodukt</p>
+          <span class="module__badge is-hidden">Badge</span>
+        </div>
+        <h2 class="module__title" data-export-field="emb_hero_image_top_bleed_headline" data-export-role="headline">Vermarkten Sie Ihre Immobilie digital, klar und zeitsparend</h2>
+      </div>
+      <div class="module__hero-spacer module__hero-spacer--25" aria-hidden="true"></div>
+    </div>
+    <div class="module__hero-flow">
+      <div class="module__hero-area module__hero-area--image">
+        <div class="media media--hero media--bleed">
+          <div
+            class="preview-image-placeholder preview-image-placeholder--16x9 preview-image-placeholder--pad-lg"
+            data-image-field="emb_hero_image_top_bleed_image_url"
+            data-image-alt-field="emb_hero_image_top_bleed_image_alt"
+          >
+            <div class="preview-image-placeholder__text">
+              <p class="preview-image-placeholder__meta">16:9 | 960 x 540 px<br />(Hi-Res 1920 x 1080)</p>
+            </div>
+          </div>
+        </div>
+        <div class="module__hero-spacer module__hero-spacer--35" aria-hidden="true"></div>
+      </div>
+        <div class="module__hero-area module__hero-area--copy">
+        <div class="module__copy">
+          <div class="module-rich-full-body module-rich-full-body--hero" data-export-field="emb_hero_image_top_bleed_body" data-export-role="richtext">
+            <p class="module__body" data-export-role="body-paragraph" data-export-index="1">Mit einem digitalen Vermarktungspaket gewinnen Sie mehr Übersicht und bringen Ihre Vermarktung einfacher in den Alltag.</p>
+          </div>
+          <div class="module__hero-spacer module__hero-spacer--button" aria-hidden="true"></div>
+          <div class="module__cta-row">
+            <a class="button-outline-strong" href="https://www.immobilienscout24.de" target="_blank" rel="noreferrer" data-token-attr-href="links.default_cta" data-export-field="emb_hero_image_top_bleed_button_label" data-export-url-field="emb_hero_image_top_bleed_button_url" data-export-role="cta">Lorem ipsum dolor</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+                </div>
               </div>
             </div>
             <div class="test-module-row">
@@ -1632,13 +1953,50 @@
                 </button>
               </div>
               <div class="test-module-frame">
-                <iframe
-                  src="./frames/email/test-desktop/hero-cta-top.html"
-                  title="hero-cta-top test preview"
-                  loading="lazy"
-                  data-src-desktop="./frames/email/test-desktop/hero-cta-top.html"
-                  data-src-mobile="./frames/email/test-mobile/hero-cta-top.html"
-                  data-frame-id="hero-cta-top"></iframe>
+                <div class="test-email-preview" data-email-preview-module="hero-cta-top">
+<!-- MODULE: hero-cta-top | SNIPPET: emb_hero_cta_top -->
+<section class="module theme-white" data-module="hero-cta-top" data-snippet="emb_hero_cta_top">
+  <div class="module__inner">
+    <div class="module__hero-area module__hero-area--head">
+      <div class="module__head">
+        <div class="module__hero-meta">
+          <p class="module__eyebrow" data-export-field="emb_hero_cta_top_preheadline" data-export-role="preheadline">Digitales Immobilienprodukt</p>
+          <span class="module__badge is-hidden">Badge</span>
+        </div>
+        <h2 class="module__title" data-export-field="emb_hero_cta_top_headline" data-export-role="headline">Vermarkten Sie Ihre Immobilie digital, klar und zeitsparend</h2>
+      </div>
+      <div class="module__hero-spacer module__hero-spacer--25" aria-hidden="true"></div>
+    </div>
+    <div class="module__hero-flow">
+        <div class="module__hero-area module__hero-area--copy">
+        <div class="module__copy">
+          <div class="module-rich-full-body module-rich-full-body--hero" data-export-field="emb_hero_cta_top_body" data-export-role="richtext">
+            <p class="module__body" data-export-role="body-paragraph" data-export-index="1">Mit einem digitalen Vermarktungspaket gewinnen Sie mehr Übersicht und bringen Ihre Vermarktung einfacher in den Alltag.</p>
+          </div>
+          <div class="module__hero-spacer module__hero-spacer--button" aria-hidden="true"></div>
+          <div class="module__cta-row">
+            <a class="button-outline-strong" href="https://www.immobilienscout24.de" target="_blank" rel="noreferrer" data-token-attr-href="links.default_cta" data-export-field="emb_hero_cta_top_button_label" data-export-url-field="emb_hero_cta_top_button_url" data-export-role="cta">Lorem ipsum dolor</a>
+          </div>
+          <div class="module__hero-spacer module__hero-spacer--35" aria-hidden="true"></div>
+        </div>
+      </div>
+      <div class="module__hero-area module__hero-area--image">
+        <div class="media media--hero">
+          <div
+            class="preview-image-placeholder preview-image-placeholder--16x9 preview-image-placeholder--pad-lg"
+            data-image-field="emb_hero_cta_top_image_url"
+            data-image-alt-field="emb_hero_cta_top_image_alt"
+          >
+            <div class="preview-image-placeholder__text">
+              <p class="preview-image-placeholder__meta">16:9 | 960 x 540 px<br />(Hi-Res 1920 x 1080)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+                </div>
               </div>
             </div>
             <div class="test-module-row">
@@ -1650,13 +2008,50 @@
                 </button>
               </div>
               <div class="test-module-frame">
-                <iframe
-                  src="./frames/email/test-desktop/hero-cta-top-no-bottom.html"
-                  title="hero-cta-top-no-bottom test preview"
-                  loading="lazy"
-                  data-src-desktop="./frames/email/test-desktop/hero-cta-top-no-bottom.html"
-                  data-src-mobile="./frames/email/test-mobile/hero-cta-top-no-bottom.html"
-                  data-frame-id="hero-cta-top-no-bottom"></iframe>
+                <div class="test-email-preview" data-email-preview-module="hero-cta-top-no-bottom">
+<!-- MODULE: hero-cta-top-no-bottom | SNIPPET: emb_hero_cta_top_no_bottom -->
+<section class="module theme-white" data-module="hero-cta-top-no-bottom" data-snippet="emb_hero_cta_top_no_bottom">
+  <div class="module__inner">
+    <div class="module__hero-area module__hero-area--head">
+      <div class="module__head">
+        <div class="module__hero-meta">
+          <p class="module__eyebrow" data-export-field="emb_hero_cta_top_no_bottom_preheadline" data-export-role="preheadline">Digitales Immobilienprodukt</p>
+          <span class="module__badge is-hidden">Badge</span>
+        </div>
+        <h2 class="module__title" data-export-field="emb_hero_cta_top_no_bottom_headline" data-export-role="headline">Vermarkten Sie Ihre Immobilie digital, klar und zeitsparend</h2>
+      </div>
+      <div class="module__hero-spacer module__hero-spacer--25" aria-hidden="true"></div>
+    </div>
+    <div class="module__hero-flow">
+        <div class="module__hero-area module__hero-area--copy">
+        <div class="module__copy">
+          <div class="module-rich-full-body module-rich-full-body--hero" data-export-field="emb_hero_cta_top_no_bottom_body" data-export-role="richtext">
+            <p class="module__body" data-export-role="body-paragraph" data-export-index="1">Mit einem digitalen Vermarktungspaket gewinnen Sie mehr Übersicht und bringen Ihre Vermarktung einfacher in den Alltag.</p>
+          </div>
+          <div class="module__hero-spacer module__hero-spacer--button" aria-hidden="true"></div>
+          <div class="module__cta-row">
+            <a class="button-outline-strong" href="https://www.immobilienscout24.de" target="_blank" rel="noreferrer" data-token-attr-href="links.default_cta" data-export-field="emb_hero_cta_top_no_bottom_button_label" data-export-url-field="emb_hero_cta_top_no_bottom_button_url" data-export-role="cta">Lorem ipsum dolor</a>
+          </div>
+          <div class="module__hero-spacer module__hero-spacer--35" aria-hidden="true"></div>
+        </div>
+      </div>
+      <div class="module__hero-area module__hero-area--image">
+        <div class="media media--hero">
+          <div
+            class="preview-image-placeholder preview-image-placeholder--16x9 preview-image-placeholder--pad-lg"
+            data-image-field="emb_hero_cta_top_no_bottom_image_url"
+            data-image-alt-field="emb_hero_cta_top_no_bottom_image_alt"
+          >
+            <div class="preview-image-placeholder__text">
+              <p class="preview-image-placeholder__meta">16:9 | 960 x 540 px<br />(Hi-Res 1920 x 1080)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+                </div>
               </div>
             </div>
             <div class="test-module-row">
@@ -1668,13 +2063,46 @@
                 </button>
               </div>
               <div class="test-module-frame">
-                <iframe
-                  src="./frames/email/snippets/hero-image-head-copy-bleed-center.html"
-                  title="hero-image-head-copy-bleed-center test preview"
-                  loading="lazy"
-                  data-src-desktop="./frames/email/snippets/hero-image-head-copy-bleed-center.html"
-                  data-src-mobile="./frames/email/test-mobile/hero-image-head-copy-bleed-center.html"
-                  data-frame-id="hero-image-head-copy-bleed-center"></iframe>
+                <div class="test-email-preview" data-email-preview-module="hero-image-head-copy-bleed-center">
+<!-- MODULE: hero-image-head-copy-bleed-center | SNIPPET: emb_hero_image_head_copy_bleed_center -->
+<section class="module theme-white" data-module="hero-image-head-copy-bleed-center" data-snippet="emb_hero_image_head_copy_bleed_center">
+  <div class="module__inner">
+    <div class="module__hero-flow">
+      <div class="module__hero-area module__hero-area--image">
+        <div class="media media--hero media--bleed">
+          <div
+            class="preview-image-placeholder preview-image-placeholder--16x9 preview-image-placeholder--pad-lg"
+            data-image-field="emb_hero_image_head_copy_bleed_center_image_url"
+            data-image-alt-field="emb_hero_image_head_copy_bleed_center_image_alt"
+          >
+            <div class="preview-image-placeholder__text">
+              <p class="preview-image-placeholder__meta">16:9 | 1200 x 600 px<br />(Hi-Res 2400 x 1200)</p>
+            </div>
+          </div>
+        </div>
+        <div class="module__hero-spacer module__hero-spacer--35" aria-hidden="true"></div>
+      </div>
+      <div class="module__hero-area module__hero-area--head">
+        <div class="module__head module__head--center">
+          <h2 class="module__title module__title--medium" data-export-field="emb_hero_image_head_copy_bleed_center_headline" data-export-role="headline">Lorem ipsum dolor sit amet cum</h2>
+        </div>
+        <div class="module__hero-spacer module__hero-spacer--25" aria-hidden="true"></div>
+      </div>
+      <div class="module__hero-area module__hero-area--copy">
+        <div class="module__copy module__copy--center">
+          <div class="module-rich-full-body module-rich-full-body--hero" data-export-field="emb_hero_image_head_copy_bleed_center_body" data-export-role="richtext">
+            <p class="module__body" data-export-role="body-paragraph" data-export-index="1">Lorem ipsum dolor sit amet cum</p>
+          </div>
+          <div class="module__hero-spacer module__hero-spacer--button" aria-hidden="true"></div>
+          <div class="module__cta-row module__cta-row--center">
+            <a class="button-filled-brand" href="https://www.immobilienscout24.de" target="_blank" rel="noreferrer" data-token-attr-href="links.default_cta" data-export-field="emb_hero_image_head_copy_bleed_center_button_label" data-export-url-field="emb_hero_image_head_copy_bleed_center_button_url" data-export-role="cta">Mehr erfahren</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+                </div>
               </div>
             </div>
             <div class="test-module-row">
@@ -1686,13 +2114,53 @@
                 </button>
               </div>
               <div class="test-module-frame">
-                <iframe
-                  src="./frames/email/snippets/hero-image-textbox-cta-center.html"
-                  title="hero-image-textbox-cta-center test preview"
-                  loading="lazy"
-                  data-src-desktop="./frames/email/snippets/hero-image-textbox-cta-center.html"
-                  data-src-mobile="./frames/email/test-mobile/hero-image-textbox-cta-center.html"
-                  data-frame-id="hero-image-textbox-cta-center"></iframe>
+                <div class="test-email-preview" data-email-preview-module="hero-image-textbox-cta-center">
+<!-- Source: email-builder/agent/preview-modules.html -->
+<!-- MODULE: hero-image-textbox-cta-center | SNIPPET: emb_hero_image_textbox_cta_center -->
+<section class="module theme-white" data-module="hero-image-textbox-cta-center" data-snippet="emb_hero_image_textbox_cta_center">
+  <div class="module__inner">
+    <div class="module__hero-flow">
+      <div class="module__hero-area module__hero-area--head">
+        <div class="module__head module__head--center">
+          <h2 class="module__title" data-export-field="emb_hero_image_textbox_cta_center_headline" data-export-role="headline">Lorem ipsum dolor sit amet cum ventus laudare estere</h2>
+        </div>
+        <div class="module__hero-spacer module__hero-spacer--24" aria-hidden="true"></div>
+      </div>
+      <div class="module__hero-area module__hero-area--image">
+        <div class="media media--hero-entry">
+          <div
+            class="preview-image-placeholder preview-image-placeholder--16x9 preview-image-placeholder--pad-lg"
+            data-image-field="emb_hero_image_textbox_cta_center_image_url"
+            data-image-alt-field="emb_hero_image_textbox_cta_center_image_alt"
+          >
+            <div class="preview-image-placeholder__text">
+              <p class="preview-image-placeholder__meta">16:9 | 960 x 540 px<br />(Hi-Res 1920 x 1080)</p>
+            </div>
+          </div>
+        </div>
+        <div class="module__hero-spacer module__hero-spacer--32" aria-hidden="true"></div>
+      </div>
+      <div class="module__hero-area module__hero-area--copy">
+        <div class="module__copy module__copy--center">
+          <p class="module__body" data-export-field="emb_hero_image_textbox_cta_center_salutation" data-export-role="salutation">Hallo Anrede,</p>
+          <div class="module__hero-spacer module__hero-spacer--salutation" aria-hidden="true"></div>
+          <p class="module__body" data-export-field="emb_hero_image_textbox_cta_center_body" data-export-role="body" style="width:100%;max-width:520px;">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean este commodo ligula eget dolor. Aenean massa. Cum sociis natoque eanis penatibus et magnis dis parturient montes.</p>
+          <div class="module__hero-spacer module__hero-spacer--32" aria-hidden="true"></div>
+          <p class="module__body"><strong data-export-field="emb_hero_image_textbox_cta_center_question" data-export-role="question">Lorem ipsum dolor sit amet cum laudarte?</strong></p>
+          <div class="module__hero-spacer module__hero-spacer--16" aria-hidden="true"></div>
+          <a class="module__entry-box" href="https://www.immobilienscout24.de" target="_blank" rel="noreferrer" data-export-url-field="emb_hero_image_textbox_cta_center_entry_url" data-export-role="entry-link" style="display:block;width:100%;max-width:214px;padding:15px 24px;border:1px solid #333333;border-radius:8px;background:#ffffff;text-align:left;text-decoration:none;">
+            <p class="module__entry-text" style="margin:0;color:#ADADAD;" data-export-field="emb_hero_image_textbox_cta_center_entry_text" data-export-role="entry-text">z.B. 10115 Berlin</p>
+          </a>
+          <div class="module__hero-spacer module__hero-spacer--16" aria-hidden="true"></div>
+          <div class="module__cta-row module__cta-row--center">
+            <a class="button-filled-default" href="https://www.immobilienscout24.de" target="_blank" rel="noreferrer" data-token-attr-href="links.default_cta" data-export-field="emb_hero_image_textbox_cta_center_button_label" data-export-url-field="emb_hero_image_textbox_cta_center_button_url" data-export-role="cta">Button filled charcoal</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+                </div>
               </div>
             </div>
           </section>
@@ -1707,7 +2175,41 @@
                 </button>
               </div>
               <div class="test-module-frame">
-                <iframe src="./frames/email/snippets/teaser-1col.html" title="teaser-1col test preview" loading="lazy" data-src-desktop="./frames/email/snippets/teaser-1col.html" data-src-mobile="./frames/email/test-mobile/teaser-1col.html" data-frame-id="teaser-1col"></iframe>
+                <div class="test-email-preview" data-email-preview-module="teaser-1col">
+<!-- Source: email-builder/agent/preview-modules.html -->
+<!-- MODULE: teaser-1col | SNIPPET: emb_teaser_1col -->
+<section class="module theme-gray" data-module="teaser-1col" data-snippet="emb_teaser_1col">
+  <div class="module__inner">
+    <div class="teaser-single">
+      <h2 class="module__title module__title--medium" data-export-field="emb_teaser_1col_headline" data-export-role="headline">Lorem ipsum dolor sit amet consectetur adipiscing elit</h2>
+      <a class="media-link" href="https://www.immobilienscout24.de" target="_blank" rel="noreferrer" data-token-attr-href="links.default_cta" data-export-url-field="emb_teaser_1col_image_link_url" data-export-role="image-link">
+        <div class="media media--hero">
+          <div
+            class="preview-image-placeholder preview-image-placeholder--16x9 preview-image-placeholder--pad-lg"
+            data-image-field="emb_teaser_1col_image_url"
+            data-image-alt-field="emb_teaser_1col_image_alt"
+          >
+            <div class="preview-image-placeholder__text">
+              <p class="preview-image-placeholder__meta">16:9 | 960 x 540 px</p>
+            </div>
+          </div>
+        </div>
+      </a>
+      <div class="module__teaser-richtext" data-export-field="emb_teaser_1col_body" data-export-role="richtext">
+        <p class="module__body" data-export-role="body-paragraph" data-export-index="1">Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</p>
+        <ul class="module__list--teaser">
+          <li data-export-item="teaser-list-item" data-export-index="1">Lorem ipsum dolor sit amet</li>
+          <li data-export-item="teaser-list-item" data-export-index="2">Consetetur sadipscing elitr</li>
+          <li data-export-item="teaser-list-item" data-export-index="3">Sed diam nonumy eirmod</li>
+        </ul>
+      </div>
+      <div class="module__cta-row module__cta-row--compact">
+        <a class="button-outline-strong" href="https://www.immobilienscout24.de" target="_blank" rel="noreferrer" data-token-attr-href="links.default_cta" data-export-field="emb_teaser_1col_button_label" data-export-url-field="emb_teaser_1col_button_url" data-export-role="cta">button-outline-strong</a>
+      </div>
+    </div>
+  </div>
+</section>
+                </div>
               </div>
             </div>
             <div class="test-module-row">
@@ -1719,7 +2221,54 @@
                 </button>
               </div>
               <div class="test-module-frame">
-                <iframe src="./frames/email/snippets/teaser-2col-vertical.html" title="teaser-2col-vertical test preview" loading="lazy" data-src-desktop="./frames/email/snippets/teaser-2col-vertical.html" data-src-mobile="./frames/email/test-mobile/teaser-2col-vertical.html" data-frame-id="teaser-2col-vertical"></iframe>
+                <div class="test-email-preview" data-email-preview-module="teaser-2col-vertical">
+<!-- Source: email-builder/agent/preview-modules.html -->
+<section class="module theme-white" data-module="teaser-2col-vertical" data-snippet="emb_teaser_2col_vertical">
+  <div class="module__inner">
+    <div class="stack">
+      <div class="module__head">
+        <h2 class="module__title module__title--medium" data-export-field="emb_teaser_2col_vertical_headline" data-export-role="headline">Digitale Werkzeuge fuer Vermarktung und Kommunikation</h2>
+      </div>
+      <div class="teaser-columns">
+        <article class="teaser-column" data-export-item="teaser-2col-vertical-item" data-export-index="1">
+          <div class="media media--teaser-horizontal">
+            <div
+              class="preview-image-placeholder preview-image-placeholder--16x9 preview-image-placeholder--pad-lg"
+              data-image-field="emb_teaser_2col_vertical_col_1_image_url"
+              data-image-alt-field="emb_teaser_2col_vertical_col_1_image_alt"
+            >
+              <div class="preview-image-placeholder__text">
+                <p class="preview-image-placeholder__meta">16:9 | 960 x 540 px</p>
+              </div>
+            </div>
+          </div>
+          <div class="teaser-column__copy">
+            <p class="module__body" data-export-field="emb_teaser_2col_vertical_col_1_body" data-export-role="item-body">Planen Sie Ihren Start digital, behalten Sie Aufgaben im Blick und kommunizieren Sie direkt mit Interessierten.</p>
+            <a class="teaser-link" href="https://www.immobilienscout24.de" target="_blank" rel="noreferrer" data-token-attr-href="links.default_cta" data-export-field="emb_teaser_2col_vertical_col_1_chevron_label" data-export-url-field="emb_teaser_2col_vertical_col_1_chevron_url" data-export-role="item-link">Mehr erfahren</a>
+          </div>
+        </article>
+        <article class="teaser-column" data-export-item="teaser-2col-vertical-item" data-export-index="2">
+          <div class="media media--teaser-horizontal">
+            <div
+              class="preview-image-placeholder preview-image-placeholder--16x9 preview-image-placeholder--pad-lg"
+              data-image-field="emb_teaser_2col_vertical_col_2_image_url"
+              data-image-alt-field="emb_teaser_2col_vertical_col_2_image_alt"
+            >
+              <div class="preview-image-placeholder__text">
+                <p class="preview-image-placeholder__meta">16:9 | 960 x 540 px</p>
+              </div>
+            </div>
+          </div>
+          <div class="teaser-column__copy">
+            <p class="module__body" data-export-field="emb_teaser_2col_vertical_col_2_body" data-export-role="item-body">Bereiten Sie Expose, Unterlagen und Rueckmeldungen so vor, dass Ihr Prozess klar und einfach steuerbar bleibt.</p>
+            <a class="teaser-link" href="https://www.immobilienscout24.de" target="_blank" rel="noreferrer" data-token-attr-href="links.default_cta" data-export-field="emb_teaser_2col_vertical_col_2_chevron_label" data-export-url-field="emb_teaser_2col_vertical_col_2_chevron_url" data-export-role="item-link">Zum Ueberblick</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+                </div>
               </div>
             </div>
             <div class="test-module-row">
@@ -1731,7 +2280,88 @@
                 </button>
               </div>
               <div class="test-module-frame">
-                <iframe src="./frames/email/snippets/teaser-2col-horizontal.html" title="teaser-2col-horizontal test preview" loading="lazy" data-src-desktop="./frames/email/snippets/teaser-2col-horizontal.html" data-src-mobile="./frames/email/test-mobile/teaser-2col-horizontal.html" data-frame-id="teaser-2col-horizontal"></iframe>
+                <div class="test-email-preview" data-email-preview-module="teaser-2col-horizontal">
+<!-- MODULE: teaser-2col-horizontal | SNIPPET: emb_teaser_2col_horizontal -->
+<section class="module theme-gray" data-module="teaser-2col-horizontal" data-snippet="emb_teaser_2col_horizontal">
+  <div class="module__inner">
+    <div class="stack">
+      <div class="module__head">
+        <h2 class="module__title module__title--medium" data-export-field="emb_teaser_2col_horizontal_headline" data-export-role="headline">Lorem ipsum dolor sit amet</h2>
+      </div>
+      <div class="alternating-teasers">
+        <article class="teaser-split" data-export-item="teaser-2col-horizontal-item" data-export-index="1">
+          <div class="media media--teaser-horizontal teaser-split__media">
+            <div
+              class="preview-image-placeholder preview-image-placeholder--16x9 preview-image-placeholder--pad-lg"
+              data-image-field="emb_teaser_2col_horizontal_col_1_image_url"
+              data-image-alt-field="emb_teaser_2col_horizontal_col_1_image_alt"
+            >
+              <div class="preview-image-placeholder__text">
+                <p class="preview-image-placeholder__meta">16:9 | 960 x 540 px</p>
+              </div>
+            </div>
+          </div>
+          <div class="teaser-split__copy">
+            <p class="module__body" data-export-field="emb_teaser_2col_horizontal_col_1_body" data-export-role="item-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.</p>
+            <a class="teaser-link" href="https://www.immobilienscout24.de" target="_blank" rel="noreferrer" data-token-attr-href="links.default_cta" data-export-field="emb_teaser_2col_horizontal_col_1_chevron_label" data-export-url-field="emb_teaser_2col_horizontal_col_1_chevron_url" data-export-role="item-link">Lorem ipsum</a>
+          </div>
+        </article>
+        <article class="teaser-split" data-export-item="teaser-2col-horizontal-item" data-export-index="2">
+          <div class="media media--teaser-horizontal teaser-split__media">
+            <div
+              class="preview-image-placeholder preview-image-placeholder--16x9 preview-image-placeholder--pad-lg"
+              data-image-field="emb_teaser_2col_horizontal_col_2_image_url"
+              data-image-alt-field="emb_teaser_2col_horizontal_col_2_image_alt"
+            >
+              <div class="preview-image-placeholder__text">
+                <p class="preview-image-placeholder__meta">16:9 | 960 x 540 px</p>
+              </div>
+            </div>
+          </div>
+          <div class="teaser-split__copy">
+            <p class="module__body" data-export-field="emb_teaser_2col_horizontal_col_2_body" data-export-role="item-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.</p>
+            <a class="teaser-link" href="https://www.immobilienscout24.de" target="_blank" rel="noreferrer" data-token-attr-href="links.default_cta" data-export-field="emb_teaser_2col_horizontal_col_2_chevron_label" data-export-url-field="emb_teaser_2col_horizontal_col_2_chevron_url" data-export-role="item-link">Lorem ipsum</a>
+          </div>
+        </article>
+        <article class="teaser-split" data-export-item="teaser-2col-horizontal-item" data-export-index="3">
+          <div class="media media--teaser-horizontal teaser-split__media">
+            <div
+              class="preview-image-placeholder preview-image-placeholder--16x9 preview-image-placeholder--pad-lg"
+              data-image-field="emb_teaser_2col_horizontal_col_3_image_url"
+              data-image-alt-field="emb_teaser_2col_horizontal_col_3_image_alt"
+            >
+              <div class="preview-image-placeholder__text">
+                <p class="preview-image-placeholder__meta">16:9 | 960 x 540 px</p>
+              </div>
+            </div>
+          </div>
+          <div class="teaser-split__copy">
+            <p class="module__body" data-export-field="emb_teaser_2col_horizontal_col_3_body" data-export-role="item-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam quis nostrud exercitation.</p>
+            <a class="teaser-link" href="https://www.immobilienscout24.de" target="_blank" rel="noreferrer" data-token-attr-href="links.default_cta" data-export-field="emb_teaser_2col_horizontal_col_3_chevron_label" data-export-url-field="emb_teaser_2col_horizontal_col_3_chevron_url" data-export-role="item-link">Lorem ipsum</a>
+          </div>
+        </article>
+        <article class="teaser-split" data-export-item="teaser-2col-horizontal-item" data-export-index="4">
+          <div class="media media--teaser-horizontal teaser-split__media">
+            <div
+              class="preview-image-placeholder preview-image-placeholder--16x9 preview-image-placeholder--pad-lg"
+              data-image-field="emb_teaser_2col_horizontal_col_4_image_url"
+              data-image-alt-field="emb_teaser_2col_horizontal_col_4_image_alt"
+            >
+              <div class="preview-image-placeholder__text">
+                <p class="preview-image-placeholder__meta">16:9 | 960 x 540 px</p>
+              </div>
+            </div>
+          </div>
+          <div class="teaser-split__copy">
+            <p class="module__body" data-export-field="emb_teaser_2col_horizontal_col_4_body" data-export-role="item-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis aute irure dolor in reprehenderit in voluptate.</p>
+            <a class="teaser-link" href="https://www.immobilienscout24.de" target="_blank" rel="noreferrer" data-token-attr-href="links.default_cta" data-export-field="emb_teaser_2col_horizontal_col_4_chevron_label" data-export-url-field="emb_teaser_2col_horizontal_col_4_chevron_url" data-export-role="item-link">Lorem ipsum</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+                </div>
               </div>
             </div>
             <div class="test-module-row">
@@ -1743,7 +2373,54 @@
                 </button>
               </div>
               <div class="test-module-frame">
-                <iframe src="./frames/email/snippets/teaser-2col-alternating.html" title="teaser-2col-alternating test preview" loading="lazy" data-src-desktop="./frames/email/snippets/teaser-2col-alternating.html" data-src-mobile="./frames/email/test-mobile/teaser-2col-alternating.html" data-frame-id="teaser-2col-alternating"></iframe>
+                <div class="test-email-preview" data-email-preview-module="teaser-2col-alternating">
+<!-- MODULE: teaser-2col-alternating | SNIPPET: emb_teaser_2col_alternating -->
+<section class="module theme-white" data-module="teaser-2col-alternating" data-snippet="emb_teaser_2col_alternating">
+  <div class="module__inner">
+    <div class="stack">
+      <div class="module__head">
+        <h2 class="module__title module__title--medium" data-export-field="emb_teaser_2col_alternating_headline" data-export-role="headline">Zwei starke Bereiche fuer Ihre naechsten Schritte</h2>
+      </div>
+      <div class="alternating-teasers">
+        <article class="teaser-split" data-export-item="teaser-2col-alternating-item" data-export-index="1">
+          <div class="media media--teaser-alternating teaser-split__media">
+            <div
+              class="preview-image-placeholder preview-image-placeholder--4x3 preview-image-placeholder--pad-lg"
+              data-image-field="emb_teaser_2col_alternating_col_1_image_url"
+              data-image-alt-field="emb_teaser_2col_alternating_col_1_image_alt"
+            >
+              <div class="preview-image-placeholder__text">
+                <p class="preview-image-placeholder__meta">4:3 | 800 x 600 px</p>
+              </div>
+            </div>
+          </div>
+          <div class="teaser-split__copy">
+            <p class="module__body" data-export-field="emb_teaser_2col_alternating_col_1_body" data-export-role="item-body">Richten Sie Ihre Vermarktung so ein, dass Inhalt, Zeitplan und Interessentenkommunikation sauber aufeinander abgestimmt bleiben.</p>
+            <a class="teaser-link" href="https://www.immobilienscout24.de" target="_blank" rel="noreferrer" data-token-attr-href="links.default_cta" data-export-field="emb_teaser_2col_alternating_col_1_chevron_label" data-export-url-field="emb_teaser_2col_alternating_col_1_chevron_url" data-export-role="item-link">Zur Einfuehrung</a>
+          </div>
+        </article>
+        <article class="teaser-split teaser-split--reverse" data-export-item="teaser-2col-alternating-item" data-export-index="2">
+          <div class="media media--teaser-alternating teaser-split__media">
+            <div
+              class="preview-image-placeholder preview-image-placeholder--4x3 preview-image-placeholder--pad-lg"
+              data-image-field="emb_teaser_2col_alternating_col_2_image_url"
+              data-image-alt-field="emb_teaser_2col_alternating_col_2_image_alt"
+            >
+              <div class="preview-image-placeholder__text">
+                <p class="preview-image-placeholder__meta">4:3 | 800 x 600 px</p>
+              </div>
+            </div>
+          </div>
+          <div class="teaser-split__copy">
+            <p class="module__body" data-export-field="emb_teaser_2col_alternating_col_2_body" data-export-role="item-body">Nutzen Sie klare Statusschritte, um Vermarktungsfortschritte sichtbar zu machen und die naechsten Aufgaben schnell abzuleiten.</p>
+            <a class="teaser-link" href="https://www.immobilienscout24.de" target="_blank" rel="noreferrer" data-token-attr-href="links.default_cta" data-export-field="emb_teaser_2col_alternating_col_2_chevron_label" data-export-url-field="emb_teaser_2col_alternating_col_2_chevron_url" data-export-role="item-link">Mehr Details</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+                </div>
               </div>
             </div>
             <div class="test-module-row">
@@ -1755,7 +2432,91 @@
                 </button>
               </div>
               <div class="test-module-frame">
-                <iframe src="./frames/email/snippets/teaser-2col-listing.html" title="teaser-2col-listing test preview" loading="lazy" data-src-desktop="./frames/email/snippets/teaser-2col-listing.html" data-src-mobile="./frames/email/test-mobile/teaser-2col-listing.html" data-frame-id="teaser-2col-listing"></iframe>
+                <div class="test-email-preview" data-email-preview-module="teaser-2col-listing">
+<!-- MODULE: teaser-2col-listing | SNIPPET: emb_teaser_2col_listing -->
+<section class="module theme-gray" data-module="teaser-2col-listing" data-snippet="emb_teaser_2col_listing">
+  <div class="module__inner">
+    <div class="stack">
+      <div class="module__head">
+        <h2 class="module__title module__title--medium" data-export-field="emb_teaser_2col_listing_headline" data-export-role="headline">Lorem ipsum dolor sit amet</h2>
+      </div>
+      <div class="listing-rows">
+        <article class="listing-row" data-export-item="teaser-2col-listing-item" data-export-index="1">
+          <div class="media media--listing">
+            <div
+              class="preview-image-placeholder preview-image-placeholder--4x3 preview-image-placeholder--pad-sm"
+              data-image-field="emb_teaser_2col_listing_col_1_image_url"
+              data-image-alt-field="emb_teaser_2col_listing_col_1_image_alt"
+            >
+              <div class="preview-image-placeholder__text">
+                <p class="preview-image-placeholder__meta">4:3 | 800 x 600 px</p>
+              </div>
+            </div>
+          </div>
+          <div class="listing-row__copy">
+            <p class="module__body" data-export-field="emb_teaser_2col_listing_col_1_body" data-export-role="item-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <a class="teaser-link" href="https://www.immobilienscout24.de" target="_blank" rel="noreferrer" data-token-attr-href="links.default_cta" data-export-field="emb_teaser_2col_listing_col_1_chevron_label" data-export-url-field="emb_teaser_2col_listing_col_1_chevron_url" data-export-role="item-link">Lorem ipsum</a>
+          </div>
+        </article>
+        <article class="listing-row" data-export-item="teaser-2col-listing-item" data-export-index="2">
+          <div class="media media--listing">
+            <div
+              class="preview-image-placeholder preview-image-placeholder--4x3 preview-image-placeholder--pad-sm"
+              data-image-field="emb_teaser_2col_listing_col_2_image_url"
+              data-image-alt-field="emb_teaser_2col_listing_col_2_image_alt"
+            >
+              <div class="preview-image-placeholder__text">
+                <p class="preview-image-placeholder__meta">4:3 | 800 x 600 px</p>
+              </div>
+            </div>
+          </div>
+          <div class="listing-row__copy">
+            <p class="module__body" data-export-field="emb_teaser_2col_listing_col_2_body" data-export-role="item-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <a class="teaser-link" href="https://www.immobilienscout24.de" target="_blank" rel="noreferrer" data-token-attr-href="links.default_cta" data-export-field="emb_teaser_2col_listing_col_2_chevron_label" data-export-url-field="emb_teaser_2col_listing_col_2_chevron_url" data-export-role="item-link">Lorem ipsum</a>
+          </div>
+        </article>
+        <article class="listing-row" data-export-item="teaser-2col-listing-item" data-export-index="3">
+          <div class="media media--listing">
+            <div
+              class="preview-image-placeholder preview-image-placeholder--4x3 preview-image-placeholder--pad-sm"
+              data-image-field="emb_teaser_2col_listing_col_3_image_url"
+              data-image-alt-field="emb_teaser_2col_listing_col_3_image_alt"
+            >
+              <div class="preview-image-placeholder__text">
+                <p class="preview-image-placeholder__meta">4:3 | 800 x 600 px</p>
+              </div>
+            </div>
+          </div>
+          <div class="listing-row__copy">
+            <p class="module__body" data-export-field="emb_teaser_2col_listing_col_3_body" data-export-role="item-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <a class="teaser-link" href="https://www.immobilienscout24.de" target="_blank" rel="noreferrer" data-token-attr-href="links.default_cta" data-export-field="emb_teaser_2col_listing_col_3_chevron_label" data-export-url-field="emb_teaser_2col_listing_col_3_chevron_url" data-export-role="item-link">Lorem ipsum</a>
+          </div>
+        </article>
+        <article class="listing-row" data-export-item="teaser-2col-listing-item" data-export-index="4">
+          <div class="media media--listing">
+            <div
+              class="preview-image-placeholder preview-image-placeholder--4x3 preview-image-placeholder--pad-sm"
+              data-image-field="emb_teaser_2col_listing_col_4_image_url"
+              data-image-alt-field="emb_teaser_2col_listing_col_4_image_alt"
+            >
+              <div class="preview-image-placeholder__text">
+                <p class="preview-image-placeholder__meta">4:3 | 800 x 600 px</p>
+              </div>
+            </div>
+          </div>
+          <div class="listing-row__copy">
+            <p class="module__body" data-export-field="emb_teaser_2col_listing_col_4_body" data-export-role="item-body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.</p>
+            <a class="teaser-link" href="https://www.immobilienscout24.de" target="_blank" rel="noreferrer" data-token-attr-href="links.default_cta" data-export-field="emb_teaser_2col_listing_col_4_chevron_label" data-export-url-field="emb_teaser_2col_listing_col_4_chevron_url" data-export-role="item-link">Lorem ipsum</a>
+          </div>
+        </article>
+      </div>
+      <div class="module__cta-row is-hidden">
+        <a class="button-outline-strong" href="https://www.immobilienscout24.de" target="_blank" rel="noreferrer" data-token-attr-href="links.default_cta" data-export-field="emb_teaser_2col_listing_button_label" data-export-url-field="emb_teaser_2col_listing_button_url" data-export-role="cta">Mehr erfahren</a>
+      </div>
+    </div>
+  </div>
+</section>
+                </div>
               </div>
             </div>
             <div class="test-module-row">
@@ -1767,7 +2528,76 @@
                 </button>
               </div>
               <div class="test-module-frame">
-                <iframe src="./frames/email/snippets/teaser-2col-gallery.html" title="teaser-2col-gallery test preview" loading="lazy" data-src-desktop="./frames/email/snippets/teaser-2col-gallery.html" data-src-mobile="./frames/email/test-mobile/teaser-2col-gallery.html" data-frame-id="teaser-2col-gallery"></iframe>
+                <div class="test-email-preview" data-email-preview-module="teaser-2col-gallery">
+<!-- MODULE: teaser-2col-gallery | SNIPPET: emb_teaser_2col_gallery -->
+<section class="module theme-white" data-module="teaser-2col-gallery" data-snippet="emb_teaser_2col_gallery">
+  <div class="module__inner">
+    <div class="stack">
+      <div class="module__head">
+        <h2 class="module__title module__title--medium" data-export-field="emb_teaser_2col_gallery_headline" data-export-role="headline">Impressionen</h2>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-grid__row">
+          <article class="gallery-grid__item" data-export-item="teaser-2col-gallery-item" data-export-index="1">
+            <div class="media media--teaser-horizontal gallery-grid__media">
+              <div
+                class="preview-image-placeholder preview-image-placeholder--16x9 preview-image-placeholder--pad-lg"
+                data-image-field="emb_teaser_2col_gallery_col_1_image_url"
+                data-image-alt-field="emb_teaser_2col_gallery_col_1_image_alt"
+              >
+                <div class="preview-image-placeholder__text">
+                  <p class="preview-image-placeholder__meta">16:9 | 960 x 540 px</p>
+                </div>
+              </div>
+            </div>
+          </article>
+          <article class="gallery-grid__item" data-export-item="teaser-2col-gallery-item" data-export-index="2">
+            <div class="media media--teaser-horizontal gallery-grid__media">
+              <div
+                class="preview-image-placeholder preview-image-placeholder--16x9 preview-image-placeholder--pad-lg"
+                data-image-field="emb_teaser_2col_gallery_col_2_image_url"
+                data-image-alt-field="emb_teaser_2col_gallery_col_2_image_alt"
+              >
+                <div class="preview-image-placeholder__text">
+                  <p class="preview-image-placeholder__meta">16:9 | 960 x 540 px</p>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+        <div class="gallery-grid__row gallery-grid__row--mobile-hide">
+          <article class="gallery-grid__item" data-export-item="teaser-2col-gallery-item" data-export-index="3">
+            <div class="media media--teaser-horizontal gallery-grid__media">
+              <div
+                class="preview-image-placeholder preview-image-placeholder--16x9 preview-image-placeholder--pad-lg"
+                data-image-field="emb_teaser_2col_gallery_col_3_image_url"
+                data-image-alt-field="emb_teaser_2col_gallery_col_3_image_alt"
+              >
+                <div class="preview-image-placeholder__text">
+                  <p class="preview-image-placeholder__meta">16:9 | 960 x 540 px</p>
+                </div>
+              </div>
+            </div>
+          </article>
+          <article class="gallery-grid__item" data-export-item="teaser-2col-gallery-item" data-export-index="4">
+            <div class="media media--teaser-horizontal gallery-grid__media">
+              <div
+                class="preview-image-placeholder preview-image-placeholder--16x9 preview-image-placeholder--pad-lg"
+                data-image-field="emb_teaser_2col_gallery_col_4_image_url"
+                data-image-alt-field="emb_teaser_2col_gallery_col_4_image_alt"
+              >
+                <div class="preview-image-placeholder__text">
+                  <p class="preview-image-placeholder__meta">16:9 | 960 x 540 px</p>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+                </div>
               </div>
             </div>
           </section>
@@ -1782,13 +2612,59 @@
                 </button>
               </div>
               <div class="test-module-frame">
-                <iframe
-                  src="./frames/email/snippets/benefits-3col.html"
-                  title="benefits-3col test preview"
-                  loading="lazy"
-                  data-src-desktop="./frames/email/snippets/benefits-3col.html"
-                  data-src-mobile="./frames/email/test-mobile/benefits-3col.html"
-                  data-frame-id="benefits-3col"></iframe>
+                <div class="test-email-preview" data-email-preview-module="benefits-3col">
+<!-- MODULE: benefits-3col | SNIPPET: emb_benefits_3col -->
+<section class="module theme-white" data-module="benefits-3col" data-snippet="emb_benefits_3col">
+  <div class="module__inner">
+    <div class="stack">
+      <div class="module__head">
+        <h2 class="module__title module__title--medium" data-export-field="emb_benefits_3col_headline" data-export-role="headline">Darum lohnt sich Ihr Suchprofil</h2>
+      </div>
+      <div class="benefits-columns">
+        <article class="benefit-item" data-export-item="benefit-card" data-export-index="1">
+          <img
+            class="benefit-item__icon"
+            src="https://library.eu.iterable.com/33/98/d8ed736f1b5f427a92b67270fdd44469-s24_thump_up_48.png"
+            alt=""
+            width="48"
+            height="48"
+            data-token-attr-src="assets.thumb_up_48"
+            data-icon-field="emb_benefits_3col_col_1_icon_url"
+          />
+          <p class="module__body" data-export-field="emb_benefits_3col_col_1_body" data-export-role="item-body">Neue Angebote landen direkt bei Ihnen, sobald sie zu Ihrer Suche passen.</p>
+        </article>
+        <article class="benefit-item" data-export-item="benefit-card" data-export-index="2">
+          <img
+            class="benefit-item__icon"
+            src="https://library.eu.iterable.com/33/98/d8ed736f1b5f427a92b67270fdd44469-s24_thump_up_48.png"
+            alt=""
+            width="48"
+            height="48"
+            data-token-attr-src="assets.thumb_up_48"
+            data-icon-field="emb_benefits_3col_col_2_icon_url"
+          />
+          <p class="module__body" data-export-field="emb_benefits_3col_col_2_body" data-export-role="item-body">Filtern Sie nach Lage, Preis und Groesse und sehen Sie nur relevante Treffer.</p>
+        </article>
+        <article class="benefit-item" data-export-item="benefit-card" data-export-index="3">
+          <img
+            class="benefit-item__icon"
+            src="https://library.eu.iterable.com/33/98/d8ed736f1b5f427a92b67270fdd44469-s24_thump_up_48.png"
+            alt=""
+            width="48"
+            height="48"
+            data-token-attr-src="assets.thumb_up_48"
+            data-icon-field="emb_benefits_3col_col_3_icon_url"
+          />
+          <p class="module__body" data-export-field="emb_benefits_3col_col_3_body" data-export-role="item-body">Merken Sie Angebote vor und starten Sie Ihre Anfrage mit nur wenigen Klicks.</p>
+        </article>
+      </div>
+      <div class="module__cta-row">
+        <a class="button-outline-strong" href="https://www.immobilienscout24.de/meinsuchprofil/meinsuchprofilanlage/" target="_blank" rel="noreferrer" data-token-attr-href="links.mein_suchprofil" data-export-field="emb_benefits_3col_button_label" data-export-url-field="emb_benefits_3col_button_url" data-export-role="cta">Suchprofil anlegen</a>
+      </div>
+    </div>
+  </div>
+</section>
+                </div>
               </div>
             </div>
           </section>
@@ -1803,13 +2679,35 @@
                 </button>
               </div>
               <div class="test-module-frame">
-                <iframe
-                  src="./frames/email/snippets/steps-3col.html"
-                  title="steps-3col test preview"
-                  loading="lazy"
-                  data-src-desktop="./frames/email/snippets/steps-3col.html"
-                  data-src-mobile="./frames/email/test-mobile/steps-3col.html"
-                  data-frame-id="steps-3col"></iframe>
+                <div class="test-email-preview" data-email-preview-module="steps-3col">
+<!-- MODULE: steps-3col | SNIPPET: emb_steps_3col -->
+<section class="module theme-gray" data-module="steps-3col" data-snippet="emb_steps_3col">
+  <div class="module__inner">
+    <div class="stack">
+      <div class="module__head">
+        <h2 class="module__title module__title--medium" data-export-field="emb_steps_3col_headline" data-export-role="headline">So starten Sie in drei klaren Schritten</h2>
+      </div>
+      <div class="steps-grid">
+        <article class="step" data-export-item="steps-3col-item" data-export-index="1">
+          <div class="step__line"><span class="step__number">1</span></div>
+          <p class="module__body" data-export-field="emb_steps_3col_col_1_body" data-export-role="item-body">Definieren Sie Ziel, Timing und die wichtigsten Vermarktungsinhalte fuer Ihre Mail.</p>
+        </article>
+        <article class="step" data-export-item="steps-3col-item" data-export-index="2">
+          <div class="step__line"><span class="step__number">2</span></div>
+          <p class="module__body" data-export-field="emb_steps_3col_col_2_body" data-export-role="item-body">Ordnen Sie Vorteile, Inhalte und CTAs so an, dass der Mehrwert direkt erkennbar ist.</p>
+        </article>
+        <article class="step" data-export-item="steps-3col-item" data-export-index="3">
+          <div class="step__line"><span class="step__number">3</span></div>
+          <p class="module__body" data-export-field="emb_steps_3col_col_3_body" data-export-role="item-body">Exportieren Sie den finalen Stand nach Iterable und behalten Sie dieselbe Modulfolge wie in der Preview.</p>
+        </article>
+      </div>
+      <div class="module__cta-row">
+        <a class="button-outline-strong" href="https://www.immobilienscout24.de" target="_blank" rel="noreferrer" data-token-attr-href="links.default_cta" data-export-field="emb_steps_3col_button_label" data-export-url-field="emb_steps_3col_button_url" data-export-role="cta">Jetzt starten</a>
+      </div>
+    </div>
+  </div>
+</section>
+                </div>
               </div>
             </div>
             <div class="test-module-row">
@@ -1821,13 +2719,35 @@
                 </button>
               </div>
               <div class="test-module-frame">
-                <iframe
-                  src="./frames/email/snippets/steps-horizontal.html"
-                  title="steps-horizontal test preview"
-                  loading="lazy"
-                  data-src-desktop="./frames/email/snippets/steps-horizontal.html"
-                  data-src-mobile="./frames/email/test-mobile/steps-horizontal.html"
-                  data-frame-id="steps-horizontal"></iframe>
+                <div class="test-email-preview" data-email-preview-module="steps-horizontal">
+<!-- MODULE: steps-horizontal | SNIPPET: emb_steps_horizontal -->
+<section class="module theme-gray" data-module="steps-horizontal" data-snippet="emb_steps_horizontal">
+  <div class="module__inner">
+    <div class="stack">
+      <div class="module__head">
+        <h2 class="module__title module__title--medium" data-export-field="emb_steps_horizontal_headline" data-export-role="headline">Lorem ipsum dolor sit amet</h2>
+      </div>
+      <div class="steps-vertical">
+        <article class="step-vertical" data-export-item="steps-horizontal-item" data-export-index="1">
+          <div class="step-vertical__line"><span class="step__number">1</span></div>
+          <p class="module__body" data-export-field="emb_steps_horizontal_col_1_body" data-export-role="item-body"><strong>Lorem ipsum dolor.</strong><br />Sit amet, consetetur sadipscing elitr.</p>
+        </article>
+        <article class="step-vertical" data-export-item="steps-horizontal-item" data-export-index="2">
+          <div class="step-vertical__line"><span class="step__number">2</span></div>
+          <p class="module__body" data-export-field="emb_steps_horizontal_col_2_body" data-export-role="item-body"><strong>Lorem ipsum dolor.</strong><br />Sit amet, consetetur sadipscing elitr.</p>
+        </article>
+        <article class="step-vertical" data-export-item="steps-horizontal-item" data-export-index="3">
+          <div class="step-vertical__line"><span class="step__number">3</span></div>
+          <p class="module__body" data-export-field="emb_steps_horizontal_col_3_body" data-export-role="item-body"><strong>Lorem ipsum dolor.</strong><br />Sit amet, consetetur sadipscing elitr.</p>
+        </article>
+      </div>
+      <div class="module__cta-row">
+        <a class="button-outline-strong" href="https://www.immobilienscout24.de" target="_blank" rel="noreferrer" data-token-attr-href="links.default_cta" data-export-field="emb_steps_horizontal_button_label" data-export-url-field="emb_steps_horizontal_button_url" data-export-role="cta">Lorem ipsum</a>
+      </div>
+    </div>
+  </div>
+</section>
+                </div>
               </div>
             </div>
           </section>
@@ -1842,13 +2762,36 @@
                 </button>
               </div>
               <div class="test-module-frame">
-                <iframe
-                  src="./frames/email/snippets/contact.html"
-                  title="contact test preview"
-                  loading="lazy"
-                  data-src-desktop="./frames/email/snippets/contact.html"
-                  data-src-mobile="./frames/email/test-mobile/contact.html"
-                  data-frame-id="contact"></iframe>
+                <div class="test-email-preview" data-email-preview-module="contact">
+<!-- MODULE: contact | SNIPPET: emb_contact -->
+<section class="module theme-white" data-module="contact" data-snippet="emb_contact">
+  <div class="module__inner">
+    <div class="contact-card">
+      <div class="contact-head">
+        <div class="contact-placeholder" aria-hidden="true"></div>
+        <div class="contact-head__copy">
+          <h2 class="module__title module__title--medium" data-export-field="emb_contact_headline" data-export-role="headline">Wir sind fuer Sie da</h2>
+          <div class="module__teaser-richtext" data-export-field="emb_contact_body_intro" data-export-role="richtext">
+            <p class="module__body" data-export-role="body-paragraph" data-export-index="1">Sie moechten Ihre Mail oder Ihren Builder-Stand gemeinsam schaerfen? Unser Team unterstuetzt Sie gern beim naechsten Schritt.</p>
+            <ul class="module__list--teaser">
+              <li data-export-item="contact-intro-list-item" data-export-index="1">Wir pruefen Inhalte, Struktur und Builder-Stand gemeinsam</li>
+              <li data-export-item="contact-intro-list-item" data-export-index="2">Rueckfragen und Abstimmungen lassen sich direkt im Team klaeren</li>
+            </ul>
+            <p class="module__body" data-export-role="body-paragraph" data-export-index="2">So kommen Sie schneller zu einer sauberen und versandbereiten Mail.</p>
+          </div>
+        </div>
+      </div>
+      <div class="contact-copy">
+        <p class="contact-phone" data-export-field="emb_contact_phone" data-export-role="phone">030 12345678</p>
+        <p class="module__body" data-export-field="emb_contact_phone_hours" data-export-role="phone-hours">Montag bis Freitag, 9 bis 18 Uhr</p>
+        <p class="module__body" data-export-field="emb_contact_email_intro" data-export-role="email-intro">Oder schreiben Sie uns direkt per E-Mail:</p>
+        <p class="module__body"><a class="contact-link" href="mailto:beratung@immobilienscout24.de" data-token-attr-href="contact.email_url" data-token-text="contact.email_address" data-export-field="emb_contact_email_address" data-export-url-field="emb_contact_email_url" data-export-role="email-link">beratung@immobilienscout24.de</a></p>
+        <p class="contact-signoff"><span data-export-field="emb_contact_closing_line_1" data-export-role="closing-line" data-export-index="1">Viele Gruesse</span><br><span data-export-field="emb_contact_closing_line_2" data-export-role="closing-line" data-export-index="2">Ihr Builder-Team</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+                </div>
               </div>
             </div>
           </section>
@@ -1863,13 +2806,47 @@
                 </button>
               </div>
               <div class="test-module-frame">
-                <iframe
-                  src="./frames/email/snippets/table.html"
-                  title="table test preview"
-                  loading="lazy"
-                  data-src-desktop="./frames/email/snippets/table.html"
-                  data-src-mobile="./frames/email/test-mobile/table.html"
-                  data-frame-id="table"></iframe>
+                <div class="test-email-preview" data-email-preview-module="table">
+<!-- MODULE: table | SNIPPET: emb_table -->
+<section class="module theme-white" data-module="table" data-snippet="emb_table">
+  <div class="module__inner">
+    <div class="table-card">
+      <div class="module__head">
+        <h2 class="module__title module__title--medium" data-export-field="emb_table_headline" data-export-role="headline">Leistungsueberblick fuer Ihre Vermarktung</h2>
+      </div>
+      <table class="data-table" role="presentation">
+        <thead>
+          <tr>
+            <th scope="col" data-export-field="emb_table_col_1_headline">Leistung</th>
+            <th scope="col" data-export-field="emb_table_col_2_headline">Basis</th>
+            <th scope="col" data-export-field="emb_table_col_3_headline">Plus</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-export-field="emb_table_row_1_col_1_body">Expose und Inserat</td>
+            <td data-export-field="emb_table_row_1_col_2_body">Enthalten</td>
+            <td data-export-field="emb_table_row_1_col_3_body">Enthalten</td>
+          </tr>
+          <tr>
+            <td data-export-field="emb_table_row_2_col_1_body">Rueckmeldungen zentral buendeln</td>
+            <td data-export-field="emb_table_row_2_col_2_body">Begrenzt</td>
+            <td data-export-field="emb_table_row_2_col_3_body">Voll integriert</td>
+          </tr>
+          <tr>
+            <td data-export-field="emb_table_row_3_col_1_body">Persoenliche Begleitung</td>
+            <td data-export-field="emb_table_row_3_col_2_body">Optional</td>
+            <td data-export-field="emb_table_row_3_col_3_body">Inklusive</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="module__cta-row">
+        <a class="button-outline-strong" href="https://www.immobilienscout24.de" target="_blank" rel="noreferrer" data-token-attr-href="links.default_cta" data-export-field="emb_table_button_label" data-export-url-field="emb_table_button_url" data-export-role="cta">Pakete vergleichen</a>
+      </div>
+    </div>
+  </div>
+</section>
+                </div>
               </div>
             </div>
             <div class="test-module-row">
@@ -1881,13 +2858,41 @@
                 </button>
               </div>
               <div class="test-module-frame">
-                <iframe
-                  src="./frames/email/snippets/table-comparison.html"
-                  title="table-comparison test preview"
-                  loading="lazy"
-                  data-src-desktop="./frames/email/snippets/table-comparison.html"
-                  data-src-mobile="./frames/email/test-mobile/table-comparison.html"
-                  data-frame-id="table-comparison"></iframe>
+                <div class="test-email-preview" data-email-preview-module="table-comparison">
+<!-- MODULE: table-comparison | SNIPPET: emb_table_comparison -->
+<section class="module theme-white" data-module="table-comparison" data-snippet="emb_table_comparison">
+  <div class="module__inner">
+    <div class="table-card">
+      <div class="module__head">
+        <h2 class="module__title module__title--medium" data-export-field="emb_table_comparison_headline" data-export-role="headline">Zwei Wege im direkten Vergleich</h2>
+      </div>
+      <div class="comparison-grid">
+        <section class="comparison-column" data-export-item="table-comparison-column" data-export-index="1">
+          <h3 class="module__title module__title--small" data-export-field="emb_table_comparison_col_1_headline">Selbst organisieren</h3>
+          <div class="comparison-column__rule" aria-hidden="true"></div>
+          <div class="comparison-list">
+            <p class="comparison-item" data-export-field="emb_table_comparison_row_1_col_1_body" data-export-index="1">Sie koordinieren Inhalte, Rueckfragen und Freigaben manuell.</p>
+            <p class="comparison-item" data-export-field="emb_table_comparison_row_2_col_1_body" data-export-index="2">Status und Resonanz muessen ueber mehrere Kanaele zusammengefuehrt werden.</p>
+            <p class="comparison-item" data-export-field="emb_table_comparison_row_3_col_1_body" data-export-index="3">Anpassungen kosten mehr Abstimmung im laufenden Prozess.</p>
+          </div>
+        </section>
+        <section class="comparison-column" data-export-item="table-comparison-column" data-export-index="2">
+          <h3 class="module__title module__title--small" data-export-field="emb_table_comparison_col_2_headline">Digital begleitet</h3>
+          <div class="comparison-column__rule" aria-hidden="true"></div>
+          <div class="comparison-list">
+            <p class="comparison-item" data-export-field="emb_table_comparison_row_1_col_2_body" data-export-index="1">Sie behalten Inhalte, Sichtbarkeit und Reaktionen in einem Ablauf im Blick.</p>
+            <p class="comparison-item" data-export-field="emb_table_comparison_row_2_col_2_body" data-export-index="2">Resonanz und naechste Schritte bleiben fuer alle Beteiligten nachvollziehbar.</p>
+            <p class="comparison-item" data-export-field="emb_table_comparison_row_3_col_2_body" data-export-index="3">Optimierungen lassen sich schneller und klarer in die Mail uebernehmen.</p>
+          </div>
+        </section>
+      </div>
+      <div class="module__cta-row">
+        <a class="button-outline-strong" href="https://www.immobilienscout24.de" target="_blank" rel="noreferrer" data-token-attr-href="links.default_cta" data-export-field="emb_table_comparison_button_label" data-export-url-field="emb_table_comparison_button_url" data-export-role="cta">Beratung anfragen</a>
+      </div>
+    </div>
+  </div>
+</section>
+                </div>
               </div>
             </div>
           </section>
@@ -1902,13 +2907,46 @@
                 </button>
               </div>
               <div class="test-module-frame">
-                <iframe
-                  src="./frames/email/snippets/footer.html"
-                  title="footer test preview"
-                  loading="lazy"
-                  data-src-desktop="./frames/email/snippets/footer.html"
-                  data-src-mobile="./frames/email/test-mobile/footer.html"
-                  data-frame-id="footer"></iframe>
+                <div class="test-email-preview" data-email-preview-module="footer">
+<!-- MODULE: footer | SNIPPET: emb_footer_marketing -->
+<footer class="module theme-white" data-module="footer" data-snippet="emb_footer_marketing">
+  <div class="module__inner module__inner--compact">
+    <div class="footer-marketing">
+      <p class="footer-marketing__headline">Kostenlose App herunterladen</p>
+      <div class="footer-marketing__badges">
+        <a class="footer-badge" href="https://itunes.apple.com/de/app/immobilienscout24/id342157367?mt=8" target="_blank" rel="noreferrer" data-token-attr-href="links.app_store">
+          <img
+            class="footer-badge__image"
+            src="https://d15k2d11r6t6rl.cloudfront.net/pub/bfra/tgru1zsx/i36/uhu/m14/d1284a48-db27-4f3b-a434-ab9a625d0dd4.png"
+            data-token-attr-src="assets.app_store_badge"
+            alt="Download on the App Store"
+            width="115"
+            height="37"
+          />
+        </a>
+        <a class="footer-badge" href="https://play.google.com/store/apps/details?id=de.is24.android&hl=de" target="_blank" rel="noreferrer" data-token-attr-href="links.google_play">
+          <img
+            class="footer-badge__image"
+            src="https://d15k2d11r6t6rl.cloudfront.net/pub/bfra/tgru1zsx/nrd/s3d/49k/b78e3fcd-6303-429c-a29d-691d73c0d01d.png"
+            data-token-attr-src="assets.google_play_badge"
+            alt="Get it on Google Play"
+            width="130"
+            height="37"
+          />
+        </a>
+      </div>
+      <div class="footer-marketing__copy">
+        <p class="footer-marketing__text">ImmoScout24 informiert Sie ueber Aktuelles aus der Immobilienwelt. Wenn Sie keine Tipps und Angebote mehr erhalten moechten, koennen Sie sich <a href="#" target="_blank" rel="noreferrer">hier abmelden</a>.</p>
+        <p class="footer-marketing__text">Immobilien Scout GmbH, Invalidenstr. 65, 10557 Berlin · <a href="https://www.immobilienscout24.de" target="_blank" rel="noreferrer" data-token-attr-href="links.website" data-token-text="links.website_label">immobilienscout24.de</a> · Geschaeftsfuehrung: Dr. Gesa Crockford · Registergericht: Amtsgericht Charlottenburg · Registernummer: HRB 69108 B</p>
+        <p class="footer-marketing__links">
+          <a href="https://www.immobilienscout24.de/agb/datenschutz.html" target="_blank" rel="noreferrer" data-token-attr-href="links.privacy">Datenschutz</a><span class="footer-marketing__links-separator">|</span><a href="https://www.immobilienscout24.de/impressum.html" target="_blank" rel="noreferrer" data-token-attr-href="links.imprint">Impressum</a>
+        </p>
+        <p class="footer-marketing__text">&copy; 1999 - 2026 Immobilien Scout GmbH</p>
+      </div>
+    </div>
+  </div>
+</footer>
+                </div>
               </div>
             </div>
           </section>
