@@ -62,4 +62,17 @@ Zusätzlich erzeugt der Sync im Publish-Repo:
 Wenn Tokens, Library-Dateien oder Modulquellen geaendert werden:
 1. echte Projektdateien aktualisieren
 2. `python3 design-system/scripts/sync_design_library_publish.py` ausfuehren
-3. den Mirror-Checkout committen und nach GitHub pushen
+3. pruefen, ob der Mirror-Worktree sauber ist oder nur erwartete Sync-Aenderungen enthaelt
+4. den Mirror-Checkout nur nach ausdruecklicher User-Freigabe fuer Live-Publish committen und nach GitHub pushen
+
+## Verbindliche Agent-Regel
+
+Fuer Codex gilt:
+- die aktive sichtbare Design-Library-Quelle ist `design-system/design-library/index.html`
+- der Publish-Mirror liegt unter `.publish/design-library-repo/`
+- das separate Live-Repo ist `s24-creative-ops/design-library`
+- Aenderungen an der sichtbaren Design-Library gelten nicht als live, nur weil sie im Hauptrepo committed oder gepusht wurden
+- wenn eine Aenderung die sichtbare Design-Library betrifft, muss Codex vor Abschluss klar berichten, ob der Publish-Mirror synchronisiert wurde und ob das Live-Repo aktualisiert wurde
+- Codex darf das separate Publish-Repo nur nach ausdruecklicher User-Freigabe fuer Live-Publish aktualisieren
+- wenn im Mirror fremde oder unklare Aenderungen liegen, ein Push blockiert wird oder ein PR-/Branch-Protection-Flow noetig ist, muss Codex stoppen und berichten
+- ein Design-Library-Fix gilt erst als vollstaendig abgeschlossen, wenn entweder Quelle, Mirror und Live-Repo aktualisiert wurden oder Codex klar berichtet, dass der Live-Publish noch aussteht

@@ -42,6 +42,22 @@ Stattdessen gilt:
 - Dieser Mirror wird aus den aktiven Projektquellen generiert.
 - Die Mirror-Synchronisation laeuft ueber:
   `scripts/sync_design_library_publish.py`
+- Die sichtbare Design-Library gilt nicht als live aktualisiert, nur weil Aenderungen im Hauptrepo committed oder gepusht wurden.
+
+## Verbindliche Publish-Regel
+
+Wenn eine Aenderung die sichtbare Design-Library betrifft, gilt verbindlich:
+1. die aktive sichtbare Library-Quelle ist `design-library/index.html`
+2. der Publish-Mirror liegt unter `../.publish/design-library-repo/`
+3. der Mirror wird ueber `python3 design-system/scripts/sync_design_library_publish.py` synchronisiert
+4. das separate Live-Repo ist `s24-creative-ops/design-library`
+5. vor Abschluss muss Codex klar berichten, ob der Publish-Mirror synchronisiert wurde und ob das Live-Repo aktualisiert wurde
+6. Codex darf das separate Publish-Repo nur nach ausdruecklicher User-Freigabe fuer Live-Publish aktualisieren
+7. vor einem Live-Publish muss Codex pruefen, ob der Mirror-Worktree sauber ist oder nur erwartete Sync-Aenderungen enthaelt
+8. wenn im Mirror fremde oder unklare Aenderungen liegen, ein Push blockiert wird oder ein PR-/Branch-Protection-Flow noetig ist, muss Codex stoppen und den offenen Publish-Schritt berichten
+9. ein Design-Library-Fix gilt erst als vollstaendig abgeschlossen, wenn entweder
+   - Quelle, Mirror und Live-Repo aktualisiert wurden, oder
+   - Codex klar berichtet, dass der Live-Publish noch aussteht
 
 ## Arbeitsregel fuer Codex
 
@@ -59,9 +75,10 @@ Wenn eine Aenderung sichtbare Auswirkungen auf die Library haben kann:
 3. `email-builder/` oder `lp-builder/` pruefen und aktualisieren, falls Modulquellen betroffen sind
 4. `python3 design-system/scripts/sync_design_library_publish.py` ausfuehren
 5. den Mirror unter `../.publish/design-library-repo/` auf den neuen Stand pruefen
-6. wenn der Mirror ein Git-Checkout mit nutzbarem Remote ist, den bestehenden Publish-Prozess ueber den Mirror-Checkout aktualisieren, optional ueber `bash design-system/scripts/publish_design_library.sh`
-7. wenn kein nutzbarer Mirror-Checkout oder kein klarer Push-Zugang vorliegt, stoppen und den fehlenden Publish-Schritt berichten
-8. am Ende berichten, ob der Publish-Mirror synchron ist und ob ein GitHub-Update durchgefuehrt wurde oder warum nicht
+6. wenn der Mirror ein Git-Checkout mit nutzbarem Remote ist und der User ausdruecklich Live-Publish freigegeben hat, den bestehenden Publish-Prozess ueber den Mirror-Checkout aktualisieren, optional ueber `bash design-system/scripts/publish_design_library.sh`
+7. vor einem Live-Publish den Mirror-Worktree auf fremde oder unklare Aenderungen pruefen und nur bei sauberem oder erwartbarem Sync-Stand fortfahren
+8. wenn kein nutzbarer Mirror-Checkout, kein klarer Push-Zugang, ein blockierter Push oder ein PR-/Branch-Protection-Flow vorliegt, stoppen und den fehlenden Publish-Schritt berichten
+9. am Ende berichten, ob der Publish-Mirror synchron ist und ob ein GitHub-Update durchgefuehrt wurde oder warum nicht
 
 ## Grundsatz
 

@@ -1,0 +1,58 @@
+{
+  "template_id": "searcher-standard",
+  "template_name": "Searcher Standard",
+  "version": 1,
+  "status": "active",
+  "preview_file": "template-searcher-standard.preview.html",
+  "iterable_template_id": 611779,
+  "rules": {
+    "order_locked": true,
+    "forbid_new_modules": true,
+    "allow_remove_modules": true,
+    "allow_duplicate_modules": true
+  },
+  "slots": [
+    {
+      "slot_id": "logo-1",
+      "module_id": "logo",
+      "locked": true,
+      "removable": false,
+      "repeatable": false
+    },
+    {
+      "slot_id": "hero-1",
+      "module_id": "hero-image-top",
+      "locked": true,
+      "removable": false,
+      "repeatable": false
+    },
+    {
+      "slot_id": "teaser-1",
+      "module_id": "teaser-1col",
+      "locked": false,
+      "removable": true,
+      "repeatable": true
+    },
+    {
+      "slot_id": "teaser-2",
+      "module_id": "teaser-1col",
+      "locked": false,
+      "removable": true,
+      "repeatable": true
+    },
+    {
+      "slot_id": "contact-1",
+      "module_id": "contact",
+      "locked": true,
+      "removable": false,
+      "repeatable": false
+    },
+    {
+      "slot_id": "footer-1",
+      "module_id": "footer",
+      "locked": true,
+      "removable": false,
+      "repeatable": false
+    }
+  ]
+}

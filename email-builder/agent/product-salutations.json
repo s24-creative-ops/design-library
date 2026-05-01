@@ -2,17 +2,5 @@
   "version": 1,
   "preview_default": "Hallo Anrede,",
   "fallback_export": "Hallo Anrede,",
-  "products": [
-    {
-      "product_id": "viessmann",
-      "aliases": [
-        "Viessmann",
-        "Viessmann E-Mail"
-      ],
-      "template_ids": [
-        "template-vissmann"
-      ],
-      "hero_salutation_export": "{{#ifContainsStr firstName \"NULL\"}} Hallo, {{else if firstName}} Hallo {{capitalize firstName}}, {{else}} Hallo, {{/ifContainsStr}}"
-    }
-  ]
+  "products": []
 }

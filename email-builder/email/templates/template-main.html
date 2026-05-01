@@ -21,7 +21,7 @@
     .desktop_hide, .desktop_hide table { mso-hide: all; display: none; max-height: 0px; overflow: hidden; }
     .module-rich-full-body--hero {
       display: grid;
-      gap: 16px;
+      gap: 0;
     }
     .module-rich-full-body--hero-image-textbox-cta-center {
       display: grid;
@@ -38,6 +38,19 @@
     .module-rich-full-body--hero ol {
       margin: 0;
     }
+    .module-rich-full-body--hero p + p {
+      margin-top: 16px;
+    }
+    .module-rich-full-body--hero p + ul,
+    .module-rich-full-body--hero p + ol,
+    .module-rich-full-body--hero ul + p,
+    .module-rich-full-body--hero ul + ul,
+    .module-rich-full-body--hero ul + ol,
+    .module-rich-full-body--hero ol + p,
+    .module-rich-full-body--hero ol + ul,
+    .module-rich-full-body--hero ol + ol {
+      margin-top: 8px;
+    }
     .module-rich-full-body--hero-image-textbox-cta-center p,
     .module-rich-full-body--hero-image-textbox-cta-center ul,
     .module-rich-full-body--hero-image-textbox-cta-center ol {
@@ -45,22 +58,44 @@
     }
     .module-rich-full-body--hero ul,
     .module-rich-full-body--hero ol {
-      padding-left: 24px;
+      padding-left: 20px;
+      padding-inline-start: 20px;
+      margin-left: 0;
+    }
+    .module-rich-full-body--hero li {
+      margin: 0 0 4px;
+    }
+    .module-rich-full-body--hero li:last-child {
+      margin-bottom: 0;
     }
     .module-rich-full-body--hero-image-textbox-cta-center ul,
     .module-rich-full-body--hero-image-textbox-cta-center ol {
-      padding-left: 24px;
+      padding-left: 20px;
+      padding-inline-start: 20px;
+      margin-left: 0;
     }
     .module-rich-full-body--teaser-1col p {
-      margin: 0 0 16px;
-    }
-    .module-rich-full-body--teaser-1col p:last-child {
-      margin-bottom: 0;
+      margin: 0;
     }
     .module-rich-full-body--teaser-1col ul,
     .module-rich-full-body--teaser-1col ol {
-      margin: 16px 0 0;
-      padding-left: 22px;
+      margin: 0;
+      padding-left: 20px;
+      padding-inline-start: 20px;
+      margin-left: 0;
+    }
+    .module-rich-full-body--teaser-1col p + ul,
+    .module-rich-full-body--teaser-1col p + ol,
+    .module-rich-full-body--teaser-1col ul + p,
+    .module-rich-full-body--teaser-1col ul + ul,
+    .module-rich-full-body--teaser-1col ul + ol,
+    .module-rich-full-body--teaser-1col ol + p,
+    .module-rich-full-body--teaser-1col ol + ul,
+    .module-rich-full-body--teaser-1col ol + ol {
+      margin-top: 8px;
+    }
+    .module-rich-full-body--teaser-1col p + p {
+      margin-top: 16px;
     }
     .module-rich-full-body--teaser-1col li {
       margin: 0 0 4px;
@@ -79,6 +114,24 @@
       .font-heading-small-regular,
       .font-heading-small-bold { font-size: 20px !important; line-height: 30px !important; }
       .module-12-heading h1 { font-size: 28px !important; line-height: 36px !important; }
+      .module-block[data-module="hero-image-top"] .module-12-heading h1.hero-headline-size-s { font-size: 20px !important; line-height: 30px !important; }
+      .module-block[data-module="hero-image-top"] .module-12-heading h1.hero-headline-size-m { font-size: 24px !important; line-height: 34px !important; }
+      .module-block[data-module="hero-image-top"] .module-12-heading h1.hero-headline-size-l { font-size: 28px !important; line-height: 36px !important; }
+      .module-block[data-module="hero-image-top-bleed"] .module-12-heading h1.hero-headline-size-s,
+      .module-block[data-module="hero-button-top"] .module-12-no-bottom-heading h1.hero-headline-size-s,
+      .module-block[data-module="hero-button-top-no-bottom"] .module-12-no-bottom-heading h1.hero-headline-size-s { font-size: 20px !important; line-height: 30px !important; }
+      .module-block[data-module="hero-image-top-bleed"] .module-12-heading h1.hero-headline-size-m,
+      .module-block[data-module="hero-button-top"] .module-12-no-bottom-heading h1.hero-headline-size-m,
+      .module-block[data-module="hero-button-top-no-bottom"] .module-12-no-bottom-heading h1.hero-headline-size-m { font-size: 24px !important; line-height: 34px !important; }
+      .module-block[data-module="hero-image-top-bleed"] .module-12-heading h1.hero-headline-size-l,
+      .module-block[data-module="hero-button-top"] .module-12-no-bottom-heading h1.hero-headline-size-l,
+      .module-block[data-module="hero-button-top-no-bottom"] .module-12-no-bottom-heading h1.hero-headline-size-l { font-size: 28px !important; line-height: 36px !important; }
+      .module-block[data-module="hero-image-textbox-cta-center"] .module-12-heading h1.hero-headline-size-s { font-size: 20px !important; line-height: 30px !important; }
+      .module-block[data-module="hero-image-textbox-cta-center"] .module-12-heading h1.hero-headline-size-m { font-size: 24px !important; line-height: 34px !important; }
+      .module-block[data-module="hero-image-textbox-cta-center"] .module-12-heading h1.hero-headline-size-l { font-size: 28px !important; line-height: 36px !important; }
+      .module-block[data-module="hero-image-head-copy-bleed-center"] .module-12-heading h1.hero-headline-size-s { font-size: 20px !important; line-height: 30px !important; }
+      .module-block[data-module="hero-image-head-copy-bleed-center"] .module-12-heading h1.hero-headline-size-m { font-size: 24px !important; line-height: 34px !important; }
+      .module-block[data-module="hero-image-head-copy-bleed-center"] .module-12-heading h1.hero-headline-size-l { font-size: 28px !important; line-height: 36px !important; }
       .module-12-head-pad { padding: 24px 20px 0 !important; }
       .module-12-body-pad { padding: 12px 20px 0 !important; }
       .module-hero-variant-body-pad { padding: 12px 20px 40px !important; }
@@ -144,6 +197,14 @@
       .module-2-10-connector-line { height: 72px !important; }
       .module-footer-pad { padding: 60px 20px 60px !important; }
       .module-table-pad { padding: 40px 20px !important; }
+      .module-table-grid { table-layout: fixed !important; }
+      .module-table-col-label { width: 44% !important; }
+      .module-table-col-value { width: 28% !important; }
+      .module-table-copy { font-size: 12px !important; line-height: 18px !important; word-break: break-word !important; overflow-wrap: anywhere !important; }
+      .module-table-copy--head { font-size: 12px !important; line-height: 18px !important; }
+      .legacy-list-col { display: block !important; width: 100% !important; box-sizing: border-box !important; }
+      .legacy-list-col-left { padding-right: 0 !important; }
+      .legacy-list-col-right { padding-left: 0 !important; padding-top: 24px !important; }
     }
   </style>
 </head>

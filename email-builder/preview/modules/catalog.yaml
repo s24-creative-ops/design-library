@@ -88,6 +88,8 @@ active_modules:
     preview: preview/modules/footer.html
     email: email/modules/emb_footer_marketing.html
     role: required_shell
+# Template-spezifische Module können bewusst ausserhalb dieses allgemeinen Preview-Catalogs bleiben.
+# Das gilt auch dann, wenn sie in preview/modules, email/modules, export-map.json und den Agent-Libraries operativ vorhanden sind.
 excluded_modules:
   - id: servicetiles-4up
     reason: intentionally_outside_active_core

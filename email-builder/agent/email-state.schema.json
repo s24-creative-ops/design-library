@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Email Builder State",
+  "type": "object",
+  "required": [
+    "modules"
+  ],
+  "properties": {
+    "campaignId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "templateId": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "previewBranchKey": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "templateContext": {
+      "type": "object",
+      "required": [
+        "mode",
+        "resolvedBaseTemplateId"
+      ],
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": [
+            "default_template",
+            "composition_template"
+          ]
+        },
+        "resolvedBaseTemplateId": {
+          "type": "string"
+        },
+        "compositionTemplateId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "iterableTemplateId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "subject": {
+      "type": "string"
+    },
+    "preheader": {
+      "type": "string"
+    },
+    "modules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "instance_id",
+          "module_id",
+          "snippet_name",
+          "content"
+        ],
+        "properties": {
+          "instance_id": {
+            "type": "string"
+          },
+          "module_id": {
+            "type": "string"
+          },
+          "snippet_name": {
+            "type": "string"
+          },
+          "content": {
+            "type": "object",
+            "additionalProperties": true
+          },
+          "meta": {
+            "type": "object",
+            "additionalProperties": true
+          }
+        }
+      }
+    }
+  },
+  "x-rules": [
+    "Ein email_state ist nur export-ready, wenn subject und preheader vorhanden und nicht leer sind.",
+    "Ein export-ready state muss einen eindeutigen templateContext enthalten.",
+    "Bei freiem Modulbau gilt templateContext.mode = default_template und templateContext.resolvedBaseTemplateId = 569946.",
+    "Bei Composition-Templates gelten templateContext.mode = composition_template, templateContext.compositionTemplateId, templateContext.iterableTemplateId und templateContext.resolvedBaseTemplateId = templateContext.iterableTemplateId.",
+    "campaignId und templateId sind nur die wiederverwendbare Campaign-Bindung; templateContext.resolvedBaseTemplateId bleibt davon getrennt.",
+    "Bei Re-Export muessen campaignId, templateId und previewBranchKey eindeutig demselben fortgeschriebenen Preview-/Composition-Zweig zugeordnet sein.",
+    "module_id muss in export-map.json existieren.",
+    "snippet_name muss zum module_id in export-map.json passen.",
+    "Jeder Key in content muss ein erlaubtes Feld fuer dieses Modul in export-map.json sein.",
+    "Wenn eine Felddefinition in export-map.json allowed_values definiert, muss der content-Wert exakt einem dieser erlaubten Werte entsprechen.",
+    "Required Felder werden nur aus content oder Default der export-map.json befuellt.",
+    "Felder ohne content und ohne Default werden nicht erfunden.",
+    "Resolver-Werte sind nur zulaessig, wenn sie vor dem Export bereits konkret im state materialisiert wurden oder aus einer dokumentierten technischen Quelle fail-closed ableitbar sind.",
+    "Dokumentierte technische Resolver-Quellen sind nur: Hintergrund-Rhythmus aus builder-library.md plus preview-styles.css, Icon-Auswahl aus icon-library.md und finale Button-Farbwerte aus builder-library.md.",
+    "Nur Hero-Headlines duerfen im state ueber ein kanonisches Groessenfeld steuerbar sein.",
+    "Erlaubte Hero-Groessen sind ausschliesslich s, m und l; ihr Mapping ist direkt heading-s, heading-m und heading-l.",
+    "Der regulaere Hero-Default ist l.",
+    "Nicht-Hero-Modulheadlines sind nicht usersteuerbar: erste Hauptheadline = heading-m, Unter-Headlines und Abschnittstitel = heading-s, Bodytexte = body-standard.",
+    "Freie Heading-Klassen, freie CSS-Werte, freie Font-Size-Werte, freies HTML oder freie Style-Werte sind fuer Typography-Steuerung unzulaessig.",
+    "Fuer hero-image-top ist emb_hero_image_top_headline_size das einzige kanonische Groessenfeld; zulaessig sind nur s, m und l.",
+    "Fuer hero-image-top muessen emb_hero_image_top_show_small_headline und emb_hero_image_top_show_large_headline exakt aus dem kanonischen headline_size abgeleitet werden; true/true ist ungueltig.",
+    "Fuer hero-image-top-bleed, hero-cta-top und hero-cta-top-no-bottom gilt dasselbe kanonische Hero-Modell: genau ein *_headline_size-Feld mit nur s, m und l sowie exakt daraus abgeleitete show_small_headline- und show_large_headline-Bridge-Felder.",
+    "Fuer hero-image-head-copy-bleed-center gilt dasselbe kanonische Hero-Modell: genau ein emb_hero_image_head_copy_bleed_center_headline_size-Feld mit nur s, m und l sowie exakt daraus abgeleitete show_small_headline- und show_large_headline-Bridge-Felder.",
+    "Fuer hero-image-textbox-cta-center gilt dasselbe kanonische Hero-Modell: genau ein emb_hero_image_textbox_cta_center_headline_size-Feld mit nur s, m und l sowie exakt daraus abgeleitete show_small_headline- und show_large_headline-Bridge-Felder.",
+    "Required *_bg_color-Felder muessen im content bereits als konkrete Hexwerte aus dem operativen Hintergrund-Rhythmus vorliegen.",
+    "theme-white, theme-gray oder andere semantische Preview-Klassen sind keine zulaessigen *_bg_color-Werte im content.",
+    "content ist die einzige Exportquelle fuer Iterable-Variablen.",
+    "content darf keine freien oder ungeprueften HTML-Werte enthalten.",
+    "Normale Text-Felder bleiben Plain Text.",
+    "rich_inline darf nur sanitisiertes builder-eigenes Inline-HTML mit den Tags strong, em, a und br enthalten.",
+    "rich_full darf nur sanitisiertes builder-eigenes Richtext-HTML mit den Tags p, ul, ol, li, strong, em, a und br enthalten.",
+    "Bei a-Tags sind nur href, target und rel erlaubt.",
+    "meta enthaelt nur nicht-exportrelevante Informationen wie position oder item_count."
+  ]
+}

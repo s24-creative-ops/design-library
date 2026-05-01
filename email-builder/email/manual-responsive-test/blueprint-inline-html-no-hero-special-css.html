@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>EMB Manual Responsive Test</title>
+  <!--[if mso]>
+  <xml>
+    <w:WordDocument xmlns:w="urn:schemas-microsoft-com:office:word"><w:DontUseAdvancedTypographyReadingMail/></w:WordDocument>
+    <o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch><o:AllowPNG/></o:OfficeDocumentSettings>
+  </xml>
+  <![endif]-->
+  <link rel="stylesheet" href="https://www.static-immobilienscout24.de/fro/make-it-better/1.0.0/makeitbetter.css">
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 0; }
+    a[x-apple-data-detectors] { color: inherit !important; text-decoration: inherit !important; }
+    #MessageViewBody a { color: inherit; text-decoration: none; }
+    p { line-height: inherit; }
+    .desktop_hide, .desktop_hide table { mso-hide: all; display: none; max-height: 0px; overflow: hidden; }
+    .module-rich-full-body--hero {
+      display: grid;
+      gap: 16px;
+    }
+    .module-rich-full-body--hero p,
+    .module-rich-full-body--hero ul,
+    .module-rich-full-body--hero ol {
+      margin: 0;
+    }
+    .module-rich-full-body--hero ul,
+    .module-rich-full-body--hero ol {
+      padding-left: 24px;
+    }
+    .module-rich-full-body--teaser-1col p {
+      margin: 0 0 16px;
+    }
+    .module-rich-full-body--teaser-1col p:last-child {
+      margin-bottom: 0;
+    }
+    .module-rich-full-body--teaser-1col ul,
+    .module-rich-full-body--teaser-1col ol {
+      margin: 16px 0 0;
+      padding-left: 22px;
+    }
+    .module-rich-full-body--teaser-1col li {
+      margin: 0 0 4px;
+    }
+    .module-rich-full-body--teaser-1col li:last-child {
+      margin-bottom: 0;
+    }
+    @media (max-width:620px) {
+      .row-content { width: 100% !important; }
+      .stack .column { width: 100% !important; display: block !important; }
+      .desktop_hide, .desktop_hide table { display: table !important; max-height: none !important; }
+      .mobile_hide { display: none !important; min-height: 0; max-height: 0; max-width: 0; overflow: hidden; font-size: 0px; }
+      .font-heading-large-bold { font-size: 28px !important; line-height: 36px !important; }
+      .font-heading-medium-regular,
+      .font-heading-medium-bold { font-size: 24px !important; line-height: 34px !important; }
+      .font-heading-small-regular,
+      .font-heading-small-bold { font-size: 20px !important; line-height: 30px !important; }
+      .module-12-heading h1 { font-size: 28px !important; line-height: 36px !important; }
+      .module-12-head-pad { padding: 24px 20px 0 !important; }
+      .module-12-body-pad { padding: 12px 20px 0 !important; }
+      .module-hero-variant-body-pad { padding: 12px 20px 40px !important; }
+      .module-teaser-1col-body-pad { padding: 12px 20px 40px !important; }
+      .module-teaser-1col-body-pad-spaced { padding: 24px 20px 40px !important; }
+      .module-12-no-bottom-heading h1 { font-size: 28px !important; line-height: 36px !important; }
+      .module-12-no-bottom-head-pad { padding: 24px 20px 0 !important; }
+      .module-12-no-bottom-body-pad { padding: 12px 20px 0 !important; }
+      .module-12-bleed-heading h1 { font-size: 24px !important; line-height: 34px !important; }
+      .module-12-bleed-head-pad { padding: 40px 20px 0 !important; }
+      .module-12-bleed-image-pad { padding: 24px 0 0 !important; }
+      .module-block[data-module="hero-image-head-copy-bleed-center"] .module-12-bleed-image-pad { padding-top: 20px !important; }
+      .module-12-bleed-text-pad { padding: 24px 20px 40px !important; }
+      .module-block[data-module="hero-image-head-copy-bleed-center"] .module-12-bleed-text-pad { padding-top: 0 !important; }
+      .module-hero-variant-bleed-text-pad { padding: 24px 20px 40px !important; }
+      .module-hero-spacer-25 { height: 24px !important; line-height: 24px !important; font-size: 24px !important; }
+      .module-hero-spacer-35 { height: 30px !important; line-height: 30px !important; font-size: 30px !important; }
+      .module-hero-spacer-button { height: 24px !important; line-height: 24px !important; font-size: 24px !important; }
+      .module-logo-pad { padding: 24px 20px 0 !important; }
+      .module-6-6-vertical-heading h1 { font-size: 24px !important; line-height: 34px !important; }
+      .module-6-6-vertical-head-pad { padding: 40px 20px 0 !important; }
+      .module-6-6-vertical-col-1-pad { padding: 24px 20px 32px !important; }
+      .module-6-6-vertical-col-2-pad { padding: 0 20px 40px !important; }
+      .module-6-6-vertical-image-pad { padding: 0 !important; }
+      .module-6-6-horizontal-row-1-image-pad { padding: 40px 20px 24px !important; }
+      .module-6-6-horizontal-row-1-text-pad { padding: 0 20px 32px !important; }
+      .module-6-6-horizontal-row-mid-image-pad { padding: 0 20px 24px !important; }
+      .module-6-6-horizontal-row-mid-text-pad { padding: 0 20px 32px !important; }
+      .module-6-6-horizontal-row-2-image-pad { padding: 0 20px 24px !important; }
+      .module-6-6-horizontal-row-2-text-pad { padding: 0 20px 40px !important; }
+      .module-6-6-horizontal-image-pad { padding: 0 !important; }
+      .module-6-6-horizontal-heading h1 { font-size: 24px !important; line-height: 34px !important; }
+      .module-6-6-horizontal-head-pad { padding: 40px 20px 0 !important; }
+      .module-6-6-alternating-head-pad { padding: 40px 20px 0 !important; }
+      .module-6-6-alternating-row-1-image-pad { padding: 40px 20px 24px !important; }
+      .module-6-6-alternating-row-1-text-pad { padding: 0 20px 32px !important; }
+      .module-6-6-alternating-row-2-text-pad { padding: 0 20px 24px !important; }
+      .module-6-6-alternating-row-2-image-pad { padding: 0 20px 40px !important; }
+      .module-6-6-alternating-image-pad { padding: 0 !important; }
+      .module-4-8-3-col-1-pad-first { padding: 24px 20px 24px !important; }
+      .module-4-8-3-col-2-pad-first { padding: 0 20px 32px !important; }
+      .module-4-8-3-col-1-pad-mid { padding: 0 20px 24px !important; }
+      .module-4-8-3-col-2-pad-mid { padding: 0 20px 32px !important; }
+      .module-4-8-3-col-1-pad-last { padding: 0 20px 24px !important; }
+      .module-4-8-3-col-2-pad-last { padding: 0 20px 40px !important; }
+      .module-4-8-3-image-pad { padding: 0 !important; }
+      .module-4-8-3-image-pad img { max-width: 125px !important; height: auto !important; }
+      .module-4-8-3-heading h1 { font-size: 24px !important; line-height: 34px !important; }
+      .module-4-8-3-head-pad { padding: 40px 20px 0 !important; }
+      .module-4-4-4-heading h1 { font-size: 24px !important; line-height: 34px !important; }
+      .module-4-4-4-head-pad { padding: 40px 20px 0 !important; }
+      .module-4-4-4-col-pad-first { padding: 24px 20px 32px !important; }
+      .module-4-4-4-col-pad { padding: 0 20px 32px !important; }
+      .module-4-4-4-col-pad-last { padding: 0 20px 40px !important; }
+      .module-4-4-4-cta-pad { padding: 0 20px 40px !important; }
+      .module-4-4-4-icon-slot { height: 68px !important; }
+      .module-4-4-4-icon-wrap { margin: 0 auto 20px 0 !important; }
+      .module-2-10-heading h1 { font-size: 24px !important; line-height: 34px !important; }
+      .module-2-10-head-pad { padding: 40px 20px 0 !important; }
+      .module-2-10-content-pad { padding: 24px 20px 40px !important; }
+      .module-2-10-step-gap { padding-top: 12px !important; }
+      .module-2-10-cta-gap { padding-top: 24px !important; }
+      .module-2-10-connector-line { height: 72px !important; }
+      .module-footer-pad { padding: 60px 20px 60px !important; }
+      .module-table-pad { padding: 40px 20px !important; }
+    }
+  </style>
+</head>
+<body style="background-color:#FFFFFF;margin:0;padding:0;-webkit-text-size-adjust:none;text-size-adjust:none;">
+  <table class="nl-container" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;background-color:#FFFFFF;">
+    <tbody>
+      <tr>
+        <td>
+
+          <table class="row module-block" data-module="logo" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;background-color:#ffffff;">
+            <tbody><tr><td>
+              <table class="row-content" align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;color:#333333;width:600px;margin:0 auto;" width="600">
+                <tbody>
+                  <tr>
+                    <td class="column column-1" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;font-weight:400;text-align:left;vertical-align:top;">
+                      <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
+                        <tr>
+                          <td class="module-logo-pad" style="padding-left:40px;padding-right:40px;padding-top:24px;">
+                            <table width="100%" align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;">
+                              <tr>
+                                <td align="left" style="text-align:left;">
+                                  <a href="https://www.immobilienscout24.de/" title="ImmoScout24" style="text-decoration:none;">
+                                    <img height="47" src="https://www.static-immobilienscout24.de/fro/ite/_/IS24-Logo_horizontal_left_white.png" style="display:block;height:47px;width:185px;border:0;" width="185" alt="Logo ImmoScout24" />
+                                  </a>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td></tr></tbody>
+          </table>
+
+          <table class="row module-block" data-module="hero-image-top" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;background-color:#ffffff;">
+            <tbody><tr><td>
+              <table class="row-content" align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;color:#333333;width:600px;margin:0 auto;" width="600">
+                <tbody>
+                  <tr>
+                    <td class="column column-1" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;font-weight:400;text-align:left;vertical-align:top;">
+                      <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
+                        <tr>
+                          <td class="module-12-head-pad" style="padding-left:40px;padding-right:40px;padding-top:60px;">
+                            <table class="module-12-heading heading_block" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
+                              <tr>
+                                <td style="text-align:center;width:100%;">
+                                  <h1 class="font-heading-large-bold" style="margin:0;color:#333333;direction:ltr;font-family:'Make It Better',Arial,Roboto,sans-serif;font-size:34px;font-weight:700;letter-spacing:normal;line-height:44px;text-align:left;mso-line-height-alt:44px;">Ihr Inserat professionell und schnell vorbereiten</h1>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="column column-1" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;font-weight:400;text-align:left;vertical-align:top;">
+                      <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
+                        <tr>
+                          <td class="module-12-body-pad module-hero-variant-body-pad" style="padding-bottom:60px;padding-left:40px;padding-right:40px;padding-top:25px;">
+                            <table class="image_block" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
+                              <tr>
+                                <td style="width:100%;padding-right:0;padding-left:0;">
+                                  <img src="https://library.eu.iterable.com/33/98/b9799c74eec5412c8fb0c995dd52f19c-emb_placeholder_16x9.png" style="display:block;height:auto;border:0;width:100%;max-width:100%;border-radius:16px;" width="520" alt="16 zu 9 Platzhalterbild" title="" height="auto">
+                                </td>
+                              </tr>
+                            </table>
+
+                            <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td class="module-hero-spacer-35" height="32" style="height:32px;line-height:32px;font-size:32px;">&nbsp;</td></tr></table>
+
+                            <table class="paragraph_block" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
+                              <tr>
+                                <td style="width:100%;padding-top:0;">
+                                  <div class="module-rich-full-body module-rich-full-body--hero" style="color:#333333;direction:ltr;font-family:'Make It Better',Arial,Roboto,sans-serif;font-size:16px;font-weight:400;letter-spacing:0;line-height:24px;text-align:left;mso-line-height-alt:24px;">
+                                    <p>Hallo Anrede,</p>
+                                    <p>mit diesem Testversand pruefen wir das allgemeine mobile Verhalten der aktuellen E-Mail-Shell. Das Hero nutzt bewusst das bekannte Blueprint-Muster mit demselben Placeholderbild wie im Builder.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </table>
+
+                            <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td class="module-hero-spacer-button" height="16" style="height:16px;line-height:16px;font-size:16px;">&nbsp;</td></tr></table>
+
+                            <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                              <tr>
+                                <td>
+                                  <a href="https://www.immobilienscout24.de/" target="_blank" style="text-decoration:none;">
+                                    <!--[if mso]>
+                                    <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" href="https://www.immobilienscout24.de/" style="height:48px;width:186px;v-text-anchor:middle;" arcsize="95%" fillcolor="#74FFDF" strokecolor="#74FFDF" strokeweight="1px">
+                                      <w:anchorlock/>
+                                      <center style="color:#333333;font-family:'Make It Better',Arial,Roboto,sans-serif;font-size:16px;line-height:16px;font-weight:700;">Jetzt ansehen</center>
+                                    </v:roundrect>
+                                    <![endif]-->
+                                    <!--[if !mso]><!-- -->
+                                    <span style="background-color:#74FFDF;border:1px solid #74FFDF;border-radius:999px;color:#333333;display:inline-block;font-family:'Make It Better',Arial,Roboto,sans-serif;font-size:16px;font-weight:700;line-height:16px;text-align:center;height:48px;box-sizing:border-box;"><span style="padding:15px 26px;display:block;">Jetzt ansehen</span></span>
+                                    <!--<![endif]-->
+                                  </a>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td></tr></tbody>
+          </table>
+
+          <table class="row module-block" data-module="benefits-3col" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;background-color:#F5F5F5;">
+            <tbody><tr><td>
+              <table class="row-content stack" align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;color:#333333;width:600px;margin:0 auto;" width="600">
+                <tbody>
+                  <tr>
+                    <td colspan="3">
+                      <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
+                        <tr>
+                          <td class="module-4-4-4-head-pad" style="padding:60px 40px 0 40px;">
+                            <table class="module-4-4-4-heading" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
+                              <tr>
+                                <td style="text-align:left;width:100%;">
+                                  <h1 class="font-heading-medium-bold" style="margin:0;color:#333333;font-family:'Make It Better',Arial,Roboto,sans-serif;font-size:26px;font-weight:700;line-height:36px;text-align:left;mso-line-height-alt:36px;">Drei kurze Vorteile im Blueprint</h1>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="3" style="padding:0;">
+                      <table class="stack" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:100%;table-layout:fixed;">
+                        <tr>
+                          <td class="column column-1" width="33.333333333333336%" style="width:33.333333333333336%;font-weight:400;text-align:left;vertical-align:top;">
+                            <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
+                              <tr>
+                                <td class="module-4-4-4-col-pad-first" style="padding:24px 0 24px 40px;vertical-align:top;">
+                                  <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
+                                    <tr>
+                                      <td class="module-4-4-4-icon-slot" style="padding:0;height:60px;vertical-align:top;">
+                                        <table width="48" border="0" cellpadding="0" cellspacing="0" role="presentation" class="module-4-4-4-icon-wrap" style="width:48px;margin:0 0 12px 0;">
+                                          <tr>
+                                            <td width="48" height="48" style="width:48px;height:48px;border:0;padding:0;">
+                                              <img src="https://www.static-immobilienscout24.de/fro/emb/_/s24_checkmark_circle_48.png" style="width:48px;height:48px;display:block;" width="48" height="48" alt="" />
+                                            </td>
+                                          </tr>
+                                        </table>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td style="padding:0;">
+                                        <table class="paragraph_block" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="word-break:break-word;">
+                                          <tr>
+                                            <td style="padding:0;">
+                                              <div style="color:#333333;font-family:'Make It Better',Arial,Roboto,sans-serif;font-size:16px;font-weight:400;line-height:24px;text-align:left;word-break:break-word;word-wrap:break-word;hyphens:auto;">
+                                                <p style="margin:0;">Klare Struktur fuer einen sauberen mobilen Versandtest.</p>
+                                              </div>
+                                            </td>
+                                          </tr>
+                                        </table>
+                                      </td>
+                                    </tr>
+                                  </table>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                          <td class="column column-2" width="33.333333333333336%" style="width:33.333333333333336%;font-weight:400;text-align:left;vertical-align:top;">
+                            <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
+                              <tr>
+                                <td class="module-4-4-4-col-pad" style="padding:24px 20px 24px 20px;vertical-align:top;">
+                                  <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
+                                    <tr>
+                                      <td class="module-4-4-4-icon-slot" style="padding:0;height:60px;vertical-align:top;">
+                                        <table width="48" border="0" cellpadding="0" cellspacing="0" role="presentation" class="module-4-4-4-icon-wrap" style="width:48px;margin:0 0 12px 0;">
+                                          <tr>
+                                            <td width="48" height="48" style="width:48px;height:48px;border:0;padding:0;">
+                                              <img src="https://www.static-immobilienscout24.de/fro/emb/_/s24_stopwatch_48.png" style="width:48px;height:48px;display:block;" width="48" height="48" alt="" />
+                                            </td>
+                                          </tr>
+                                        </table>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td style="padding:0;">
+                                        <table class="paragraph_block" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="word-break:break-word;">
+                                          <tr>
+                                            <td style="padding:0;">
+                                              <div style="color:#333333;font-family:'Make It Better',Arial,Roboto,sans-serif;font-size:16px;font-weight:400;line-height:24px;text-align:left;word-break:break-word;word-wrap:break-word;hyphens:auto;">
+                                                <p style="margin:0;">Bekannte Mobile-Klassen aus dem produktiven Bestand bleiben erhalten.</p>
+                                              </div>
+                                            </td>
+                                          </tr>
+                                        </table>
+                                      </td>
+                                    </tr>
+                                  </table>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                          <td class="column column-3" width="33.333333333333336%" style="width:33.333333333333336%;font-weight:400;text-align:left;vertical-align:top;">
+                            <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
+                              <tr>
+                                <td class="module-4-4-4-col-pad-last" style="padding:24px 40px 24px 0;vertical-align:top;">
+                                  <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
+                                    <tr>
+                                      <td class="module-4-4-4-icon-slot" style="padding:0;height:60px;vertical-align:top;">
+                                        <table width="48" border="0" cellpadding="0" cellspacing="0" role="presentation" class="module-4-4-4-icon-wrap" style="width:48px;margin:0 0 12px 0;">
+                                          <tr>
+                                            <td width="48" height="48" style="width:48px;height:48px;border:0;padding:0;">
+                                              <img src="https://www.static-immobilienscout24.de/fro/emb/_/s24_chart_48.png" style="width:48px;height:48px;display:block;" width="48" height="48" alt="" />
+                                            </td>
+                                          </tr>
+                                        </table>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td style="padding:0;">
+                                        <table class="paragraph_block" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="word-break:break-word;">
+                                          <tr>
+                                            <td style="padding:0;">
+                                              <div style="color:#333333;font-family:'Make It Better',Arial,Roboto,sans-serif;font-size:16px;font-weight:400;line-height:24px;text-align:left;word-break:break-word;word-wrap:break-word;hyphens:auto;">
+                                                <p style="margin:0;">Das Placeholderbild bleibt bewusst enthalten, um Bildthemen auszuschliessen.</p>
+                                              </div>
+                                            </td>
+                                          </tr>
+                                        </table>
+                                      </td>
+                                    </tr>
+                                  </table>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="3">
+                      <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
+                        <tr>
+                          <td class="module-4-4-4-cta-pad" style="padding:0 40px 60px 40px;text-align:left;">
+                            <a href="https://www.immobilienscout24.de/" target="_blank" style="text-decoration:none;">
+                              <!--[if mso]>
+                              <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" href="https://www.immobilienscout24.de/" style="height:48px;width:186px;v-text-anchor:middle;" arcsize="95%" fillcolor="#74FFDF" strokecolor="#74FFDF" strokeweight="1px">
+                                <w:anchorlock/>
+                                <center style="color:#333333;font-family:'Make It Better',Arial,Roboto,sans-serif;font-size:16px;line-height:16px;font-weight:700;">Mehr erfahren</center>
+                              </v:roundrect>
+                              <![endif]-->
+                              <!--[if !mso]><!-- -->
+                              <span style="background-color:#74FFDF;border:1px solid #74FFDF;border-radius:999px;color:#333333;display:inline-block;font-family:'Make It Better',Arial,Roboto,sans-serif;font-size:16px;font-weight:700;line-height:16px;text-align:center;height:48px;box-sizing:border-box;"><span style="padding:15px 26px;display:block;">Mehr erfahren</span></span>
+                              <!--<![endif]-->
+                            </a>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td></tr></tbody>
+          </table>
+
+          <table class="row module-block" data-module="teaser-1col" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;background-color:#ffffff;">
+            <tbody><tr><td>
+              <table class="row-content" align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;color:#333333;width:600px;margin:0 auto;" width="600">
+                <tbody>
+                  <tr>
+                    <td class="column column-1" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;font-weight:400;text-align:left;vertical-align:top;">
+                      <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
+                        <tr>
+                          <td class="module-12-head-pad" style="padding-left:40px;padding-right:40px;padding-top:60px;">
+                            <table class="module-12-heading heading_block" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
+                              <tr>
+                                <td style="text-align:center;width:100%;">
+                                  <h1 class="font-heading-medium-bold" style="margin:0;color:#333333;direction:ltr;font-family:'Make It Better',Arial,Roboto,sans-serif;font-size:26px;font-weight:700;letter-spacing:normal;line-height:36px;text-align:left;mso-line-height-alt:36px;">Vertiefender Inhaltsblock mit demselben Bildmuster</h1>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="column column-1" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;font-weight:400;text-align:left;vertical-align:top;">
+                      <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
+                        <tr>
+                          <td class="module-12-body-pad module-teaser-1col-body-pad-spaced" style="padding-bottom:60px;padding-left:40px;padding-right:40px;padding-top:20px;">
+                            <table class="image_block" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
+                              <tr>
+                                <td style="width:100%;padding-right:0;padding-left:0;">
+                                  <a href="https://www.immobilienscout24.de/" target="_blank" style="text-decoration:none;display:block;">
+                                    <img src="https://library.eu.iterable.com/33/98/b9799c74eec5412c8fb0c995dd52f19c-emb_placeholder_16x9.png" style="display:block;height:auto;border:0;width:100%;max-width:100%;border-radius:16px;" width="520" alt="16 zu 9 Platzhalterbild" title="" height="auto">
+                                  </a>
+                                </td>
+                              </tr>
+                            </table>
+
+                            <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td height="20" style="line-height:24px;font-size:20px;">&nbsp;</td></tr></table>
+
+                            <table class="paragraph_block" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
+                              <tr>
+                                <td style="width:100%;padding-top:0;">
+                                  <div class="module-rich-full-body module-rich-full-body--teaser-1col" style="color:#333333;direction:ltr;font-family:'Make It Better',Arial,Roboto,sans-serif;font-size:16px;font-weight:400;letter-spacing:0;line-height:24px;text-align:left;mso-line-height-alt:24px;">
+                                    <p>Dieser Block nutzt dieselbe Shell und dasselbe responsive Grundmuster wie die produktiven Versandmodule.</p>
+                                    <p>Wenn auch dieser Teaser im Testversand nicht sauber auf mobile umbricht, liegt die Ursache sehr wahrscheinlich nicht am neuen Hero-Modul selbst.</p>
+                                  </div>
+                                </td>
+                              </tr>
+                            </table>
+
+                            <table role="presentation" width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td height="20" style="line-height:24px;font-size:20px;">&nbsp;</td></tr></table>
+
+                            <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                              <tr>
+                                <td>
+                                  <a href="https://www.immobilienscout24.de/" target="_blank" style="text-decoration:none;">
+                                    <!--[if mso]>
+                                    <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" href="https://www.immobilienscout24.de/" style="height:48px;width:197px;v-text-anchor:middle;" arcsize="97%" fillcolor="#FFFFFF" strokecolor="#333333" strokeweight="1px">
+                                      <w:anchorlock/>
+                                      <center style="color:#333333;font-family:'Make It Better',Arial,Roboto,sans-serif;font-size:16px;line-height:16px;font-weight:700;">Zum Testdetail</center>
+                                    </v:roundrect>
+                                    <![endif]-->
+                                    <!--[if !mso]><!-- -->
+                                    <span style="background-color:#FFFFFF;border:1px solid #333333;border-radius:999px;color:#333333;display:inline-block;font-family:'Make It Better',Arial,Roboto,sans-serif;font-size:16px;font-weight:700;line-height:16px;text-align:center;height:48px;box-sizing:border-box;"><span style="padding:15px 26px;display:block;">Zum Testdetail</span></span>
+                                    <!--<![endif]-->
+                                  </a>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td></tr></tbody>
+          </table>
+
+          <table class="row module-block" data-module="footer" align="center" width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;background-color:#ffffff;">
+            <tbody><tr><td>
+              <table class="row-content" align="center" border="0" cellpadding="0" cellspacing="0" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;color:#333333;width:600px;margin:0 auto;" width="600">
+                <tbody>
+                  <tr>
+                    <td class="column column-1" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;font-weight:400;text-align:left;vertical-align:top;">
+                      <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
+                        <tr>
+                          <td class="module-footer-pad" style="padding:60px 40px 60px 40px;">
+                            <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation">
+                              <tr>
+                                <td class="font-body-small-bold" style="font-family:'Make It Better',Arial,Roboto,sans-serif;font-size:12px;line-height:18px;color:#333333;font-weight:700;text-align:left;">Kostenlose App herunterladen</td>
+                              </tr>
+                              <tr>
+                                <td height="12" style="font-size:1px;line-height:1px;height:12px;">&nbsp;</td>
+                              </tr>
+                              <tr>
+                                <td align="left" style="text-align:left;">
+                                  <table cellspacing="0" cellpadding="0" border="0" role="presentation">
+                                    <tr>
+                                      <td width="115" style="width:115px;">
+                                        <a href="https://apps.apple.com/de/app/immoscout24-immobilien/id344176018" target="_blank" style="text-decoration:none;">
+                                          <img src="https://d15k2d11r6t6rl.cloudfront.net/pub/bfra/tgru1zsx/i36/uhu/m14/d1284a48-db27-4f3b-a434-ab9a625d0dd4.png" width="115" height="37" alt="Download on the App Store" style="display:block;border:0;width:115px;height:37px;" />
+                                        </a>
+                                      </td>
+                                      <td width="12" style="width:12px;min-width:12px;">&nbsp;</td>
+                                      <td width="130" style="width:130px;">
+                                        <a href="https://play.google.com/store/apps/details?id=de.is24.android" target="_blank" style="text-decoration:none;">
+                                          <img src="https://d15k2d11r6t6rl.cloudfront.net/pub/bfra/tgru1zsx/nrd/s3d/49k/b78e3fcd-6303-429c-a29d-691d73c0d01d.png" width="130" height="37" alt="Get it on Google Play" style="display:block;border:0;width:130px;height:37px;" />
+                                        </a>
+                                      </td>
+                                    </tr>
+                                  </table>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td height="25" style="font-size:1px;line-height:1px;height:25px;">&nbsp;</td>
+                              </tr>
+                              <tr>
+                                <td class="font-body-small-regular" style="font-family:'Make It Better',Arial,Roboto,sans-serif;font-size:12px;line-height:18px;color:#333333;text-align:left;">Diese Datei dient nur dem manuellen Responsive-Test. Falls kein Interesse mehr besteht, kann der Versand hier im Testsystem wieder entfernt werden.</td>
+                              </tr>
+                              <tr>
+                                <td height="24" style="font-size:1px;line-height:1px;height:24px;">&nbsp;</td>
+                              </tr>
+                              <tr>
+                                <td class="font-body-small-regular" style="font-family:'Make It Better',Arial,Roboto,sans-serif;font-size:12px;line-height:18px;color:#333333;text-align:left;">Immobilien Scout GmbH, Invalidenstrasse 65, 10557 Berlin &middot; <a href="https://www.immobilienscout24.de" target="_blank" style="color:#333333 !important;text-decoration:none !important;">immobilienscout24.de</a></td>
+                              </tr>
+                              <tr>
+                                <td height="24" style="font-size:1px;line-height:1px;height:24px;">&nbsp;</td>
+                              </tr>
+                              <tr>
+                                <td class="font-body-small-regular" style="font-family:'Make It Better',Arial,Roboto,sans-serif;font-size:12px;line-height:18px;color:#333333;text-align:left;"><a href="https://www.immobilienscout24.de/agb/datenschutz.html" target="_blank" style="color:#333333;text-decoration:underline !important;">Datenschutz</a> &nbsp;&nbsp;|&nbsp; <a href="https://www.immobilienscout24.de/impressum.html" target="_blank" style="color:#333333;text-decoration:underline !important;">Impressum</a></td>
+                              </tr>
+                              <tr>
+                                <td height="24" style="font-size:1px;line-height:1px;height:24px;">&nbsp;</td>
+                              </tr>
+                              <tr>
+                                <td class="font-body-small-regular" style="font-family:'Make It Better',Arial,Roboto,sans-serif;font-size:12px;line-height:18px;color:#333333;text-align:left;">&copy; 2026 Immobilien Scout GmbH</td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td></tr></tbody>
+          </table>
+
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>

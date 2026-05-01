@@ -33,6 +33,3 @@ Erst wenn die Preview-Fassung final ist, wird die finale HTML-Fassung in `email/
 
 Aktives Kerntemplate:
 - `template-main`
-
-Bewusst ausserhalb des aktiven Kernpfads:
-- `template-vissmann` / `viessmann`

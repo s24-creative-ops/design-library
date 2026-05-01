@@ -16,14 +16,26 @@ Im flachen Agent-Setup liegen die operativen Template-Dateien direkt in `agent/`
 - `template-<template_id>.preview.html` und `template-<template_id>.definition.json` gehoeren immer zusammen.
 - Das zugehoerige Iterable-Basis-Template unter `email/templates/<template_id>.html` ist nur die HTML-Shell fuer den Export.
 - Iterable-Basis-Templates duerfen keine festen Module und keine festen Snippet-Calls enthalten.
+- `email/templates/<template_id>.html` enthaelt genau das CSS, das fuer die Module dieses Templates benoetigt wird.
 - Die konkrete Modul-Komposition kommt ausschliesslich aus `template-<template_id>.definition.json` und wird erst beim Export erzeugt.
+- Operative Template-Dateien duerfen nicht zu vollstaendig zusammengebauten Testmails oder Demo-Templates werden.
 
 ## Prozess
 
-- Neue Templates entstehen zuerst unter `development/templates/<template_id>/`.
-- Dort duerfen `preview.html`, `template-definition.json` und optional `README.md` liegen.
-- Dieser Development-Bereich ist nur Sandbox und niemals operative Builder- oder Export-Wahrheit.
-- Erst nach QA wird ein Template in den operativen Agent-Layer uebernommen.
+- Der Contract beschreibt den Aufbau und die operative Nutzung der namespaceten Template-Dateien im Agent-Layer.
+- Fuer neue oder geaenderte Templates startet der erste Entwurf ausschliesslich in den Review-Dateien unter `development/review/`.
+- Diese Review-Dateien sind reine Test-Artefakte und nie operative Builder- oder Export-Wahrheit.
+- Review-Dateien duerfen fuer Template-Tests vollstaendig zusammengebaut sein und Demo-Content oder Beispielmodule enthalten.
+- Vollstaendig zusammengebaute Preview- oder E-Mail-Tests gehoeren nur in `development/review/preview-index.html` und `development/review/email-index.html`, nicht in operative Template-Dateien.
+- Der Ablauf bleibt auch fuer Templates immer: zuerst nur `development/review/preview-index.html` und `development/review/email-index.html` als Review-Entwurf aktualisieren, User-Freigabe einholen und erst danach die abschliessende Template-Integration oder zentrale Dokumentation nachziehen.
+- Vor ausdruecklicher User-Freigabe duerfen `agent/template-<template_id>.definition.json`, `agent/template-<template_id>.preview.html` und `email/templates/<template_id>.html` fuer neue oder geaenderte Templates nicht angepasst werden.
+- Nach ausdruecklicher User-Freigabe fuehrt Codex die Template-Integration direkt in den operativen Zielpfaden durch:
+  - `agent/template-<template_id>.definition.json` fuer die strukturelle Template-Definition und Modulreihenfolge
+  - `agent/template-<template_id>.preview.html` fuer die operative Preview-/Template-Logik
+  - `email/templates/<template_id>.html` als Iterable-Base-/Shell-Datei mit genau dem benoetigten Template-CSS
+- Relevante Library- oder Regeldateien werden nur bei konkretem Bedarf angepasst.
+- `development/review/preview-index.html` und `development/review/email-index.html` koennen danach als finaler Teststand aktualisiert werden, bleiben aber reine Test-Artefakte und nie operative Quelle.
+- `development/templates/searcher-standard/*` bleibt bis zur finalen Prozessentscheidung als historischer Prozessbeleg erhalten, ist aber kein verpflichtender Startpunkt fuer neue Template-Arbeit.
 - Im operativen Agent-Layer sind nur namespacete Template-Dateien erlaubt.
 - Generische operative Template-Dateien wie `agent/preview.html` oder `agent/template-definition.json` sind verboten.
 

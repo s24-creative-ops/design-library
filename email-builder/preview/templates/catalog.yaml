@@ -4,7 +4,3 @@ active_templates:
   - id: template-main
     preview: preview/templates/template-main.html
     email: email/templates/template-main.html
-excluded_templates:
-  - id: template-vissmann
-    normalized_id: template-viessmann
-    reason: legacy_special_case

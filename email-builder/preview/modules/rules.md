@@ -2,9 +2,61 @@
 
 ## Grundsatz
 
-Neue Module werden immer zuerst in `preview/modules/` gebaut.
+`preview/modules/` ist nicht die Review-Flaeche fuer neue oder geaenderte Arbeit.
 
-Erst wenn die Preview-Fassung in Struktur, Inhalt und Verhalten final ist, wird die zugehoerige finale HTML-Fassung in `email/modules/` angelegt oder nachgezogen.
+Fuer die Pruefung werden stattdessen zwei ueberschreibbare Review-Dateien genutzt:
+
+- `development/review/preview-index.html`
+- `development/review/email-index.html`
+
+Diese beiden Dateien sind reine Test-Artefakte:
+
+- sie duerfen jederzeit ueberschrieben werden
+- sie sind nie fachliche Quelle
+- sie ersetzen keine produktiven Modul-, Template- oder Exportdateien
+
+Fachliche Quellen bleiben:
+
+- `preview/modules/*`
+- `email/modules/*`
+- `agent/template-*.preview.html`
+- `agent/template-*.definition.json`
+- `email/templates/*.html`
+- `agent/export-map.json`
+- `AGENTS.md`
+
+## Review-Regeln
+
+- `development/review/preview-index.html` nutzt den echten Preview-CSS-Kontext aus `agent/preview-styles.css`.
+- `development/review/email-index.html` nutzt den CSS-/Shell-Kontext aus `email/templates/template-main.html`.
+- Jede Review-Datei zeigt nur das aktuell bearbeitete Modul oder Template.
+- Bei Modul-Arbeit nutzen beide Review-Dateien fest dieses Testgeruest:
+  1. `logo`
+  2. `hero-image-top`
+  3. aktuelles neues oder geaendertes Modul
+  4. `footer`
+- `logo`, `hero-image-top` und `footer` dienen dabei nur als stabiler Testkontext.
+- Wenn das aktuell bearbeitete Modul selbst `logo`, `hero-image-top` oder `footer` ist, darf keine doppelte Instanz entstehen; stattdessen ist eine sinnvolle Minimal-Testmail zu bauen und kurz zu berichten.
+- Diese feste Reihenfolge gilt nur fuer Modul-Arbeit. Template-Arbeit nutzt weiterhin die tatsaechlich gewuenschte oder definierte Template-Reihenfolge.
+- Review-Dateien duerfen sichtbaren Beispielcontent tragen.
+- Demo-Texte und Demo-Bilder sind in Review-Dateien erlaubt, aber erfundene Styles, Farben, Spacings, CTA-Farben oder Modul-Defaults sind verboten.
+- Review-Defaults muessen aus bestehenden EMB-Quellen kommen, insbesondere aus `agent/export-map.json`, produktiven Preview-Modulen, produktiven E-Mail-Modulen, `email/templates/template-main.html` und `agent/preview-styles.css`.
+- Wenn ein benoetigter Default nicht eindeutig aus diesen Quellen ableitbar ist, muss Codex stoppen und berichten, statt einen Wert zu erfinden.
+- Review-Dateien sind Pruefflaechen und keine 1:1-Quellartefakte fuer produktive Dateien.
+- Der Ablauf ist immer: fachlichen Entwurf bauen oder aendern, Review-Dateien aktualisieren, User-Freigabe abwarten, erst danach produktive Integration abschliessen.
+
+## Produktive Integration
+
+- `preview/modules/` ist Ziel der freigegebenen produktiven Integration.
+- Produktive Preview- und E-Mail-Dateien werden direkt in ihren fachlichen Zielpfaden bearbeitet.
+- Eine produktive Integration darf erst nach ausdruecklicher User-Freigabe des aktuellen Review-Stands starten.
+- Ohne ausdrueckliche User-Freigabe duerfen auch zentrale Anschlussdateien wie `preview/modules/catalog.yaml`, `agent/preview-module-library.md`, `agent/builder-library.md` oder `agent/export-map.json` nicht abschliessend nachgezogen werden.
+- Die sichtbare Gestaltung und Struktur duerfen bei der produktiven Integration nicht frei neu interpretiert werden.
+- Erlaubt sind nur notwendige produktive Transformationen wie:
+  - finale Variablen einsetzen
+  - Render-Anbindung herstellen
+  - Export-Mapping anpassen
+  - produktiv relevantes CSS an den korrekten Zielort uebernehmen
 
 ## Modulstruktur
 
@@ -35,7 +87,8 @@ Erst wenn die Preview-Fassung in Struktur, Inhalt und Verhalten final ist, wird 
   - `button-outline-strong`
   - `button-outline-weak`
 - `teaser-link` und `contact-link` sind keine Buttons.
-- Pro Mail ist hoechstens ein `button-filled-brand` erlaubt.
+- Wenn ein Hero-Modul einen Button-CTA hat, ist dieser Hero-CTA immer der primaere `button-filled-brand`.
+- Weitere Button-CTAs bleiben standardmaessig `button-outline-strong`.
 
 ## Inhalte
 
@@ -51,6 +104,7 @@ Aktive Kernmodule:
 - `hero-image-top`
 - `hero-image-top-bleed`
 - `hero-image-head-copy-bleed-center`
+- `hero-image-textbox-cta-center`
 - `hero-cta-top`
 - `hero-cta-top-no-bottom`
 - `teaser-1col`
@@ -66,7 +120,3 @@ Aktive Kernmodule:
 - `table-comparison`
 - `contact`
 - `footer`
-
-Bewusst ausserhalb des aktiven Kernpfads:
-- `servicetiles-4up`
-- `teaser-2col-listing-compact`

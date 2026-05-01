@@ -64,6 +64,29 @@
           "default": ""
         },
         {
+          "name": "emb_hero_image_top_headline_size",
+          "type": "text",
+          "required": true,
+          "default": "l",
+          "allowed_values": [
+            "s",
+            "m",
+            "l"
+          ]
+        },
+        {
+          "name": "emb_hero_image_top_show_small_headline",
+          "type": "boolean",
+          "required": true,
+          "default": false
+        },
+        {
+          "name": "emb_hero_image_top_show_large_headline",
+          "type": "boolean",
+          "required": true,
+          "default": true
+        },
+        {
           "name": "emb_hero_image_top_headline",
           "type": "text",
           "required": true,
@@ -160,6 +183,29 @@
           "default": ""
         },
         {
+          "name": "emb_hero_image_top_bleed_headline_size",
+          "type": "text",
+          "required": true,
+          "default": "l",
+          "allowed_values": [
+            "s",
+            "m",
+            "l"
+          ]
+        },
+        {
+          "name": "emb_hero_image_top_bleed_show_small_headline",
+          "type": "boolean",
+          "required": true,
+          "default": false
+        },
+        {
+          "name": "emb_hero_image_top_bleed_show_large_headline",
+          "type": "boolean",
+          "required": true,
+          "default": true
+        },
+        {
           "name": "emb_hero_image_top_bleed_headline",
           "type": "text",
           "required": true,
@@ -220,6 +266,29 @@
           "default": "#FFFFFF"
         },
         {
+          "name": "emb_hero_image_head_copy_bleed_center_headline_size",
+          "type": "text",
+          "required": true,
+          "default": "l",
+          "allowed_values": [
+            "s",
+            "m",
+            "l"
+          ]
+        },
+        {
+          "name": "emb_hero_image_head_copy_bleed_center_show_small_headline",
+          "type": "boolean",
+          "required": true,
+          "default": false
+        },
+        {
+          "name": "emb_hero_image_head_copy_bleed_center_show_large_headline",
+          "type": "boolean",
+          "required": true,
+          "default": true
+        },
+        {
           "name": "emb_hero_image_head_copy_bleed_center_image_url",
           "type": "image_url",
           "required": true,
@@ -239,7 +308,7 @@
         },
         {
           "name": "emb_hero_image_head_copy_bleed_center_body",
-          "type": "rich_full",
+          "type": "rich_inline",
           "required": true,
           "default": ""
         },
@@ -280,6 +349,29 @@
           "default": "#FFFFFF"
         },
         {
+          "name": "emb_hero_image_textbox_cta_center_headline_size",
+          "type": "text",
+          "required": true,
+          "default": "l",
+          "allowed_values": [
+            "s",
+            "m",
+            "l"
+          ]
+        },
+        {
+          "name": "emb_hero_image_textbox_cta_center_show_small_headline",
+          "type": "boolean",
+          "required": true,
+          "default": false
+        },
+        {
+          "name": "emb_hero_image_textbox_cta_center_show_large_headline",
+          "type": "boolean",
+          "required": true,
+          "default": true
+        },
+        {
           "name": "emb_hero_image_textbox_cta_center_headline",
           "type": "text",
           "required": true,
@@ -305,7 +397,7 @@
         },
         {
           "name": "emb_hero_image_textbox_cta_center_body",
-          "type": "rich_full",
+          "type": "rich_inline",
           "required": true,
           "default": ""
         },
@@ -316,16 +408,16 @@
           "default": ""
         },
         {
-          "name": "emb_hero_image_textbox_cta_center_entry_text",
-          "type": "text",
-          "required": true,
-          "default": "z.B. 10115 Berlin"
-        },
-        {
           "name": "emb_hero_image_textbox_cta_center_entry_url",
           "type": "url",
           "required": true,
           "default": "https://www.immobilienscout24.de/"
+        },
+        {
+          "name": "emb_hero_image_textbox_cta_center_entry_text",
+          "type": "text",
+          "required": true,
+          "default": "z.B. 10115 Berlin"
         },
         {
           "name": "emb_hero_image_textbox_cta_center_button_url",
@@ -337,13 +429,13 @@
           "name": "emb_hero_image_textbox_cta_center_button_bg_color",
           "type": "color",
           "required": true,
-          "default": "#333333"
+          "default": "#74FFDF"
         },
         {
           "name": "emb_hero_image_textbox_cta_center_button_border_color",
           "type": "color",
           "required": true,
-          "default": "#333333"
+          "default": "#74FFDF"
         },
         {
           "name": "emb_hero_image_textbox_cta_center_button_label",
@@ -398,6 +490,29 @@
           "type": "text",
           "required": false,
           "default": ""
+        },
+        {
+          "name": "emb_hero_cta_top_headline_size",
+          "type": "text",
+          "required": true,
+          "default": "l",
+          "allowed_values": [
+            "s",
+            "m",
+            "l"
+          ]
+        },
+        {
+          "name": "emb_hero_cta_top_show_small_headline",
+          "type": "boolean",
+          "required": true,
+          "default": false
+        },
+        {
+          "name": "emb_hero_cta_top_show_large_headline",
+          "type": "boolean",
+          "required": true,
+          "default": true
         },
         {
           "name": "emb_hero_cta_top_headline",
@@ -494,6 +609,29 @@
           "type": "text",
           "required": false,
           "default": ""
+        },
+        {
+          "name": "emb_hero_cta_top_no_bottom_headline_size",
+          "type": "text",
+          "required": true,
+          "default": "l",
+          "allowed_values": [
+            "s",
+            "m",
+            "l"
+          ]
+        },
+        {
+          "name": "emb_hero_cta_top_no_bottom_show_small_headline",
+          "type": "boolean",
+          "required": true,
+          "default": false
+        },
+        {
+          "name": "emb_hero_cta_top_no_bottom_show_large_headline",
+          "type": "boolean",
+          "required": true,
+          "default": true
         },
         {
           "name": "emb_hero_cta_top_no_bottom_headline",
@@ -595,7 +733,7 @@
           "name": "emb_teaser_1col_button_bg_color",
           "type": "color",
           "required": true,
-          "default": "transparent"
+          "default": "#FFFFFF"
         },
         {
           "name": "emb_teaser_1col_button_border_color",
@@ -605,6 +743,102 @@
         },
         {
           "name": "emb_teaser_1col_button_label",
+          "type": "text",
+          "required": true,
+          "default": ""
+        }
+      ]
+    },
+    {
+      "module_id": "loft-snl-copy-cta",
+      "snippet_name": "emb_loft_snl_copy_cta",
+      "fields": [
+        {
+          "name": "emb_loft_snl_copy_cta_body",
+          "type": "rich_full",
+          "required": true,
+          "default": ""
+        },
+        {
+          "name": "emb_loft_snl_copy_cta_button_url",
+          "type": "url",
+          "required": true,
+          "default": ""
+        },
+        {
+          "name": "emb_loft_snl_copy_cta_button_bg_color",
+          "type": "color",
+          "required": true,
+          "default": "#333333"
+        },
+        {
+          "name": "emb_loft_snl_copy_cta_button_border_color",
+          "type": "color",
+          "required": true,
+          "default": "#333333"
+        },
+        {
+          "name": "emb_loft_snl_copy_cta_button_label",
+          "type": "text",
+          "required": true,
+          "default": ""
+        }
+      ]
+    },
+    {
+      "module_id": "loft-snl-copy-sections-cta",
+      "snippet_name": "emb_loft_snl_copy_sections_cta",
+      "fields": [
+        {
+          "name": "emb_loft_snl_copy_sections_cta_headline_1",
+          "type": "text",
+          "required": true,
+          "default": ""
+        },
+        {
+          "name": "emb_loft_snl_copy_sections_cta_body_1",
+          "type": "rich_full",
+          "required": true,
+          "default": ""
+        },
+        {
+          "name": "emb_loft_snl_copy_sections_cta_show_section_2",
+          "type": "boolean",
+          "required": true,
+          "default": true
+        },
+        {
+          "name": "emb_loft_snl_copy_sections_cta_headline_2",
+          "type": "text",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "emb_loft_snl_copy_sections_cta_body_2",
+          "type": "rich_full",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "emb_loft_snl_copy_sections_cta_button_url",
+          "type": "url",
+          "required": true,
+          "default": ""
+        },
+        {
+          "name": "emb_loft_snl_copy_sections_cta_button_bg_color",
+          "type": "color",
+          "required": true,
+          "default": "#333333"
+        },
+        {
+          "name": "emb_loft_snl_copy_sections_cta_button_border_color",
+          "type": "color",
+          "required": true,
+          "default": "#333333"
+        },
+        {
+          "name": "emb_loft_snl_copy_sections_cta_button_label",
           "type": "text",
           "required": true,
           "default": ""
@@ -641,7 +875,7 @@
         },
         {
           "name": "emb_teaser_2col_horizontal_col_1_body",
-          "type": "rich_full",
+          "type": "rich_inline",
           "required": true,
           "default": ""
         },
@@ -683,7 +917,7 @@
         },
         {
           "name": "emb_teaser_2col_horizontal_col_2_body",
-          "type": "rich_full",
+          "type": "rich_inline",
           "required": false,
           "default": ""
         },
@@ -719,7 +953,7 @@
         },
         {
           "name": "emb_teaser_2col_horizontal_col_3_body",
-          "type": "rich_full",
+          "type": "rich_inline",
           "required": false,
           "default": ""
         },
@@ -749,7 +983,7 @@
         },
         {
           "name": "emb_teaser_2col_horizontal_col_4_body",
-          "type": "rich_full",
+          "type": "rich_inline",
           "required": false,
           "default": ""
         },
@@ -797,7 +1031,7 @@
         },
         {
           "name": "emb_teaser_2col_vertical_col_1_body",
-          "type": "rich_full",
+          "type": "rich_inline",
           "required": true,
           "default": ""
         },
@@ -827,7 +1061,7 @@
         },
         {
           "name": "emb_teaser_2col_vertical_col_2_body",
-          "type": "rich_full",
+          "type": "rich_inline",
           "required": true,
           "default": ""
         },
@@ -875,7 +1109,7 @@
         },
         {
           "name": "emb_teaser_2col_alternating_col_1_body",
-          "type": "rich_full",
+          "type": "rich_inline",
           "required": true,
           "default": ""
         },
@@ -905,7 +1139,7 @@
         },
         {
           "name": "emb_teaser_2col_alternating_col_2_body",
-          "type": "rich_full",
+          "type": "rich_inline",
           "required": true,
           "default": ""
         },
@@ -953,7 +1187,7 @@
         },
         {
           "name": "emb_teaser_2col_listing_col_1_body",
-          "type": "rich_full",
+          "type": "rich_inline",
           "required": true,
           "default": ""
         },
@@ -1001,7 +1235,7 @@
         },
         {
           "name": "emb_teaser_2col_listing_col_2_body",
-          "type": "rich_full",
+          "type": "rich_inline",
           "required": false,
           "default": ""
         },
@@ -1031,7 +1265,7 @@
         },
         {
           "name": "emb_teaser_2col_listing_col_3_body",
-          "type": "rich_full",
+          "type": "rich_inline",
           "required": false,
           "default": ""
         },
@@ -1061,7 +1295,7 @@
         },
         {
           "name": "emb_teaser_2col_listing_col_4_body",
-          "type": "rich_full",
+          "type": "rich_inline",
           "required": false,
           "default": ""
         },
@@ -1093,7 +1327,7 @@
           "name": "emb_teaser_2col_listing_button_bg_color",
           "type": "color",
           "required": false,
-          "default": "transparent"
+          "default": "#FFFFFF"
         },
         {
           "name": "emb_teaser_2col_listing_button_border_color",
@@ -1223,7 +1457,7 @@
         },
         {
           "name": "emb_benefits_3col_col_1_body",
-          "type": "rich_full",
+          "type": "rich_inline",
           "required": true,
           "default": ""
         },
@@ -1235,7 +1469,7 @@
         },
         {
           "name": "emb_benefits_3col_col_2_body",
-          "type": "rich_full",
+          "type": "rich_inline",
           "required": true,
           "default": ""
         },
@@ -1247,7 +1481,7 @@
         },
         {
           "name": "emb_benefits_3col_col_3_body",
-          "type": "rich_full",
+          "type": "rich_inline",
           "required": true,
           "default": ""
         },
@@ -1267,7 +1501,7 @@
           "name": "emb_benefits_3col_button_bg_color",
           "type": "color",
           "required": true,
-          "default": "transparent"
+          "default": "#FFFFFF"
         },
         {
           "name": "emb_benefits_3col_button_border_color",
@@ -1307,7 +1541,7 @@
         },
         {
           "name": "emb_steps_3col_col_1_body",
-          "type": "rich_full",
+          "type": "rich_inline",
           "required": true,
           "default": "",
           "repeated_item": "step",
@@ -1319,7 +1553,7 @@
         },
         {
           "name": "emb_steps_3col_col_2_body",
-          "type": "rich_full",
+          "type": "rich_inline",
           "required": true,
           "default": "",
           "repeated_item": "step",
@@ -1331,7 +1565,7 @@
         },
         {
           "name": "emb_steps_3col_col_3_body",
-          "type": "rich_full",
+          "type": "rich_inline",
           "required": true,
           "default": "",
           "repeated_item": "step",
@@ -1357,7 +1591,7 @@
           "name": "emb_steps_3col_button_bg_color",
           "type": "color",
           "required": true,
-          "default": "transparent"
+          "default": "#FFFFFF"
         },
         {
           "name": "emb_steps_3col_button_border_color",
@@ -1402,19 +1636,19 @@
         },
         {
           "name": "emb_steps_horizontal_col_1_body",
-          "type": "rich_full",
+          "type": "rich_inline",
           "required": true,
           "default": ""
         },
         {
           "name": "emb_steps_horizontal_col_2_body",
-          "type": "rich_full",
+          "type": "rich_inline",
           "required": true,
           "default": ""
         },
         {
           "name": "emb_steps_horizontal_col_3_body",
-          "type": "rich_full",
+          "type": "rich_inline",
           "required": true,
           "default": ""
         },
@@ -1434,7 +1668,7 @@
           "name": "emb_steps_horizontal_button_bg_color",
           "type": "color",
           "required": true,
-          "default": "transparent"
+          "default": "#FFFFFF"
         },
         {
           "name": "emb_steps_horizontal_button_border_color",
@@ -1560,7 +1794,7 @@
           "name": "emb_table_button_bg_color",
           "type": "color",
           "required": true,
-          "default": "transparent"
+          "default": "#FFFFFF"
         },
         {
           "name": "emb_table_button_border_color",
@@ -1662,7 +1896,7 @@
           "name": "emb_table_comparison_button_bg_color",
           "type": "color",
           "required": true,
-          "default": "transparent"
+          "default": "#FFFFFF"
         },
         {
           "name": "emb_table_comparison_button_border_color",

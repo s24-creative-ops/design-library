@@ -1,0 +1,58 @@
+{
+  "template_id": "loft-snl",
+  "template_name": "Loft SNL",
+  "version": 1,
+  "status": "active",
+  "preview_file": "template-loft-snl.preview.html",
+  "iterable_template_id": 615576,
+  "rules": {
+    "order_locked": true,
+    "forbid_new_modules": true,
+    "allow_remove_modules": false,
+    "allow_duplicate_modules": false
+  },
+  "slots": [
+    {
+      "slot_id": "logo-1",
+      "module_id": "logo-centered",
+      "locked": true,
+      "removable": false,
+      "repeatable": false
+    },
+    {
+      "slot_id": "hero-1",
+      "module_id": "hero-image-head-copy-bleed-center",
+      "locked": true,
+      "removable": false,
+      "repeatable": false
+    },
+    {
+      "slot_id": "copy-1",
+      "module_id": "loft-snl-copy-cta",
+      "locked": true,
+      "removable": false,
+      "repeatable": false
+    },
+    {
+      "slot_id": "gallery-1",
+      "module_id": "teaser-2col-gallery",
+      "locked": true,
+      "removable": false,
+      "repeatable": false
+    },
+    {
+      "slot_id": "copy-sections-1",
+      "module_id": "loft-snl-copy-sections-cta",
+      "locked": true,
+      "removable": false,
+      "repeatable": false
+    },
+    {
+      "slot_id": "footer-1",
+      "module_id": "footer",
+      "locked": true,
+      "removable": false,
+      "repeatable": false
+    }
+  ]
+}
