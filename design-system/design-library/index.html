@@ -690,8 +690,20 @@
 
     .token-typography-item {
       display: grid;
-      gap: 10px;
+      gap: 14px;
       padding: 0;
+    }
+
+    .token-typography-item__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .token-typography-item__intro {
+      display: grid;
+      gap: 4px;
     }
 
     .token-typography-item__line {
@@ -729,6 +741,54 @@
     .token-typography-pair {
       display: grid;
       gap: 6px;
+    }
+
+    .token-typography-columns {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .token-typography-variant {
+      display: grid;
+      gap: 12px;
+      min-height: 100%;
+      padding: 18px;
+      border-radius: 16px;
+      background: #F8F8F8;
+      border: 1px solid rgba(51, 51, 51, 0.08);
+    }
+
+    .token-typography-variant__label {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      min-height: 28px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: #F2F2F2;
+      color: #676767;
+      font-size: 12px;
+      line-height: 1;
+      font-weight: 700;
+    }
+
+    .token-typography-variant__sample {
+      display: grid;
+      gap: 8px;
+    }
+
+    .token-typography-variant__caption {
+      color: #676767;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .token-typography-variant__copy {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 12px;
+      line-height: 1.4;
+      color: #676767;
     }
 
     .token-section-group {
@@ -1423,6 +1483,10 @@
       .token-color-columns {
         grid-template-columns: 1fr;
         gap: 28px;
+      }
+
+      .token-typography-columns {
+        grid-template-columns: 1fr;
       }
     }
 
@@ -3429,6 +3493,20 @@
         }, TOKENS);
       }
 
+      function createTypographyVariant(label, spec, sampleText, fontWeight, tokenName) {
+        return '<section class="token-typography-variant">' +
+          '<span class="token-typography-variant__label">' + label + '</span>' +
+          '<div class="token-typography-variant__sample">' +
+            '<p class="token-typography-sample" style="font-size:' + spec.fontSize + '; line-height:' + spec.lineHeight + '; font-weight:' + fontWeight + ';">' + sampleText + '</p>' +
+            '<div class="token-typography-item__meta">' +
+              '<span>Font-size ' + spec.fontSize + '</span>' +
+              '<span>Line-height ' + spec.lineHeight + '</span>' +
+            '</div>' +
+          '</div>' +
+          '<div class="token-typography-variant__copy">' + tokenName + '</div>' +
+        '</section>';
+      }
+
       function renderTokenCards() {
         var colorsHost = document.querySelector('[data-token-colors]');
         if (colorsHost) {
@@ -3520,6 +3598,14 @@
 
         var typeHost = document.querySelector('[data-token-typography]');
         if (typeHost) {
+          var headingOrder = ['xxl', 'xl', 'l', 'm', 's', 'xs'];
+          var bodyOrder = ['standard', 'tabular', 'hint'];
+          var headingSampleText = 'Mehr Wirkung fuer Ihre Vermarktung';
+          var bodySampleText = {
+            standard: 'Standardtext fuer klare und gut lesbare Copy in der Design Library.',
+            tabular: '12.500 EUR | 3,95 % | 48 h',
+            hint: 'Hinweistext fuer kurze ergaenzende Informationen.'
+          };
           var items = [];
           items.push(
             '<article class="token-typography-item">' +
@@ -3527,45 +3613,49 @@
               '<a class="token-typography-source" href="https://www.static-immobilienscout24.de/fro/make-it-better/1.0.0/makeitbetter.css" target="_blank" rel="noopener noreferrer">makeitbetter.css</a>' +
             '</article>'
           );
-          Object.entries(TOKENS.typography.heading).forEach(function (entry) {
-            var desktop = entry[1].desktop;
-            var mobile = entry[1].mobile;
-            var regularTokenName = 'heading-' + entry[0] + '-regular';
-            var boldTokenName = 'heading-' + entry[0] + '-bold';
+          headingOrder.forEach(function (key) {
+            var token = TOKENS.typography.heading[key];
+            if (!token) return;
+            var desktop = token.desktop;
+            var mobile = token.mobile;
+            var tokenName = 'heading-' + key;
+            var label = 'Heading ' + key.toUpperCase();
             items.push(
               '<article class="token-typography-item">' +
-                '<div class="token-typography-pair">' +
-                  '<div class="token-typography-item__line">' +
-                    '<p class="token-typography-sample" style="font-size:' + desktop.fontSize + '; line-height:' + desktop.lineHeight + '; font-weight:' + TOKENS.typography.fontWeight.regular + ';">Heading ' + entry[0] + ' regular</p>' +
-                    createCopyButton(regularTokenName, regularTokenName) +
+                '<div class="token-typography-item__header">' +
+                  '<div class="token-typography-item__intro">' +
+                    '<h3 class="token-card__title">' + label + '</h3>' +
+                    createCodeValue(tokenName) +
                   '</div>' +
-                  '<div class="token-typography-item__line">' +
-                    '<p class="token-typography-sample" style="font-size:' + desktop.fontSize + '; line-height:' + desktop.lineHeight + '; font-weight:' + TOKENS.typography.fontWeight.bold + ';">Heading ' + entry[0] + ' bold</p>' +
-                    createCopyButton(boldTokenName, boldTokenName) +
-                  '</div>' +
+                  createCopyButton(tokenName, tokenName) +
                 '</div>' +
-                '<div class="token-typography-item__meta"><span>Desktop ' + desktop.fontSize + ' | ' + desktop.lineHeight + '</span><span>Mobile ' + mobile.fontSize + ' | ' + mobile.lineHeight + '</span></div>' +
+                '<div class="token-typography-columns">' +
+                  createTypographyVariant('Desktop', desktop, headingSampleText, TOKENS.typography.fontWeight.bold, tokenName) +
+                  createTypographyVariant('Mobile', mobile, headingSampleText, TOKENS.typography.fontWeight.bold, tokenName) +
+                '</div>' +
               '</article>'
             );
           });
-          Object.entries(TOKENS.typography.body).forEach(function (entry) {
-            var desktop = entry[1].desktop;
-            var mobile = entry[1].mobile;
-            var regularTokenName = 'body-' + entry[0] + '-regular';
-            var boldTokenName = 'body-' + entry[0] + '-bold';
+          bodyOrder.forEach(function (key) {
+            var token = TOKENS.typography.body[key];
+            if (!token) return;
+            var desktop = token.desktop;
+            var mobile = token.mobile;
+            var tokenName = 'body-' + key;
+            var label = 'P ' + formatTokenName(key);
             items.push(
               '<article class="token-typography-item">' +
-                '<div class="token-typography-pair">' +
-                  '<div class="token-typography-item__line">' +
-                    '<p class="token-typography-sample" style="font-size:' + desktop.fontSize + '; line-height:' + desktop.lineHeight + '; font-weight:' + TOKENS.typography.fontWeight.regular + ';">Body ' + entry[0] + ' regular lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>' +
-                    createCopyButton(regularTokenName, regularTokenName) +
+                '<div class="token-typography-item__header">' +
+                  '<div class="token-typography-item__intro">' +
+                    '<h3 class="token-card__title">' + label + '</h3>' +
+                    createCodeValue(tokenName) +
                   '</div>' +
-                  '<div class="token-typography-item__line">' +
-                    '<p class="token-typography-sample" style="font-size:' + desktop.fontSize + '; line-height:' + desktop.lineHeight + '; font-weight:' + TOKENS.typography.fontWeight.bold + ';">Body ' + entry[0] + ' bold lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>' +
-                    createCopyButton(boldTokenName, boldTokenName) +
-                  '</div>' +
+                  createCopyButton(tokenName, tokenName) +
                 '</div>' +
-                '<div class="token-typography-item__meta"><span>Desktop ' + desktop.fontSize + ' | ' + desktop.lineHeight + '</span><span>Mobile ' + mobile.fontSize + ' | ' + mobile.lineHeight + '</span></div>' +
+                '<div class="token-typography-columns">' +
+                  createTypographyVariant('Desktop', desktop, bodySampleText[key], TOKENS.typography.fontWeight.regular, tokenName) +
+                  createTypographyVariant('Mobile', mobile, bodySampleText[key], TOKENS.typography.fontWeight.regular, tokenName) +
+                '</div>' +
               '</article>'
             );
           });

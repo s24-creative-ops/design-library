@@ -14,6 +14,14 @@
       "height": 47,
       "link": "https://www.immobilienscout24.de/",
       "title": "ImmoScout24"
+    },
+    "centered": {
+      "src": "https://www.static-immobilienscout24.de/fro/ite/_/IS24-Logo_horizontal_center_white.png",
+      "alt": "Logo ImmoScout24",
+      "width": 198,
+      "height": 47,
+      "link": "https://www.immobilienscout24.de/",
+      "title": "ImmoScout24"
     }
   },
   "links": {
@@ -192,6 +200,16 @@
       "bold": 700
     },
     "heading": {
+      "xxl": {
+        "desktop": {
+          "fontSize": "60px",
+          "lineHeight": "72px"
+        },
+        "mobile": {
+          "fontSize": "40px",
+          "lineHeight": "48px"
+        }
+      },
       "xl": {
         "desktop": {
           "fontSize": "48px",
@@ -252,6 +270,16 @@
         "mobile": {
           "fontSize": "16px",
           "lineHeight": "24px"
+        }
+      },
+      "tabular": {
+        "desktop": {
+          "fontSize": "16px",
+          "lineHeight": "22px"
+        },
+        "mobile": {
+          "fontSize": "16px",
+          "lineHeight": "22px"
         }
       },
       "hint": {
