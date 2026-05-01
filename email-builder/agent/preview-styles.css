@@ -1705,6 +1705,15 @@ a {
     width: 28%;
   }
 
+  .module[data-module="table"] .table-card {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .module[data-module="table"] .data-table {
+    min-width: 360px;
+  }
+
   .media--listing {
     width: var(--listing-media-width);
     max-width: var(--listing-media-width);
