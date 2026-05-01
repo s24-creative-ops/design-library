@@ -1062,6 +1062,45 @@
       line-height: var(--line-height-title-mobile-hero);
     }
 
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-top"] .module__title:not(.module__title--hero-small):not(.module__title--hero-large) {
+      font-size: 24px;
+      line-height: var(--line-height-title-mobile-medium);
+    }
+
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-top"] .module__title--hero-small {
+      font-size: 20px;
+      line-height: var(--line-height-title-mobile-small);
+    }
+
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-top"] .module__title--hero-large {
+      font-size: 28px;
+      line-height: var(--line-height-title-mobile-hero);
+    }
+
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-top-bleed"] .module__title:not(.module__title--hero-small):not(.module__title--hero-large),
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-textbox-cta-center"] .module__title:not(.module__title--hero-small):not(.module__title--hero-large),
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-cta-top"] .module__title:not(.module__title--hero-small):not(.module__title--hero-large),
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-cta-top-no-bottom"] .module__title:not(.module__title--hero-small):not(.module__title--hero-large) {
+      font-size: 24px;
+      line-height: var(--line-height-title-mobile-medium);
+    }
+
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-top-bleed"] .module__title--hero-small,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-textbox-cta-center"] .module__title--hero-small,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-cta-top"] .module__title--hero-small,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-cta-top-no-bottom"] .module__title--hero-small {
+      font-size: 20px;
+      line-height: var(--line-height-title-mobile-small);
+    }
+
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-top-bleed"] .module__title--hero-large,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-textbox-cta-center"] .module__title--hero-large,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-cta-top"] .module__title--hero-large,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-cta-top-no-bottom"] .module__title--hero-large {
+      font-size: 28px;
+      line-height: var(--line-height-title-mobile-hero);
+    }
+
     .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-head-copy-bleed-center"] .module__hero-spacer--25 {
       height: 8px;
     }
@@ -1070,6 +1109,16 @@
     .test-shell.is-mobile-preview.is-page-email .test-email-preview .module__title--medium {
       font-size: 24px;
       line-height: var(--line-height-title-mobile-medium);
+    }
+
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-head-copy-bleed-center"] .module__title--hero-small {
+      font-size: 20px;
+      line-height: var(--line-height-title-mobile-small);
+    }
+
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-head-copy-bleed-center"] .module__title--hero-large {
+      font-size: 28px;
+      line-height: var(--line-height-title-mobile-hero);
     }
 
     .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-head-copy-bleed-center"] .module__hero-spacer--button {
@@ -1917,7 +1966,10 @@
           <p class="module__eyebrow" data-export-field="emb_hero_image_top_preheadline" data-export-role="preheadline">Digitales Immobilienprodukt</p>
           <span class="module__badge is-hidden">Badge</span>
         </div>
-        <h2 class="module__title" data-export-field="emb_hero_image_top_headline" data-export-role="headline">Vermarkten Sie Ihre Immobilie digital, klar und zeitsparend</h2>
+        <span class="is-hidden" data-export-field="emb_hero_image_top_headline_size" data-export-role="technical-variant">l</span>
+        <span class="is-hidden" data-export-field="emb_hero_image_top_show_small_headline" data-export-role="technical-flag">false</span>
+        <span class="is-hidden" data-export-field="emb_hero_image_top_show_large_headline" data-export-role="technical-flag">true</span>
+        <h2 class="module__title module__title--hero-large" data-export-field="emb_hero_image_top_headline" data-export-role="headline" data-preview-size-field="emb_hero_image_top_headline_size" data-preview-size-legacy-small-field="emb_hero_image_top_show_small_headline" data-preview-size-legacy-large-field="emb_hero_image_top_show_large_headline" data-preview-size-small-class="module__title--hero-small" data-preview-size-large-class="module__title--hero-large" data-preview-size-invalid-class="module__title--hero-invalid">Vermarkten Sie Ihre Immobilie digital, klar und zeitsparend</h2>
       </div>
       <div class="module__hero-spacer module__hero-spacer--25" aria-hidden="true"></div>
     </div>
@@ -1972,7 +2024,10 @@
           <p class="module__eyebrow" data-export-field="emb_hero_image_top_bleed_preheadline" data-export-role="preheadline">Digitales Immobilienprodukt</p>
           <span class="module__badge is-hidden">Badge</span>
         </div>
-        <h2 class="module__title" data-export-field="emb_hero_image_top_bleed_headline" data-export-role="headline">Vermarkten Sie Ihre Immobilie digital, klar und zeitsparend</h2>
+        <span class="is-hidden" data-export-field="emb_hero_image_top_bleed_headline_size" data-export-role="technical-variant">l</span>
+        <span class="is-hidden" data-export-field="emb_hero_image_top_bleed_show_small_headline" data-export-role="technical-flag">false</span>
+        <span class="is-hidden" data-export-field="emb_hero_image_top_bleed_show_large_headline" data-export-role="technical-flag">true</span>
+        <h2 class="module__title module__title--hero-large" data-export-field="emb_hero_image_top_bleed_headline" data-export-role="headline" data-preview-size-field="emb_hero_image_top_bleed_headline_size" data-preview-size-legacy-small-field="emb_hero_image_top_bleed_show_small_headline" data-preview-size-legacy-large-field="emb_hero_image_top_bleed_show_large_headline" data-preview-size-small-class="module__title--hero-small" data-preview-size-large-class="module__title--hero-large" data-preview-size-invalid-class="module__title--hero-invalid">Vermarkten Sie Ihre Immobilie digital, klar und zeitsparend</h2>
       </div>
       <div class="module__hero-spacer module__hero-spacer--25" aria-hidden="true"></div>
     </div>
@@ -2027,7 +2082,10 @@
           <p class="module__eyebrow" data-export-field="emb_hero_cta_top_preheadline" data-export-role="preheadline">Digitales Immobilienprodukt</p>
           <span class="module__badge is-hidden">Badge</span>
         </div>
-        <h2 class="module__title" data-export-field="emb_hero_cta_top_headline" data-export-role="headline">Vermarkten Sie Ihre Immobilie digital, klar und zeitsparend</h2>
+        <span class="is-hidden" data-export-field="emb_hero_cta_top_headline_size" data-export-role="technical-variant">l</span>
+        <span class="is-hidden" data-export-field="emb_hero_cta_top_show_small_headline" data-export-role="technical-flag">false</span>
+        <span class="is-hidden" data-export-field="emb_hero_cta_top_show_large_headline" data-export-role="technical-flag">true</span>
+        <h2 class="module__title module__title--hero-large" data-export-field="emb_hero_cta_top_headline" data-export-role="headline" data-preview-size-field="emb_hero_cta_top_headline_size" data-preview-size-legacy-small-field="emb_hero_cta_top_show_small_headline" data-preview-size-legacy-large-field="emb_hero_cta_top_show_large_headline" data-preview-size-small-class="module__title--hero-small" data-preview-size-large-class="module__title--hero-large" data-preview-size-invalid-class="module__title--hero-invalid">Vermarkten Sie Ihre Immobilie digital, klar und zeitsparend</h2>
       </div>
       <div class="module__hero-spacer module__hero-spacer--25" aria-hidden="true"></div>
     </div>
@@ -2082,7 +2140,10 @@
           <p class="module__eyebrow" data-export-field="emb_hero_cta_top_no_bottom_preheadline" data-export-role="preheadline">Digitales Immobilienprodukt</p>
           <span class="module__badge is-hidden">Badge</span>
         </div>
-        <h2 class="module__title" data-export-field="emb_hero_cta_top_no_bottom_headline" data-export-role="headline">Vermarkten Sie Ihre Immobilie digital, klar und zeitsparend</h2>
+        <span class="is-hidden" data-export-field="emb_hero_cta_top_no_bottom_headline_size" data-export-role="technical-variant">l</span>
+        <span class="is-hidden" data-export-field="emb_hero_cta_top_no_bottom_show_small_headline" data-export-role="technical-flag">false</span>
+        <span class="is-hidden" data-export-field="emb_hero_cta_top_no_bottom_show_large_headline" data-export-role="technical-flag">true</span>
+        <h2 class="module__title module__title--hero-large" data-export-field="emb_hero_cta_top_no_bottom_headline" data-export-role="headline" data-preview-size-field="emb_hero_cta_top_no_bottom_headline_size" data-preview-size-legacy-small-field="emb_hero_cta_top_no_bottom_show_small_headline" data-preview-size-legacy-large-field="emb_hero_cta_top_no_bottom_show_large_headline" data-preview-size-small-class="module__title--hero-small" data-preview-size-large-class="module__title--hero-large" data-preview-size-invalid-class="module__title--hero-invalid">Vermarkten Sie Ihre Immobilie digital, klar und zeitsparend</h2>
       </div>
       <div class="module__hero-spacer module__hero-spacer--25" aria-hidden="true"></div>
     </div>
@@ -2148,7 +2209,10 @@
       </div>
       <div class="module__hero-area module__hero-area--head">
         <div class="module__head module__head--center">
-          <h2 class="module__title module__title--medium" data-export-field="emb_hero_image_head_copy_bleed_center_headline" data-export-role="headline">Lorem ipsum dolor sit amet cum</h2>
+          <span class="is-hidden" data-export-field="emb_hero_image_head_copy_bleed_center_headline_size" data-export-role="technical-variant">l</span>
+          <span class="is-hidden" data-export-field="emb_hero_image_head_copy_bleed_center_show_small_headline" data-export-role="technical-flag">false</span>
+          <span class="is-hidden" data-export-field="emb_hero_image_head_copy_bleed_center_show_large_headline" data-export-role="technical-flag">true</span>
+          <h2 class="module__title module__title--hero-large" data-export-field="emb_hero_image_head_copy_bleed_center_headline" data-export-role="headline" data-preview-size-field="emb_hero_image_head_copy_bleed_center_headline_size" data-preview-size-legacy-small-field="emb_hero_image_head_copy_bleed_center_show_small_headline" data-preview-size-legacy-large-field="emb_hero_image_head_copy_bleed_center_show_large_headline" data-preview-size-small-class="module__title--hero-small" data-preview-size-large-class="module__title--hero-large" data-preview-size-invalid-class="module__title--hero-invalid">Lorem ipsum dolor sit amet cum</h2>
         </div>
         <div class="module__hero-spacer module__hero-spacer--25" aria-hidden="true"></div>
       </div>
@@ -2186,7 +2250,10 @@
     <div class="module__hero-flow">
       <div class="module__hero-area module__hero-area--head">
         <div class="module__head module__head--center">
-          <h2 class="module__title" data-export-field="emb_hero_image_textbox_cta_center_headline" data-export-role="headline">Lorem ipsum dolor sit amet cum ventus laudare estere</h2>
+          <span class="is-hidden" data-export-field="emb_hero_image_textbox_cta_center_headline_size" data-export-role="technical-variant">l</span>
+          <span class="is-hidden" data-export-field="emb_hero_image_textbox_cta_center_show_small_headline" data-export-role="technical-flag">false</span>
+          <span class="is-hidden" data-export-field="emb_hero_image_textbox_cta_center_show_large_headline" data-export-role="technical-flag">true</span>
+          <h2 class="module__title module__title--hero-large" data-export-field="emb_hero_image_textbox_cta_center_headline" data-export-role="headline" data-preview-size-field="emb_hero_image_textbox_cta_center_headline_size" data-preview-size-legacy-small-field="emb_hero_image_textbox_cta_center_show_small_headline" data-preview-size-legacy-large-field="emb_hero_image_textbox_cta_center_show_large_headline" data-preview-size-small-class="module__title--hero-small" data-preview-size-large-class="module__title--hero-large" data-preview-size-invalid-class="module__title--hero-invalid">Lorem ipsum dolor sit amet cum ventus laudare estere</h2>
         </div>
         <div class="module__hero-spacer module__hero-spacer--24" aria-hidden="true"></div>
       </div>
