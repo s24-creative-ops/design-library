@@ -150,6 +150,8 @@ Regeln:
 - Bildformat in der Preview: `16:9 | 960 x 540 px`
 - Fuellhinweis: feste Hero-Variante mit Bild oberhalb von Body und Brand-CTA beibehalten; die Preview-Anrede bleibt immer `Hallo Anrede,`
 - Technische Export-Regel:
+  - Die Hero-Anrede wird ueber `emb_hero_image_top_show_salutation` und `emb_hero_image_top_salutation` als eigener Plain-Text-Block vor dem Body materialisiert.
+  - Neue Default-States fuer dieses Modul muessen `show_salutation = true` und `salutation = Hallo Anrede,` materialisieren.
   - `emb_hero_image_top_headline_size` ist das einzige kanonische Groessenfeld fuer diese Hero-Headline.
   - Erlaubte Werte sind nur `s`, `m` und `l`; Default ist `l`.
   - Das Groessen-Mapping folgt festen Typography-Tokens:
@@ -190,6 +192,8 @@ Regeln:
 - Bildformat in der Preview: `16:9 | 960 x 540 px`
 - Fuellhinweis: feste Hero-Variante mit Bleed-Bild oberhalb von Body und Brand-CTA beibehalten; die Preview-Anrede bleibt immer `Hallo Anrede,`
 - Technische Export-Regel:
+  - Die Hero-Anrede wird ueber `emb_hero_image_top_bleed_show_salutation` und `emb_hero_image_top_bleed_salutation` als eigener Plain-Text-Block vor dem Body materialisiert.
+  - Neue Default-States fuer dieses Modul muessen `show_salutation = true` und `salutation = Hallo Anrede,` materialisieren.
   - `emb_hero_image_top_bleed_headline_size` ist das einzige kanonische Groessenfeld fuer diese Hero-Headline.
   - Erlaubte Werte sind nur `s`, `m` und `l`; Default ist `l`.
   - Das Groessen-Mapping folgt festen Typography-Tokens:
@@ -219,12 +223,15 @@ Regeln:
   - Bild-Alt
   - Headline
   - Headline-Groesse: `s`, `m` oder `l`
+  - Anrede
   - Body
   - Button-Label
   - Button-URL
 - Bildformat in der Preview: `16:9 | 1200 x 600 px`
-- Fuellhinweis: feste Hero-Variante mit Bleed-Bild oben, zentrierter Headline, zentriertem Body und gefuelltem Brand-CTA beibehalten
+- Fuellhinweis: feste Hero-Variante mit Bleed-Bild oben, zentrierter Headline, zentriertem Body und gefuelltem Brand-CTA beibehalten; die Preview-Anrede bleibt immer `Hallo Anrede,`
 - Technische Export-Regel:
+  - Die Hero-Anrede wird ueber `emb_hero_image_head_copy_bleed_center_show_salutation` und `emb_hero_image_head_copy_bleed_center_salutation` als eigener Plain-Text-Block vor dem Body materialisiert.
+  - Neue Default-States fuer dieses Modul muessen `show_salutation = true` und `salutation = Hallo Anrede,` materialisieren.
   - `emb_hero_image_head_copy_bleed_center_headline_size` ist das einzige kanonische Groessenfeld fuer diese Hero-Headline.
   - Erlaubte Werte sind nur `s`, `m` und `l`; Default ist `l`.
   - Das Groessen-Mapping folgt festen Typography-Tokens:
@@ -264,11 +271,12 @@ Regeln:
 - Bildformat in der Preview: `16:9 | 960 x 540 px`
 - Fuellhinweis: zentrierte Headline, Bild, zweistufiger Copy-Bereich, Kontur-Flaeche und gefuellter Brand-CTA bleiben in dieser Reihenfolge erhalten; die Preview-Anrede bleibt immer `Hallo Anrede,`
 - Technische Export-Regel:
-  - Verbindlicher Snippet-Call-Vertrag: genau 13 Parameter in dieser Reihenfolge
+  - Verbindlicher Snippet-Call-Vertrag: genau 14 direkt gerenderte Parameter in dieser Reihenfolge
   - `emb_hero_image_textbox_cta_center_bg_color`
   - `emb_hero_image_textbox_cta_center_headline`
   - `emb_hero_image_textbox_cta_center_image_url`
   - `emb_hero_image_textbox_cta_center_image_alt`
+  - `emb_hero_image_textbox_cta_center_show_salutation`
   - `emb_hero_image_textbox_cta_center_salutation`
   - `emb_hero_image_textbox_cta_center_body`
   - `emb_hero_image_textbox_cta_center_question`
@@ -278,6 +286,8 @@ Regeln:
   - `emb_hero_image_textbox_cta_center_button_bg_color`
   - `emb_hero_image_textbox_cta_center_button_border_color`
   - `emb_hero_image_textbox_cta_center_button_label`
+  - Die Hero-Anrede wird ueber `emb_hero_image_textbox_cta_center_show_salutation` und `emb_hero_image_textbox_cta_center_salutation` als eigener Plain-Text-Block vor dem Body materialisiert.
+  - Neue Default-States fuer dieses Modul muessen `show_salutation = true` und `salutation = Hallo Anrede,` materialisieren.
   - `emb_hero_image_textbox_cta_center_headline_size` ist das einzige kanonische Groessenfeld fuer diese Hero-Headline.
   - Erlaubte Werte sind nur `s`, `m` und `l`; Default ist `l`.
   - Das Groessen-Mapping folgt festen Typography-Tokens:
@@ -315,6 +325,8 @@ Regeln:
 - Bildformat in der Preview: `16:9 | 960 x 540 px`
 - Fuellhinweis: feste Hero-Variante mit Bild unterhalb von Body und Brand-CTA beibehalten; die Preview-Anrede bleibt immer `Hallo Anrede,`
 - Technische Export-Regel:
+  - Die Hero-Anrede wird ueber `emb_hero_cta_top_show_salutation` und `emb_hero_cta_top_salutation` als eigener Plain-Text-Block vor dem Body materialisiert.
+  - Neue Default-States fuer dieses Modul muessen `show_salutation = true` und `salutation = Hallo Anrede,` materialisieren.
   - `emb_hero_cta_top_headline_size` ist das einzige kanonische Groessenfeld fuer diese Hero-Headline.
   - Erlaubte Werte sind nur `s`, `m` und `l`; Default ist `l`.
   - Das Groessen-Mapping folgt festen Typography-Tokens:
@@ -352,6 +364,8 @@ Regeln:
 - Bildformat in der Preview: `16:9 | 960 x 540 px`
 - Fuellhinweis: feste Hero-Variante ohne unteren Modulabschluss und mit Brand-CTA beibehalten; die Preview-Anrede bleibt immer `Hallo Anrede,`
 - Technische Export-Regel:
+  - Die Hero-Anrede wird ueber `emb_hero_cta_top_no_bottom_show_salutation` und `emb_hero_cta_top_no_bottom_salutation` als eigener Plain-Text-Block vor dem Body materialisiert.
+  - Neue Default-States fuer dieses Modul muessen `show_salutation = true` und `salutation = Hallo Anrede,` materialisieren.
   - `emb_hero_cta_top_no_bottom_headline_size` ist das einzige kanonische Groessenfeld fuer diese Hero-Headline.
   - Erlaubte Werte sind nur `s`, `m` und `l`; Default ist `l`.
   - Das Groessen-Mapping folgt festen Typography-Tokens:

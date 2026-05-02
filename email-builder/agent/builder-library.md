@@ -274,12 +274,18 @@ Bewusst nicht angebunden:
 - `hero-image-top`, `hero-image-top-bleed`, `hero-image-head-copy-bleed-center`, `hero-cta-top` und `hero-cta-top-no-bottom` sind feste Varianten.
 - Hero-Strukturwuensche werden nur durch Modultausch geloest, nie durch internes Umordnen.
 - `preheadline` und Badge sind gegenseitig exklusiv.
+- Alle sechs Hero-Module nutzen fuer die optionale Anrede vor dem Body denselben Feldvertrag:
+  - `emb_<hero>_show_salutation`
+  - `emb_<hero>_salutation`
+  - Default ist immer `show_salutation = true` und `salutation = Hallo Anrede,`
+  - Die Hero-Anrede ist ein eigener Plain-Text-Block vor dem Body und wird nie in das `rich_*`-Body-Feld integriert.
+- Eine Iterable-Snippetcall-Ersetzung fuer Hero-Anreden ist in diesem Schritt explizit nicht Teil des Vertrags.
 - Fehlende echte Bild-URL nutzt den passenden Hero-Placeholder aus dem technischen Mapping.
 
 ### `hero-image-top`
 
 - Snippet: `emb_hero_image_top`
-- Verbindlicher Snippet-Call-Vertrag: genau 17 Snippet-Parameter in dieser Reihenfolge
+- Verbindlicher Snippet-Call-Vertrag: genau 19 Snippet-Parameter in dieser Reihenfolge
   - `emb_hero_image_top_bg_color`
   - `emb_hero_image_top_show_preheadline`
   - `emb_hero_image_top_preheadline`
@@ -292,6 +298,8 @@ Bewusst nicht angebunden:
   - `emb_hero_image_top_headline`
   - `emb_hero_image_top_image_url`
   - `emb_hero_image_top_image_alt`
+  - `emb_hero_image_top_show_salutation`
+  - `emb_hero_image_top_salutation`
   - `emb_hero_image_top_body`
   - `emb_hero_image_top_button_url`
   - `emb_hero_image_top_button_bg_color`
@@ -322,7 +330,7 @@ Bewusst nicht angebunden:
 ### `hero-image-top-bleed`
 
 - Snippet: `emb_hero_image_top_bleed`
-- Verbindlicher Snippet-Call-Vertrag: genau 17 Snippet-Parameter in dieser Reihenfolge
+- Verbindlicher Snippet-Call-Vertrag: genau 19 Snippet-Parameter in dieser Reihenfolge
   - `emb_hero_image_top_bleed_bg_color`
   - `emb_hero_image_top_bleed_show_preheadline`
   - `emb_hero_image_top_bleed_preheadline`
@@ -335,6 +343,8 @@ Bewusst nicht angebunden:
   - `emb_hero_image_top_bleed_headline`
   - `emb_hero_image_top_bleed_image_url`
   - `emb_hero_image_top_bleed_image_alt`
+  - `emb_hero_image_top_bleed_show_salutation`
+  - `emb_hero_image_top_bleed_salutation`
   - `emb_hero_image_top_bleed_body`
   - `emb_hero_image_top_bleed_button_url`
   - `emb_hero_image_top_bleed_button_bg_color`
@@ -364,13 +374,15 @@ Bewusst nicht angebunden:
 ### `hero-image-head-copy-bleed-center`
 
 - Snippet: `emb_hero_image_head_copy_bleed_center`
-- Verbindlicher Snippet-Call-Vertrag: genau 11 Snippet-Parameter in dieser Reihenfolge
+- Verbindlicher Snippet-Call-Vertrag: genau 13 Snippet-Parameter in dieser Reihenfolge
   - `emb_hero_image_head_copy_bleed_center_bg_color`
   - `emb_hero_image_head_copy_bleed_center_show_small_headline`
   - `emb_hero_image_head_copy_bleed_center_show_large_headline`
   - `emb_hero_image_head_copy_bleed_center_image_url`
   - `emb_hero_image_head_copy_bleed_center_image_alt`
   - `emb_hero_image_head_copy_bleed_center_headline`
+  - `emb_hero_image_head_copy_bleed_center_show_salutation`
+  - `emb_hero_image_head_copy_bleed_center_salutation`
   - `emb_hero_image_head_copy_bleed_center_body`
   - `emb_hero_image_head_copy_bleed_center_button_url`
   - `emb_hero_image_head_copy_bleed_center_button_bg_color`
@@ -400,13 +412,14 @@ Bewusst nicht angebunden:
 ### `hero-image-textbox-cta-center`
 
 - Snippet: `emb_hero_image_textbox_cta_center`
-- Verbindlicher Snippet-Call-Vertrag: genau 15 Snippet-Parameter in dieser Reihenfolge
+- Verbindlicher Snippet-Call-Vertrag: genau 16 Snippet-Parameter in dieser Reihenfolge
   - `emb_hero_image_textbox_cta_center_bg_color`
   - `emb_hero_image_textbox_cta_center_show_small_headline`
   - `emb_hero_image_textbox_cta_center_show_large_headline`
   - `emb_hero_image_textbox_cta_center_headline`
   - `emb_hero_image_textbox_cta_center_image_url`
   - `emb_hero_image_textbox_cta_center_image_alt`
+  - `emb_hero_image_textbox_cta_center_show_salutation`
   - `emb_hero_image_textbox_cta_center_salutation`
   - `emb_hero_image_textbox_cta_center_body`
   - `emb_hero_image_textbox_cta_center_question`
@@ -443,7 +456,7 @@ Bewusst nicht angebunden:
 ### `hero-cta-top`
 
 - Snippet: `emb_hero_cta_top`
-- Verbindlicher Snippet-Call-Vertrag: genau 17 Snippet-Parameter in dieser Reihenfolge
+- Verbindlicher Snippet-Call-Vertrag: genau 19 Snippet-Parameter in dieser Reihenfolge
   - `emb_hero_cta_top_bg_color`
   - `emb_hero_cta_top_show_preheadline`
   - `emb_hero_cta_top_preheadline`
@@ -454,6 +467,8 @@ Bewusst nicht angebunden:
   - `emb_hero_cta_top_show_small_headline`
   - `emb_hero_cta_top_show_large_headline`
   - `emb_hero_cta_top_headline`
+  - `emb_hero_cta_top_show_salutation`
+  - `emb_hero_cta_top_salutation`
   - `emb_hero_cta_top_body`
   - `emb_hero_cta_top_button_url`
   - `emb_hero_cta_top_button_bg_color`
@@ -485,7 +500,7 @@ Bewusst nicht angebunden:
 ### `hero-cta-top-no-bottom`
 
 - Snippet: `emb_hero_cta_top_no_bottom`
-- Verbindlicher Snippet-Call-Vertrag: genau 17 Snippet-Parameter in dieser Reihenfolge
+- Verbindlicher Snippet-Call-Vertrag: genau 19 Snippet-Parameter in dieser Reihenfolge
   - `emb_hero_cta_top_no_bottom_bg_color`
   - `emb_hero_cta_top_no_bottom_show_preheadline`
   - `emb_hero_cta_top_no_bottom_preheadline`
@@ -496,6 +511,8 @@ Bewusst nicht angebunden:
   - `emb_hero_cta_top_no_bottom_show_small_headline`
   - `emb_hero_cta_top_no_bottom_show_large_headline`
   - `emb_hero_cta_top_no_bottom_headline`
+  - `emb_hero_cta_top_no_bottom_show_salutation`
+  - `emb_hero_cta_top_no_bottom_salutation`
   - `emb_hero_cta_top_no_bottom_body`
   - `emb_hero_cta_top_no_bottom_button_url`
   - `emb_hero_cta_top_no_bottom_button_bg_color`

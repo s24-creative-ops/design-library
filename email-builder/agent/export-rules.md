@@ -81,6 +81,11 @@ Die uebrigen operativen Agent-Dateien liegen direkt daneben in `agent/`.
 - Salutation-/Anredezeilen sind eigene kurze Textkontexte vor einem nachfolgenden Body und duerfen nicht im HTML-Fragment eines `rich_full`-Feldes mitgefuehrt werden.
 - Salutation-/Anredezeilen duerfen keine Listen enthalten und sind im Feldtyp nur Plain Text oder hoechstens `rich_inline`, niemals `rich_full`.
 - Der Abstand zwischen Salutation und nachfolgendem Body ist ein externer Kontextabstand und keine Aufgabe des `rich_full`-Feldwerts selbst.
+- Fuer alle sechs Hero-Module gilt zusaetzlich:
+  - `*_show_salutation` ist das kanonische Show-/Hide-Feld fuer die Hero-Anrede
+  - `*_salutation` bleibt ein eigener Plain-Text-Kontext vor dem Body
+  - neue Hero-Default-States muessen `show_salutation = true` und `salutation = Hallo Anrede,` enthalten
+  - eine Iterable-Snippetcall-Ersetzung fuer Hero-Anreden ist in diesem Schritt explizit nicht Teil des Exportvertrags
 - `rich_inline`-Felder im `email_state.content` duerfen nur sanitisiertes builder-eigenes Inline-HTML enthalten.
 - `rich_full`-Felder im `email_state.content` duerfen nur sanitisiertes builder-eigenes Richtext-HTML enthalten.
 - Fuer `rich_inline` sind nur diese Tags erlaubt:
