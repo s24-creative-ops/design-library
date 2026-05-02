@@ -1680,13 +1680,13 @@ a {
   }
 
   .data-table th {
-    font-size: var(--font-size-caption-mobile);
-    line-height: var(--line-height-button);
+    font-size: var(--font-size-eyebrow);
+    line-height: var(--line-height-copy);
   }
 
   .data-table td {
-    font-size: var(--font-size-meta);
-    line-height: var(--line-height-meta);
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
   }
 
   .data-table th,
