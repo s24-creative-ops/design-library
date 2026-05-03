@@ -13,9 +13,17 @@
                               <tr>
                                 <td style="padding:0;">
                                   <table width="104" border="0" cellpadding="0" cellspacing="0" role="presentation" style="width:104px;">
+                                    <!--{{#ifEq emb_contact_show_image true}}-->
+                                    <tr>
+                                      <td style="padding:0;">
+                                        <img src="{{emb_contact_image_url}}" style="display:block;width:104px;height:104px;border:0;border-radius:52px;" width="104" height="104" alt="{{emb_contact_image_alt}}" title="">
+                                      </td>
+                                    </tr>
+                                    <!--{{else}}-->
                                     <tr>
                                       <td width="104" height="104" style="width:104px;height:104px;background-color:#EAEAEA;border-radius:50%;font-size:1px;line-height:1px;">&nbsp;</td>
                                     </tr>
+                                    <!--{{/ifEq}}-->
                                   </table>
                                 </td>
                               </tr>

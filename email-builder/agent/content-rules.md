@@ -15,6 +15,16 @@
 - Ein Modul soll keine Landingpage-Langform werden.
 - Pflichtinhalte duerfen nicht leer, sinnlos oder rein generisch sein.
 
+## Produktkontext
+
+- Produktdefaults duerfen nur aus den dokumentierten Resolver-Regeln in `builder-library.md` kommen.
+- Aktuell ist nur der Produktkontext `RLE` erlaubt; andere Produktnamen duerfen nicht frei interpretiert werden.
+- Wenn der User einen unbekannten expliziten Produktnamen nennt, muss der Agent nachfragen statt zu raten.
+- Produktdefaults sind Start-Defaults und nie staerker als explizite spaetere User-Vorgaben fuer konkrete Felder.
+- Wenn `RLE` aktiv ist und der User keine abweichenden Contact-Werte vorgibt, muessen fuer das `contact`-Modul exakt die dokumentierten RLE-Defaults aus `builder-library.md` verwendet werden.
+- Wenn `RLE` aktiv ist, darf der Hero-Salutation-Snippetcall nur ueber die dokumentierten technischen Export-Flags `*_use_snippetcall_salutation` aktiviert werden.
+- Freie User-Snippetcalls, freie Raw-Logik oder freier HTML-Code in Hero-Salutations bleiben verboten.
+
 ## Hero
 
 - Im Hero ist nur eines von beiden erlaubt: `eyebrow` oder `badge`.

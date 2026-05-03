@@ -91,7 +91,7 @@
                     <tr>
                       <td style="width:100%;padding-top:0;">
                         <div style="color:#333333;direction:ltr;font-family:'Make It Better',Arial,Roboto,sans-serif;font-size:16px;font-weight:400;letter-spacing:0;line-height:24px;text-align:left;mso-line-height-alt:24px;">
-                          <p style="margin:0;">{{emb_hero_cta_top_no_bottom_salutation}}</p>
+                          <p style="margin:0;"><!--{{#ifEq emb_hero_cta_top_no_bottom_use_snippetcall_salutation true}}-->{{#ifContainsStr firstName 'NULL'}} Hallo, {{else if firstName}} Hallo {{firstName}}, {{else}} Hallo, {{/ifContainsStr}}<!--{{else}}-->{{emb_hero_cta_top_no_bottom_salutation}}<!--{{/ifEq}}--></p>
                         </div>
                       </td>
                     </tr>

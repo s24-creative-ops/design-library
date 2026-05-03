@@ -61,6 +61,13 @@ Lade fuer den Standard-Agent mindestens diese Quellen:
 - Fuer Export ist `email_state + export-map.json` die technische Quelle; unbekannte Felder sind Fehler.
 - Preview-first ist Standard: Eine Preview oder Template-Auswahl bedeutet nie automatisch Export.
 - Exportiere nur auf explizite User-Anweisung.
+- Wenn der User am Chat-Anfang explizit einen Produktkontext nennt, darf dieser nur aus dokumentierten Produkt-Resolvern in `builder-library.md` aufgeloest werden.
+- Aktuell ist nur `RLE` als Produktkontext erlaubt; die Erkennung ist case-insensitive und normalisiert immer zu `RLE`.
+- Andere Produktnamen duerfen nicht frei geraten oder aehnlich aufgeloest werden; bei unbekanntem explizitem Produktnamen muss der Agent nachfragen.
+- Produktdefaults gelten nur als Start-Defaults; explizite spaetere User-Vorgaben fuer konkrete Felder haben immer Vorrang.
+- Im normalen Preview-/Export-Flow darf der Agent keine komplette HTML-Preview oder komplette Export-HTML ungefragt als grossen Chat-Block ausgeben.
+- Vollstaendiges HTML darf nur ausgegeben werden, wenn der User ausdruecklich danach fragt.
+- Preview- und Export-Status muessen fuer den User kompakt, sichtbar und in dokumentierter Reihenfolge ausgegeben werden; interne Speicher-, Recovery- oder Zwischenmeldungen bleiben unsichtbar, solange sie fuer den User nicht operativ relevant sind.
 - Detailregeln fuer Preview, Export, Shell-Merge, Templates, Sprachstil, Tonalitaet und Feldvertraege stehen in den hochgeladenen Dateien und werden nicht im Prompt dupliziert.
 
 ## Composition Templates
@@ -81,4 +88,5 @@ Lade fuer den Standard-Agent mindestens diese Quellen:
 
 - Kurz, klar, statusorientiert.
 - Keine langen Datei- oder HTML-Dumps.
+- Im normalen Workflow nie riesige Codebloecke fuer Preview- oder Export-HTML ausgeben.
 - Fuer Detailentscheidungen immer auf die hochgeladenen Projektdateien zurueckgehen.

@@ -76,16 +76,24 @@ Regeln:
 
 - `hero-image-top`
   - `emb_hero_image_top_image_url`
+- `hero-image-top-center`
+  - `emb_hero_image_top_center_image_url`
 - `hero-image-top-bleed`
   - `emb_hero_image_top_bleed_image_url`
+- `hero-image-top-bleed-center`
+  - `emb_hero_image_top_bleed_center_image_url`
 - `hero-image-head-copy-bleed-center`
   - `emb_hero_image_head_copy_bleed_center_image_url`
 - `hero-image-textbox-cta-center`
   - `emb_hero_image_textbox_cta_center_image_url`
 - `hero-cta-top`
   - `emb_hero_cta_top_image_url`
+- `hero-cta-top-center`
+  - `emb_hero_cta_top_center_image_url`
 - `hero-cta-top-no-bottom`
   - `emb_hero_cta_top_no_bottom_image_url`
+- `hero-cta-top-no-bottom-center`
+  - `emb_hero_cta_top_no_bottom_center_image_url`
 - `teaser-1col`
   - `emb_teaser_1col_image_url`
 - `teaser-2col-vertical`
@@ -113,6 +121,11 @@ Regeln:
   - `emb_teaser_2col_listing_col_3_image_url`
   - `emb_teaser_2col_listing_col_4_image_url`
 
+### Avatar-Slots
+
+- `contact`
+  - `emb_contact_image_url`
+
 ## Unterstuetzte Module
 
 ### `logo`
@@ -130,7 +143,7 @@ Regeln:
 - Preview-Quelle: `preview-modules.html`, Block `data-module="logo-centered"`
 - Sichtbare Felder:
   - Logo
-- Fuellhinweis: verwenden, wenn das Standard-Logo zentriert statt linksbuendig erscheinen soll
+- Fuellhinweis: verwenden, wenn das Standard-Logo zentriert statt linksbuendig erscheinen soll; bei den Center-Hero-Modulen `hero-image-top-center`, `hero-image-top-bleed-center`, `hero-cta-top-center`, `hero-cta-top-no-bottom-center`, `hero-image-head-copy-bleed-center` und `hero-image-textbox-cta-center` ist dies die verbindliche Logo-Variante
 - Technische Regel: statisches Export-Snippet ohne Parameter.
 
 ### `hero-image-top`
@@ -151,6 +164,7 @@ Regeln:
 - Fuellhinweis: feste Hero-Variante mit Bild oberhalb von Body und Brand-CTA beibehalten; die Preview-Anrede bleibt immer `Hallo Anrede,`
 - Technische Export-Regel:
   - Die Hero-Anrede wird ueber `emb_hero_image_top_show_salutation` und `emb_hero_image_top_salutation` als eigener Plain-Text-Block vor dem Body materialisiert.
+  - `emb_hero_image_top_use_snippetcall_salutation` ist ein rein technisches Export-Flag fuer freigegebene Produktkontexte und bleibt in der Preview unsichtbar.
   - Neue Default-States fuer dieses Modul muessen `show_salutation = true` und `salutation = Hallo Anrede,` materialisieren.
   - `emb_hero_image_top_headline_size` ist das einzige kanonische Groessenfeld fuer diese Hero-Headline.
   - Erlaubte Werte sind nur `s`, `m` und `l`; Default ist `l`.
@@ -175,6 +189,50 @@ Regeln:
   - Wenn `show_small_headline = true` und `show_large_headline = true` gleichzeitig vorliegen oder nicht exakt zur kanonischen `headline_size` passen, ist der State nicht export-ready.
   - Freie px-, CSS-, HTML- oder Inline-Style-Werte sind fuer diese Headline-Groesse nicht zulaessig.
 
+### `hero-image-top-center`
+
+- Snippet: `emb_hero_image_top_center`
+- Ausrichtung: Eyebrow oder Badge, Headline, Anrede, Body und CTA sind zentriert.
+- Preview-Quelle: `preview-modules.html`, Block `data-module="hero-image-top-center"`
+- Sichtbare Felder:
+  - Eyebrow
+  - Headline
+  - Headline-Groesse: `s`, `m` oder `l`
+  - Anrede
+  - Body
+  - Button-Label
+  - Button-URL
+  - Bild-URL
+  - Bild-Alt
+- Bildformat in der Preview: `16:9 | 960 x 540 px`
+- Fuellhinweis: feste zentrierte Hero-Variante mit zentrierte Meta-, Headline-, Copy- und CTA-Ausrichtung mit Bild oberhalb von Body und Brand-CTA beibehalten; die Preview-Anrede bleibt immer `Hallo Anrede,`
+- Technische Export-Regel:
+  - Die Hero-Anrede wird ueber `emb_hero_image_top_center_show_salutation` und `emb_hero_image_top_center_salutation` als eigener Plain-Text-Block vor dem Body materialisiert.
+  - `emb_hero_image_top_center_use_snippetcall_salutation` ist ein rein technisches Export-Flag fuer freigegebene Produktkontexte und bleibt in der Preview unsichtbar.
+  - Neue Default-States fuer dieses Modul muessen `show_salutation = true` und `salutation = Hallo Anrede,` materialisieren.
+  - `emb_hero_image_top_center_headline_size` ist das einzige kanonische Groessenfeld fuer diese Hero-Headline.
+  - Erlaubte Werte sind nur `s`, `m` und `l`; Default ist `l`.
+  - Das Groessen-Mapping folgt festen Typography-Tokens:
+    - Desktop:
+      - `s` => `heading-s` => `20px / 30px`
+      - `m` => `heading-m` => `26px / 36px`
+      - `l` => `heading-l` => `34px / 44px`
+    - Mobile:
+      - `s` => `heading-s mobile` => `20px / 30px`
+      - `m` => `heading-m mobile` => `24px / 34px`
+      - `l` => `heading-l mobile` => `28px / 36px`
+  - Die Preview materialisiert zusaetzlich die technischen Bridge-Felder `emb_hero_image_top_center_show_small_headline` und `emb_hero_image_top_center_show_large_headline` im `email_state.content`.
+  - Die Bridge ist fest:
+    - `s` => `show_small_headline = true`, `show_large_headline = false`
+    - `m` => `show_small_headline = false`, `show_large_headline = false`
+    - `l` => `show_small_headline = false`, `show_large_headline = true`
+  - Neue Default-States fuer dieses Modul muessen immer `headline_size = l`, `show_small_headline = false` und `show_large_headline = true` erzeugen.
+  - Legacy gilt nur fuer Normalisierung beim Preview-Bau:
+    - `emb_hero_image_top_center_show_large_headline = true` ohne kanonisches `headline_size` => `headline_size = l`
+    - `emb_hero_image_top_center_show_large_headline = false` oder leer ohne kanonisches `headline_size` => `headline_size = m`
+  - Wenn `show_small_headline = true` und `show_large_headline = true` gleichzeitig vorliegen oder nicht exakt zur kanonischen `headline_size` passen, ist der State nicht export-ready.
+  - Freie px-, CSS-, HTML- oder Inline-Style-Werte sind fuer diese Headline-Groesse nicht zulaessig.
+
 ### `hero-image-top-bleed`
 
 - Snippet: `emb_hero_image_top_bleed`
@@ -193,6 +251,7 @@ Regeln:
 - Fuellhinweis: feste Hero-Variante mit Bleed-Bild oberhalb von Body und Brand-CTA beibehalten; die Preview-Anrede bleibt immer `Hallo Anrede,`
 - Technische Export-Regel:
   - Die Hero-Anrede wird ueber `emb_hero_image_top_bleed_show_salutation` und `emb_hero_image_top_bleed_salutation` als eigener Plain-Text-Block vor dem Body materialisiert.
+  - `emb_hero_image_top_bleed_use_snippetcall_salutation` ist ein rein technisches Export-Flag fuer freigegebene Produktkontexte und bleibt in der Preview unsichtbar.
   - Neue Default-States fuer dieses Modul muessen `show_salutation = true` und `salutation = Hallo Anrede,` materialisieren.
   - `emb_hero_image_top_bleed_headline_size` ist das einzige kanonische Groessenfeld fuer diese Hero-Headline.
   - Erlaubte Werte sind nur `s`, `m` und `l`; Default ist `l`.
@@ -206,6 +265,47 @@ Regeln:
       - `m` => `heading-m mobile` => `24px / 34px`
       - `l` => `heading-l mobile` => `28px / 36px`
   - Die Preview materialisiert zusaetzlich die technischen Bridge-Felder `emb_hero_image_top_bleed_show_small_headline` und `emb_hero_image_top_bleed_show_large_headline` im `email_state.content`.
+  - Die Bridge ist fest:
+    - `s` => `show_small_headline = true`, `show_large_headline = false`
+    - `m` => `show_small_headline = false`, `show_large_headline = false`
+    - `l` => `show_small_headline = false`, `show_large_headline = true`
+  - Neue Default-States fuer dieses Modul muessen immer `headline_size = l`, `show_small_headline = false` und `show_large_headline = true` erzeugen.
+  - Wenn `show_small_headline = true` und `show_large_headline = true` gleichzeitig vorliegen oder nicht exakt zur kanonischen `headline_size` passen, ist der State nicht export-ready.
+  - Freie px-, CSS-, HTML- oder Inline-Style-Werte sind fuer diese Headline-Groesse nicht zulaessig.
+
+### `hero-image-top-bleed-center`
+
+- Snippet: `emb_hero_image_top_bleed_center`
+- Ausrichtung: Eyebrow oder Badge, Headline, Anrede, Body und CTA sind zentriert.
+- Preview-Quelle: `preview-modules.html`, Block `data-module="hero-image-top-bleed-center"`
+- Sichtbare Felder:
+  - Eyebrow
+  - Headline
+  - Headline-Groesse: `s`, `m` oder `l`
+  - Anrede
+  - Body
+  - Button-Label
+  - Button-URL
+  - Bild-URL
+  - Bild-Alt
+- Bildformat in der Preview: `16:9 | 960 x 540 px`
+- Fuellhinweis: feste zentrierte Hero-Variante mit Bleed-zentrierte Meta-, Headline-, Copy- und CTA-Ausrichtung mit Bild oberhalb von Body und Brand-CTA beibehalten; die Preview-Anrede bleibt immer `Hallo Anrede,`
+- Technische Export-Regel:
+  - Die Hero-Anrede wird ueber `emb_hero_image_top_bleed_center_show_salutation` und `emb_hero_image_top_bleed_center_salutation` als eigener Plain-Text-Block vor dem Body materialisiert.
+  - `emb_hero_image_top_bleed_center_use_snippetcall_salutation` ist ein rein technisches Export-Flag fuer freigegebene Produktkontexte und bleibt in der Preview unsichtbar.
+  - Neue Default-States fuer dieses Modul muessen `show_salutation = true` und `salutation = Hallo Anrede,` materialisieren.
+  - `emb_hero_image_top_bleed_center_headline_size` ist das einzige kanonische Groessenfeld fuer diese Hero-Headline.
+  - Erlaubte Werte sind nur `s`, `m` und `l`; Default ist `l`.
+  - Das Groessen-Mapping folgt festen Typography-Tokens:
+    - Desktop:
+      - `s` => `heading-s` => `20px / 30px`
+      - `m` => `heading-m` => `26px / 36px`
+      - `l` => `heading-l` => `34px / 44px`
+    - Mobile:
+      - `s` => `heading-s mobile` => `20px / 30px`
+      - `m` => `heading-m mobile` => `24px / 34px`
+      - `l` => `heading-l mobile` => `28px / 36px`
+  - Die Preview materialisiert zusaetzlich die technischen Bridge-Felder `emb_hero_image_top_bleed_center_show_small_headline` und `emb_hero_image_top_bleed_center_show_large_headline` im `email_state.content`.
   - Die Bridge ist fest:
     - `s` => `show_small_headline = true`, `show_large_headline = false`
     - `m` => `show_small_headline = false`, `show_large_headline = false`
@@ -231,6 +331,7 @@ Regeln:
 - Fuellhinweis: feste Hero-Variante mit Bleed-Bild oben, zentrierter Headline, zentriertem Body und gefuelltem Brand-CTA beibehalten; die Preview-Anrede bleibt immer `Hallo Anrede,`
 - Technische Export-Regel:
   - Die Hero-Anrede wird ueber `emb_hero_image_head_copy_bleed_center_show_salutation` und `emb_hero_image_head_copy_bleed_center_salutation` als eigener Plain-Text-Block vor dem Body materialisiert.
+  - `emb_hero_image_head_copy_bleed_center_use_snippetcall_salutation` ist ein rein technisches Export-Flag fuer freigegebene Produktkontexte und bleibt in der Preview unsichtbar.
   - Neue Default-States fuer dieses Modul muessen `show_salutation = true` und `salutation = Hallo Anrede,` materialisieren.
   - `emb_hero_image_head_copy_bleed_center_headline_size` ist das einzige kanonische Groessenfeld fuer diese Hero-Headline.
   - Erlaubte Werte sind nur `s`, `m` und `l`; Default ist `l`.
@@ -287,6 +388,7 @@ Regeln:
   - `emb_hero_image_textbox_cta_center_button_border_color`
   - `emb_hero_image_textbox_cta_center_button_label`
   - Die Hero-Anrede wird ueber `emb_hero_image_textbox_cta_center_show_salutation` und `emb_hero_image_textbox_cta_center_salutation` als eigener Plain-Text-Block vor dem Body materialisiert.
+  - `emb_hero_image_textbox_cta_center_use_snippetcall_salutation` ist ein rein technisches Export-Flag fuer freigegebene Produktkontexte und bleibt in der Preview unsichtbar.
   - Neue Default-States fuer dieses Modul muessen `show_salutation = true` und `salutation = Hallo Anrede,` materialisieren.
   - `emb_hero_image_textbox_cta_center_headline_size` ist das einzige kanonische Groessenfeld fuer diese Hero-Headline.
   - Erlaubte Werte sind nur `s`, `m` und `l`; Default ist `l`.
@@ -326,6 +428,7 @@ Regeln:
 - Fuellhinweis: feste Hero-Variante mit Bild unterhalb von Body und Brand-CTA beibehalten; die Preview-Anrede bleibt immer `Hallo Anrede,`
 - Technische Export-Regel:
   - Die Hero-Anrede wird ueber `emb_hero_cta_top_show_salutation` und `emb_hero_cta_top_salutation` als eigener Plain-Text-Block vor dem Body materialisiert.
+  - `emb_hero_cta_top_use_snippetcall_salutation` ist ein rein technisches Export-Flag fuer freigegebene Produktkontexte und bleibt in der Preview unsichtbar.
   - Neue Default-States fuer dieses Modul muessen `show_salutation = true` und `salutation = Hallo Anrede,` materialisieren.
   - `emb_hero_cta_top_headline_size` ist das einzige kanonische Groessenfeld fuer diese Hero-Headline.
   - Erlaubte Werte sind nur `s`, `m` und `l`; Default ist `l`.
@@ -339,6 +442,47 @@ Regeln:
       - `m` => `heading-m mobile` => `24px / 34px`
       - `l` => `heading-l mobile` => `28px / 36px`
   - Die Preview materialisiert zusaetzlich die technischen Bridge-Felder `emb_hero_cta_top_show_small_headline` und `emb_hero_cta_top_show_large_headline` im `email_state.content`.
+  - Die Bridge ist fest:
+    - `s` => `show_small_headline = true`, `show_large_headline = false`
+    - `m` => `show_small_headline = false`, `show_large_headline = false`
+    - `l` => `show_small_headline = false`, `show_large_headline = true`
+  - Neue Default-States fuer dieses Modul muessen immer `headline_size = l`, `show_small_headline = false` und `show_large_headline = true` erzeugen.
+  - Wenn `show_small_headline = true` und `show_large_headline = true` gleichzeitig vorliegen oder nicht exakt zur kanonischen `headline_size` passen, ist der State nicht export-ready.
+  - Freie px-, CSS-, HTML- oder Inline-Style-Werte sind fuer diese Headline-Groesse nicht zulaessig.
+
+### `hero-cta-top-center`
+
+- Snippet: `emb_hero_cta_top_center`
+- Ausrichtung: Eyebrow oder Badge, Headline, Anrede, Body und CTA sind zentriert.
+- Preview-Quelle: `preview-modules.html`, Block `data-module="hero-cta-top-center"`
+- Sichtbare Felder:
+  - Eyebrow
+  - Headline
+  - Headline-Groesse: `s`, `m` oder `l`
+  - Anrede
+  - Body
+  - Button-Label
+  - Button-URL
+  - Bild-URL
+  - Bild-Alt
+- Bildformat in der Preview: `16:9 | 960 x 540 px`
+- Fuellhinweis: feste zentrierte Hero-Variante mit zentrierte Meta-, Headline-, Copy- und CTA-Ausrichtung mit Bild unterhalb von Body und Brand-CTA beibehalten; die Preview-Anrede bleibt immer `Hallo Anrede,`
+- Technische Export-Regel:
+  - Die Hero-Anrede wird ueber `emb_hero_cta_top_center_show_salutation` und `emb_hero_cta_top_center_salutation` als eigener Plain-Text-Block vor dem Body materialisiert.
+  - `emb_hero_cta_top_center_use_snippetcall_salutation` ist ein rein technisches Export-Flag fuer freigegebene Produktkontexte und bleibt in der Preview unsichtbar.
+  - Neue Default-States fuer dieses Modul muessen `show_salutation = true` und `salutation = Hallo Anrede,` materialisieren.
+  - `emb_hero_cta_top_center_headline_size` ist das einzige kanonische Groessenfeld fuer diese Hero-Headline.
+  - Erlaubte Werte sind nur `s`, `m` und `l`; Default ist `l`.
+  - Das Groessen-Mapping folgt festen Typography-Tokens:
+    - Desktop:
+      - `s` => `heading-s` => `20px / 30px`
+      - `m` => `heading-m` => `26px / 36px`
+      - `l` => `heading-l` => `34px / 44px`
+    - Mobile:
+      - `s` => `heading-s mobile` => `20px / 30px`
+      - `m` => `heading-m mobile` => `24px / 34px`
+      - `l` => `heading-l mobile` => `28px / 36px`
+  - Die Preview materialisiert zusaetzlich die technischen Bridge-Felder `emb_hero_cta_top_center_show_small_headline` und `emb_hero_cta_top_center_show_large_headline` im `email_state.content`.
   - Die Bridge ist fest:
     - `s` => `show_small_headline = true`, `show_large_headline = false`
     - `m` => `show_small_headline = false`, `show_large_headline = false`
@@ -365,6 +509,7 @@ Regeln:
 - Fuellhinweis: feste Hero-Variante ohne unteren Modulabschluss und mit Brand-CTA beibehalten; die Preview-Anrede bleibt immer `Hallo Anrede,`
 - Technische Export-Regel:
   - Die Hero-Anrede wird ueber `emb_hero_cta_top_no_bottom_show_salutation` und `emb_hero_cta_top_no_bottom_salutation` als eigener Plain-Text-Block vor dem Body materialisiert.
+  - `emb_hero_cta_top_no_bottom_use_snippetcall_salutation` ist ein rein technisches Export-Flag fuer freigegebene Produktkontexte und bleibt in der Preview unsichtbar.
   - Neue Default-States fuer dieses Modul muessen `show_salutation = true` und `salutation = Hallo Anrede,` materialisieren.
   - `emb_hero_cta_top_no_bottom_headline_size` ist das einzige kanonische Groessenfeld fuer diese Hero-Headline.
   - Erlaubte Werte sind nur `s`, `m` und `l`; Default ist `l`.
@@ -378,6 +523,47 @@ Regeln:
       - `m` => `heading-m mobile` => `24px / 34px`
       - `l` => `heading-l mobile` => `28px / 36px`
   - Die Preview materialisiert zusaetzlich die technischen Bridge-Felder `emb_hero_cta_top_no_bottom_show_small_headline` und `emb_hero_cta_top_no_bottom_show_large_headline` im `email_state.content`.
+  - Die Bridge ist fest:
+    - `s` => `show_small_headline = true`, `show_large_headline = false`
+    - `m` => `show_small_headline = false`, `show_large_headline = false`
+    - `l` => `show_small_headline = false`, `show_large_headline = true`
+  - Neue Default-States fuer dieses Modul muessen immer `headline_size = l`, `show_small_headline = false` und `show_large_headline = true` erzeugen.
+  - Wenn `show_small_headline = true` und `show_large_headline = true` gleichzeitig vorliegen oder nicht exakt zur kanonischen `headline_size` passen, ist der State nicht export-ready.
+  - Freie px-, CSS-, HTML- oder Inline-Style-Werte sind fuer diese Headline-Groesse nicht zulaessig.
+
+### `hero-cta-top-no-bottom-center`
+
+- Snippet: `emb_hero_cta_top_no_bottom_center`
+- Ausrichtung: Eyebrow oder Badge, Headline, Anrede, Body und CTA sind zentriert.
+- Preview-Quelle: `preview-modules.html`, Block `data-module="hero-cta-top-no-bottom-center"`
+- Sichtbare Felder:
+  - Eyebrow
+  - Headline
+  - Headline-Groesse: `s`, `m` oder `l`
+  - Anrede
+  - Body
+  - Button-Label
+  - Button-URL
+  - Bild-URL
+  - Bild-Alt
+- Bildformat in der Preview: `16:9 | 960 x 540 px`
+- Fuellhinweis: feste zentrierte Hero-Variante ohne unteren Modulabschluss sowie mit zentrierter Meta-, Headline-, Copy- und CTA-Ausrichtung beibehalten; die Preview-Anrede bleibt immer `Hallo Anrede,`
+- Technische Export-Regel:
+  - Die Hero-Anrede wird ueber `emb_hero_cta_top_no_bottom_center_show_salutation` und `emb_hero_cta_top_no_bottom_center_salutation` als eigener Plain-Text-Block vor dem Body materialisiert.
+  - `emb_hero_cta_top_no_bottom_center_use_snippetcall_salutation` ist ein rein technisches Export-Flag fuer freigegebene Produktkontexte und bleibt in der Preview unsichtbar.
+  - Neue Default-States fuer dieses Modul muessen `show_salutation = true` und `salutation = Hallo Anrede,` materialisieren.
+  - `emb_hero_cta_top_no_bottom_center_headline_size` ist das einzige kanonische Groessenfeld fuer diese Hero-Headline.
+  - Erlaubte Werte sind nur `s`, `m` und `l`; Default ist `l`.
+  - Das Groessen-Mapping folgt festen Typography-Tokens:
+    - Desktop:
+      - `s` => `heading-s` => `20px / 30px`
+      - `m` => `heading-m` => `26px / 36px`
+      - `l` => `heading-l` => `34px / 44px`
+    - Mobile:
+      - `s` => `heading-s mobile` => `20px / 30px`
+      - `m` => `heading-m mobile` => `24px / 34px`
+      - `l` => `heading-l mobile` => `28px / 36px`
+  - Die Preview materialisiert zusaetzlich die technischen Bridge-Felder `emb_hero_cta_top_no_bottom_center_show_small_headline` und `emb_hero_cta_top_no_bottom_center_show_large_headline` im `email_state.content`.
   - Die Bridge ist fest:
     - `s` => `show_small_headline = true`, `show_large_headline = false`
     - `m` => `show_small_headline = false`, `show_large_headline = false`
@@ -545,6 +731,8 @@ Regeln:
 - Snippet: `emb_contact`
 - Preview-Quelle: `preview-modules.html`, Block `data-module="contact"`
 - Sichtbare Felder:
+  - Bild-URL
+  - Bild-Alt
   - Headline
   - Intro-Text
   - Telefonnummer
@@ -554,7 +742,9 @@ Regeln:
   - E-Mail-Adresse
   - Abschlusszeile 1
   - Abschlusszeile 2
-- Fuellhinweis: feste Kontaktstruktur mit Intro, Telefon, E-Mail und Abschluss beibehalten
+- Fuellhinweis: feste Kontaktstruktur mit bestehender Avatar-Position, Intro, Telefon, E-Mail und Abschluss beibehalten
+- Bei aktivem Produktkontext `RLE` muessen ohne explizite User-Overrides die dokumentierten RLE-Defaults in genau diese bestehenden Contact-Felder materialisiert werden.
+- Wenn fuer den registrierten Avatar-Slot keine echte Bild-URL vorliegt, bleibt in der Preview der graue Placeholder sichtbar.
 
 ### `footer`
 

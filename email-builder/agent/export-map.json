@@ -111,6 +111,12 @@
           "default": true
         },
         {
+          "name": "emb_hero_image_top_use_snippetcall_salutation",
+          "type": "boolean",
+          "required": true,
+          "default": false
+        },
+        {
           "name": "emb_hero_image_top_salutation",
           "type": "text",
           "required": true,
@@ -142,6 +148,143 @@
         },
         {
           "name": "emb_hero_image_top_button_label",
+          "type": "text",
+          "required": true,
+          "default": ""
+        }
+      ]
+    },
+    {
+      "module_id": "hero-image-top-center",
+      "snippet_name": "emb_hero_image_top_center",
+      "fields": [
+        {
+          "name": "emb_hero_image_top_center_bg_color",
+          "type": "color",
+          "required": true,
+          "default": "#FFFFFF"
+        },
+        {
+          "name": "emb_hero_image_top_center_show_preheadline",
+          "type": "boolean",
+          "required": true,
+          "default": false
+        },
+        {
+          "name": "emb_hero_image_top_center_preheadline",
+          "type": "text",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "emb_hero_image_top_center_show_badge",
+          "type": "boolean",
+          "required": true,
+          "default": false
+        },
+        {
+          "name": "emb_hero_image_top_center_badge_bg_color",
+          "type": "color",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "emb_hero_image_top_center_badge_text_color",
+          "type": "color",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "emb_hero_image_top_center_badge_label",
+          "type": "text",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "emb_hero_image_top_center_headline_size",
+          "type": "text",
+          "required": true,
+          "default": "l",
+          "allowed_values": [
+            "s",
+            "m",
+            "l"
+          ]
+        },
+        {
+          "name": "emb_hero_image_top_center_show_small_headline",
+          "type": "boolean",
+          "required": true,
+          "default": false
+        },
+        {
+          "name": "emb_hero_image_top_center_show_large_headline",
+          "type": "boolean",
+          "required": true,
+          "default": true
+        },
+        {
+          "name": "emb_hero_image_top_center_headline",
+          "type": "text",
+          "required": true,
+          "default": ""
+        },
+        {
+          "name": "emb_hero_image_top_center_image_url",
+          "type": "image_url",
+          "required": true,
+          "default": "https://library.eu.iterable.com/33/98/b9799c74eec5412c8fb0c995dd52f19c-emb_placeholder_16x9.png"
+        },
+        {
+          "name": "emb_hero_image_top_center_image_alt",
+          "type": "text",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "emb_hero_image_top_center_show_salutation",
+          "type": "boolean",
+          "required": true,
+          "default": true
+        },
+        {
+          "name": "emb_hero_image_top_center_use_snippetcall_salutation",
+          "type": "boolean",
+          "required": true,
+          "default": false
+        },
+        {
+          "name": "emb_hero_image_top_center_salutation",
+          "type": "text",
+          "required": true,
+          "default": "Hallo Anrede,"
+        },
+        {
+          "name": "emb_hero_image_top_center_body",
+          "type": "rich_full",
+          "required": true,
+          "default": ""
+        },
+        {
+          "name": "emb_hero_image_top_center_button_url",
+          "type": "url",
+          "required": true,
+          "default": ""
+        },
+        {
+          "name": "emb_hero_image_top_center_button_bg_color",
+          "type": "color",
+          "required": true,
+          "default": "#74FFDF"
+        },
+        {
+          "name": "emb_hero_image_top_center_button_border_color",
+          "type": "color",
+          "required": true,
+          "default": "#74FFDF"
+        },
+        {
+          "name": "emb_hero_image_top_center_button_label",
           "type": "text",
           "required": true,
           "default": ""
@@ -242,6 +385,12 @@
           "default": true
         },
         {
+          "name": "emb_hero_image_top_bleed_use_snippetcall_salutation",
+          "type": "boolean",
+          "required": true,
+          "default": false
+        },
+        {
           "name": "emb_hero_image_top_bleed_salutation",
           "type": "text",
           "required": true,
@@ -273,6 +422,143 @@
         },
         {
           "name": "emb_hero_image_top_bleed_button_label",
+          "type": "text",
+          "required": true,
+          "default": ""
+        }
+      ]
+    },
+    {
+      "module_id": "hero-image-top-bleed-center",
+      "snippet_name": "emb_hero_image_top_bleed_center",
+      "fields": [
+        {
+          "name": "emb_hero_image_top_bleed_center_bg_color",
+          "type": "color",
+          "required": true,
+          "default": "#FFFFFF"
+        },
+        {
+          "name": "emb_hero_image_top_bleed_center_show_preheadline",
+          "type": "boolean",
+          "required": true,
+          "default": false
+        },
+        {
+          "name": "emb_hero_image_top_bleed_center_preheadline",
+          "type": "text",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "emb_hero_image_top_bleed_center_show_badge",
+          "type": "boolean",
+          "required": true,
+          "default": false
+        },
+        {
+          "name": "emb_hero_image_top_bleed_center_badge_bg_color",
+          "type": "color",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "emb_hero_image_top_bleed_center_badge_text_color",
+          "type": "color",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "emb_hero_image_top_bleed_center_badge_label",
+          "type": "text",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "emb_hero_image_top_bleed_center_headline_size",
+          "type": "text",
+          "required": true,
+          "default": "l",
+          "allowed_values": [
+            "s",
+            "m",
+            "l"
+          ]
+        },
+        {
+          "name": "emb_hero_image_top_bleed_center_show_small_headline",
+          "type": "boolean",
+          "required": true,
+          "default": false
+        },
+        {
+          "name": "emb_hero_image_top_bleed_center_show_large_headline",
+          "type": "boolean",
+          "required": true,
+          "default": true
+        },
+        {
+          "name": "emb_hero_image_top_bleed_center_headline",
+          "type": "text",
+          "required": true,
+          "default": ""
+        },
+        {
+          "name": "emb_hero_image_top_bleed_center_image_url",
+          "type": "image_url",
+          "required": true,
+          "default": "https://library.eu.iterable.com/33/98/b9799c74eec5412c8fb0c995dd52f19c-emb_placeholder_16x9.png"
+        },
+        {
+          "name": "emb_hero_image_top_bleed_center_image_alt",
+          "type": "text",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "emb_hero_image_top_bleed_center_show_salutation",
+          "type": "boolean",
+          "required": true,
+          "default": true
+        },
+        {
+          "name": "emb_hero_image_top_bleed_center_use_snippetcall_salutation",
+          "type": "boolean",
+          "required": true,
+          "default": false
+        },
+        {
+          "name": "emb_hero_image_top_bleed_center_salutation",
+          "type": "text",
+          "required": true,
+          "default": "Hallo Anrede,"
+        },
+        {
+          "name": "emb_hero_image_top_bleed_center_body",
+          "type": "rich_full",
+          "required": true,
+          "default": ""
+        },
+        {
+          "name": "emb_hero_image_top_bleed_center_button_url",
+          "type": "url",
+          "required": true,
+          "default": ""
+        },
+        {
+          "name": "emb_hero_image_top_bleed_center_button_bg_color",
+          "type": "color",
+          "required": true,
+          "default": "#74FFDF"
+        },
+        {
+          "name": "emb_hero_image_top_bleed_center_button_border_color",
+          "type": "color",
+          "required": true,
+          "default": "#74FFDF"
+        },
+        {
+          "name": "emb_hero_image_top_bleed_center_button_label",
           "type": "text",
           "required": true,
           "default": ""
@@ -335,6 +621,12 @@
           "type": "boolean",
           "required": true,
           "default": true
+        },
+        {
+          "name": "emb_hero_image_head_copy_bleed_center_use_snippetcall_salutation",
+          "type": "boolean",
+          "required": true,
+          "default": false
         },
         {
           "name": "emb_hero_image_head_copy_bleed_center_salutation",
@@ -430,6 +722,12 @@
           "type": "boolean",
           "required": true,
           "default": true
+        },
+        {
+          "name": "emb_hero_image_textbox_cta_center_use_snippetcall_salutation",
+          "type": "boolean",
+          "required": true,
+          "default": false
         },
         {
           "name": "emb_hero_image_textbox_cta_center_salutation",
@@ -569,6 +867,12 @@
           "default": true
         },
         {
+          "name": "emb_hero_cta_top_use_snippetcall_salutation",
+          "type": "boolean",
+          "required": true,
+          "default": false
+        },
+        {
           "name": "emb_hero_cta_top_salutation",
           "type": "text",
           "required": true,
@@ -612,6 +916,143 @@
         },
         {
           "name": "emb_hero_cta_top_image_alt",
+          "type": "text",
+          "required": false,
+          "default": ""
+        }
+      ]
+    },
+    {
+      "module_id": "hero-cta-top-center",
+      "snippet_name": "emb_hero_cta_top_center",
+      "fields": [
+        {
+          "name": "emb_hero_cta_top_center_bg_color",
+          "type": "color",
+          "required": true,
+          "default": "#FFFFFF"
+        },
+        {
+          "name": "emb_hero_cta_top_center_show_preheadline",
+          "type": "boolean",
+          "required": true,
+          "default": false
+        },
+        {
+          "name": "emb_hero_cta_top_center_preheadline",
+          "type": "text",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "emb_hero_cta_top_center_show_badge",
+          "type": "boolean",
+          "required": true,
+          "default": false
+        },
+        {
+          "name": "emb_hero_cta_top_center_badge_bg_color",
+          "type": "color",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "emb_hero_cta_top_center_badge_text_color",
+          "type": "color",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "emb_hero_cta_top_center_badge_label",
+          "type": "text",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "emb_hero_cta_top_center_headline_size",
+          "type": "text",
+          "required": true,
+          "default": "l",
+          "allowed_values": [
+            "s",
+            "m",
+            "l"
+          ]
+        },
+        {
+          "name": "emb_hero_cta_top_center_show_small_headline",
+          "type": "boolean",
+          "required": true,
+          "default": false
+        },
+        {
+          "name": "emb_hero_cta_top_center_show_large_headline",
+          "type": "boolean",
+          "required": true,
+          "default": true
+        },
+        {
+          "name": "emb_hero_cta_top_center_headline",
+          "type": "text",
+          "required": true,
+          "default": ""
+        },
+        {
+          "name": "emb_hero_cta_top_center_show_salutation",
+          "type": "boolean",
+          "required": true,
+          "default": true
+        },
+        {
+          "name": "emb_hero_cta_top_center_use_snippetcall_salutation",
+          "type": "boolean",
+          "required": true,
+          "default": false
+        },
+        {
+          "name": "emb_hero_cta_top_center_salutation",
+          "type": "text",
+          "required": true,
+          "default": "Hallo Anrede,"
+        },
+        {
+          "name": "emb_hero_cta_top_center_body",
+          "type": "rich_full",
+          "required": true,
+          "default": ""
+        },
+        {
+          "name": "emb_hero_cta_top_center_button_url",
+          "type": "url",
+          "required": true,
+          "default": ""
+        },
+        {
+          "name": "emb_hero_cta_top_center_button_bg_color",
+          "type": "color",
+          "required": true,
+          "default": "#74FFDF"
+        },
+        {
+          "name": "emb_hero_cta_top_center_button_border_color",
+          "type": "color",
+          "required": true,
+          "default": "#74FFDF"
+        },
+        {
+          "name": "emb_hero_cta_top_center_button_label",
+          "type": "text",
+          "required": true,
+          "default": ""
+        },
+        {
+          "name": "emb_hero_cta_top_center_image_url",
+          "type": "image_url",
+          "required": true,
+          "default": "https://library.eu.iterable.com/33/98/b9799c74eec5412c8fb0c995dd52f19c-emb_placeholder_16x9.png"
+        },
+        {
+          "name": "emb_hero_cta_top_center_image_alt",
           "type": "text",
           "required": false,
           "default": ""
@@ -700,6 +1141,12 @@
           "default": true
         },
         {
+          "name": "emb_hero_cta_top_no_bottom_use_snippetcall_salutation",
+          "type": "boolean",
+          "required": true,
+          "default": false
+        },
+        {
           "name": "emb_hero_cta_top_no_bottom_salutation",
           "type": "text",
           "required": true,
@@ -743,6 +1190,143 @@
         },
         {
           "name": "emb_hero_cta_top_no_bottom_image_alt",
+          "type": "text",
+          "required": false,
+          "default": ""
+        }
+      ]
+    },
+    {
+      "module_id": "hero-cta-top-no-bottom-center",
+      "snippet_name": "emb_hero_cta_top_no_bottom_center",
+      "fields": [
+        {
+          "name": "emb_hero_cta_top_no_bottom_center_bg_color",
+          "type": "color",
+          "required": true,
+          "default": "#FFFFFF"
+        },
+        {
+          "name": "emb_hero_cta_top_no_bottom_center_show_preheadline",
+          "type": "boolean",
+          "required": true,
+          "default": false
+        },
+        {
+          "name": "emb_hero_cta_top_no_bottom_center_preheadline",
+          "type": "text",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "emb_hero_cta_top_no_bottom_center_show_badge",
+          "type": "boolean",
+          "required": true,
+          "default": false
+        },
+        {
+          "name": "emb_hero_cta_top_no_bottom_center_badge_bg_color",
+          "type": "color",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "emb_hero_cta_top_no_bottom_center_badge_text_color",
+          "type": "color",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "emb_hero_cta_top_no_bottom_center_badge_label",
+          "type": "text",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "emb_hero_cta_top_no_bottom_center_headline_size",
+          "type": "text",
+          "required": true,
+          "default": "l",
+          "allowed_values": [
+            "s",
+            "m",
+            "l"
+          ]
+        },
+        {
+          "name": "emb_hero_cta_top_no_bottom_center_show_small_headline",
+          "type": "boolean",
+          "required": true,
+          "default": false
+        },
+        {
+          "name": "emb_hero_cta_top_no_bottom_center_show_large_headline",
+          "type": "boolean",
+          "required": true,
+          "default": true
+        },
+        {
+          "name": "emb_hero_cta_top_no_bottom_center_headline",
+          "type": "text",
+          "required": true,
+          "default": ""
+        },
+        {
+          "name": "emb_hero_cta_top_no_bottom_center_show_salutation",
+          "type": "boolean",
+          "required": true,
+          "default": true
+        },
+        {
+          "name": "emb_hero_cta_top_no_bottom_center_use_snippetcall_salutation",
+          "type": "boolean",
+          "required": true,
+          "default": false
+        },
+        {
+          "name": "emb_hero_cta_top_no_bottom_center_salutation",
+          "type": "text",
+          "required": true,
+          "default": "Hallo Anrede,"
+        },
+        {
+          "name": "emb_hero_cta_top_no_bottom_center_body",
+          "type": "rich_full",
+          "required": true,
+          "default": ""
+        },
+        {
+          "name": "emb_hero_cta_top_no_bottom_center_button_url",
+          "type": "url",
+          "required": true,
+          "default": ""
+        },
+        {
+          "name": "emb_hero_cta_top_no_bottom_center_button_bg_color",
+          "type": "color",
+          "required": true,
+          "default": "#74FFDF"
+        },
+        {
+          "name": "emb_hero_cta_top_no_bottom_center_button_border_color",
+          "type": "color",
+          "required": true,
+          "default": "#74FFDF"
+        },
+        {
+          "name": "emb_hero_cta_top_no_bottom_center_button_label",
+          "type": "text",
+          "required": true,
+          "default": ""
+        },
+        {
+          "name": "emb_hero_cta_top_no_bottom_center_image_url",
+          "type": "image_url",
+          "required": true,
+          "default": "https://library.eu.iterable.com/33/98/b9799c74eec5412c8fb0c995dd52f19c-emb_placeholder_16x9.png"
+        },
+        {
+          "name": "emb_hero_cta_top_no_bottom_center_image_alt",
           "type": "text",
           "required": false,
           "default": ""
@@ -1986,6 +2570,24 @@
           "name": "emb_contact_bg_color",
           "type": "color",
           "required": true,
+          "default": ""
+        },
+        {
+          "name": "emb_contact_show_image",
+          "type": "boolean",
+          "required": true,
+          "default": false
+        },
+        {
+          "name": "emb_contact_image_url",
+          "type": "image_url",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "emb_contact_image_alt",
+          "type": "text",
+          "required": false,
           "default": ""
         },
         {

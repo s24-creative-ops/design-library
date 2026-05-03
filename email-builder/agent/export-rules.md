@@ -47,6 +47,9 @@ Die uebrigen operativen Agent-Dateien liegen direkt daneben in `agent/`.
   - finale Button-Farbwerte aus `builder-library.md`
 - Der Export-Happy-Path prueft nur den vorhandenen export-ready State gegen `export-map.json`.
 - Der Export darf fehlende required Werte nicht aus Preview-HTML, DOM, sichtbarer Darstellung, Button-Klassen oder freiem Modulkontext raten.
+- Wenn `email_state.modules` eines der Center-Hero-Module `hero-image-top-center`, `hero-image-top-bleed-center`, `hero-cta-top-center`, `hero-cta-top-no-bottom-center`, `hero-image-head-copy-bleed-center` oder `hero-image-textbox-cta-center` enthaelt, muss ein vorhandenes Logo-Modul im export-ready State als `logo-centered` vorliegen.
+- Ein plain `logo` ist in diesem Center-Hero-Kontext kein export-ready Endzustand und muss bereits vor dem Export auf `logo-centered` normalisiert worden sein.
+- Diese Normalisierung aendert nur das Logo-Modul, fuegt kein zusaetzliches Logo ein und erhaelt die Reihenfolge der Mail.
 - Fuer `hero-image-top` ist `emb_hero_image_top_headline_size` das einzige kanonische Groessenfeld fuer die Headline und darf nur `s`, `m` oder `l` tragen.
 - Neue reguläre Default-States fuer `hero-image-top` muessen vor dem Export immer `emb_hero_image_top_headline_size = l`, `emb_hero_image_top_show_small_headline = false` und `emb_hero_image_top_show_large_headline = true` enthalten.
 - Legacy-Normalisierung fuer `hero-image-top` ist nur vor dem regulären Export-Happy-Path zulaessig:
@@ -58,7 +61,7 @@ Die uebrigen operativen Agent-Dateien liegen direkt daneben in `agent/`.
   - `l` => `emb_hero_image_top_show_small_headline = false` und `emb_hero_image_top_show_large_headline = true`
 - Wenn bei `hero-image-top` `emb_hero_image_top_show_small_headline = true` und `emb_hero_image_top_show_large_headline = true` gleichzeitig vorliegen, ist das ein Bridge-Konflikt und der Export stoppt fail-closed vor dem Snippet-Build.
 - Wenn die Bridge-Felder von `hero-image-top` nicht exakt zur kanonischen `emb_hero_image_top_headline_size` passen, ist das ein lokaler State-Fehler und der Export stoppt vor dem Snippet-Build.
-- Fuer `hero-image-top-bleed`, `hero-cta-top` und `hero-cta-top-no-bottom` gilt dasselbe kanonische Hero-Modell:
+- Fuer `hero-image-top-center`, `hero-image-top-bleed`, `hero-image-top-bleed-center`, `hero-cta-top`, `hero-cta-top-center`, `hero-cta-top-no-bottom` und `hero-cta-top-no-bottom-center` gilt dasselbe kanonische Hero-Modell:
   - genau ein `*_headline_size`-Feld mit nur `s`, `m` oder `l`
   - neue reguläre Default-States muessen `headline_size = l`, `show_small_headline = false` und `show_large_headline = true` enthalten
   - die technischen Bridge-Felder muessen exakt aus dem kanonischen `headline_size` abgeleitet werden
@@ -81,11 +84,17 @@ Die uebrigen operativen Agent-Dateien liegen direkt daneben in `agent/`.
 - Salutation-/Anredezeilen sind eigene kurze Textkontexte vor einem nachfolgenden Body und duerfen nicht im HTML-Fragment eines `rich_full`-Feldes mitgefuehrt werden.
 - Salutation-/Anredezeilen duerfen keine Listen enthalten und sind im Feldtyp nur Plain Text oder hoechstens `rich_inline`, niemals `rich_full`.
 - Der Abstand zwischen Salutation und nachfolgendem Body ist ein externer Kontextabstand und keine Aufgabe des `rich_full`-Feldwerts selbst.
-- Fuer alle sechs Hero-Module gilt zusaetzlich:
+- Fuer alle zehn Hero-Module gilt zusaetzlich:
   - `*_show_salutation` ist das kanonische Show-/Hide-Feld fuer die Hero-Anrede
   - `*_salutation` bleibt ein eigener Plain-Text-Kontext vor dem Body
+  - `*_use_snippetcall_salutation` ist ausschliesslich ein freigegebenes technisches Export-Flag und nie freier User-HTML- oder Raw-Code-Input
   - neue Hero-Default-States muessen `show_salutation = true` und `salutation = Hallo Anrede,` enthalten
-  - eine Iterable-Snippetcall-Ersetzung fuer Hero-Anreden ist in diesem Schritt explizit nicht Teil des Exportvertrags
+- Fuer den Produktkontext `RLE` ist genau eine whitelisted export-only Hero-Salutation-Substitution erlaubt:
+  - Der Preview-/State-Wert `*_salutation` bleibt sichtbarer Plain Text und darf nie den Raw-Snippetcall enthalten.
+  - Wenn fuer eines der zehn Hero-Module `*_use_snippetcall_salutation = true` materialisiert wurde, muss das produktive Hero-Snippet im Export statt `*_salutation` exakt diesen fest codierten Iterable-Logik-Block ausgeben:
+    - `{{#ifContainsStr firstName 'NULL'}} Hallo, {{else if firstName}} Hallo {{firstName}}, {{else}} Hallo, {{/ifContainsStr}}`
+  - Diese Ersetzung ist ausschliesslich fuer dokumentierte Produktkontexte wie `RLE` erlaubt.
+  - Freie User-Snippetcalls, freie Raw-Logic in `*_salutation`, freie HTML-Interpolation oder andere undokumentierte Roh-Logik-Wege bleiben verboten.
 - `rich_inline`-Felder im `email_state.content` duerfen nur sanitisiertes builder-eigenes Inline-HTML enthalten.
 - `rich_full`-Felder im `email_state.content` duerfen nur sanitisiertes builder-eigenes Richtext-HTML enthalten.
 - Fuer `rich_inline` sind nur diese Tags erlaubt:
@@ -425,18 +434,25 @@ Im direkten Happy Path laeuft der Export genau in dieser Reihenfolge:
 ## Chat-Ausgabe
 
 - Im normalen Exportmodus nur userfreundliche Kurzmeldungen ausgeben.
-- Vor dem Export:
-  - `Ich exportiere die E-Mail jetzt nach Iterable.`
-- Bei laengerer Verarbeitung optional:
-  - `Der Export laeuft noch. Ich aktualisiere gerade die E-Mail in Iterable.`
-- Nach erfolgreichem Export:
-  - `Fertig — Export erfolgreich. campaignId=<id>, name=<name>.`
-- Optional darf nach erfolgreichem Export eine kurze statusorientierte Ausgabe ohne Secrets folgen:
-  - `createCampaign: ok` oder `createCampaign: skip`
-  - `campaignRead: ok`
-  - `templateRead: ok`
-  - `htmlWrite: ok`
-  - `result: campaignId=<id>, name=<name>`
+- Die komplette Preview-HTML oder finale Export-HTML darf im normalen Export-Flow nicht automatisch als grosser Chat-Block ausgegeben werden.
+- Vollstaendiges HTML darf nur ausgegeben werden, wenn der User ausdruecklich danach fragt.
+- Bei jedem regulären Iterable-Export muessen diese sichtbaren Statuspunkte in genau dieser Reihenfolge ausgegeben werden:
+  - `1. Preview-Erstellung gestartet`
+  - `2. Preview fertig`
+  - `3. Export-Vorbereitung gestartet`
+  - `4. Iterable-Export gestartet`
+  - `5. Iterable-Export abgeschlossen`
+  - `6. Iterable-Ergebnis bereit`
+- `4. Iterable-Export gestartet` muss direkt vor dem ersten blockierenden externen Iterable-Schritt sichtbar ausgegeben werden und darf nicht uebersprungen werden.
+- Wenn ein Export ohne neue Preview startet, bleiben die Statuspunkte `1` und `2` trotzdem als kurze Referenz auf den bereits vorhandenen Preview-Stand sichtbar; Punkt `4` bleibt weiterhin direkt vor dem eigentlichen Iterable-Call verpflichtend.
+- Fuer die Chat-Ausgabe soll die Exportdauer lokal als Wandzeit des Export-Laufs von `3. Export-Vorbereitung gestartet` bis `6. Iterable-Ergebnis bereit` gemessen und nach erfolgreichem Abschluss genannt werden.
+- Nach erfolgreichem Export muss die Ergebnis-Ausgabe kompakt bleiben und mindestens enthalten:
+  - `campaignId=<id>`
+  - `templateId=<id>`
+  - `name=<name>`
+  - `exportdauer=<dauer>`
+  - einen kurzen Hinweis, wenn von der API kein direkter Iterable-UI-Link geliefert wurde
+- Optionale technische Kurzpunkte wie `createCampaign: ok`, `campaignRead: ok`, `templateRead: ok` und `htmlWrite: ok` duerfen zusaetzlich erscheinen, aber nur nachgelagert und ohne die Pflicht-Statuspunkte zu ersetzen.
 - Bei Fehlern:
   - `Der Export konnte nicht abgeschlossen werden. Grund: <kurze verstaendliche Ursache>.`
 - Ausnahme fuer CreateCampaign-Fehler:
@@ -457,4 +473,4 @@ Im direkten Happy Path laeuft der Export genau in dieser Reihenfolge:
   - technische Aussagen wie `ich lese jetzt`, `ich schreibe nun` oder aehnliche Debug-Schritte
 - Auch wenn intern der Recovery-Fallback genutzt wurde, bleibt die Chat-Ausgabe im normalen User-Modus bei denselben kurzen Statusmeldungen und nennt diesen technischen Sonderfall nicht.
 - Wenn der User ausdruecklich technische Details anfordert, duerfen Debug-Infos getrennt vom normalen Exportprozess erklaert werden, zum Beispiel zu API-Schritten, Ursache langer Laufzeiten oder technischer Fehleranalyse.
-- Verlaessliche Timing-Werte sind fuer diese Kurz-Statusausgabe nicht verpflichtend; wenn die Runtime keine belastbaren Zeitstempel liefert, bleibt die Ausgabe rein statusorientiert.
+- Interne Speicher-, State-, Recovery- oder Zwischenmeldungen duerfen im normalen User-Flow nicht mehrfach oder ungefiltert sichtbar werden.

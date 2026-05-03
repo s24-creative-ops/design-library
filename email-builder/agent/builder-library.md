@@ -89,6 +89,8 @@ Nutze genau diese Reihenfolge:
 - Logo steht immer an Position `1`.
 - Hero steht immer an Position `2`.
 - Footer steht immer an letzter Position.
+- Wenn die finale Modulfolge eines der Center-Hero-Module `hero-image-top-center`, `hero-image-top-bleed-center`, `hero-cta-top-center`, `hero-cta-top-no-bottom-center`, `hero-image-head-copy-bleed-center` oder `hero-image-textbox-cta-center` enthaelt, muss das Pflicht-Logo an Position `1` als `logo-centered` statt `logo` aufgeloest werden.
+- Diese Logo-Normalisierung aendert nur das Logo-Modul; die Reihenfolge der Mail bleibt unveraendert.
 
 ## Hintergrund-Rhythmus
 
@@ -143,13 +145,21 @@ Wenn kein Thema genannt ist:
 - Bei direkter Modulliste die User-Reihenfolge uebernehmen.
 - Fehlende Pflichtmodule automatisch ergaenzen.
 - Allgemeine Mails nutzen `logo`.
+- Center-Hero-Mails nutzen als Logo-Variante `logo-centered`.
 - Eine unspezifische `hero`-Anforderung wird immer als `hero-image-top` aufgeloest.
 - Bei Hero-Strukturwuenschen immer die passende feste Hero-Variante einsetzen und das Modul austauschen.
 - Im Hero sind keine freie Umordnung und keine interne Variantenlogik zulaessig.
 - `Bild nach unten` bedeutet Wechsel zu `hero-cta-top`.
 - `Bleed` bedeutet Wechsel zu `hero-image-top-bleed`.
+- `Bild oben und zentriert` bedeutet Wechsel zu `hero-image-top-center`.
+- `Bleed und zentriert` bedeutet Wechsel zu `hero-image-top-bleed-center`.
 - `Bild zuerst, zentriert und Bleed` bedeutet Wechsel zu `hero-image-head-copy-bleed-center`.
+- `Bild nach unten und zentriert` bedeutet Wechsel zu `hero-cta-top-center`.
 - `Bild nach unten ohne unteren Abschluss` bedeutet Wechsel zu `hero-cta-top-no-bottom`.
+- `Bild nach unten ohne unteren Abschluss und zentriert` bedeutet Wechsel zu `hero-cta-top-no-bottom-center`.
+- Wenn die finale Modulfolge eines der Center-Hero-Module `hero-image-top-center`, `hero-image-top-bleed-center`, `hero-cta-top-center`, `hero-cta-top-no-bottom-center`, `hero-image-head-copy-bleed-center` oder `hero-image-textbox-cta-center` enthaelt oder eine bestehende Hero-Variante dorthin gewechselt wird, muss ein vorhandenes `logo` an derselben Position zu `logo-centered` normalisiert werden.
+- Wenn in diesem Center-Hero-Kontext bereits `logo-centered` vorhanden ist, darf kein zweites Logo eingefuegt werden.
+- Wenn in diesem Center-Hero-Kontext kein Logo vorhanden ist, greift nur die normale Pflichtmodul-Ergaenzung mit `logo-centered`; ausserhalb eines Center-Hero-Kontexts bleibt `logo` regulaer zulaessig.
 - Pflicht-Ergaenzung:
   - fehlendes Logo an Position `1`
   - fehlendes `hero-image-top` an Position `2`
@@ -162,11 +172,15 @@ Wenn kein Thema genannt ist:
 | `logo` | `emb_logo` |
 | `logo-centered` | `emb_logo_centered` |
 | `hero-image-top` | `emb_hero_image_top` |
+| `hero-image-top-center` | `emb_hero_image_top_center` |
 | `hero-image-top-bleed` | `emb_hero_image_top_bleed` |
+| `hero-image-top-bleed-center` | `emb_hero_image_top_bleed_center` |
 | `hero-image-head-copy-bleed-center` | `emb_hero_image_head_copy_bleed_center` |
 | `hero-image-textbox-cta-center` | `emb_hero_image_textbox_cta_center` |
 | `hero-cta-top` | `emb_hero_cta_top` |
+| `hero-cta-top-center` | `emb_hero_cta_top_center` |
 | `hero-cta-top-no-bottom` | `emb_hero_cta_top_no_bottom` |
+| `hero-cta-top-no-bottom-center` | `emb_hero_cta_top_no_bottom_center` |
 | `teaser-1col` | `emb_teaser_1col` |
 | `loft-snl-copy-cta` | `emb_loft_snl_copy_cta` |
 | `loft-snl-copy-sections-cta` | `emb_loft_snl_copy_sections_cta` |
@@ -205,6 +219,50 @@ Bewusst nicht angebunden:
 - Wenn ein Hero-Modul einen Button-CTA hat, ist dieser Hero-CTA immer der primaere `button-filled-brand`.
 - Fuer Nicht-Hero-Button-CTAs bleibt der Preview-Default `button-outline-strong`.
 - Wenn eine Mail ausnahmsweise keinen Hero-Button hat, darf stattdessen genau ein anderer primaerer CTA `button-filled-brand` sein.
+
+## Produktkontext
+
+- Produktkontext ist eine fachliche Start-Default-Logik fuer Inhalte und getrennt vom technischen `templateContext`.
+- Produktkontext darf nur dann aktiviert werden, wenn der User am Chat-Anfang explizit ein Produkt nennt, zum Beispiel `Erstelle ein Mailing fuer RLE`, `Produkt: RLE` oder `fuer rle`.
+- Die Erkennung ist strikt case-insensitive, aber nur fuer diesen einen dokumentierten Produktnamen erlaubt:
+  - `RLE` -> normalisiert zu `RLE`
+- `RLE` steht fuer `Realtor Lead Engine`, aber der ausgeschriebene Name ist aktuell keine zusaetzliche Resolver-Form.
+- Weitere Produktnamen, aehnliche Schreibweisen oder freie Produktableitungen sind verboten.
+- Wenn der User explizit einen unbekannten Produktnamen nennt, muss der Agent nachfragen statt zu raten.
+- Wenn kein Produkt genannt wird, bleiben die neutralen EMB-Defaults aktiv.
+- Produktdefaults sind nur Start-Defaults.
+- Wenn der User spaeter konkrete Werte fuer Hero-Salutation, Contact-Felder oder andere Inhalte vorgibt, haben diese User-Vorgaben immer Vorrang.
+
+### `RLE`
+
+- Normalisierter Produktkontext: `RLE`
+- Produktname: `Realtor Lead Engine`
+- Preview-Hero-Anrede bleibt in allen sechs Hero-Modulen die normale sichtbare Vorschau-Anrede:
+  - `Hallo Anrede,`
+- Export-Ziel fuer die Hero-Anrede ist fuer `RLE` genau dieser whitelisted Iterable-Logik-Block:
+  - `{{#ifContainsStr firstName 'NULL'}} Hallo, {{else if firstName}} Hallo {{firstName}}, {{else}} Hallo, {{/ifContainsStr}}`
+- Dieser Export-Zielwert bleibt export-only.
+- In der Preview bleibt `*_salutation` sichtbarer Plain Text; fuer RLE wird stattdessen pro Hero-Modul nur das technische Export-Flag `*_use_snippetcall_salutation = true` materialisiert.
+- Wenn ein `contact`-Modul in der Mail vorkommt und der User keine abweichenden Contact-Werte vorgibt, muessen diese RLE-Defaults in die bestehenden Contact-Felder materialisiert werden:
+  - `emb_contact_show_image` = `true`
+  - `emb_contact_image_url` = `https://library.eu.iterable.com/33/98/732ff156cb6b4fc188b76f0e07b2744e-avatar-woman.png`
+  - `emb_contact_image_alt` = `Beraterin aus dem ImmoScout24-Team`
+  - `emb_contact_headline` = `Hast Du noch Fragen?`
+  - `emb_contact_body_intro` = `Unser Experten-Team berät dich gern:`
+  - `emb_contact_phone` = `030 24 301 1361`
+  - `emb_contact_phone_hours` = `Mo-Fr. von 09:00 - 20:00 Uhr`
+  - `emb_contact_email_intro` = `Oder du schreibst uns:`
+  - `emb_contact_email_address` = `immobilienberatung@scout24.com`
+  - `emb_contact_email_url` = `mailto:immobilienberatung@scout24.com`
+  - `emb_contact_closing_line_1` = `Freundliche Grüße`
+  - `emb_contact_closing_line_2` = `Dein ImmoScout24-Team`
+- Fuer RLE muessen bei Hero-Modulen zusaetzlich diese technischen Export-Flags auf `true` gesetzt werden, wenn die Hero-Anrede sichtbar bleibt:
+  - `emb_hero_image_top_use_snippetcall_salutation`
+  - `emb_hero_image_top_bleed_use_snippetcall_salutation`
+  - `emb_hero_image_head_copy_bleed_center_use_snippetcall_salutation`
+  - `emb_hero_image_textbox_cta_center_use_snippetcall_salutation`
+  - `emb_hero_cta_top_use_snippetcall_salutation`
+  - `emb_hero_cta_top_no_bottom_use_snippetcall_salutation`
 
 ## Export-Ready Resolver
 
@@ -266,26 +324,28 @@ Bewusst nicht angebunden:
 ### `logo-centered`
 
 - Snippet: `emb_logo_centered`
+- Pflicht-Logo, wenn die Mail eines der Center-Hero-Module `hero-image-top-center`, `hero-image-top-bleed-center`, `hero-cta-top-center`, `hero-cta-top-no-bottom-center`, `hero-image-head-copy-bleed-center` oder `hero-image-textbox-cta-center` enthaelt.
 - Nur verwenden, wenn das Standard-Logo zentriert statt linksbuendig erscheinen soll.
 - Statisches Snippet ohne Export-Parameter.
 
 ### Hero-Module
 
-- `hero-image-top`, `hero-image-top-bleed`, `hero-image-head-copy-bleed-center`, `hero-cta-top` und `hero-cta-top-no-bottom` sind feste Varianten.
+- `hero-image-top`, `hero-image-top-center`, `hero-image-top-bleed`, `hero-image-top-bleed-center`, `hero-image-head-copy-bleed-center`, `hero-image-textbox-cta-center`, `hero-cta-top`, `hero-cta-top-center`, `hero-cta-top-no-bottom` und `hero-cta-top-no-bottom-center` sind feste Varianten.
 - Hero-Strukturwuensche werden nur durch Modultausch geloest, nie durch internes Umordnen.
 - `preheadline` und Badge sind gegenseitig exklusiv.
-- Alle sechs Hero-Module nutzen fuer die optionale Anrede vor dem Body denselben Feldvertrag:
+- Alle zehn Hero-Module nutzen fuer die optionale Anrede vor dem Body denselben Feldvertrag:
   - `emb_<hero>_show_salutation`
+  - `emb_<hero>_use_snippetcall_salutation`
   - `emb_<hero>_salutation`
   - Default ist immer `show_salutation = true` und `salutation = Hallo Anrede,`
   - Die Hero-Anrede ist ein eigener Plain-Text-Block vor dem Body und wird nie in das `rich_*`-Body-Feld integriert.
-- Eine Iterable-Snippetcall-Ersetzung fuer Hero-Anreden ist in diesem Schritt explizit nicht Teil des Vertrags.
+- `use_snippetcall_salutation` ist ausschliesslich ein technisches Export-Flag fuer freigegebene Produktkontexte wie `RLE`; freie User-Raw-Logik bleibt verboten.
 - Fehlende echte Bild-URL nutzt den passenden Hero-Placeholder aus dem technischen Mapping.
 
 ### `hero-image-top`
 
 - Snippet: `emb_hero_image_top`
-- Verbindlicher Snippet-Call-Vertrag: genau 19 Snippet-Parameter in dieser Reihenfolge
+- Verbindlicher Snippet-Call-Vertrag: genau 20 Snippet-Parameter in dieser Reihenfolge
   - `emb_hero_image_top_bg_color`
   - `emb_hero_image_top_show_preheadline`
   - `emb_hero_image_top_preheadline`
@@ -299,6 +359,7 @@ Bewusst nicht angebunden:
   - `emb_hero_image_top_image_url`
   - `emb_hero_image_top_image_alt`
   - `emb_hero_image_top_show_salutation`
+  - `emb_hero_image_top_use_snippetcall_salutation`
   - `emb_hero_image_top_salutation`
   - `emb_hero_image_top_body`
   - `emb_hero_image_top_button_url`
@@ -327,10 +388,57 @@ Bewusst nicht angebunden:
   - `emb_hero_image_top_show_small_headline = true` und `emb_hero_image_top_show_large_headline = true` gleichzeitig sind ungueltig und muessen fail-closed stoppen.
   - Es gibt kein freies Headline-Style-, HTML- oder CSS-Feld fuer dieses Modul.
 
+### `hero-image-top-center`
+
+- Snippet: `emb_hero_image_top_center`
+- Layout: Eyebrow oder Badge, Headline, Anrede, Body und CTA sind zentriert.
+- Verbindlicher Snippet-Call-Vertrag: genau 20 Snippet-Parameter in dieser Reihenfolge
+  - `emb_hero_image_top_center_bg_color`
+  - `emb_hero_image_top_center_show_preheadline`
+  - `emb_hero_image_top_center_preheadline`
+  - `emb_hero_image_top_center_show_badge`
+  - `emb_hero_image_top_center_badge_bg_color`
+  - `emb_hero_image_top_center_badge_text_color`
+  - `emb_hero_image_top_center_badge_label`
+  - `emb_hero_image_top_center_show_small_headline`
+  - `emb_hero_image_top_center_show_large_headline`
+  - `emb_hero_image_top_center_headline`
+  - `emb_hero_image_top_center_image_url`
+  - `emb_hero_image_top_center_image_alt`
+  - `emb_hero_image_top_center_show_salutation`
+  - `emb_hero_image_top_center_use_snippetcall_salutation`
+  - `emb_hero_image_top_center_salutation`
+  - `emb_hero_image_top_center_body`
+  - `emb_hero_image_top_center_button_url`
+  - `emb_hero_image_top_center_button_bg_color`
+  - `emb_hero_image_top_center_button_border_color`
+  - `emb_hero_image_top_center_button_label`
+- Headline-Groessenvariante:
+  - `emb_hero_image_top_center_headline_size` ist das einzige kanonische Groessenfeld.
+  - `emb_hero_image_top_center_headline_size` gehoert zum kanonischen State-/Exportvertrag, ist aber kein direkt gerenderter Snippet-Parameter.
+  - Erlaubte Werte sind nur `s`, `m` und `l`; Default ist `l`.
+  - Das Groessen-Mapping folgt festen Typography-Tokens:
+    - Desktop:
+      - `s` => `heading-s` => `20px / 30px`
+      - `m` => `heading-m` => `26px / 36px`
+      - `l` => `heading-l` => `34px / 44px`
+    - Mobile:
+      - `s` => `heading-s mobile` => `20px / 30px`
+      - `m` => `heading-m mobile` => `24px / 34px`
+      - `l` => `heading-l mobile` => `28px / 36px`
+  - Die Snippet-Bridge ist fest:
+    - `s` => `emb_hero_image_top_center_show_small_headline = true` und `emb_hero_image_top_center_show_large_headline = false`
+    - `m` => `emb_hero_image_top_center_show_small_headline = false` und `emb_hero_image_top_center_show_large_headline = false`
+    - `l` => `emb_hero_image_top_center_show_small_headline = false` und `emb_hero_image_top_center_show_large_headline = true`
+  - Neue Default-States fuer dieses Modul muessen immer `emb_hero_image_top_center_headline_size = l`, `emb_hero_image_top_center_show_small_headline = false` und `emb_hero_image_top_center_show_large_headline = true` erzeugen.
+  - `emb_hero_image_top_center_show_large_headline` ist nur noch ein Legacy-/Bridge-Feld; wenn es ohne kanonisches `headline_size` auf `true` steht, wird zu `headline_size = l` normalisiert, sonst zu `headline_size = m`.
+  - `emb_hero_image_top_center_show_small_headline = true` und `emb_hero_image_top_center_show_large_headline = true` gleichzeitig sind ungueltig und muessen fail-closed stoppen.
+  - Es gibt kein freies Headline-Style-, HTML- oder CSS-Feld fuer dieses Modul.
+
 ### `hero-image-top-bleed`
 
 - Snippet: `emb_hero_image_top_bleed`
-- Verbindlicher Snippet-Call-Vertrag: genau 19 Snippet-Parameter in dieser Reihenfolge
+- Verbindlicher Snippet-Call-Vertrag: genau 20 Snippet-Parameter in dieser Reihenfolge
   - `emb_hero_image_top_bleed_bg_color`
   - `emb_hero_image_top_bleed_show_preheadline`
   - `emb_hero_image_top_bleed_preheadline`
@@ -344,6 +452,7 @@ Bewusst nicht angebunden:
   - `emb_hero_image_top_bleed_image_url`
   - `emb_hero_image_top_bleed_image_alt`
   - `emb_hero_image_top_bleed_show_salutation`
+  - `emb_hero_image_top_bleed_use_snippetcall_salutation`
   - `emb_hero_image_top_bleed_salutation`
   - `emb_hero_image_top_bleed_body`
   - `emb_hero_image_top_bleed_button_url`
@@ -371,10 +480,56 @@ Bewusst nicht angebunden:
   - Legacy-Bridge-Felder sind nur technische Kompatibilitaetsfelder; `true/true` gleichzeitig ist ungueltig und muss fail-closed stoppen.
   - Es gibt kein freies Headline-Style-, HTML- oder CSS-Feld fuer dieses Modul.
 
+### `hero-image-top-bleed-center`
+
+- Snippet: `emb_hero_image_top_bleed_center`
+- Layout: Eyebrow oder Badge, Headline, Anrede, Body und CTA sind zentriert.
+- Verbindlicher Snippet-Call-Vertrag: genau 20 Snippet-Parameter in dieser Reihenfolge
+  - `emb_hero_image_top_bleed_center_bg_color`
+  - `emb_hero_image_top_bleed_center_show_preheadline`
+  - `emb_hero_image_top_bleed_center_preheadline`
+  - `emb_hero_image_top_bleed_center_show_badge`
+  - `emb_hero_image_top_bleed_center_badge_bg_color`
+  - `emb_hero_image_top_bleed_center_badge_text_color`
+  - `emb_hero_image_top_bleed_center_badge_label`
+  - `emb_hero_image_top_bleed_center_show_small_headline`
+  - `emb_hero_image_top_bleed_center_show_large_headline`
+  - `emb_hero_image_top_bleed_center_headline`
+  - `emb_hero_image_top_bleed_center_image_url`
+  - `emb_hero_image_top_bleed_center_image_alt`
+  - `emb_hero_image_top_bleed_center_show_salutation`
+  - `emb_hero_image_top_bleed_center_use_snippetcall_salutation`
+  - `emb_hero_image_top_bleed_center_salutation`
+  - `emb_hero_image_top_bleed_center_body`
+  - `emb_hero_image_top_bleed_center_button_url`
+  - `emb_hero_image_top_bleed_center_button_bg_color`
+  - `emb_hero_image_top_bleed_center_button_border_color`
+  - `emb_hero_image_top_bleed_center_button_label`
+- Headline-Groessenvariante:
+  - `emb_hero_image_top_bleed_center_headline_size` ist das einzige kanonische Groessenfeld.
+  - `emb_hero_image_top_bleed_center_headline_size` gehoert zum kanonischen State-/Exportvertrag, ist aber kein direkt gerenderter Snippet-Parameter.
+  - Erlaubte Werte sind nur `s`, `m` und `l`; Default ist `l`.
+  - Das Groessen-Mapping folgt festen Typography-Tokens:
+    - Desktop:
+      - `s` => `heading-s` => `20px / 30px`
+      - `m` => `heading-m` => `26px / 36px`
+      - `l` => `heading-l` => `34px / 44px`
+    - Mobile:
+      - `s` => `heading-s mobile` => `20px / 30px`
+      - `m` => `heading-m mobile` => `24px / 34px`
+      - `l` => `heading-l mobile` => `28px / 36px`
+  - Die Snippet-Bridge ist fest:
+    - `s` => `emb_hero_image_top_bleed_center_show_small_headline = true` und `emb_hero_image_top_bleed_center_show_large_headline = false`
+    - `m` => `emb_hero_image_top_bleed_center_show_small_headline = false` und `emb_hero_image_top_bleed_center_show_large_headline = false`
+    - `l` => `emb_hero_image_top_bleed_center_show_small_headline = false` und `emb_hero_image_top_bleed_center_show_large_headline = true`
+  - Neue Default-States fuer dieses Modul muessen immer `emb_hero_image_top_bleed_center_headline_size = l`, `emb_hero_image_top_bleed_center_show_small_headline = false` und `emb_hero_image_top_bleed_center_show_large_headline = true` erzeugen.
+  - Legacy-Bridge-Felder sind nur technische Kompatibilitaetsfelder; `true/true` gleichzeitig ist ungueltig und muss fail-closed stoppen.
+  - Es gibt kein freies Headline-Style-, HTML- oder CSS-Feld fuer dieses Modul.
+
 ### `hero-image-head-copy-bleed-center`
 
 - Snippet: `emb_hero_image_head_copy_bleed_center`
-- Verbindlicher Snippet-Call-Vertrag: genau 13 Snippet-Parameter in dieser Reihenfolge
+- Verbindlicher Snippet-Call-Vertrag: genau 14 Snippet-Parameter in dieser Reihenfolge
   - `emb_hero_image_head_copy_bleed_center_bg_color`
   - `emb_hero_image_head_copy_bleed_center_show_small_headline`
   - `emb_hero_image_head_copy_bleed_center_show_large_headline`
@@ -382,6 +537,7 @@ Bewusst nicht angebunden:
   - `emb_hero_image_head_copy_bleed_center_image_alt`
   - `emb_hero_image_head_copy_bleed_center_headline`
   - `emb_hero_image_head_copy_bleed_center_show_salutation`
+  - `emb_hero_image_head_copy_bleed_center_use_snippetcall_salutation`
   - `emb_hero_image_head_copy_bleed_center_salutation`
   - `emb_hero_image_head_copy_bleed_center_body`
   - `emb_hero_image_head_copy_bleed_center_button_url`
@@ -412,7 +568,7 @@ Bewusst nicht angebunden:
 ### `hero-image-textbox-cta-center`
 
 - Snippet: `emb_hero_image_textbox_cta_center`
-- Verbindlicher Snippet-Call-Vertrag: genau 16 Snippet-Parameter in dieser Reihenfolge
+- Verbindlicher Snippet-Call-Vertrag: genau 17 Snippet-Parameter in dieser Reihenfolge
   - `emb_hero_image_textbox_cta_center_bg_color`
   - `emb_hero_image_textbox_cta_center_show_small_headline`
   - `emb_hero_image_textbox_cta_center_show_large_headline`
@@ -420,6 +576,7 @@ Bewusst nicht angebunden:
   - `emb_hero_image_textbox_cta_center_image_url`
   - `emb_hero_image_textbox_cta_center_image_alt`
   - `emb_hero_image_textbox_cta_center_show_salutation`
+  - `emb_hero_image_textbox_cta_center_use_snippetcall_salutation`
   - `emb_hero_image_textbox_cta_center_salutation`
   - `emb_hero_image_textbox_cta_center_body`
   - `emb_hero_image_textbox_cta_center_question`
@@ -456,7 +613,7 @@ Bewusst nicht angebunden:
 ### `hero-cta-top`
 
 - Snippet: `emb_hero_cta_top`
-- Verbindlicher Snippet-Call-Vertrag: genau 19 Snippet-Parameter in dieser Reihenfolge
+- Verbindlicher Snippet-Call-Vertrag: genau 20 Snippet-Parameter in dieser Reihenfolge
   - `emb_hero_cta_top_bg_color`
   - `emb_hero_cta_top_show_preheadline`
   - `emb_hero_cta_top_preheadline`
@@ -468,6 +625,7 @@ Bewusst nicht angebunden:
   - `emb_hero_cta_top_show_large_headline`
   - `emb_hero_cta_top_headline`
   - `emb_hero_cta_top_show_salutation`
+  - `emb_hero_cta_top_use_snippetcall_salutation`
   - `emb_hero_cta_top_salutation`
   - `emb_hero_cta_top_body`
   - `emb_hero_cta_top_button_url`
@@ -497,10 +655,56 @@ Bewusst nicht angebunden:
   - Legacy-Bridge-Felder sind nur technische Kompatibilitaetsfelder; `true/true` gleichzeitig ist ungueltig und muss fail-closed stoppen.
   - Es gibt kein freies Headline-Style-, HTML- oder CSS-Feld fuer dieses Modul.
 
+### `hero-cta-top-center`
+
+- Snippet: `emb_hero_cta_top_center`
+- Layout: Eyebrow oder Badge, Headline, Anrede, Body und CTA sind zentriert.
+- Verbindlicher Snippet-Call-Vertrag: genau 20 Snippet-Parameter in dieser Reihenfolge
+  - `emb_hero_cta_top_center_bg_color`
+  - `emb_hero_cta_top_center_show_preheadline`
+  - `emb_hero_cta_top_center_preheadline`
+  - `emb_hero_cta_top_center_show_badge`
+  - `emb_hero_cta_top_center_badge_bg_color`
+  - `emb_hero_cta_top_center_badge_text_color`
+  - `emb_hero_cta_top_center_badge_label`
+  - `emb_hero_cta_top_center_show_small_headline`
+  - `emb_hero_cta_top_center_show_large_headline`
+  - `emb_hero_cta_top_center_headline`
+  - `emb_hero_cta_top_center_show_salutation`
+  - `emb_hero_cta_top_center_use_snippetcall_salutation`
+  - `emb_hero_cta_top_center_salutation`
+  - `emb_hero_cta_top_center_body`
+  - `emb_hero_cta_top_center_button_url`
+  - `emb_hero_cta_top_center_button_bg_color`
+  - `emb_hero_cta_top_center_button_border_color`
+  - `emb_hero_cta_top_center_button_label`
+  - `emb_hero_cta_top_center_image_url`
+  - `emb_hero_cta_top_center_image_alt`
+- Headline-Groessenvariante:
+  - `emb_hero_cta_top_center_headline_size` ist das einzige kanonische Groessenfeld.
+  - `emb_hero_cta_top_center_headline_size` gehoert zum kanonischen State-/Exportvertrag, ist aber kein direkt gerenderter Snippet-Parameter.
+  - Erlaubte Werte sind nur `s`, `m` und `l`; Default ist `l`.
+  - Das Groessen-Mapping folgt festen Typography-Tokens:
+    - Desktop:
+      - `s` => `heading-s` => `20px / 30px`
+      - `m` => `heading-m` => `26px / 36px`
+      - `l` => `heading-l` => `34px / 44px`
+    - Mobile:
+      - `s` => `heading-s mobile` => `20px / 30px`
+      - `m` => `heading-m mobile` => `24px / 34px`
+      - `l` => `heading-l mobile` => `28px / 36px`
+  - Die Snippet-Bridge ist fest:
+    - `s` => `emb_hero_cta_top_center_show_small_headline = true` und `emb_hero_cta_top_center_show_large_headline = false`
+    - `m` => `emb_hero_cta_top_center_show_small_headline = false` und `emb_hero_cta_top_center_show_large_headline = false`
+    - `l` => `emb_hero_cta_top_center_show_small_headline = false` und `emb_hero_cta_top_center_show_large_headline = true`
+  - Neue Default-States fuer dieses Modul muessen immer `emb_hero_cta_top_center_headline_size = l`, `emb_hero_cta_top_center_show_small_headline = false` und `emb_hero_cta_top_center_show_large_headline = true` erzeugen.
+  - Legacy-Bridge-Felder sind nur technische Kompatibilitaetsfelder; `true/true` gleichzeitig ist ungueltig und muss fail-closed stoppen.
+  - Es gibt kein freies Headline-Style-, HTML- oder CSS-Feld fuer dieses Modul.
+
 ### `hero-cta-top-no-bottom`
 
 - Snippet: `emb_hero_cta_top_no_bottom`
-- Verbindlicher Snippet-Call-Vertrag: genau 19 Snippet-Parameter in dieser Reihenfolge
+- Verbindlicher Snippet-Call-Vertrag: genau 20 Snippet-Parameter in dieser Reihenfolge
   - `emb_hero_cta_top_no_bottom_bg_color`
   - `emb_hero_cta_top_no_bottom_show_preheadline`
   - `emb_hero_cta_top_no_bottom_preheadline`
@@ -512,6 +716,7 @@ Bewusst nicht angebunden:
   - `emb_hero_cta_top_no_bottom_show_large_headline`
   - `emb_hero_cta_top_no_bottom_headline`
   - `emb_hero_cta_top_no_bottom_show_salutation`
+  - `emb_hero_cta_top_no_bottom_use_snippetcall_salutation`
   - `emb_hero_cta_top_no_bottom_salutation`
   - `emb_hero_cta_top_no_bottom_body`
   - `emb_hero_cta_top_no_bottom_button_url`
@@ -552,6 +757,63 @@ Bewusst nicht angebunden:
 - `teaser-2col-gallery` erlaubt zusaetzlich `hide_bottom_row_mobile`; damit verschwindet die untere Reihe nur in der mobilen Ausgabe.
 - Fehlende echte Bild-URL nutzt den passenden `16:9`- oder `4:3`-Placeholder aus dem technischen Mapping.
 
+### `hero-cta-top-no-bottom-center`
+
+- Snippet: `emb_hero_cta_top_no_bottom_center`
+- Layout: Eyebrow oder Badge, Headline, Anrede, Body und CTA sind zentriert.
+- Verbindlicher Snippet-Call-Vertrag: genau 20 Snippet-Parameter in dieser Reihenfolge
+  - `emb_hero_cta_top_no_bottom_center_bg_color`
+  - `emb_hero_cta_top_no_bottom_center_show_preheadline`
+  - `emb_hero_cta_top_no_bottom_center_preheadline`
+  - `emb_hero_cta_top_no_bottom_center_show_badge`
+  - `emb_hero_cta_top_no_bottom_center_badge_bg_color`
+  - `emb_hero_cta_top_no_bottom_center_badge_text_color`
+  - `emb_hero_cta_top_no_bottom_center_badge_label`
+  - `emb_hero_cta_top_no_bottom_center_show_small_headline`
+  - `emb_hero_cta_top_no_bottom_center_show_large_headline`
+  - `emb_hero_cta_top_no_bottom_center_headline`
+  - `emb_hero_cta_top_no_bottom_center_show_salutation`
+  - `emb_hero_cta_top_no_bottom_center_use_snippetcall_salutation`
+  - `emb_hero_cta_top_no_bottom_center_salutation`
+  - `emb_hero_cta_top_no_bottom_center_body`
+  - `emb_hero_cta_top_no_bottom_center_button_url`
+  - `emb_hero_cta_top_no_bottom_center_button_bg_color`
+  - `emb_hero_cta_top_no_bottom_center_button_border_color`
+  - `emb_hero_cta_top_no_bottom_center_button_label`
+  - `emb_hero_cta_top_no_bottom_center_image_url`
+  - `emb_hero_cta_top_no_bottom_center_image_alt`
+- Headline-Groessenvariante:
+  - `emb_hero_cta_top_no_bottom_center_headline_size` ist das einzige kanonische Groessenfeld.
+  - `emb_hero_cta_top_no_bottom_center_headline_size` gehoert zum kanonischen State-/Exportvertrag, ist aber kein direkt gerenderter Snippet-Parameter.
+  - Erlaubte Werte sind nur `s`, `m` und `l`; Default ist `l`.
+  - Das Groessen-Mapping folgt festen Typography-Tokens:
+    - Desktop:
+      - `s` => `heading-s` => `20px / 30px`
+      - `m` => `heading-m` => `26px / 36px`
+      - `l` => `heading-l` => `34px / 44px`
+    - Mobile:
+      - `s` => `heading-s mobile` => `20px / 30px`
+      - `m` => `heading-m mobile` => `24px / 34px`
+      - `l` => `heading-l mobile` => `28px / 36px`
+  - Die Snippet-Bridge ist fest:
+    - `s` => `emb_hero_cta_top_no_bottom_center_show_small_headline = true` und `emb_hero_cta_top_no_bottom_center_show_large_headline = false`
+    - `m` => `emb_hero_cta_top_no_bottom_center_show_small_headline = false` und `emb_hero_cta_top_no_bottom_center_show_large_headline = false`
+    - `l` => `emb_hero_cta_top_no_bottom_center_show_small_headline = false` und `emb_hero_cta_top_no_bottom_center_show_large_headline = true`
+  - Neue Default-States fuer dieses Modul muessen immer `emb_hero_cta_top_no_bottom_center_headline_size = l`, `emb_hero_cta_top_no_bottom_center_show_small_headline = false` und `emb_hero_cta_top_no_bottom_center_show_large_headline = true` erzeugen.
+  - Legacy-Bridge-Felder sind nur technische Kompatibilitaetsfelder; `true/true` gleichzeitig ist ungueltig und muss fail-closed stoppen.
+  - Es gibt kein freies Headline-Style-, HTML- oder CSS-Feld fuer dieses Modul.
+
+### Teaser-Module
+
+- `teaser-1col` behaelt Bild, Richtextbereich und CTA.
+- `teaser-2col-horizontal` nutzt bis zu vier Items; `show_item_2..4` folgen exakt der sichtbaren Item-Anzahl.
+- `teaser-2col-vertical` nutzt genau zwei Spalten.
+- `teaser-2col-alternating` nutzt genau zwei Zeilen.
+- `teaser-2col-listing` nutzt bis zu vier Items; sichtbare spaetere Zeilen duerfen nie auf `col_1_*` reduziert werden.
+- `teaser-2col-gallery` nutzt immer zwei Bilder in der ersten Reihe; `show_item_3` und `show_item_4` erweitern die untere Reihe.
+- `teaser-2col-gallery` erlaubt zusaetzlich `hide_bottom_row_mobile`; damit verschwindet die untere Reihe nur in der mobilen Ausgabe.
+- Fehlende echte Bild-URL nutzt den passenden `16:9`- oder `4:3`-Placeholder aus dem technischen Mapping.
+
 ### `benefits-3col`
 
 - Vor dem Preview-Render alle drei Icon-URLs bucket-basiert aus `icon-library.md` setzen.
@@ -578,6 +840,11 @@ Bewusst nicht angebunden:
 ### `contact`
 
 - Die Contact-Preview wird direkt ueber den strukturierten `email_state` in den Contact-Snippet-Call uebersetzt.
+- Das Contact-Modul nutzt an der bestehenden Placeholder-Position optional genau diese Bildfelder:
+  - `emb_contact_show_image`
+  - `emb_contact_image_url`
+  - `emb_contact_image_alt`
+- Ohne echte Bild-URL bleibt in der Preview der vorhandene Avatar-Placeholder sichtbar und im E-Mail-Snippet der neutrale graue Kreis aktiv.
 
 ### `footer`
 

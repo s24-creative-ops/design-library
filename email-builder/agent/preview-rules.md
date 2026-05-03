@@ -80,6 +80,11 @@ Die Preview ist die sichtbare HTML-Arbeitsmail im Canvas und die Basis fuer spae
 - Der `email_state` muss nicht nur konzeptionell bestehen, sondern als eigene strukturierte JSON-Arbeitsdatei neben der aktuellen Preview fortgeschrieben werden.
 - Diese JSON-Arbeitsdatei muss nach jedem erfolgreichen Preview-Render denselben Stand wie die sichtbare Preview haben und im spaeteren Export-Lauf direkt wiederverwendbar sein.
 - Bei blueprintbasierter Startkomposition muessen die Blueprint-Module vor oder spaetestens mit dem ersten erfolgreichen Preview-Render in einen vollstaendigen `email_state` normalisiert werden.
+- Vor dem ersten erfolgreichen Preview-Render muss die Modulfolge auf Logo-Hero-Konsistenz normalisiert werden:
+  - Wenn die finale Modulfolge eines der Center-Hero-Module `hero-image-top-center`, `hero-image-top-bleed-center`, `hero-cta-top-center`, `hero-cta-top-no-bottom-center`, `hero-image-head-copy-bleed-center` oder `hero-image-textbox-cta-center` enthaelt, wird ein vorhandenes `logo` an derselben Position zu `logo-centered` normalisiert.
+  - Wenn in diesem Center-Hero-Kontext bereits `logo-centered` vorhanden ist, darf kein zweites Logo eingefuegt werden.
+  - Wenn in diesem Center-Hero-Kontext kein Logo vorhanden ist, darf nur die bestehende Pflichtmodul-Logik das passende Logo ergaenzen.
+  - Ohne Center-Hero-Kontext bleibt `logo` regulaer zulaessig.
 - Blueprint-Module duerfen nie nur als sichtbare Preview ohne gleichwertigen `email_state` weiterlaufen.
 - Der `email_state` soll mindestens enthalten:
   - Subject
@@ -97,17 +102,38 @@ Die Preview ist die sichtbare HTML-Arbeitsmail im Canvas und die Basis fuer spae
   - Composition-Template -> `templateContext.mode = composition_template`, `templateContext.compositionTemplateId`, `templateContext.iterableTemplateId` und `templateContext.resolvedBaseTemplateId = iterable_template_id`
 - Wenn dieselbe Preview fortgeschrieben wird, muss ihre Campaign-Bindung ueber einen stabilen `previewBranchKey` im State nachvollziehbar bleiben; Re-Export darf `campaignId` und campaign-owned `templateId` nur fuer genau diesen Zweig wiederverwenden.
 - Exportrelevante technische Werte muessen bereits beim Preview-Bau in `email_state.content` geschrieben werden und duerfen nicht erst im Export rekonstruiert werden.
+- Produktkontext-Defaults muessen bereits vor oder spaetestens waehrend des Preview-Baus in die bestehenden Modulfelder materialisiert werden; ein freies Produkt-Raten waehrend des State-Baus ist verboten.
+- Aktuell darf nur der case-insensitive Produktkontext `RLE` aufgeloest werden; unbekannte explizite Produktnamen muessen vor dem Preview geklaert werden.
 - Dazu gehoeren insbesondere:
   - alle required `*_bg_color`
   - alle required `show_*`- und `hide_*`-Flags
   - alle required `*_icon_url`
   - alle required finalen `*_button_bg_color`- und `*_button_border_color`-Werte
   - getrennte `salutation`- und `rich_*`-Werte, wenn ein Modul beides nutzt
-- Fuer alle sechs Hero-Module ist die Anrede ein optionaler eigener Textblock vor dem Body:
+- Fuer alle zehn Hero-Module ist die Anrede ein optionaler eigener Textblock vor dem Body:
   - `*_show_salutation` ist das kanonische Show-/Hide-Feld
   - `*_salutation` bleibt Plain Text
+  - `*_use_snippetcall_salutation` ist nur ein technisches Export-Flag fuer freigegebene Produktkontexte und wird in der Preview nie roh sichtbar
   - neue Hero-Default-States muessen `show_salutation = true` und `salutation = Hallo Anrede,` materialisieren
-  - eine Iterable-Snippetcall-Ersetzung fuer Hero-Anreden ist in diesem Schritt nicht Teil des Preview-/Exportvertrags
+- Wenn der aktive Produktkontext `RLE` ist, bleibt die sichtbare Preview-Hero-Anrede trotzdem unveraendert `Hallo Anrede,`; der spaetere RLE-Export-Zielwert darf in der Preview nie sichtbar werden.
+- Wenn der aktive Produktkontext `RLE` ist, muessen fuer Hero-Module zusaetzlich die passenden technischen Export-Flags `*_use_snippetcall_salutation = true` in den `email_state` materialisiert werden, ohne die sichtbare Preview-Anrede zu veraendern.
+- Wenn der aktive Produktkontext `RLE` ist und ein `contact`-Modul genutzt wird, muessen ohne explizite User-Overrides diese bestehenden Contact-Felder im Preview-/State-Bau mit den RLE-Defaults materialisiert werden:
+  - `emb_contact_show_image`
+  - `emb_contact_image_url`
+  - `emb_contact_image_alt`
+  - `emb_contact_headline`
+  - `emb_contact_body_intro`
+  - `emb_contact_phone`
+  - `emb_contact_phone_hours`
+  - `emb_contact_email_intro`
+  - `emb_contact_email_address`
+  - `emb_contact_email_url`
+  - `emb_contact_closing_line_1`
+  - `emb_contact_closing_line_2`
+- Fuer RLE nutzt das Contact-Modul an der bestehenden Placeholder-Position ein normales Bildslot:
+  - `emb_contact_show_image = true`
+  - `emb_contact_image_url = https://library.eu.iterable.com/33/98/732ff156cb6b4fc188b76f0e07b2744e-avatar-woman.png`
+  - `emb_contact_image_alt = Beraterin aus dem ImmoScout24-Team`
 - Finale required Button-Farbwerte muessen beim Preview-Bau ueber die dokumentierte Button-Farbaufloesung aus `builder-library.md` konkret in `email_state.content` materialisiert werden.
 - Fehlende required Werte duerfen beim Preview-Bau nur aus zwei eng begrenzten Quellen ergaenzt werden:
   - aus einem eindeutigen technischen Default der `export-map.json`
@@ -125,7 +151,7 @@ Die Preview ist die sichtbare HTML-Arbeitsmail im Canvas und die Basis fuer spae
   - `l` => `emb_hero_image_top_show_small_headline = false` und `emb_hero_image_top_show_large_headline = true`
 - Wenn bei `hero-image-top` `emb_hero_image_top_show_small_headline = true` und `emb_hero_image_top_show_large_headline = true` gleichzeitig vorliegen, ist die Preview nicht export-ready und der Agent muss vor dem Export stoppen.
 - Wenn die Bridge-Felder von `hero-image-top` nicht exakt zur kanonischen `emb_hero_image_top_headline_size` passen, ist das ein lokaler State-Fehler und die Preview ist nicht export-ready.
-- Fuer `hero-image-top-bleed`, `hero-cta-top` und `hero-cta-top-no-bottom` gilt dasselbe kanonische Hero-Modell:
+- Fuer `hero-image-top-center`, `hero-image-top-bleed`, `hero-image-top-bleed-center`, `hero-cta-top`, `hero-cta-top-center`, `hero-cta-top-no-bottom` und `hero-cta-top-no-bottom-center` gilt dasselbe kanonische Hero-Modell:
   - genau ein `*_headline_size`-Feld mit nur `s`, `m` oder `l`
   - neue reguläre Default-States muessen `headline_size = l`, `show_small_headline = false` und `show_large_headline = true` materialisieren
   - die technischen Bridge-Felder muessen exakt aus dem kanonischen `headline_size` abgeleitet werden
@@ -193,7 +219,14 @@ Die Preview ist die sichtbare HTML-Arbeitsmail im Canvas und die Basis fuer spae
 
 ## Chat-Ausgabe
 
-- Nach erfolgreichem Preview-Lauf nur die feste Kurzantwort in der erkannten UI-Sprache ausgeben.
+- Die komplette HTML-Preview darf im normalen Preview-/Export-Flow nicht automatisch vollstaendig im Chat ausgegeben werden.
+- Wenn die Laufzeit eine kompakte Preview-Karte, Canvas-Preview oder andere kurze Vorschauform bietet, soll diese statt eines grossen HTML-Blocks genutzt werden.
+- Wenn keine kompakte Kartenansicht verfuegbar ist, bleibt die Chat-Ausgabe bei einer kurzen Bestaetigung plus Hinweis auf die erstellte Preview-Datei oder Vorschau.
+- Vollstaendiges Preview-HTML darf nur ausgegeben werden, wenn der User ausdruecklich danach fragt.
+- Vor dem eigentlichen Preview-Bau muss sichtbar dieser Statuspunkt ausgegeben werden:
+  - `1. Preview-Erstellung gestartet`
+- Nach erfolgreichem Preview-Lauf muss sichtbar dieser Statuspunkt ausgegeben werden:
+  - `2. Preview fertig`
 - Nach erfolgreicher Preview darf kein automatischer Exportversuch, kein automatischer Iterable-Connect und kein impliziter CreateCampaign-Start folgen.
 - Hoechstens eine kurze Anschlussfrage zum Export ist zulaessig, z. B. ob diese Version nach Iterable exportiert werden soll.
 - Deutsch:
@@ -202,3 +235,4 @@ Die Preview ist die sichtbare HTML-Arbeitsmail im Canvas und die Basis fuer spae
 - Englisch:
   - `The preview mail has been created. If you like, we can further adjust components, order, or texts.`
   - `You can find an overview of all available components here: [E-Mail component library](https://s24-creative-ops.github.io/builder-library/#email-logo)`
+- Interne Speicher-, State-, Recovery- oder Zwischenmeldungen duerfen im normalen User-Flow nicht als eigene Chat-Ereignisse sichtbar werden.

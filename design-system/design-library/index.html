@@ -7,9 +7,11 @@
   <link rel="stylesheet" href="../../email-builder/agent/preview-styles.css" />
   <style>
     :root {
-      --sidebar-width: 224px;
-      --sidebar-visible-width: 224px;
-      --sidebar-collapsed-peek: 0px;
+      --sidebar-width: 294px;
+      --sidebar-visible-width: var(--sidebar-panel-width, var(--sidebar-width));
+      --sidebar-collapsed-peek: -20px;
+      --sidebar-offset: 20px;
+      --sidebar-toggle-gap: 30px;
       --content-pad: 32px;
       --surface: #ffffff;
       --surface-soft: #f7f4ef;
@@ -74,19 +76,36 @@
       --module-width-current: 1000px;
     }
 
-    .test-sidebar {
+    .test-sidebar-shell {
       position: fixed;
-      inset: 0 auto 0 0;
+      inset: var(--sidebar-offset) auto var(--sidebar-offset) var(--sidebar-offset);
       z-index: 20;
-      width: var(--sidebar-width);
-      padding: 24px;
+      width: fit-content;
+      height: calc(100vh - (2 * var(--sidebar-offset)));
+      max-width: min(var(--sidebar-width), calc(100vw - (2 * var(--sidebar-offset))));
+      overflow: visible;
+    }
+
+    .test-shell.is-sidebar-ready .test-sidebar-shell {
+      transition: transform 220ms ease;
+    }
+
+    .test-shell.is-sidebar-collapsed .test-sidebar-shell {
+      transform: translateX(calc(-1 * (var(--sidebar-panel-width, var(--sidebar-width)) - var(--sidebar-collapsed-peek))));
+    }
+
+    .test-sidebar {
+      position: relative;
+      width: fit-content;
+      max-width: min(var(--sidebar-width), calc(100vw - (2 * var(--sidebar-offset))));
+      height: 100%;
+      padding: 24px 25px;
       background: var(--surface-soft);
-      border-right: 1px solid var(--stroke);
+      border-radius: 24px;
+      font-family: "Make It Better", Arial, Roboto, sans-serif;
       display: grid;
       align-content: start;
       gap: 24px;
-      transform: translateX(calc(-1 * (var(--sidebar-width) - var(--sidebar-visible-width))));
-      transition: transform 220ms ease;
       overflow-x: visible;
       overflow-y: auto;
     }
@@ -126,49 +145,48 @@
     }
 
     .test-nav__group-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      min-height: 20px;
-      color: var(--text-soft);
-      font-size: 11px;
-      line-height: 1.2;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      user-select: none;
-    }
-
-    .test-nav__group-status {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 18px;
-      font-size: 16px;
-      line-height: 1;
-      color: var(--text-soft);
-      transform: translateY(-1px);
+      display: block;
     }
 
     .test-nav__group-toggle {
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      justify-content: center;
-      width: 20px;
-      height: 20px;
-      padding: 0;
+      justify-content: flex-start;
+      gap: 8px;
+      width: 100%;
+      min-height: 38px;
+      padding: 0 12px;
       border: 0;
       background: transparent;
-      color: inherit;
+      border-radius: 10px;
+      color: var(--text-soft);
+      text-align: left;
+      font-size: 14px;
+      line-height: 1.3;
+      font-weight: 400;
       cursor: pointer;
+      user-select: none;
       appearance: none;
     }
 
     .test-nav__group-toggle:hover,
     .test-nav__group-toggle:focus-visible {
+      background: rgba(255, 255, 255, 0.92);
       color: var(--text);
+      font-weight: 400;
       outline: none;
+    }
+
+    .test-nav__group-toggle.is-active {
+      background: rgba(255, 255, 255, 0.92);
+      color: var(--text);
+      font-weight: 400;
+    }
+
+    .test-nav__group-toggle[aria-expanded="true"] {
+      background: rgba(255, 255, 255, 0.92);
+      color: var(--text);
+      font-weight: 400;
     }
 
     .test-nav__group.is-collapsed .test-nav__list {
@@ -185,12 +203,13 @@
       align-items: center;
       gap: 8px;
       min-height: 34px;
-      padding: 0 10px;
+      padding: 0 10px 0 30px;
       border-radius: 10px;
-      color: var(--text-soft);
+      color: #9b9b9b;
       text-decoration: none;
       font-size: 14px;
       line-height: 1.3;
+      font-weight: 400;
     }
 
     .test-nav__link-icon {
@@ -207,26 +226,37 @@
     .test-nav__link:hover,
     .test-nav__link:focus-visible,
     .test-nav__link.is-active {
-      background: rgba(255, 255, 255, 0.92);
-      color: var(--text);
+      background: transparent;
+      color: #333333;
       font-weight: 700;
+      text-decoration: none;
       outline: none;
+    }
+
+    .test-nav__link:focus-visible {
+      color: #333333;
+      font-weight: 700;
+      text-decoration: none;
+      font-weight: 400;
     }
 
     .test-main {
       min-width: 0;
-      margin-left: var(--sidebar-visible-width);
+      margin-left: calc(var(--sidebar-visible-width) + var(--sidebar-offset));
       padding: 24px var(--content-pad) 48px;
       background: var(--surface);
       position: relative;
+    }
+
+    .test-shell.is-sidebar-ready .test-main {
       transition: margin-left 220ms ease;
     }
 
     .test-sidebar__toggle {
-      position: fixed;
-      top: 20px;
-      left: calc(var(--sidebar-visible-width) + 20px);
-      z-index: 40;
+      position: absolute;
+      top: 0;
+      left: calc(100% + var(--sidebar-toggle-gap));
+      z-index: 1;
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -239,11 +269,7 @@
       color: rgba(39, 39, 39, 0.72);
       cursor: pointer;
       appearance: none;
-      transition: left 220ms ease, color 180ms ease, border-color 180ms ease;
-    }
-
-    .test-shell.is-sidebar-collapsed .test-sidebar__toggle {
-      left: 20px;
+      transition: color 180ms ease, border-color 180ms ease;
     }
 
     .test-sidebar__toggle:hover,
@@ -885,15 +911,84 @@
       display: block;
     }
 
-    .test-shell:not(.is-mobile-preview) #email-heros .test-module-row + .test-module-row {
+    .test-nav__subgroup {
+      display: grid;
+      gap: 4px;
+    }
+
+    .test-nav__subgroup-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 8px;
+      min-height: 34px;
+      padding: 0 10px 0 30px;
+      border: 0;
+      background: transparent;
+      border-radius: 0;
+      color: #9b9b9b;
+      text-align: left;
+      font-size: 14px;
+      line-height: 1.3;
+      font-weight: 400;
+      cursor: pointer;
+      appearance: none;
+    }
+
+    .test-nav__subgroup-toggle > .test-nav__link-icon {
+      flex-shrink: 0;
+    }
+
+    .test-nav__subgroup-toggle:hover,
+    .test-nav__subgroup-toggle:focus-visible {
+      background: transparent;
+      color: #333333;
+      font-weight: 700;
+      outline: none;
+    }
+
+    .test-nav__subgroup-toggle.is-active {
+      background: transparent;
+      color: #333333;
+      font-weight: 700;
+    }
+
+    .test-nav__subgroup-linkset {
+      display: grid;
+      gap: 2px;
+      margin-left: 20px;
+    }
+
+    .test-nav__subgroup.is-collapsed .test-nav__subgroup-linkset {
+      display: none;
+    }
+
+    .test-nav__link--sub {
+      min-height: 30px;
+      padding: 0 10px 0 30px;
+      border-radius: 0;
+      background: transparent;
+      font-weight: 400;
+    }
+
+    .test-nav__link--sub:hover,
+    .test-nav__link--sub:focus-visible,
+    .test-nav__link--sub.is-active {
+      background: transparent;
+      color: #333333;
+      font-weight: 700;
+      outline: none;
+    }
+
+    .test-shell:not(.is-mobile-preview) [id^="email-heros"] .test-module-row + .test-module-row {
       margin-top: 50px;
     }
 
-    .test-shell:not(.is-mobile-preview) #email-heros .test-module-row:has(.module-copy[data-module="hero-image-head-copy-bleed-center"]) .test-module-frame {
+    .test-shell:not(.is-mobile-preview) #email-heros-center .test-module-row:has(.module-copy[data-module="hero-image-head-copy-bleed-center"]) .test-module-frame {
       padding-top: 60px;
     }
 
-    .test-shell.is-mobile-preview.is-page-email #email-heros .test-module-row:has(.module-copy[data-module="hero-image-head-copy-bleed-center"]) .test-module-frame {
+    .test-shell.is-mobile-preview.is-page-email #email-heros-center .test-module-row:has(.module-copy[data-module="hero-image-head-copy-bleed-center"]) .test-module-frame {
       padding-top: 80px;
     }
 
@@ -917,7 +1012,9 @@
       margin-top: 50px;
     }
 
-    .test-shell:not(.is-mobile-preview) #email-heros.is-active,
+    .test-shell:not(.is-mobile-preview) #email-heros-left.is-active,
+    .test-shell:not(.is-mobile-preview) #email-heros-center.is-active,
+    .test-shell:not(.is-mobile-preview) #email-heros-fakeforms.is-active,
     .test-shell:not(.is-mobile-preview) #lp-heros.is-active {
       padding-bottom: 200px;
     }
@@ -989,15 +1086,20 @@
 
     .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero"] .module__inner,
     .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-top"] .module__inner,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-top-center"] .module__inner,
     .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-top-bleed"] .module__inner,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-top-bleed-center"] .module__inner,
     .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-head-copy-bleed-center"] .module__inner,
     .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-cta-top"] .module__inner,
-    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-cta-top-no-bottom"] .module__inner {
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-cta-top-center"] .module__inner,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-cta-top-no-bottom"] .module__inner,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-cta-top-no-bottom-center"] .module__inner {
       padding-top: var(--space-40);
       padding-bottom: var(--space-40);
     }
 
-    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-cta-top-no-bottom"] .module__inner {
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-cta-top-no-bottom"] .module__inner,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-cta-top-no-bottom-center"] .module__inner {
       padding-bottom: 0;
     }
 
@@ -1051,52 +1153,68 @@
 
     .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero"] .module__title,
     .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-top"] .module__title,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-top-center"] .module__title,
     .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-top-bleed"] .module__title,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-top-bleed-center"] .module__title,
     .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-head-copy-bleed-center"] .module__title,
     .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-textbox-cta-center"] .module__title,
     .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-cta-top"] .module__title,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-cta-top-center"] .module__title,
     .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-cta-top-no-bottom"] .module__title,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-cta-top-no-bottom-center"] .module__title,
     .test-shell.is-mobile-preview.is-page-email .test-email-preview .module--hero .module__title,
     .test-shell.is-mobile-preview.is-page-email .test-email-preview .module__title--hero {
       font-size: 28px;
       line-height: var(--line-height-title-mobile-hero);
     }
 
-    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-top"] .module__title:not(.module__title--hero-small):not(.module__title--hero-large) {
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-top"] .module__title:not(.module__title--hero-small):not(.module__title--hero-large),
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-top-center"] .module__title:not(.module__title--hero-small):not(.module__title--hero-large) {
       font-size: 24px;
       line-height: var(--line-height-title-mobile-medium);
     }
 
-    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-top"] .module__title--hero-small {
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-top"] .module__title--hero-small,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-top-center"] .module__title--hero-small {
       font-size: 20px;
       line-height: var(--line-height-title-mobile-small);
     }
 
-    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-top"] .module__title--hero-large {
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-top"] .module__title--hero-large,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-top-center"] .module__title--hero-large {
       font-size: 28px;
       line-height: var(--line-height-title-mobile-hero);
     }
 
     .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-top-bleed"] .module__title:not(.module__title--hero-small):not(.module__title--hero-large),
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-top-bleed-center"] .module__title:not(.module__title--hero-small):not(.module__title--hero-large),
     .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-textbox-cta-center"] .module__title:not(.module__title--hero-small):not(.module__title--hero-large),
     .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-cta-top"] .module__title:not(.module__title--hero-small):not(.module__title--hero-large),
-    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-cta-top-no-bottom"] .module__title:not(.module__title--hero-small):not(.module__title--hero-large) {
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-cta-top-center"] .module__title:not(.module__title--hero-small):not(.module__title--hero-large),
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-cta-top-no-bottom"] .module__title:not(.module__title--hero-small):not(.module__title--hero-large),
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-cta-top-no-bottom-center"] .module__title:not(.module__title--hero-small):not(.module__title--hero-large) {
       font-size: 24px;
       line-height: var(--line-height-title-mobile-medium);
     }
 
     .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-top-bleed"] .module__title--hero-small,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-top-bleed-center"] .module__title--hero-small,
     .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-textbox-cta-center"] .module__title--hero-small,
     .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-cta-top"] .module__title--hero-small,
-    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-cta-top-no-bottom"] .module__title--hero-small {
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-cta-top-center"] .module__title--hero-small,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-cta-top-no-bottom"] .module__title--hero-small,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-cta-top-no-bottom-center"] .module__title--hero-small {
       font-size: 20px;
       line-height: var(--line-height-title-mobile-small);
     }
 
     .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-top-bleed"] .module__title--hero-large,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-top-bleed-center"] .module__title--hero-large,
     .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-image-textbox-cta-center"] .module__title--hero-large,
     .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-cta-top"] .module__title--hero-large,
-    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-cta-top-no-bottom"] .module__title--hero-large {
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-cta-top-center"] .module__title--hero-large,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-cta-top-no-bottom"] .module__title--hero-large,
+    .test-shell.is-mobile-preview.is-page-email .test-email-preview .module[data-module="hero-cta-top-no-bottom-center"] .module__title--hero-large {
       font-size: 28px;
       line-height: var(--line-height-title-mobile-hero);
     }
@@ -1409,9 +1527,13 @@
     }
 
     .test-shell:not(.is-mobile-preview) .test-email-preview .module[data-module="hero-image-top"] .module__title:not(.module__title--hero-small):not(.module__title--hero-large),
+    .test-shell:not(.is-mobile-preview) .test-email-preview .module[data-module="hero-image-top-center"] .module__title:not(.module__title--hero-small):not(.module__title--hero-large),
     .test-shell:not(.is-mobile-preview) .test-email-preview .module[data-module="hero-image-top-bleed"] .module__title:not(.module__title--hero-small):not(.module__title--hero-large),
+    .test-shell:not(.is-mobile-preview) .test-email-preview .module[data-module="hero-image-top-bleed-center"] .module__title:not(.module__title--hero-small):not(.module__title--hero-large),
     .test-shell:not(.is-mobile-preview) .test-email-preview .module[data-module="hero-cta-top"] .module__title:not(.module__title--hero-small):not(.module__title--hero-large),
+    .test-shell:not(.is-mobile-preview) .test-email-preview .module[data-module="hero-cta-top-center"] .module__title:not(.module__title--hero-small):not(.module__title--hero-large),
     .test-shell:not(.is-mobile-preview) .test-email-preview .module[data-module="hero-cta-top-no-bottom"] .module__title:not(.module__title--hero-small):not(.module__title--hero-large),
+    .test-shell:not(.is-mobile-preview) .test-email-preview .module[data-module="hero-cta-top-no-bottom-center"] .module__title:not(.module__title--hero-small):not(.module__title--hero-large),
     .test-shell:not(.is-mobile-preview) .test-email-preview .module[data-module="hero-image-textbox-cta-center"] .module__title:not(.module__title--hero-small):not(.module__title--hero-large),
     .test-shell:not(.is-mobile-preview) .test-email-preview .module[data-module="hero-image-head-copy-bleed-center"] .module__title:not(.module__title--hero-small):not(.module__title--hero-large) {
       font-size: 26px;
@@ -1419,9 +1541,13 @@
     }
 
     .test-shell:not(.is-mobile-preview) .test-email-preview .module[data-module="hero-image-top"] .module__title--hero-small,
+    .test-shell:not(.is-mobile-preview) .test-email-preview .module[data-module="hero-image-top-center"] .module__title--hero-small,
     .test-shell:not(.is-mobile-preview) .test-email-preview .module[data-module="hero-image-top-bleed"] .module__title--hero-small,
+    .test-shell:not(.is-mobile-preview) .test-email-preview .module[data-module="hero-image-top-bleed-center"] .module__title--hero-small,
     .test-shell:not(.is-mobile-preview) .test-email-preview .module[data-module="hero-cta-top"] .module__title--hero-small,
+    .test-shell:not(.is-mobile-preview) .test-email-preview .module[data-module="hero-cta-top-center"] .module__title--hero-small,
     .test-shell:not(.is-mobile-preview) .test-email-preview .module[data-module="hero-cta-top-no-bottom"] .module__title--hero-small,
+    .test-shell:not(.is-mobile-preview) .test-email-preview .module[data-module="hero-cta-top-no-bottom-center"] .module__title--hero-small,
     .test-shell:not(.is-mobile-preview) .test-email-preview .module[data-module="hero-image-textbox-cta-center"] .module__title--hero-small,
     .test-shell:not(.is-mobile-preview) .test-email-preview .module[data-module="hero-image-head-copy-bleed-center"] .module__title--hero-small {
       font-size: 20px;
@@ -1429,9 +1555,13 @@
     }
 
     .test-shell:not(.is-mobile-preview) .test-email-preview .module[data-module="hero-image-top"] .module__title--hero-large,
+    .test-shell:not(.is-mobile-preview) .test-email-preview .module[data-module="hero-image-top-center"] .module__title--hero-large,
     .test-shell:not(.is-mobile-preview) .test-email-preview .module[data-module="hero-image-top-bleed"] .module__title--hero-large,
+    .test-shell:not(.is-mobile-preview) .test-email-preview .module[data-module="hero-image-top-bleed-center"] .module__title--hero-large,
     .test-shell:not(.is-mobile-preview) .test-email-preview .module[data-module="hero-cta-top"] .module__title--hero-large,
+    .test-shell:not(.is-mobile-preview) .test-email-preview .module[data-module="hero-cta-top-center"] .module__title--hero-large,
     .test-shell:not(.is-mobile-preview) .test-email-preview .module[data-module="hero-cta-top-no-bottom"] .module__title--hero-large,
+    .test-shell:not(.is-mobile-preview) .test-email-preview .module[data-module="hero-cta-top-no-bottom-center"] .module__title--hero-large,
     .test-shell:not(.is-mobile-preview) .test-email-preview .module[data-module="hero-image-textbox-cta-center"] .module__title--hero-large,
     .test-shell:not(.is-mobile-preview) .test-email-preview .module[data-module="hero-image-head-copy-bleed-center"] .module__title--hero-large {
       font-size: 34px;
@@ -1547,11 +1677,25 @@
         grid-template-columns: 1fr;
       }
 
-      .test-sidebar {
+      .test-sidebar-shell {
         position: static;
+        width: auto;
         height: auto;
-        border-right: 0;
-        border-bottom: 1px solid var(--stroke);
+        max-width: none;
+        transform: none;
+      }
+
+      .test-sidebar {
+        position: relative;
+        height: auto;
+      }
+
+      .test-main {
+        margin-left: 0;
+      }
+
+      .test-sidebar__toggle {
+        display: none;
       }
 
       .font-heading-large-bold {
@@ -1748,9 +1892,28 @@
       <circle cx="5.3" cy="6" r="1"></circle>
       <path d="M3.5 11l3-3 2.1 1.8 2.7-3 1.7 1.8"></path>
     </symbol>
+    <symbol id="nav-icon-align-left" viewBox="0 0 16 16">
+      <path d="M2.5 4h9"></path>
+      <path d="M2.5 7h11"></path>
+      <path d="M2.5 10h8"></path>
+      <path d="M2.5 13h10"></path>
+    </symbol>
+    <symbol id="nav-icon-align-center" viewBox="0 0 16 16">
+      <path d="M4 4h8"></path>
+      <path d="M2.5 7h11"></path>
+      <path d="M4.5 10h7"></path>
+      <path d="M3 13h10"></path>
+    </symbol>
+    <symbol id="nav-icon-fakeform" viewBox="0 0 16 16">
+      <rect x="2" y="3" width="12" height="10" rx="1.5"></rect>
+      <path d="M4.5 6.2h7"></path>
+      <path d="M4.5 9.8H9"></path>
+      <path d="M10.5 9.8h1.5"></path>
+    </symbol>
   </svg>
   <section class="test-shell" data-shell>
-    <aside class="test-sidebar">
+    <div class="test-sidebar-shell">
+      <aside class="test-sidebar">
       <div class="test-sidebar__header">
         <div class="test-brand">
           <a class="test-logo" href="#home" aria-label="Zur Startseite">
@@ -1759,35 +1922,45 @@
         </div>
       </div>
       <nav class="test-nav" aria-label="Library Navigation">
-        <div class="test-nav__group is-collapsed" data-nav-group>
+        <div class="test-nav__group is-collapsed" data-nav-group data-nav-scope="tokens">
           <div class="test-nav__group-header">
-            <span>Design Tokens</span>
             <button class="test-nav__group-toggle" type="button" aria-label="Design Tokens ein- oder ausklappen" aria-expanded="false" data-nav-toggle>
-              <span class="test-nav__group-status" aria-hidden="true">+</span>
+              <svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-tiles"></use></svg>
+              <span>Design Tokens</span>
             </button>
           </div>
           <div class="test-nav__list">
-            <a class="test-nav__link" href="#tokens-colors"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-tools"></use></svg><span>Colors</span></a>
-            <a class="test-nav__link" href="#tokens-buttons"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-tools"></use></svg><span>Buttons</span></a>
+            <a class="test-nav__link" href="#tokens-colors"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-tiles"></use></svg><span>Colors</span></a>
+            <a class="test-nav__link" href="#tokens-buttons"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-action"></use></svg><span>Buttons</span></a>
             <a class="test-nav__link" href="#tokens-typography"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-text"></use></svg><span>Typography</span></a>
-            <a class="test-nav__link" href="#tokens-radius"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-tools"></use></svg><span>Radius</span></a>
-            <a class="test-nav__link" href="#tokens-spacing"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-tools"></use></svg><span>Spacing</span></a>
-            <a class="test-nav__link" href="#tokens-borders"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-tools"></use></svg><span>Borders</span></a>
+            <a class="test-nav__link" href="#tokens-radius"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-logo"></use></svg><span>Radius</span></a>
+            <a class="test-nav__link" href="#tokens-spacing"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-steps"></use></svg><span>Spacing</span></a>
+            <a class="test-nav__link" href="#tokens-borders"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-table"></use></svg><span>Borders</span></a>
             <a class="test-nav__link" href="#tokens-ratios"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-image"></use></svg><span>Ratios</span></a>
-            <a class="test-nav__link" href="#tokens-image-formats"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-image"></use></svg><span>Image Formats</span></a>
+            <a class="test-nav__link" href="#tokens-image-formats"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-cards"></use></svg><span>Image Formats</span></a>
           </div>
         </div>
 
-        <div class="test-nav__group is-collapsed" data-nav-group>
+        <div class="test-nav__group is-collapsed" data-nav-group data-nav-scope="email">
           <div class="test-nav__group-header">
-            <span>Email Builder</span>
             <button class="test-nav__group-toggle" type="button" aria-label="Email Builder ein- oder ausklappen" aria-expanded="false" data-nav-toggle>
-              <span class="test-nav__group-status" aria-hidden="true">+</span>
+              <svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-cards"></use></svg>
+              <span>Email Builder</span>
             </button>
           </div>
           <div class="test-nav__list">
             <a class="test-nav__link" href="#email-logo"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-logo"></use></svg><span>Logo</span></a>
-            <a class="test-nav__link" href="#email-heros"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-hero"></use></svg><span>Heros</span></a>
+            <div class="test-nav__subgroup is-collapsed" data-hero-subgroup data-nav-scope="email-heros">
+              <button class="test-nav__subgroup-toggle" type="button" aria-expanded="false" data-hero-toggle>
+                <svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-hero"></use></svg>
+                <span>Heros</span>
+              </button>
+              <div class="test-nav__subgroup-linkset">
+                <a class="test-nav__link test-nav__link--sub" href="#email-heros-left"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-align-left"></use></svg><span>Left</span></a>
+                <a class="test-nav__link test-nav__link--sub" href="#email-heros-center"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-align-center"></use></svg><span>Center</span></a>
+                <a class="test-nav__link test-nav__link--sub" href="#email-heros-fakeforms"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-fakeform"></use></svg><span>Fakeforms</span></a>
+              </div>
+            </div>
             <a class="test-nav__link" href="#email-teaser"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-teaser"></use></svg><span>Teaser</span></a>
             <a class="test-nav__link" href="#email-benefits"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-benefits"></use></svg><span>Benefits</span></a>
             <a class="test-nav__link" href="#email-steps"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-steps"></use></svg><span>Steps</span></a>
@@ -1797,11 +1970,11 @@
           </div>
         </div>
 
-        <div class="test-nav__group is-collapsed" data-nav-group>
+        <div class="test-nav__group is-collapsed" data-nav-group data-nav-scope="lp">
           <div class="test-nav__group-header">
-            <span>Landing Page Builder</span>
             <button class="test-nav__group-toggle" type="button" aria-label="Landing Page Builder ein- oder ausklappen" aria-expanded="false" data-nav-toggle>
-              <span class="test-nav__group-status" aria-hidden="true">+</span>
+              <svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-tools"></use></svg>
+              <span>Landing Page Builder</span>
             </button>
           </div>
           <div class="test-nav__list">
@@ -1822,13 +1995,14 @@
           </div>
         </div>
       </nav>
-    </aside>
+      </aside>
 
-    <button class="test-sidebar__toggle" type="button" aria-label="Sidebar ein- oder ausklappen" title="Sidebar ein- oder ausklappen" data-sidebar-toggle>
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M15 6l-6 6 6 6"></path>
-      </svg>
-    </button>
+      <button class="test-sidebar__toggle" type="button" aria-label="Sidebar ein- oder ausklappen" title="Sidebar ein- oder ausklappen" data-sidebar-toggle>
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M15 6l-6 6 6 6"></path>
+        </svg>
+      </button>
+    </div>
 
     <main class="test-main">
       <div class="test-toolbar">
@@ -1990,17 +2164,17 @@
             </div>
           </section>
 
-          <section class="test-section is-active" id="email-heros">
-            <div class="test-module-row">
-              <div class="module-copy" data-module="hero-image-top">
-                <button class="module-copy__button" type="button" aria-label="hero-image-top kopieren" title="hero-image-top kopieren">
-                  <span class="module-copy__name">hero-image-top</span>
-                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                  <span class="module-copy__icon--success" aria-hidden="true"></span>
-                </button>
-              </div>
-              <div class="test-module-frame">
-                <div class="test-email-preview" data-email-preview-module="hero-image-top">
+          <section class="test-section is-active" id="email-heros-left">
+              <div class="test-module-row">
+                <div class="module-copy" data-module="hero-image-top">
+                  <button class="module-copy__button" type="button" aria-label="hero-image-top kopieren" title="hero-image-top kopieren">
+                    <span class="module-copy__name">hero-image-top</span>
+                    <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    <span class="module-copy__icon--success" aria-hidden="true"></span>
+                  </button>
+                </div>
+                <div class="test-module-frame">
+                  <div class="test-email-preview" data-email-preview-module="hero-image-top">
 <!-- MODULE: hero-image-top | SNIPPET: emb_hero_image_top -->
 <section class="module theme-white" data-module="hero-image-top" data-snippet="emb_hero_image_top">
   <div class="module__inner">
@@ -2049,19 +2223,19 @@
     </div>
   </div>
 </section>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="test-module-row">
-              <div class="module-copy" data-module="hero-image-top-bleed">
-                <button class="module-copy__button" type="button" aria-label="hero-image-top-bleed kopieren" title="hero-image-top-bleed kopieren">
-                  <span class="module-copy__name">hero-image-top-bleed</span>
-                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                  <span class="module-copy__icon--success" aria-hidden="true"></span>
-                </button>
-              </div>
-              <div class="test-module-frame">
-                <div class="test-email-preview" data-email-preview-module="hero-image-top-bleed">
+              <div class="test-module-row">
+                <div class="module-copy" data-module="hero-image-top-bleed">
+                  <button class="module-copy__button" type="button" aria-label="hero-image-top-bleed kopieren" title="hero-image-top-bleed kopieren">
+                    <span class="module-copy__name">hero-image-top-bleed</span>
+                    <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    <span class="module-copy__icon--success" aria-hidden="true"></span>
+                  </button>
+                </div>
+                <div class="test-module-frame">
+                  <div class="test-email-preview" data-email-preview-module="hero-image-top-bleed">
 <!-- MODULE: hero-image-top-bleed | SNIPPET: emb_hero_image_top_bleed -->
 <section class="module theme-white" data-module="hero-image-top-bleed" data-snippet="emb_hero_image_top_bleed">
   <div class="module__inner">
@@ -2110,19 +2284,19 @@
     </div>
   </div>
 </section>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="test-module-row">
-              <div class="module-copy" data-module="hero-cta-top">
-                <button class="module-copy__button" type="button" aria-label="hero-cta-top kopieren" title="hero-cta-top kopieren">
-                  <span class="module-copy__name">hero-cta-top</span>
-                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                  <span class="module-copy__icon--success" aria-hidden="true"></span>
-                </button>
-              </div>
-              <div class="test-module-frame">
-                <div class="test-email-preview" data-email-preview-module="hero-cta-top">
+              <div class="test-module-row">
+                <div class="module-copy" data-module="hero-cta-top">
+                  <button class="module-copy__button" type="button" aria-label="hero-cta-top kopieren" title="hero-cta-top kopieren">
+                    <span class="module-copy__name">hero-cta-top</span>
+                    <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    <span class="module-copy__icon--success" aria-hidden="true"></span>
+                  </button>
+                </div>
+                <div class="test-module-frame">
+                  <div class="test-email-preview" data-email-preview-module="hero-cta-top">
 <!-- MODULE: hero-cta-top | SNIPPET: emb_hero_cta_top -->
 <section class="module theme-white" data-module="hero-cta-top" data-snippet="emb_hero_cta_top">
   <div class="module__inner">
@@ -2171,19 +2345,19 @@
     </div>
   </div>
 </section>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="test-module-row">
-              <div class="module-copy" data-module="hero-cta-top-no-bottom">
-                <button class="module-copy__button" type="button" aria-label="hero-cta-top-no-bottom kopieren" title="hero-cta-top-no-bottom kopieren">
-                  <span class="module-copy__name">hero-cta-top-no-bottom</span>
-                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                  <span class="module-copy__icon--success" aria-hidden="true"></span>
-                </button>
-              </div>
-              <div class="test-module-frame">
-                <div class="test-email-preview" data-email-preview-module="hero-cta-top-no-bottom">
+              <div class="test-module-row">
+                <div class="module-copy" data-module="hero-cta-top-no-bottom">
+                  <button class="module-copy__button" type="button" aria-label="hero-cta-top-no-bottom kopieren" title="hero-cta-top-no-bottom kopieren">
+                    <span class="module-copy__name">hero-cta-top-no-bottom</span>
+                    <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    <span class="module-copy__icon--success" aria-hidden="true"></span>
+                  </button>
+                </div>
+                <div class="test-module-frame">
+                  <div class="test-email-preview" data-email-preview-module="hero-cta-top-no-bottom">
 <!-- MODULE: hero-cta-top-no-bottom | SNIPPET: emb_hero_cta_top_no_bottom -->
 <section class="module theme-white" data-module="hero-cta-top-no-bottom" data-snippet="emb_hero_cta_top_no_bottom">
   <div class="module__inner">
@@ -2232,19 +2406,274 @@
     </div>
   </div>
 </section>
+                  </div>
                 </div>
               </div>
+          </section>
+
+          <section class="test-section" id="email-heros-center">
+              <div class="test-module-row">
+                <div class="module-copy" data-module="hero-image-top-center">
+                  <button class="module-copy__button" type="button" aria-label="hero-image-top-center kopieren" title="hero-image-top-center kopieren">
+                    <span class="module-copy__name">hero-image-top-center</span>
+                    <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    <span class="module-copy__icon--success" aria-hidden="true"></span>
+                  </button>
+                </div>
+                <div class="test-module-frame">
+                  <div class="test-email-preview" data-email-preview-module="hero-image-top-center">
+<!-- Source: email-builder/preview/modules/hero-image-top-center.html -->
+<!-- MODULE: hero-image-top-center | SNIPPET: emb_hero_image_top_center -->
+<section class="module theme-white" data-module="hero-image-top-center" data-snippet="emb_hero_image_top_center">
+  <div class="module__inner">
+    <div class="module__hero-area module__hero-area--head">
+      <div class="module__head module__head--center">
+        <div class="module__hero-meta">
+          <p class="module__eyebrow" data-export-field="emb_hero_image_top_center_preheadline" data-export-role="preheadline">Digitales Immobilienprodukt</p>
+          <span class="module__badge is-hidden" data-export-field="emb_hero_image_top_center_badge_label" data-export-role="badge">Badge</span>
+        </div>
+        <span class="is-hidden" data-export-field="emb_hero_image_top_center_headline_size" data-export-role="technical-variant">l</span>
+        <span class="is-hidden" data-export-field="emb_hero_image_top_center_show_small_headline" data-export-role="technical-flag">false</span>
+        <span class="is-hidden" data-export-field="emb_hero_image_top_center_show_large_headline" data-export-role="technical-flag">true</span>
+        <span class="is-hidden" data-export-field="emb_hero_image_top_center_show_salutation" data-export-role="technical-flag">true</span>
+        <span class="is-hidden" data-export-field="emb_hero_image_top_center_use_snippetcall_salutation" data-export-role="technical-flag">false</span>
+        <h2 class="module__title module__title--hero-large" data-export-field="emb_hero_image_top_center_headline" data-export-role="headline" data-preview-size-field="emb_hero_image_top_center_headline_size" data-preview-size-legacy-small-field="emb_hero_image_top_center_show_small_headline" data-preview-size-legacy-large-field="emb_hero_image_top_center_show_large_headline" data-preview-size-small-class="module__title--hero-small" data-preview-size-large-class="module__title--hero-large" data-preview-size-invalid-class="module__title--hero-invalid">Vermarkten Sie Ihre Immobilie digital, klar und zeitsparend</h2>
+      </div>
+      <div class="module__hero-spacer module__hero-spacer--25" aria-hidden="true"></div>
+    </div>
+    <div class="module__hero-flow">
+      <div class="module__hero-area module__hero-area--image">
+        <div class="media media--hero">
+          <div
+            class="preview-image-placeholder preview-image-placeholder--16x9 preview-image-placeholder--pad-lg"
+            data-image-field="emb_hero_image_top_center_image_url"
+            data-image-alt-field="emb_hero_image_top_center_image_alt"
+          >
+            <div class="preview-image-placeholder__text">
+              <p class="preview-image-placeholder__meta">16:9 | 960 x 540 px<br />(Hi-Res 1920 x 1080)</p>
             </div>
-            <div class="test-module-row">
-              <div class="module-copy" data-module="hero-image-head-copy-bleed-center">
-                <button class="module-copy__button" type="button" aria-label="hero-image-head-copy-bleed-center kopieren" title="hero-image-head-copy-bleed-center kopieren">
-                  <span class="module-copy__name">hero-image-head-copy-bleed-center</span>
-                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                  <span class="module-copy__icon--success" aria-hidden="true"></span>
-                </button>
+          </div>
+        </div>
+        <div class="module__hero-spacer module__hero-spacer--35" aria-hidden="true"></div>
+      </div>
+      <div class="module__hero-area module__hero-area--copy">
+        <div class="module__copy module__copy--center">
+          <p class="module__body" data-export-field="emb_hero_image_top_center_salutation" data-export-role="salutation">Hallo Anrede,</p>
+          <div class="module__hero-spacer module__hero-spacer--salutation" aria-hidden="true"></div>
+          <div class="module-rich-full-body module-rich-full-body--hero" data-export-field="emb_hero_image_top_center_body" data-export-role="richtext">
+            <p class="module__body" data-export-role="body-paragraph" data-export-index="1">Mit einem digitalen Vermarktungspaket gewinnen Sie mehr Übersicht und bringen Ihre Vermarktung einfacher in den Alltag.</p>
+          </div>
+          <div class="module__hero-spacer module__hero-spacer--button" aria-hidden="true"></div>
+          <div class="module__cta-row module__cta-row--center">
+            <a class="button-filled-brand" href="https://www.immobilienscout24.de" target="_blank" rel="noreferrer" data-token-attr-href="links.default_cta" data-export-field="emb_hero_image_top_center_button_label" data-export-url-field="emb_hero_image_top_center_button_url" data-export-role="cta">Lorem ipsum dolor</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+                  </div>
+                </div>
               </div>
-              <div class="test-module-frame">
-                <div class="test-email-preview" data-email-preview-module="hero-image-head-copy-bleed-center">
+              <div class="test-module-row">
+                <div class="module-copy" data-module="hero-image-top-bleed-center">
+                  <button class="module-copy__button" type="button" aria-label="hero-image-top-bleed-center kopieren" title="hero-image-top-bleed-center kopieren">
+                    <span class="module-copy__name">hero-image-top-bleed-center</span>
+                    <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    <span class="module-copy__icon--success" aria-hidden="true"></span>
+                  </button>
+                </div>
+                <div class="test-module-frame">
+                  <div class="test-email-preview" data-email-preview-module="hero-image-top-bleed-center">
+<!-- Source: email-builder/preview/modules/hero-image-top-bleed-center.html -->
+<!-- MODULE: hero-image-top-bleed-center | SNIPPET: emb_hero_image_top_bleed_center -->
+<section class="module theme-white" data-module="hero-image-top-bleed-center" data-snippet="emb_hero_image_top_bleed_center">
+  <div class="module__inner">
+    <div class="module__hero-area module__hero-area--head">
+      <div class="module__head module__head--center">
+        <div class="module__hero-meta">
+          <p class="module__eyebrow" data-export-field="emb_hero_image_top_bleed_center_preheadline" data-export-role="preheadline">Digitales Immobilienprodukt</p>
+          <span class="module__badge is-hidden" data-export-field="emb_hero_image_top_bleed_center_badge_label" data-export-role="badge">Badge</span>
+        </div>
+        <span class="is-hidden" data-export-field="emb_hero_image_top_bleed_center_headline_size" data-export-role="technical-variant">l</span>
+        <span class="is-hidden" data-export-field="emb_hero_image_top_bleed_center_show_small_headline" data-export-role="technical-flag">false</span>
+        <span class="is-hidden" data-export-field="emb_hero_image_top_bleed_center_show_large_headline" data-export-role="technical-flag">true</span>
+        <span class="is-hidden" data-export-field="emb_hero_image_top_bleed_center_show_salutation" data-export-role="technical-flag">true</span>
+        <span class="is-hidden" data-export-field="emb_hero_image_top_bleed_center_use_snippetcall_salutation" data-export-role="technical-flag">false</span>
+        <h2 class="module__title module__title--hero-large" data-export-field="emb_hero_image_top_bleed_center_headline" data-export-role="headline" data-preview-size-field="emb_hero_image_top_bleed_center_headline_size" data-preview-size-legacy-small-field="emb_hero_image_top_bleed_center_show_small_headline" data-preview-size-legacy-large-field="emb_hero_image_top_bleed_center_show_large_headline" data-preview-size-small-class="module__title--hero-small" data-preview-size-large-class="module__title--hero-large" data-preview-size-invalid-class="module__title--hero-invalid">Vermarkten Sie Ihre Immobilie digital, klar und zeitsparend</h2>
+      </div>
+      <div class="module__hero-spacer module__hero-spacer--25" aria-hidden="true"></div>
+    </div>
+    <div class="module__hero-flow">
+      <div class="module__hero-area module__hero-area--image">
+        <div class="media media--hero media--bleed">
+          <div
+            class="preview-image-placeholder preview-image-placeholder--16x9 preview-image-placeholder--pad-lg"
+            data-image-field="emb_hero_image_top_bleed_center_image_url"
+            data-image-alt-field="emb_hero_image_top_bleed_center_image_alt"
+          >
+            <div class="preview-image-placeholder__text">
+              <p class="preview-image-placeholder__meta">16:9 | 960 x 540 px<br />(Hi-Res 1920 x 1080)</p>
+            </div>
+          </div>
+        </div>
+        <div class="module__hero-spacer module__hero-spacer--35" aria-hidden="true"></div>
+      </div>
+      <div class="module__hero-area module__hero-area--copy">
+        <div class="module__copy module__copy--center">
+          <p class="module__body" data-export-field="emb_hero_image_top_bleed_center_salutation" data-export-role="salutation">Hallo Anrede,</p>
+          <div class="module__hero-spacer module__hero-spacer--salutation" aria-hidden="true"></div>
+          <div class="module-rich-full-body module-rich-full-body--hero" data-export-field="emb_hero_image_top_bleed_center_body" data-export-role="richtext">
+            <p class="module__body" data-export-role="body-paragraph" data-export-index="1">Mit einem digitalen Vermarktungspaket gewinnen Sie mehr Übersicht und bringen Ihre Vermarktung einfacher in den Alltag.</p>
+          </div>
+          <div class="module__hero-spacer module__hero-spacer--button" aria-hidden="true"></div>
+          <div class="module__cta-row module__cta-row--center">
+            <a class="button-filled-brand" href="https://www.immobilienscout24.de" target="_blank" rel="noreferrer" data-token-attr-href="links.default_cta" data-export-field="emb_hero_image_top_bleed_center_button_label" data-export-url-field="emb_hero_image_top_bleed_center_button_url" data-export-role="cta">Lorem ipsum dolor</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+                  </div>
+                </div>
+              </div>
+              <div class="test-module-row">
+                <div class="module-copy" data-module="hero-cta-top-center">
+                  <button class="module-copy__button" type="button" aria-label="hero-cta-top-center kopieren" title="hero-cta-top-center kopieren">
+                    <span class="module-copy__name">hero-cta-top-center</span>
+                    <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    <span class="module-copy__icon--success" aria-hidden="true"></span>
+                  </button>
+                </div>
+                <div class="test-module-frame">
+                  <div class="test-email-preview" data-email-preview-module="hero-cta-top-center">
+<!-- Source: email-builder/preview/modules/hero-cta-top-center.html -->
+<!-- MODULE: hero-cta-top-center | SNIPPET: emb_hero_cta_top_center -->
+<section class="module theme-white" data-module="hero-cta-top-center" data-snippet="emb_hero_cta_top_center">
+  <div class="module__inner">
+    <div class="module__hero-area module__hero-area--head">
+      <div class="module__head module__head--center">
+        <div class="module__hero-meta">
+          <p class="module__eyebrow" data-export-field="emb_hero_cta_top_center_preheadline" data-export-role="preheadline">Digitales Immobilienprodukt</p>
+          <span class="module__badge is-hidden" data-export-field="emb_hero_cta_top_center_badge_label" data-export-role="badge">Badge</span>
+        </div>
+        <span class="is-hidden" data-export-field="emb_hero_cta_top_center_headline_size" data-export-role="technical-variant">l</span>
+        <span class="is-hidden" data-export-field="emb_hero_cta_top_center_show_small_headline" data-export-role="technical-flag">false</span>
+        <span class="is-hidden" data-export-field="emb_hero_cta_top_center_show_large_headline" data-export-role="technical-flag">true</span>
+        <span class="is-hidden" data-export-field="emb_hero_cta_top_center_show_salutation" data-export-role="technical-flag">true</span>
+        <span class="is-hidden" data-export-field="emb_hero_cta_top_center_use_snippetcall_salutation" data-export-role="technical-flag">false</span>
+        <h2 class="module__title module__title--hero-large" data-export-field="emb_hero_cta_top_center_headline" data-export-role="headline" data-preview-size-field="emb_hero_cta_top_center_headline_size" data-preview-size-legacy-small-field="emb_hero_cta_top_center_show_small_headline" data-preview-size-legacy-large-field="emb_hero_cta_top_center_show_large_headline" data-preview-size-small-class="module__title--hero-small" data-preview-size-large-class="module__title--hero-large" data-preview-size-invalid-class="module__title--hero-invalid">Vermarkten Sie Ihre Immobilie digital, klar und zeitsparend</h2>
+      </div>
+      <div class="module__hero-spacer module__hero-spacer--25" aria-hidden="true"></div>
+    </div>
+    <div class="module__hero-flow">
+      <div class="module__hero-area module__hero-area--copy">
+        <div class="module__copy module__copy--center">
+          <p class="module__body" data-export-field="emb_hero_cta_top_center_salutation" data-export-role="salutation">Hallo Anrede,</p>
+          <div class="module__hero-spacer module__hero-spacer--salutation" aria-hidden="true"></div>
+          <div class="module-rich-full-body module-rich-full-body--hero" data-export-field="emb_hero_cta_top_center_body" data-export-role="richtext">
+            <p class="module__body" data-export-role="body-paragraph" data-export-index="1">Mit einem digitalen Vermarktungspaket gewinnen Sie mehr Übersicht und bringen Ihre Vermarktung einfacher in den Alltag.</p>
+          </div>
+          <div class="module__hero-spacer module__hero-spacer--button" aria-hidden="true"></div>
+          <div class="module__cta-row module__cta-row--center">
+            <a class="button-filled-brand" href="https://www.immobilienscout24.de" target="_blank" rel="noreferrer" data-token-attr-href="links.default_cta" data-export-field="emb_hero_cta_top_center_button_label" data-export-url-field="emb_hero_cta_top_center_button_url" data-export-role="cta">Lorem ipsum dolor</a>
+          </div>
+          <div class="module__hero-spacer module__hero-spacer--35" aria-hidden="true"></div>
+        </div>
+      </div>
+      <div class="module__hero-area module__hero-area--image">
+        <div class="media media--hero">
+          <div
+            class="preview-image-placeholder preview-image-placeholder--16x9 preview-image-placeholder--pad-lg"
+            data-image-field="emb_hero_cta_top_center_image_url"
+            data-image-alt-field="emb_hero_cta_top_center_image_alt"
+          >
+            <div class="preview-image-placeholder__text">
+              <p class="preview-image-placeholder__meta">16:9 | 960 x 540 px<br />(Hi-Res 1920 x 1080)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+                  </div>
+                </div>
+              </div>
+              <div class="test-module-row">
+                <div class="module-copy" data-module="hero-cta-top-no-bottom-center">
+                  <button class="module-copy__button" type="button" aria-label="hero-cta-top-no-bottom-center kopieren" title="hero-cta-top-no-bottom-center kopieren">
+                    <span class="module-copy__name">hero-cta-top-no-bottom-center</span>
+                    <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    <span class="module-copy__icon--success" aria-hidden="true"></span>
+                  </button>
+                </div>
+                <div class="test-module-frame">
+                  <div class="test-email-preview" data-email-preview-module="hero-cta-top-no-bottom-center">
+<!-- Source: email-builder/preview/modules/hero-cta-top-no-bottom-center.html -->
+<!-- MODULE: hero-cta-top-no-bottom-center | SNIPPET: emb_hero_cta_top_no_bottom_center -->
+<section class="module theme-white" data-module="hero-cta-top-no-bottom-center" data-snippet="emb_hero_cta_top_no_bottom_center">
+  <div class="module__inner">
+    <div class="module__hero-area module__hero-area--head">
+      <div class="module__head module__head--center">
+        <div class="module__hero-meta">
+          <p class="module__eyebrow" data-export-field="emb_hero_cta_top_no_bottom_center_preheadline" data-export-role="preheadline">Digitales Immobilienprodukt</p>
+          <span class="module__badge is-hidden" data-export-field="emb_hero_cta_top_no_bottom_center_badge_label" data-export-role="badge">Badge</span>
+        </div>
+        <span class="is-hidden" data-export-field="emb_hero_cta_top_no_bottom_center_headline_size" data-export-role="technical-variant">l</span>
+        <span class="is-hidden" data-export-field="emb_hero_cta_top_no_bottom_center_show_small_headline" data-export-role="technical-flag">false</span>
+        <span class="is-hidden" data-export-field="emb_hero_cta_top_no_bottom_center_show_large_headline" data-export-role="technical-flag">true</span>
+        <span class="is-hidden" data-export-field="emb_hero_cta_top_no_bottom_center_show_salutation" data-export-role="technical-flag">true</span>
+        <span class="is-hidden" data-export-field="emb_hero_cta_top_no_bottom_center_use_snippetcall_salutation" data-export-role="technical-flag">false</span>
+        <h2 class="module__title module__title--hero-large" data-export-field="emb_hero_cta_top_no_bottom_center_headline" data-export-role="headline" data-preview-size-field="emb_hero_cta_top_no_bottom_center_headline_size" data-preview-size-legacy-small-field="emb_hero_cta_top_no_bottom_center_show_small_headline" data-preview-size-legacy-large-field="emb_hero_cta_top_no_bottom_center_show_large_headline" data-preview-size-small-class="module__title--hero-small" data-preview-size-large-class="module__title--hero-large" data-preview-size-invalid-class="module__title--hero-invalid">Vermarkten Sie Ihre Immobilie digital, klar und zeitsparend</h2>
+      </div>
+      <div class="module__hero-spacer module__hero-spacer--25" aria-hidden="true"></div>
+    </div>
+    <div class="module__hero-flow">
+      <div class="module__hero-area module__hero-area--copy">
+        <div class="module__copy module__copy--center">
+          <p class="module__body" data-export-field="emb_hero_cta_top_no_bottom_center_salutation" data-export-role="salutation">Hallo Anrede,</p>
+          <div class="module__hero-spacer module__hero-spacer--salutation" aria-hidden="true"></div>
+          <div class="module-rich-full-body module-rich-full-body--hero" data-export-field="emb_hero_cta_top_no_bottom_center_body" data-export-role="richtext">
+            <p class="module__body" data-export-role="body-paragraph" data-export-index="1">Mit einem digitalen Vermarktungspaket gewinnen Sie mehr Übersicht und bringen Ihre Vermarktung einfacher in den Alltag.</p>
+          </div>
+          <div class="module__hero-spacer module__hero-spacer--button" aria-hidden="true"></div>
+          <div class="module__cta-row module__cta-row--center">
+            <a class="button-filled-brand" href="https://www.immobilienscout24.de" target="_blank" rel="noreferrer" data-token-attr-href="links.default_cta" data-export-field="emb_hero_cta_top_no_bottom_center_button_label" data-export-url-field="emb_hero_cta_top_no_bottom_center_button_url" data-export-role="cta">Lorem ipsum dolor</a>
+          </div>
+          <div class="module__hero-spacer module__hero-spacer--35" aria-hidden="true"></div>
+        </div>
+      </div>
+      <div class="module__hero-area module__hero-area--image">
+        <div class="media media--hero">
+          <div
+            class="preview-image-placeholder preview-image-placeholder--16x9 preview-image-placeholder--pad-lg"
+            data-image-field="emb_hero_cta_top_no_bottom_center_image_url"
+            data-image-alt-field="emb_hero_cta_top_no_bottom_center_image_alt"
+          >
+            <div class="preview-image-placeholder__text">
+              <p class="preview-image-placeholder__meta">16:9 | 960 x 540 px<br />(Hi-Res 1920 x 1080)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+                  </div>
+                </div>
+              </div>
+              <div class="test-module-row">
+                <div class="module-copy" data-module="hero-image-head-copy-bleed-center">
+                  <button class="module-copy__button" type="button" aria-label="hero-image-head-copy-bleed-center kopieren" title="hero-image-head-copy-bleed-center kopieren">
+                    <span class="module-copy__name">hero-image-head-copy-bleed-center</span>
+                    <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    <span class="module-copy__icon--success" aria-hidden="true"></span>
+                  </button>
+                </div>
+                <div class="test-module-frame">
+                  <div class="test-email-preview" data-email-preview-module="hero-image-head-copy-bleed-center">
 <!-- MODULE: hero-image-head-copy-bleed-center | SNIPPET: emb_hero_image_head_copy_bleed_center -->
 <section class="module theme-white" data-module="hero-image-head-copy-bleed-center" data-snippet="emb_hero_image_head_copy_bleed_center">
   <div class="module__inner">
@@ -2289,19 +2718,22 @@
     </div>
   </div>
 </section>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="test-module-row">
-              <div class="module-copy" data-module="hero-image-textbox-cta-center">
-                <button class="module-copy__button" type="button" aria-label="hero-image-textbox-cta-center kopieren" title="hero-image-textbox-cta-center kopieren">
-                  <span class="module-copy__name">hero-image-textbox-cta-center</span>
-                  <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                  <span class="module-copy__icon--success" aria-hidden="true"></span>
-                </button>
-              </div>
-              <div class="test-module-frame">
-                <div class="test-email-preview" data-email-preview-module="hero-image-textbox-cta-center">
+          </section>
+
+          <section class="test-section" id="email-heros-fakeforms">
+              <div class="test-module-row">
+                <div class="module-copy" data-module="hero-image-textbox-cta-center">
+                  <button class="module-copy__button" type="button" aria-label="hero-image-textbox-cta-center kopieren" title="hero-image-textbox-cta-center kopieren">
+                    <span class="module-copy__name">hero-image-textbox-cta-center</span>
+                    <svg class="module-copy__icon module-copy__icon--default" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    <span class="module-copy__icon--success" aria-hidden="true"></span>
+                  </button>
+                </div>
+                <div class="test-module-frame">
+                  <div class="test-email-preview" data-email-preview-module="hero-image-textbox-cta-center">
 <!-- Source: email-builder/agent/preview-modules.html -->
 <!-- MODULE: hero-image-textbox-cta-center | SNIPPET: emb_hero_image_textbox_cta_center -->
 <section class="module theme-white" data-module="hero-image-textbox-cta-center" data-snippet="emb_hero_image_textbox_cta_center">
@@ -2351,9 +2783,9 @@
     </div>
   </div>
 </section>
+                  </div>
                 </div>
               </div>
-            </div>
           </section>
 
           <section class="test-section" id="email-teaser">
@@ -3517,9 +3949,16 @@
       var DEFAULT_ROUTE = { page: 'home', sectionId: 'home' };
       var FRAME_LOADING_HEIGHT = 120;
       var shell = document.querySelector('[data-shell]');
+      var testSidebarShell = document.querySelector('.test-sidebar-shell');
+      var testSidebar = document.querySelector('.test-sidebar');
+      var testMain = document.querySelector('.test-main');
+      var testContent = document.querySelector('.test-content');
       var mobileToggle = document.querySelector('[data-mobile-toggle]');
       var sidebarToggle = document.querySelector('[data-sidebar-toggle]');
+      var navGroups = Array.from(document.querySelectorAll('[data-nav-group]'));
       var navGroupToggles = Array.from(document.querySelectorAll('[data-nav-toggle]'));
+      var heroSubgroup = document.querySelector('[data-hero-subgroup]');
+      var heroSubgroupToggle = document.querySelector('[data-hero-toggle]');
       var navLinks = Array.from(document.querySelectorAll('.test-nav__link'));
       var pages = Array.from(document.querySelectorAll('.test-page'));
       var sections = Array.from(document.querySelectorAll('.test-section'));
@@ -3875,18 +4314,87 @@
         });
       }
 
+      function syncSidebarPanelWidth() {
+        if (!shell || !testSidebar) return;
+        var measuredWidth = Math.ceil(testSidebar.getBoundingClientRect().width);
+        if (!measuredWidth) return;
+        shell.style.setProperty('--sidebar-panel-width', measuredWidth + 'px');
+      }
+
+      function setNavGroupCollapsed(group, isCollapsed) {
+        if (!group) return;
+        group.classList.toggle('is-collapsed', isCollapsed);
+        var toggle = group.querySelector('[data-nav-toggle]');
+        if (!toggle) return;
+        toggle.setAttribute('aria-expanded', String(!isCollapsed));
+      }
+
+      function setExclusiveNavGroup(openGroup) {
+        navGroups.forEach(function (group) {
+          var shouldOpen = group === openGroup;
+          setNavGroupCollapsed(group, !shouldOpen);
+          var toggle = group.querySelector('[data-nav-toggle]');
+          if (!toggle) return;
+          toggle.classList.toggle('is-active', shouldOpen);
+          toggle.setAttribute('aria-current', shouldOpen ? 'page' : 'false');
+        });
+      }
+
+      function getFirstNavGroupHref(group) {
+        if (!group) return '';
+        var list = group.querySelector('.test-nav__list');
+        if (!list) return '';
+        for (var i = 0; i < list.children.length; i += 1) {
+          var child = list.children[i];
+          if (child.classList && child.classList.contains('test-nav__link')) {
+            return child.getAttribute('href') || '';
+          }
+          var nestedFirstLink = child.querySelector ? child.querySelector('.test-nav__link') : null;
+          if (nestedFirstLink) {
+            return nestedFirstLink.getAttribute('href') || '';
+          }
+        }
+        var firstLink = list.querySelector('.test-nav__link');
+        return firstLink ? (firstLink.getAttribute('href') || '') : '';
+      }
+
       navGroupToggles.forEach(function (toggle) {
         toggle.addEventListener('click', function () {
           var group = toggle.closest('[data-nav-group]');
           if (!group) return;
-          var isCollapsed = group.classList.toggle('is-collapsed');
-          toggle.setAttribute('aria-expanded', String(!isCollapsed));
-          var status = toggle.querySelector('.test-nav__group-status');
-          if (status) {
-            status.textContent = isCollapsed ? '+' : '-';
+          var targetHref = getFirstNavGroupHref(group);
+          setExclusiveNavGroup(group);
+          if (!targetHref) return;
+          if (window.location.hash !== targetHref) {
+            window.location.hash = targetHref;
+            return;
           }
+          applyRoute();
         });
       });
+
+      function setHeroSubgroupCollapsed(isCollapsed) {
+        if (!heroSubgroup || !heroSubgroupToggle) return;
+        heroSubgroup.classList.toggle('is-collapsed', isCollapsed);
+        heroSubgroupToggle.setAttribute('aria-expanded', String(!isCollapsed));
+      }
+
+      if (heroSubgroupToggle) {
+        heroSubgroupToggle.addEventListener('click', function () {
+          var isCollapsed = heroSubgroup.classList.contains('is-collapsed');
+          if (!isCollapsed) {
+            setHeroSubgroupCollapsed(true);
+            return;
+          }
+          setExclusiveNavGroup(heroSubgroupToggle.closest('[data-nav-group]'));
+          setHeroSubgroupCollapsed(false);
+          if (window.location.hash !== '#email-heros-left') {
+            window.location.hash = '#email-heros-left';
+            return;
+          }
+          applyRoute();
+        });
+      }
 
       document.querySelectorAll('.module-copy').forEach(function (copy) {
         var button = copy.querySelector('.module-copy__button');
@@ -3915,6 +4423,27 @@
       }
 
       function setActiveSection(sectionId) {
+        var activeNavGroup = null;
+        if (sectionId.indexOf('email-heros-') === 0) {
+          activeNavGroup = heroSubgroup && heroSubgroup.closest('[data-nav-group]');
+          setExclusiveNavGroup(activeNavGroup);
+          setHeroSubgroupCollapsed(false);
+        } else if (sectionId.indexOf('tokens-') === 0) {
+          activeNavGroup = document.querySelector('[data-nav-scope="tokens"]');
+          setExclusiveNavGroup(activeNavGroup);
+          setHeroSubgroupCollapsed(true);
+        } else if (sectionId.indexOf('email-') === 0) {
+          activeNavGroup = document.querySelector('[data-nav-scope="email"]');
+          setExclusiveNavGroup(activeNavGroup);
+          setHeroSubgroupCollapsed(true);
+        } else if (sectionId.indexOf('lp-') === 0) {
+          activeNavGroup = document.querySelector('[data-nav-scope="lp"]');
+          setExclusiveNavGroup(activeNavGroup);
+          setHeroSubgroupCollapsed(true);
+        } else {
+          setExclusiveNavGroup(null);
+          setHeroSubgroupCollapsed(true);
+        }
         sections.forEach(function (section) {
           section.classList.toggle('is-active', section.id === sectionId);
         });
@@ -3926,6 +4455,11 @@
           link.classList.toggle('is-active', isActive);
           link.setAttribute('aria-current', isActive ? 'page' : 'false');
         });
+        if (heroSubgroupToggle) {
+          var isHeroActive = sectionId.indexOf('email-heros-') === 0;
+          heroSubgroupToggle.classList.toggle('is-active', isHeroActive);
+          heroSubgroupToggle.setAttribute('aria-current', isHeroActive ? 'page' : 'false');
+        }
       }
 
       function resolveRoute() {
@@ -3949,6 +4483,11 @@
         var route = resolveRoute();
         setCurrentPage(route.page);
         setActiveSection(route.sectionId);
+        if (testMain) testMain.scrollTop = 0;
+        if (testContent) testContent.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
+        window.scrollTo(0, 0);
         window.setTimeout(requestVisibleFrameHeights, 0);
         window.setTimeout(requestVisibleFrameHeights, 80);
         window.setTimeout(requestVisibleFrameHeights, 220);
@@ -4022,6 +4561,7 @@
       });
 
       window.addEventListener('hashchange', applyRoute);
+      window.addEventListener('resize', syncSidebarPanelWidth);
       window.addEventListener('message', function (event) {
         if (!event.data || event.data.type !== 'component-library:frame-height') return;
         applyMeasuredFrameHeight(event.source, Number(event.data.height) || 0, event.data.requestId || '');
@@ -4037,7 +4577,13 @@
           scheduleFrameHeightRequests(frame);
         });
       });
-
+      syncSidebarPanelWidth();
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(syncSidebarPanelWidth);
+      }
+      window.requestAnimationFrame(function () {
+        shell.classList.add('is-sidebar-ready');
+      });
       applyRoute();
       applyFrameSourceMode();
       loadTokens();

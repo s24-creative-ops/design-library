@@ -15,10 +15,18 @@ active_modules:
     preview: preview/modules/hero-image-top.html
     email: email/modules/emb_hero_image_top.html
     role: required_shell
+  - id: hero-image-top-center
+    snippet: emb_hero_image_top_center
+    preview: preview/modules/hero-image-top-center.html
+    email: email/modules/emb_hero_image_top_center.html
   - id: hero-image-top-bleed
     snippet: emb_hero_image_top_bleed
     preview: preview/modules/hero-image-top-bleed.html
     email: email/modules/emb_hero_image_top_bleed.html
+  - id: hero-image-top-bleed-center
+    snippet: emb_hero_image_top_bleed_center
+    preview: preview/modules/hero-image-top-bleed-center.html
+    email: email/modules/emb_hero_image_top_bleed_center.html
   - id: hero-image-head-copy-bleed-center
     snippet: emb_hero_image_head_copy_bleed_center
     preview: preview/modules/hero-image-head-copy-bleed-center.html
@@ -31,10 +39,18 @@ active_modules:
     snippet: emb_hero_cta_top
     preview: preview/modules/hero-cta-top.html
     email: email/modules/emb_hero_cta_top.html
+  - id: hero-cta-top-center
+    snippet: emb_hero_cta_top_center
+    preview: preview/modules/hero-cta-top-center.html
+    email: email/modules/emb_hero_cta_top_center.html
   - id: hero-cta-top-no-bottom
     snippet: emb_hero_cta_top_no_bottom
     preview: preview/modules/hero-cta-top-no-bottom.html
     email: email/modules/emb_hero_cta_top_no_bottom.html
+  - id: hero-cta-top-no-bottom-center
+    snippet: emb_hero_cta_top_no_bottom_center
+    preview: preview/modules/hero-cta-top-no-bottom-center.html
+    email: email/modules/emb_hero_cta_top_no_bottom_center.html
   - id: teaser-1col
     snippet: emb_teaser_1col
     preview: preview/modules/teaser-1col.html
