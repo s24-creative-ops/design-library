@@ -718,47 +718,19 @@
 
     .token-typography-list {
       display: grid;
-      gap: 28px;
+      gap: 0;
     }
 
-    .token-typography-item {
+    .token-typography-note {
       display: grid;
-      gap: 14px;
-      padding: 0;
+      gap: 6px;
+      padding-bottom: 20px;
     }
 
-    .token-typography-item__header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
-
-    .token-typography-item__intro {
-      display: grid;
-      gap: 4px;
-    }
-
-    .token-typography-item__line {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .token-typography-item__meta {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      flex-wrap: wrap;
-      color: #C4C4C4;
-      font-size: 12px;
-      line-height: 1.2;
-      text-align: left;
-    }
-
-    .token-typography-sample {
-      margin: 0;
-      color: var(--text);
+    .token-typography-note .token-typography-sample {
+      font-size: 28px;
+      line-height: 1.15;
+      font-weight: 400;
     }
 
     .token-typography-source {
@@ -771,57 +743,59 @@
       text-underline-offset: 2px;
     }
 
-    .token-typography-pair {
+    .token-typography-head,
+    .token-typography-item {
       display: grid;
-      gap: 6px;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) 32px;
+      gap: 28px;
+      align-items: start;
     }
 
-    .token-typography-columns {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
+    .token-typography-head {
+      padding: 0 0 14px;
+      border-bottom: 1px solid rgba(51, 51, 51, 0.12);
     }
 
-    .token-typography-variant {
-      display: grid;
-      gap: 12px;
-      min-height: 100%;
-      padding: 18px;
-      border-radius: 16px;
-      background: #F8F8F8;
-      border: 1px solid rgba(51, 51, 51, 0.08);
-    }
-
-    .token-typography-variant__label {
-      display: inline-flex;
-      align-items: center;
-      width: fit-content;
-      min-height: 28px;
-      padding: 0 10px;
-      border-radius: 999px;
-      background: #F2F2F2;
-      color: #676767;
-      font-size: 12px;
-      line-height: 1;
+    .token-typography-head__label {
+      color: #333333;
+      font-size: 14px;
+      line-height: 1.2;
       font-weight: 700;
     }
 
-    .token-typography-variant__sample {
+    .token-typography-item {
+      padding: 18px 0;
+      border-bottom: 1px solid rgba(51, 51, 51, 0.12);
+    }
+
+    .token-typography-cell {
       display: grid;
-      gap: 8px;
+      gap: 6px;
+      min-width: 0;
+      align-content: start;
     }
 
-    .token-typography-variant__caption {
-      color: #676767;
+    .token-typography-item__meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      color: #A6A6A6;
       font-size: 12px;
-      line-height: 1.4;
+      line-height: 1.3;
+      text-align: left;
     }
 
-    .token-typography-variant__copy {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size: 12px;
-      line-height: 1.4;
-      color: #676767;
+    .token-typography-sample {
+      margin: 0;
+      color: var(--text);
+    }
+
+    .token-typography-copy {
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-start;
+      padding-top: 4px;
     }
 
     .token-section-group {
@@ -1735,8 +1709,15 @@
         gap: 28px;
       }
 
-      .token-typography-columns {
+      .token-typography-head,
+      .token-typography-item {
         grid-template-columns: 1fr;
+        gap: 14px;
+      }
+
+      .token-typography-copy {
+        justify-content: flex-start;
+        padding-top: 0;
       }
     }
 
@@ -4072,18 +4053,14 @@
         }, TOKENS);
       }
 
-      function createTypographyVariant(label, spec, sampleText, fontWeight, tokenName) {
-        return '<section class="token-typography-variant">' +
-          '<span class="token-typography-variant__label">' + label + '</span>' +
-          '<div class="token-typography-variant__sample">' +
-            '<p class="token-typography-sample" style="font-size:' + spec.fontSize + '; line-height:' + spec.lineHeight + '; font-weight:' + fontWeight + ';">' + sampleText + '</p>' +
-            '<div class="token-typography-item__meta">' +
-              '<span>Font-size ' + spec.fontSize + '</span>' +
-              '<span>Line-height ' + spec.lineHeight + '</span>' +
-            '</div>' +
+      function createTypographyCell(spec, sampleText, fontWeight) {
+        return '<div class="token-typography-cell">' +
+          '<p class="token-typography-sample" style="font-size:' + spec.fontSize + '; line-height:' + spec.lineHeight + '; font-weight:' + fontWeight + ';">' + sampleText + '</p>' +
+          '<div class="token-typography-item__meta">' +
+            '<span>Font-size ' + spec.fontSize + '</span>' +
+            '<span>Line-height ' + spec.lineHeight + '</span>' +
           '</div>' +
-          '<div class="token-typography-variant__copy">' + tokenName + '</div>' +
-        '</section>';
+        '</div>';
       }
 
       function renderTokenCards() {
@@ -4186,18 +4163,22 @@
         if (typeHost) {
           var headingOrder = ['xxl', 'xl', 'l', 'm', 's', 'xs'];
           var bodyOrder = ['standard', 'tabular', 'hint'];
-          var headingSampleText = 'Mehr Wirkung fuer Ihre Vermarktung';
           var bodySampleText = {
-            standard: 'Standardtext fuer klare und gut lesbare Copy in der Design Library.',
-            tabular: '12.500 EUR | 3,95 % | 48 h',
-            hint: 'Hinweistext fuer kurze ergaenzende Informationen.'
+            standard: 'P Standard',
+            tabular: 'P Tabular',
+            hint: 'P Hint'
           };
           var items = [];
           items.push(
-            '<article class="token-typography-item">' +
+            '<article class="token-typography-note">' +
               '<p class="token-typography-sample" style="font-size:32px; line-height:1.2; font-weight:400;">Make It Better</p>' +
               '<a class="token-typography-source" href="https://www.static-immobilienscout24.de/fro/make-it-better/1.0.0/makeitbetter.css" target="_blank" rel="noopener noreferrer">makeitbetter.css</a>' +
-            '</article>'
+            '</article>' +
+            '<div class="token-typography-head">' +
+              '<span class="token-typography-head__label">Desktop</span>' +
+              '<span class="token-typography-head__label">Mobile</span>' +
+              '<span aria-hidden="true"></span>' +
+            '</div>'
           );
           headingOrder.forEach(function (key) {
             var token = TOKENS.typography.heading[key];
@@ -4205,19 +4186,13 @@
             var desktop = token.desktop;
             var mobile = token.mobile;
             var tokenName = 'heading-' + key;
-            var label = 'Heading ' + key.toUpperCase();
+            var label = 'Heading ' + key.toUpperCase() + ' bold';
             items.push(
               '<article class="token-typography-item">' +
-                '<div class="token-typography-item__header">' +
-                  '<div class="token-typography-item__intro">' +
-                    '<h3 class="token-card__title">' + label + '</h3>' +
-                    createCodeValue(tokenName) +
-                  '</div>' +
+                createTypographyCell(desktop, label, TOKENS.typography.fontWeight.bold) +
+                createTypographyCell(mobile, label, TOKENS.typography.fontWeight.bold) +
+                '<div class="token-typography-copy">' +
                   createCopyButton(tokenName, tokenName) +
-                '</div>' +
-                '<div class="token-typography-columns">' +
-                  createTypographyVariant('Desktop', desktop, headingSampleText, TOKENS.typography.fontWeight.bold, tokenName) +
-                  createTypographyVariant('Mobile', mobile, headingSampleText, TOKENS.typography.fontWeight.bold, tokenName) +
                 '</div>' +
               '</article>'
             );
@@ -4228,19 +4203,13 @@
             var desktop = token.desktop;
             var mobile = token.mobile;
             var tokenName = 'body-' + key;
-            var label = 'P ' + formatTokenName(key);
+            var label = bodySampleText[key];
             items.push(
               '<article class="token-typography-item">' +
-                '<div class="token-typography-item__header">' +
-                  '<div class="token-typography-item__intro">' +
-                    '<h3 class="token-card__title">' + label + '</h3>' +
-                    createCodeValue(tokenName) +
-                  '</div>' +
+                createTypographyCell(desktop, label, TOKENS.typography.fontWeight.regular) +
+                createTypographyCell(mobile, label, TOKENS.typography.fontWeight.regular) +
+                '<div class="token-typography-copy">' +
                   createCopyButton(tokenName, tokenName) +
-                '</div>' +
-                '<div class="token-typography-columns">' +
-                  createTypographyVariant('Desktop', desktop, bodySampleText[key], TOKENS.typography.fontWeight.regular, tokenName) +
-                  createTypographyVariant('Mobile', mobile, bodySampleText[key], TOKENS.typography.fontWeight.regular, tokenName) +
                 '</div>' +
               '</article>'
             );
