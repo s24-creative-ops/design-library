@@ -52,7 +52,7 @@ Die technische Export-Wahrheit liegt ausschliesslich in `export-map.json`.
   - `l` = `heading-l`
 - Der reguläre Hero-Default ist `l`.
 - Nicht-Hero-Modulheadlines sind nicht usersteuerbar.
-- Die erste sichtbare Hauptheadline eines Nicht-Hero-Moduls ist immer `heading-m`.
+- Die erste sichtbare Hauptheadline eines Nicht-Hero-Moduls ist immer `heading-m`, ausser eine dokumentierte modulspezifische Ausnahme in dieser Datei erlaubt fest `heading-l`.
 - Weitere Unter-Headlines, Abschnittstitel oder Zwischenueberschriften innerhalb eines Nicht-Hero-Moduls sind immer `heading-s`.
 - Bodytexte bleiben standardmaessig `body-standard`.
 - Freie Heading-Klassen, freie CSS-Werte, freie Font-Size-Werte, freies HTML oder freie Style-Werte sind fuer Typography-Steuerung nicht zulaessig.
@@ -96,6 +96,8 @@ Regeln:
   - `emb_hero_cta_top_no_bottom_center_image_url`
 - `teaser-1col`
   - `emb_teaser_1col_image_url`
+- `loft-rnl-dev-teaser-1col`
+  - `emb_loft_rnl_dev_teaser_1col_image_url`
 - `teaser-2col-vertical`
   - `emb_teaser_2col_vertical_col_1_image_url`
   - `emb_teaser_2col_vertical_col_2_image_url`
@@ -611,6 +613,46 @@ Regeln:
   - Button-URL
 - Fuellhinweis: team-spezifisches Loft/SNL-Modul mit zwei Textsektionen und gefuelltem Charcoal-CTA; der zweite Abschnitt kann exportseitig ausgeblendet werden
 - Technische Regel: operativ renderbar fuer Loft/SNL-Kompositionen, aber kein allgemeines Core-Library-Modul.
+
+### `loft-rnl-dev-intro`
+
+- Snippet: `emb_loft_rnl_dev_intro`
+- Preview-Quelle: `preview-modules.html`, Block `data-module="loft-rnl-dev-intro"`
+- Sichtbare Felder:
+  - Headline
+  - Preview-Anrede
+  - Introtext
+- Fuellhinweis: template-spezifischer fixer Introblock fuer Loft RNL (Dev) ohne CTA und ohne freie Background-Variation
+- Technische Regel:
+  - Die Hauptheadline dieses Moduls ist eine dokumentierte modulspezifische Ausnahme und nutzt fest `heading-l`.
+  - Die finale EMB-Preview muss diese Headline im Markup explizit als `font-heading-large-bold` materialisieren; ein reiner Loft-Sonderselector ohne `heading-l`-Klasse ist nicht ausreichend.
+  - `emb_loft_rnl_dev_intro_headline` ist ein normales Textfeld und kein `rich_full`.
+  - `emb_loft_rnl_dev_intro_salutation` ist in der Preview ein menschenlesbares Textfeld und kein freier Raw-Logic-Slot.
+  - `emb_loft_rnl_dev_intro_body` ist ein `rich_full`-Kontext hinter der sichtbaren Preview-Anrede.
+  - Fuer `salutationContext = loft-rnl-dev` materialisiert der Export den produktiven Wert von `emb_loft_rnl_dev_intro_salutation` kontrolliert aus `agent/product-salutations.json`.
+
+### `loft-rnl-dev-teaser-1col`
+
+- Snippet: `emb_loft_rnl_dev_teaser_1col`
+- Preview-Quelle: `preview-modules.html`, Block `data-module="loft-rnl-dev-teaser-1col"`
+- Sichtbare Felder:
+  - Badge-Label
+  - Headline
+  - Bild-URL
+  - Bild-Alt
+  - Body
+  - Details
+  - Button-Label
+  - Button-URL
+- Bildformat in der Preview: `16:9 | 960 x 540 px`
+- Fuellhinweis: template-spezifisches Loft-RNL-Dev-Projektmodul mit wiederholbarer Einspalten-Struktur fuer Neubauprojekte
+- Technische Regel:
+  - Die Hauptheadline dieses Moduls ist eine dokumentierte modulspezifische Ausnahme und nutzt fest `heading-l`.
+  - Die finale EMB-Preview muss diese Headline im Markup explizit als `font-heading-large-bold` materialisieren; groessere Hero- oder XL-Klassen sind fuer dieses Modul unzulaessig.
+  - `emb_loft_rnl_dev_teaser_1col_body` und `emb_loft_rnl_dev_teaser_1col_details` sind `rich_full`-Kontexte und muessen Richtext fuer Absaetze, Listen, Hervorhebungen und Links transportieren.
+  - Die Modulhintergruende folgen nicht einem User-Feld, sondern dem globalen Hintergrund-Rhythmus.
+  - Die Badge-Flaeche ist immer invers zur finalen Modul-Flaeche und wird technisch aus dem konkreten `*_bg_color` abgeleitet.
+  - Die finale EMB-Preview muss diese Inversion im Markup explizit ueber `module__badge--surface-white` oder `module__badge--surface-gray` materialisieren; eine reine Ableitung ueber statische `theme-*`-Wrapper ist nicht ausreichend.
 
 ### `teaser-2col-vertical`
 

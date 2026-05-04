@@ -27,7 +27,7 @@ Die uebrigen operativen Agent-Dateien liegen direkt daneben in `agent/`.
 - Erlaubte Hero-Groessen sind ausschliesslich `s`, `m` und `l`; ihr Mapping ist direkt `heading-s`, `heading-m`, `heading-l`.
 - Der reguläre Hero-Default ist `l`.
 - Nicht-Hero-Modulheadlines sind nicht usersteuerbar:
-  - erste Hauptheadline = `heading-m`
+  - erste Hauptheadline = `heading-m`, ausser eine dokumentierte modulspezifische Ausnahme ist in `preview-module-library.md` oder `builder-library.md` registriert
   - Unter-Headlines, Abschnittstitel und Zwischenueberschriften = `heading-s`
   - Bodytexte = `body-standard`
 - Freie Heading-Klassen, freie CSS-Werte, freie Font-Size-Werte, freies HTML oder freie Style-Werte sind fuer Typography-Steuerung unzulaessig.
@@ -36,6 +36,9 @@ Die uebrigen operativen Agent-Dateien liegen direkt daneben in `agent/`.
 - Der aktive Template-Kontext ist nur in diesen beiden Formen zulaessig:
   - freier Modulbau oder Blueprint: `templateContext.mode = default_template` und `templateContext.resolvedBaseTemplateId = 569946`
   - Composition-Template: `templateContext.mode = composition_template`, `templateContext.compositionTemplateId`, `templateContext.iterableTemplateId` und `templateContext.resolvedBaseTemplateId = iterable_template_id`
+- Fuer neue regulaere States soll der aufgeloeste `salutationContext` bereits im `email_state` stehen; zulaessige Werte kommen ausschliesslich aus `agent/product-salutations.json`.
+- Wenn ein aktives Composition-Template eine `salutation_context_id` traegt, ist diese Zuweisung die dokumentierte Quelle fuer den Export-Kontext und braucht keine zusaetzliche Rueckfrage.
+- `salutationContext` steuert nur dokumentierte Anrede-Resolver und ist nie ein freier User-Input fuer Handlebars, Snippetcalls oder Raw-HTML.
 - Bei Re-Export duerfen `campaignId` und campaign-owned `templateId` nur wiederverwendet werden, wenn sie im State ueber einen stabilen `previewBranchKey` eindeutig demselben fortgeschriebenen Preview-/Composition-Zweig zugeordnet sind.
 - Ein required Feld ist nur dann export-ready, wenn genau eine dieser drei Quellen greift:
   - konkreter Wert in `email_state.content`
@@ -45,6 +48,7 @@ Die uebrigen operativen Agent-Dateien liegen direkt daneben in `agent/`.
   - Hintergrund-Rhythmus aus `builder-library.md` plus `preview-styles.css`
   - Icon-Auswahl aus `icon-library.md`
   - finale Button-Farbwerte aus `builder-library.md`
+  - kontrollierte Salutation-Feld-Overrides aus `product-salutations.json`
 - Der Export-Happy-Path prueft nur den vorhandenen export-ready State gegen `export-map.json`.
 - Der Export darf fehlende required Werte nicht aus Preview-HTML, DOM, sichtbarer Darstellung, Button-Klassen oder freiem Modulkontext raten.
 - Wenn `email_state.modules` eines der Center-Hero-Module `hero-image-top-center`, `hero-image-top-bleed-center`, `hero-cta-top-center`, `hero-cta-top-no-bottom-center`, `hero-image-head-copy-bleed-center` oder `hero-image-textbox-cta-center` enthaelt, muss ein vorhandenes Logo-Modul im export-ready State als `logo-centered` vorliegen.
@@ -89,12 +93,18 @@ Die uebrigen operativen Agent-Dateien liegen direkt daneben in `agent/`.
   - `*_salutation` bleibt ein eigener Plain-Text-Kontext vor dem Body
   - `*_use_snippetcall_salutation` ist ausschliesslich ein freigegebenes technisches Export-Flag und nie freier User-HTML- oder Raw-Code-Input
   - neue Hero-Default-States muessen `show_salutation = true` und `salutation = Hallo Anrede,` enthalten
-- Fuer den Produktkontext `RLE` ist genau eine whitelisted export-only Hero-Salutation-Substitution erlaubt:
+- Fuer `salutationContext = generic` gibt es keine Spezial-Exportlogik; die menschenlesbare Preview-Anrede bleibt der normale Exportwert.
+- Fuer `salutationContext = rle` ist genau eine whitelisted export-only Hero-Salutation-Substitution erlaubt:
   - Der Preview-/State-Wert `*_salutation` bleibt sichtbarer Plain Text und darf nie den Raw-Snippetcall enthalten.
   - Wenn fuer eines der zehn Hero-Module `*_use_snippetcall_salutation = true` materialisiert wurde, muss das produktive Hero-Snippet im Export statt `*_salutation` exakt diesen fest codierten Iterable-Logik-Block ausgeben:
     - `{{#ifContainsStr firstName 'NULL'}} Hallo, {{else if firstName}} Hallo {{firstName}}, {{else}} Hallo, {{/ifContainsStr}}`
-  - Diese Ersetzung ist ausschliesslich fuer dokumentierte Produktkontexte wie `RLE` erlaubt.
+  - Diese Ersetzung ist ausschliesslich fuer dokumentierte Salutation-Kontexte wie `rle` erlaubt.
   - Freie User-Snippetcalls, freie Raw-Logic in `*_salutation`, freie HTML-Interpolation oder andere undokumentierte Roh-Logik-Wege bleiben verboten.
+- Fuer `salutationContext = loft-snl` gilt in dieser Minimalstufe weiter `mode = template_builtin`: Der Export nutzt unveraendert die bestehende template- oder snippet-spezifische Anrede-Logik und fuehrt keine zusaetzliche zentrale Raw-Substitution ein.
+- Fuer `salutationContext = loft-rnl-dev` gilt genau eine dokumentierte Feld-Materialisierung:
+  - wenn das Modul `loft-rnl-dev-intro` exportiert wird, muss `emb_loft_rnl_dev_intro_salutation` als Snippet-Parameterwert kontrolliert auf den in `agent/product-salutations.json` dokumentierten festen Handlebars-Ausdruck gesetzt werden
+  - `emb_loft_rnl_dev_intro_headline` und `emb_loft_rnl_dev_intro_body` bleiben normale Builder-Felder
+  - der feste Handlebars-Ausdruck darf nie als freier User-Content, nie als Preview-Text und nie als direkt editierbares Feld exponiert werden
 - `rich_inline`-Felder im `email_state.content` duerfen nur sanitisiertes builder-eigenes Inline-HTML enthalten.
 - `rich_full`-Felder im `email_state.content` duerfen nur sanitisiertes builder-eigenes Richtext-HTML enthalten.
 - Fuer `rich_inline` sind nur diese Tags erlaubt:
@@ -140,6 +150,8 @@ Die uebrigen operativen Agent-Dateien liegen direkt daneben in `agent/`.
 
 - `DEFAULT_TEMPLATE_ID = 569946`
 - Freie und Blueprint-Mails ohne aktives Composition-Template nutzen im Export immer `DEFAULT_TEMPLATE_ID`.
+- Fuer `templateContext.mode = default_template` ist `email/templates/template-main.html` die einzige kanonische Repo-Referenz fuer die erwartete Default-Shell-Vollstaendigkeit.
+- Andere lokale `email/templates/*.html` sind in diesem Modus ausschliesslich template-spezifische Shells fuer ihren passenden `composition_template`-Kontext und duerfen nie als Ersatz-, Fallback- oder Rekonstruktionsquelle fuer `template-main` genutzt werden.
 - Builder-Export erzeugt bewusst keine Blast-/Send-Campaign und uebergibt deshalb keine Versandliste an `createCampaign`.
 - Review-Dateien unter `development/review/` sind fuer Modul- und Template-Arbeit reine Test-Artefakte und nie operativ.
 - Review-Dateien unter `development/review/` duerfen fuer Template-Tests vollstaendig zusammengebaut sein, sind aber nie Quelle fuer den Export.
@@ -158,6 +170,7 @@ Die uebrigen operativen Agent-Dateien liegen direkt daneben in `agent/`.
 - Template-Read ist genau einmal erlaubt und dient ausschliesslich dazu, die aktuelle campaign-owned HTML-Shell fuer den finalen Shell-Merge zu lesen.
 - `SNIPPET_CALLS` duerfen nie als nacktes Komplett-HTML gespeichert werden.
 - Das finale `html` fuer den Write-Schritt entsteht lokal genau einmal aus `email_state + export-map.json` plus der genau einmal gelesenen campaign-owned HTML-Shell und wird danach genau einmal auf dem campaign-owned Template geschrieben.
+- Die Default-Shell darf nie aus Prompt-Wissen, Tests, gekuerzten Wrapper-Beispielen oder anderen Template-Dateien sinngemaess neu aufgebaut werden; fuer `default_template` bleibt `email/templates/template-main.html` nur die kanonische Repo-Referenz, waehrend die Write-Payload ausschliesslich aus der gelesenen campaign-owned HTML-Shell entsteht.
 - Ein Standalone-Template-Save ist verboten, solange der User nicht ausdruecklich `Speichere als Template in Iterable` verlangt.
 
 ## Finaler HTML-Schritt
@@ -168,6 +181,8 @@ Die uebrigen operativen Agent-Dateien liegen direkt daneben in `agent/`.
   3. Genau diese vollstaendige finale HTML-Payload nach Iterable schreiben.
 - Die Payload wird lokal nur einmal zusammengefuegt; doppelte HTML-Builds, Shell-Neubauten oder nachgelagerte Rebuilds sind verboten.
 - Die campaign-owned HTML-Shell muss ausserhalb der erlaubten Replace-Zonen byte-faithful erhalten bleiben.
+- Im regulaeren Full-Mail-Export sind genau diese Replace-Zonen erlaubt: Subject, Preheader und Module-Slot.
+- Head, CSS, Media Queries, Wrapper-Struktur und Conditional Comments der gelesenen HTML-Shell duerfen nicht gekuerzt, ersetzt oder neu zusammengesetzt werden.
 - Die finale HTML-Payload gilt nur dann als write-faehig, wenn sie lokal vollstaendig gebaut wurde, weiterhin eine vollstaendige HTML-Shell enthaelt und keine freie Minimal-Shell ist.
 - Ein lokaler Fehler beim Snippet-Block, beim Shell-Merge oder bei der Payload-Vollstaendigkeit ist kein Write-Fehler, sondern ein lokaler Build-Fehler.
 

@@ -1,10 +1,11 @@
 {
-  "template_id": "searcher-standard",
-  "template_name": "Searcher Standard",
+  "template_id": "loft-rnl-dev",
+  "template_name": "Loft RNL (Dev)",
   "version": 1,
   "status": "active",
-  "preview_file": "template-searcher-standard.preview.html",
-  "iterable_template_id": 611779,
+  "preview_file": "template-loft-rnl-dev.preview.html",
+  "iterable_template_id": 618734,
+  "salutation_context_id": "loft-rnl-dev",
   "rules": {
     "order_locked": true,
     "forbid_new_modules": true,
@@ -20,32 +21,18 @@
       "repeatable": false
     },
     {
-      "slot_id": "hero-1",
-      "module_id": "hero-image-top",
+      "slot_id": "intro-1",
+      "module_id": "loft-rnl-dev-intro",
       "locked": true,
       "removable": false,
       "repeatable": false
     },
     {
       "slot_id": "teaser-1",
-      "module_id": "teaser-1col",
+      "module_id": "loft-rnl-dev-teaser-1col",
       "locked": false,
       "removable": true,
       "repeatable": true
-    },
-    {
-      "slot_id": "teaser-2",
-      "module_id": "teaser-1col",
-      "locked": false,
-      "removable": true,
-      "repeatable": true
-    },
-    {
-      "slot_id": "contact-1",
-      "module_id": "contact",
-      "locked": true,
-      "removable": false,
-      "repeatable": false
     },
     {
       "slot_id": "footer-1",

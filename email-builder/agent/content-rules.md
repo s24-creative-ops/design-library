@@ -15,10 +15,21 @@
 - Ein Modul soll keine Landingpage-Langform werden.
 - Pflichtinhalte duerfen nicht leer, sinnlos oder rein generisch sein.
 
+## Salutation-Kontext
+
+- Die zentrale Registry fuer Anrede-Zuordnungen ist `agent/product-salutations.json`.
+- `salutationContext` ist ein technischer Resolver fuer Anrede-Logik und kein sichtbares User-Textfeld.
+- Wenn ein aktives Composition-Template eine `salutation_context_id` traegt, wird dieser Kontext automatisch gesetzt; es ist keine Rueckfrage noetig.
+- Wenn der User explizit `Mail fuer RLE`, `Loft SNL` oder `Loft RNL` sagt, muss der EMB die Zuordnung ueber `aliases` oder `template_ids` der Registry ohne unnoetige Rueckfrage aufloesen.
+- Wenn bei From-scratch oder Blank kein Team, Produkt oder Kontext erkennbar ist, fragt der EMB genau einmal: `Fuer welches Team oder Produkt ist die Mail gedacht? Zum Beispiel RLE, Loft SNL oder Loft RNL (Dev).`
+- Wenn danach weiter keine eindeutige Zuordnung moeglich ist, gilt `salutationContext = generic`.
+- Sichtbare Preview-Anreden muessen menschenlesbar bleiben; Raw-Handlebars, freie Snippetcalls oder freie Iterable-Logik im User-Content bleiben verboten.
+- Fuer `salutationContext = loft-rnl-dev` bleibt die sichtbare Intro-Anrede im Builder `Hallo Anrede`; der produktive Handlebars-Ausdruck ist ein kontrollierter Exportwert und kein editierbarer User-Text.
+
 ## Produktkontext
 
 - Produktdefaults duerfen nur aus den dokumentierten Resolver-Regeln in `builder-library.md` kommen.
-- Aktuell ist nur der Produktkontext `RLE` erlaubt; andere Produktnamen duerfen nicht frei interpretiert werden.
+- Aktuell ist nur der Produktkontext `RLE` fuer zusaetzliche Inhaltsdefaults erlaubt; andere Registry-Kontexte aktivieren keine weiteren Produktdefaults.
 - Wenn der User einen unbekannten expliziten Produktnamen nennt, muss der Agent nachfragen statt zu raten.
 - Produktdefaults sind Start-Defaults und nie staerker als explizite spaetere User-Vorgaben fuer konkrete Felder.
 - Wenn `RLE` aktiv ist und der User keine abweichenden Contact-Werte vorgibt, muessen fuer das `contact`-Modul exakt die dokumentierten RLE-Defaults aus `builder-library.md` verwendet werden.

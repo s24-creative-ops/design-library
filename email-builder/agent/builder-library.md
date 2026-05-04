@@ -8,7 +8,7 @@ Die technische Export-Wahrheit liegt in `export-map.json`.
 - Fuer Custom-GPT-/Agent-Setups ist das Standard-Knowledge-Format eine einzelne gebuendelte Markdown-Datei mit exakten Repo-Pfadueberschriften als virtuelle Dateien.
 - Der Standardordner dafuer ist `agent-upload/email-builder-agent/` mit `systemprompt.md` und `emb_knowledge.md`.
 - `agent/` bleibt die kanonische Quelle; der Upload-Ordner ist nur das daraus abgeleitete Paket.
-- Dieses Bundle muss die aktiven Kern-, Preview- und Export-Regeln, die Export-Basis, den Template-Contract, den `email_state`-Contract, operative Icon- und Tonalitaetsquellen, `email/templates/template-main.html` sowie alle aktiven `template-<id>.definition.json`, `template-<id>.preview.html` und `email/templates/<id>.html` enthalten.
+- Dieses Bundle muss die aktiven Kern-, Preview- und Export-Regeln, die Export-Basis, den Template-Contract, den `email_state`-Contract, die zentrale Salutation-Registry `product-salutations.json`, operative Icon- und Tonalitaetsquellen, `email/templates/template-main.html` sowie alle aktiven `template-<id>.definition.json`, `template-<id>.preview.html` und `email/templates/<id>.html` enthalten.
 - Nach produktiven Aenderungen an Modulen, Templates, Regeldateien oder `export-map.json` muss das Bundle neu erzeugt werden.
 
 ## Typography-Regeln
@@ -42,6 +42,7 @@ Die technische Export-Wahrheit liegt in `export-map.json`.
 - `template-<template_id>.definition.json` ist die verbindliche Agent-Logik.
 - Regeln duerfen niemals aus `template-<template_id>.preview.html` abgeleitet werden.
 - Vorhandene CSS- und Asset-Links aus `template-<template_id>.preview.html` muessen bei Template-Nutzung unveraendert erhalten bleiben.
+- Finale EMB-Previews duerfen dabei kein externes Design-Library- oder `preview/token-runtime.js`-Script laden; operative Template-Previews verlassen sich nur auf die EMB-Preview-CSS und statisch materialisierte Werte.
 - Die Slot-Reihenfolge aus `template-<template_id>.definition.json` ist verbindlich.
 - Neue Modultypen ausserhalb der Slots sind verboten.
 - Entfernen oder Duplizieren ist nur erlaubt, wenn `template-<template_id>.definition.json` es erlaubt.
@@ -57,14 +58,15 @@ Die technische Export-Wahrheit liegt in `export-map.json`.
 - Relevante Library- oder Regeldateien werden dabei nur bei konkretem Bedarf nachgezogen; pauschale Anschlussaenderungen sind verboten.
 - Die Review-Dateien koennen nach der Integration als finaler Teststand aktualisiert werden, bleiben aber reine Test-Artefakte und nie operative Builder-Wahrheit.
 - Aktuell bekanntes aktives Composition-Template:
-  - `searcher-standard`
-    - `template-searcher-standard.definition.json`
-    - `template-searcher-standard.preview.html`
-    - Iterable Template-ID `611779`
   - `loft-snl`
     - `template-loft-snl.definition.json`
     - `template-loft-snl.preview.html`
     - Iterable Template-ID `615576`
+    - Preview-first bleibt Pflicht; Iterable-Export startet erst nach expliziter User-Freigabe.
+  - `loft-rnl-dev`
+    - `template-loft-rnl-dev.definition.json`
+    - `template-loft-rnl-dev.preview.html`
+    - Iterable Template-ID `618734`
     - Preview-first bleibt Pflicht; Iterable-Export startet erst nach expliziter User-Freigabe.
 
 ## Startlogik
@@ -82,6 +84,22 @@ Nutze genau diese Reihenfolge:
 - Wenn der User explizit ein bekanntes aktives Composition-Template anfordert, gewinnt dieses Template vor dem Standard-Blueprint.
 - Die Wahl eines Composition-Templates bestimmt nur die Startkomposition und bedeutet nie automatisch Export oder Iterable-Update.
 - Wenn kein Template genannt wird, bleibt der normale Mail-Flow mit dem Standard-Blueprint unveraendert.
+
+## Salutation-Kontext
+
+- Die zentrale Registry fuer Anrede-Zuordnungen ist `agent/product-salutations.json`.
+- `salutationContext` ist ein eigener Resolver-Kontext fuer Anrede-Logik und getrennt von `templateContext` und vom inhaltlichen Produktkontext.
+- Der Resolver arbeitet in genau dieser Reihenfolge:
+  1. `salutation_context_id` des aktiven Composition-Templates
+  2. explizite User-Nennung ueber `aliases` oder `template_ids` aus `agent/product-salutations.json`
+  3. bei From-scratch oder Blank ohne erkennbare Zuordnung genau eine Rueckfrage: `Fuer welches Team oder Produkt ist die Mail gedacht? Zum Beispiel RLE, Loft SNL oder Loft RNL (Dev).`
+  4. wenn danach weiter keine eindeutige Zuordnung moeglich ist: `generic`
+- Wenn ein Template eine `salutation_context_id` traegt, wird `salutationContext` automatisch gesetzt; es ist keine Rueckfrage noetig.
+- Direkte User-Angaben wie `Mail fuer RLE` oder `Newsletter fuer Loft RNL` muessen ueber die Registry ohne unnoetige Rueckfrage aufgeloest werden.
+- `mode = template_builtin` bedeutet: bestehende template- oder snippet-spezifische Anrede-Logik weiterverwenden.
+- Eine dokumentierte Ausnahme ist erlaubt, wenn `agent/product-salutations.json` fuer einen bestehenden Template-Kontext genau ein kontrolliertes Feld-Override definiert, das keinen freien User-Raw-Code eroeffnet.
+- `mode = hero_snippet_flag` bedeutet: nur das bestehende Hero-Pattern mit sichtbarer Preview-Anrede und technischem Export-Flag nutzen.
+- `mode = plain_default` bedeutet: sichtbare Preview-Anrede aus `preview_default`, keine Spezial-Exportlogik.
 
 ## Pflichtmodule
 
@@ -121,17 +139,15 @@ Modulfolge:
 
 1. `logo`
 2. `hero-image-top`
-3. `benefits-3col`
-4. `teaser-1col`
-5. `footer`
+3. `steps-3col`
+4. `footer`
 
 Inhalt fuer den ersten Entwurf:
 
 - Subject: klare Nutzenaussage in einem Satz
 - Preheader: kurze Ergaenzung zum Subject
 - Hero: Headline, kurzer Einstieg, ein CTA mit Label und URL
-- `benefits-3col`: drei kurze Vorteile plus CTA mit Label und URL
-- `teaser-1col`: ein vertiefender Inhaltsblock mit CTA mit Label und URL
+- `steps-3col`: drei kurze Schritte plus CTA mit Label und URL
 
 Wenn kein Thema genannt ist:
 
@@ -184,6 +200,8 @@ Wenn kein Thema genannt ist:
 | `teaser-1col` | `emb_teaser_1col` |
 | `loft-snl-copy-cta` | `emb_loft_snl_copy_cta` |
 | `loft-snl-copy-sections-cta` | `emb_loft_snl_copy_sections_cta` |
+| `loft-rnl-dev-intro` | `emb_loft_rnl_dev_intro` |
+| `loft-rnl-dev-teaser-1col` | `emb_loft_rnl_dev_teaser_1col` |
 | `teaser-2col-horizontal` | `emb_teaser_2col_horizontal` |
 | `teaser-2col-vertical` | `emb_teaser_2col_vertical` |
 | `teaser-2col-alternating` | `emb_teaser_2col_alternating` |
@@ -222,12 +240,13 @@ Bewusst nicht angebunden:
 
 ## Produktkontext
 
-- Produktkontext ist eine fachliche Start-Default-Logik fuer Inhalte und getrennt vom technischen `templateContext`.
+- Produktkontext ist eine fachliche Start-Default-Logik fuer Inhalte und getrennt von `templateContext` und `salutationContext`.
+- `salutationContext` kann ueber `agent/product-salutations.json` mehr Kontexte kennen als der Produktkontext; zusaetzliche Inhaltsdefaults duerfen trotzdem nur aus dokumentierten Produkt-Resolvern kommen.
 - Produktkontext darf nur dann aktiviert werden, wenn der User am Chat-Anfang explizit ein Produkt nennt, zum Beispiel `Erstelle ein Mailing fuer RLE`, `Produkt: RLE` oder `fuer rle`.
 - Die Erkennung ist strikt case-insensitive, aber nur fuer diesen einen dokumentierten Produktnamen erlaubt:
   - `RLE` -> normalisiert zu `RLE`
 - `RLE` steht fuer `Realtor Lead Engine`, aber der ausgeschriebene Name ist aktuell keine zusaetzliche Resolver-Form.
-- Weitere Produktnamen, aehnliche Schreibweisen oder freie Produktableitungen sind verboten.
+- Weitere Produktnamen, aehnliche Schreibweisen oder freie Produktableitungen sind fuer Produktdefaults verboten.
 - Wenn der User explizit einen unbekannten Produktnamen nennt, muss der Agent nachfragen statt zu raten.
 - Wenn kein Produkt genannt wird, bleiben die neutralen EMB-Defaults aktiv.
 - Produktdefaults sind nur Start-Defaults.
@@ -237,7 +256,7 @@ Bewusst nicht angebunden:
 
 - Normalisierter Produktkontext: `RLE`
 - Produktname: `Realtor Lead Engine`
-- Preview-Hero-Anrede bleibt in allen sechs Hero-Modulen die normale sichtbare Vorschau-Anrede:
+- Wenn `RLE` explizit als Produkt genannt oder ueber `salutationContext = rle` aufgeloest wurde, bleibt die Preview-Hero-Anrede in allen zehn Hero-Modulen die normale sichtbare Vorschau-Anrede:
   - `Hallo Anrede,`
 - Export-Ziel fuer die Hero-Anrede ist fuer `RLE` genau dieser whitelisted Iterable-Logik-Block:
   - `{{#ifContainsStr firstName 'NULL'}} Hallo, {{else if firstName}} Hallo {{firstName}}, {{else}} Hallo, {{/ifContainsStr}}`
@@ -258,11 +277,15 @@ Bewusst nicht angebunden:
   - `emb_contact_closing_line_2` = `Dein ImmoScout24-Team`
 - Fuer RLE muessen bei Hero-Modulen zusaetzlich diese technischen Export-Flags auf `true` gesetzt werden, wenn die Hero-Anrede sichtbar bleibt:
   - `emb_hero_image_top_use_snippetcall_salutation`
+  - `emb_hero_image_top_center_use_snippetcall_salutation`
   - `emb_hero_image_top_bleed_use_snippetcall_salutation`
+  - `emb_hero_image_top_bleed_center_use_snippetcall_salutation`
   - `emb_hero_image_head_copy_bleed_center_use_snippetcall_salutation`
   - `emb_hero_image_textbox_cta_center_use_snippetcall_salutation`
   - `emb_hero_cta_top_use_snippetcall_salutation`
+  - `emb_hero_cta_top_center_use_snippetcall_salutation`
   - `emb_hero_cta_top_no_bottom_use_snippetcall_salutation`
+  - `emb_hero_cta_top_no_bottom_center_use_snippetcall_salutation`
 
 ## Export-Ready Resolver
 
@@ -748,7 +771,26 @@ Bewusst nicht angebunden:
 
 ### Teaser-Module
 
+- `loft-rnl-dev-intro` ist ein template-spezifisches Loft-RNL-Dev-Intro mit editierbarer `heading-l`-Headline, kontrolliertem Salutation-Feld und einem frei editierbaren `rich_full`-Body.
+- Das Modul nutzt genau diese Builder-Felder:
+  - `emb_loft_rnl_dev_intro_headline`
+  - `emb_loft_rnl_dev_intro_salutation`
+  - `emb_loft_rnl_dev_intro_body`
+- In der Preview bleibt `emb_loft_rnl_dev_intro_salutation` menschenlesbarer Plain Text `Hallo Anrede`.
+- Die finale EMB-Preview materialisiert die Intro-Headline im Markup explizit als `font-heading-large-bold`, damit die bestehende `heading-l`-Typografie ohne Loft-Sonderannahmen im Preview-Pfad landet.
+- Fuer `salutationContext = loft-rnl-dev` wird der produktive Exportwert von `emb_loft_rnl_dev_intro_salutation` kontrolliert aus `agent/product-salutations.json` materialisiert.
 - `teaser-1col` behaelt Bild, Richtextbereich und CTA.
+- `loft-rnl-dev-teaser-1col` ist ein template-spezifisches Loft-RNL-Dev-Modul mit Badge, `heading-l`-Headline, Bild, Richtext-Body, festem Detailtitel, Richtext-Detailbereich und CTA.
+- `loft-rnl-dev-teaser-1col` ist repeatable; neue Instanzen werden direkt nach der letzten vorhandenen Instanz derselben `module_id` eingefuegt.
+- `loft-rnl-dev-teaser-1col` nutzt fuer `emb_loft_rnl_dev_teaser_1col_bg_color` immer den globalen Hintergrund-Rhythmus:
+  - erste Instanz nach dem Intro = grau `#F5F5F5`
+  - zweite Instanz = weiss `#FFFFFF`
+  - danach strikt weiter grau, weiss, grau, weiss
+- Die Badge-Flaeche von `loft-rnl-dev-teaser-1col` ist keine freie User-Entscheidung; sie ist immer invers zur finalen Hintergrundflaeche des Moduls.
+- Die finale EMB-Preview materialisiert diese Badge-Inversion direkt im Markup:
+  - graues Modul `#F5F5F5` => `module__badge module__badge--surface-white`
+  - weisses Modul `#FFFFFF` => `module__badge module__badge--surface-gray`
+- Die finale EMB-Preview materialisiert die Teaser-Headline im Markup explizit als `font-heading-large-bold`, damit die bestehende `heading-l`-Typografie ohne groessere Hero-/XL-Klassen im Preview-Pfad landet.
 - `teaser-2col-horizontal` nutzt bis zu vier Items; `show_item_2..4` folgen exakt der sichtbaren Item-Anzahl.
 - `teaser-2col-vertical` nutzt genau zwei Spalten.
 - `teaser-2col-alternating` nutzt genau zwei Zeilen.

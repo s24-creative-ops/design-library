@@ -858,6 +858,14 @@ a {
   line-height: var(--line-height-badge);
 }
 
+.module__badge--surface-white {
+  background: var(--surface-white);
+}
+
+.module__badge--surface-gray {
+  background: var(--surface-gray);
+}
+
 .is-hidden {
   display: none !important;
 }
@@ -887,6 +895,11 @@ a {
 .module__title--small {
   font-size: var(--font-size-title-small);
   line-height: var(--line-height-title-small);
+}
+
+.module__title.font-heading-large-bold {
+  font-size: var(--font-size-title-large);
+  line-height: var(--line-height-title-large);
 }
 
 .module__title + .module__teaser-richtext {
@@ -923,6 +936,11 @@ a {
 
 .module[data-module="teaser-1col"] .module__cta-row {
   margin-top: 0;
+}
+
+.module[data-module="loft-rnl-dev-teaser-1col"] .loft-rnl-dev-teaser-1col__details {
+  display: grid;
+  gap: var(--space-4);
 }
 
 .button,
@@ -1591,6 +1609,8 @@ a {
   }
 
   .module[data-module="teaser-1col"] .module__inner,
+  .module[data-module="loft-rnl-dev-intro"] .module__inner,
+  .module[data-module="loft-rnl-dev-teaser-1col"] .module__inner,
   .module[data-module="loft-snl-copy-cta"] .module__inner,
   .module[data-module="loft-snl-copy-sections-cta"] .module__inner {
     padding-top: var(--space-40);
@@ -1701,6 +1721,11 @@ a {
     .module[data-module="hero-cta-top-no-bottom-center"] .module__title {
     font-size: var(--font-size-title-mobile-medium);
     line-height: var(--line-height-title-mobile-medium);
+  }
+
+  .module__title.font-heading-large-bold {
+    font-size: var(--font-size-title-mobile-hero);
+    line-height: var(--line-height-title-mobile-hero);
   }
 
     .module[data-module="hero-image-top"] .module__title.module__title--hero-small,

@@ -1,6 +1,54 @@
 {
-  "version": 1,
+  "version": 2,
   "preview_default": "Hallo Anrede,",
-  "fallback_export": "Hallo Anrede,",
-  "products": []
+  "contexts": [
+    {
+      "id": "generic",
+      "aliases": [],
+      "template_ids": [],
+      "mode": "plain_default",
+      "preview_text": "Hallo Anrede,"
+    },
+    {
+      "id": "rle",
+      "aliases": [
+        "rle"
+      ],
+      "template_ids": [],
+      "mode": "hero_snippet_flag",
+      "preview_text": "Hallo Anrede,"
+    },
+    {
+      "id": "loft-snl",
+      "aliases": [
+        "loft snl",
+        "snl"
+      ],
+      "template_ids": [
+        "loft-snl"
+      ],
+      "mode": "template_builtin"
+    },
+    {
+      "id": "loft-rnl-dev",
+      "aliases": [
+        "loft rnl",
+        "loft rnl dev",
+        "loft rnl (dev)",
+        "rnl dev"
+      ],
+      "template_ids": [
+        "loft-rnl-dev"
+      ],
+      "mode": "template_builtin",
+      "field_resolvers": [
+        {
+          "module_id": "loft-rnl-dev-intro",
+          "field": "emb_loft_rnl_dev_intro_salutation",
+          "preview_value": "Hallo Anrede",
+          "export_value": "{{#if (and (eq salutation 'Frau') (neq lastName 'NULL'))}} Liebe {{salutation}} {{lastName}}, {{else if (and (eq salutation 'Herr') (neq lastName 'NULL'))}} Lieber {{salutation}} {{lastName}}, {{else}} Liebe:r ImmoScout24-Nutzer:in, {{/if}}"
+        }
+      ]
+    }
+  ]
 }

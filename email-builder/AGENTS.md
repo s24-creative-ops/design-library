@@ -163,6 +163,10 @@ E-Mail:
 
 * Inline-Padding ist erlaubt, wenn es aus dem gewaehlten `email_reference_module` uebernommen wird oder fuer E-Mail-Kompatibilitaet noetig ist
 * Codex darf Inline-Padding nicht frei neu erfinden
+* Die folgenden Padding-Regeln sind Entwicklungsregeln fuer Codex bei Repo-Arbeit an neuen EMB-Modulen, template-spezifischen Modulen und Review-Modulen
+* Sie gelten nicht als Freigabe oder Auftrag, dass der EMB-Agent beim normalen Mail-Bau neue Module konstruieren soll
+* Neue EMB-Module, template-spezifische Module und Review-Module verwenden standardmaessig `60 / 40` Desktop und `40 / 20` Mobile
+* Mobile `60 / 20` ist KEIN Default und darf nur bei einer dokumentierten Modul-Ausnahme beibehalten werden
 * Padding muss dem `email_reference_module` oder dem Standard `60 / 40` Desktop und `40 / 20` Mobile folgen
 * Abweichungen brauchen eine Begruendung oder ausdrueckliche User-Freigabe
 
@@ -173,7 +177,11 @@ Allgemein:
   * Desktop: 60 / 40
   * Mobile: 40 / 20
 * 24px Padding ist NICHT erlaubt
-* Wenn ein Referenz-Modul genutzt wird, MUSS dessen Spacing exakt übernommen werden (keine Mischung)
+* Historische Mobile-Helper in bestehenden produktiven E-Mail-Modulen oder in `template-main.html` mit `24px` sind KEIN Default fuer neue Module
+* Wenn ein Referenz-Modul genutzt wird, MUSS dessen Spacing exakt übernommen werden, aber nur wenn die Abweichung als dokumentierte Modul-Ausnahme belegt ist
+* Wenn ein bestehendes Pattern oder Helper dem Standard `40 / 20` Mobile widerspricht und keine dokumentierte Ausnahme belegt ist, MUSS Codex stoppen und berichten
+* Codex darf keine Mobile-Padding-Werte aus Desktop-Padding ableiten oder Desktop-Werte nach Mobile kopieren
+* Review-spezifische `data-module`-Namen in `preview-index.html` erben mobile `module__inner`-Top-/Bottom-Paddings aus `preview-styles.css` nicht automatisch; Codex MUSS dort mobil explizit `40 / 20` oder eine dokumentierte Ausnahme absichern
 
 DEFAULT (wenn kein Pattern klar ist):
 

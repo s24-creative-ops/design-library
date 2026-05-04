@@ -5,6 +5,7 @@
   "status": "active",
   "preview_file": "template-loft-snl.preview.html",
   "iterable_template_id": 615576,
+  "salutation_context_id": "loft-snl",
   "rules": {
     "order_locked": true,
     "forbid_new_modules": true,

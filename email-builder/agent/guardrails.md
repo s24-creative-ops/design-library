@@ -136,6 +136,7 @@
 - Wenn ein aktives Composition-Template genutzt wird und `iterable_template_id = null` ist, darf kein Iterable-Export stattfinden.
 - Das zugehoerige Iterable-Basistemplate fuer Composition-Templates liegt immer unter `email/templates/<template_id>.html`.
 - Dieses Basistemplate darf keine festen Module und keine festen Snippet-Calls enthalten.
+- Fuer `templateContext.mode = default_template` ist `email/templates/template-main.html` die einzige kanonische Repo-Referenz fuer die Default-Shell; andere `email/templates/*.html` sind in diesem Modus keine zulaessigen Ersatz- oder Fallback-Shells.
 - Die aktive Basis-`templateId` darf nur im CreateCampaign-Call als Basis-Template verwendet werden.
 - Nach dem Campaign-Read muss genau eine aktuelle campaign-owned HTML-Shell fuer diese `templateId` gelesen werden.
 - Der finale CreateCampaign-Request ohne Secrets sowie HTTP-Status-Info, Raw-Response-Body-Info und die verwertbare Tool-Antwort-/Envelope-Info muessen bei jedem fehlgeschlagenen Call vollstaendig protokolliert werden.
@@ -168,6 +169,8 @@
 - Nackte `SNIPPET_CALLS` duerfen nie als komplettes `html` geschrieben werden.
 - Die gelesene campaign-owned HTML-Shell muss ausserhalb der erlaubten Replace-Zonen unveraendert bleiben.
 - Eine freie Minimal-Shell oder lokal neu erfundene Shell als Write-Payload ist verboten.
+- Die Default-Shell darf nie sinngemaess aus Prompt-Wissen, Tests, gekuerzten Wrapper-Beispielen oder template-fremden Shell-Dateien nachgebaut werden.
+- Im finalen Shell-Merge duerfen nur Subject, Preheader und der Module-Slot ersetzt werden; Head, CSS, Media Queries, Wrapper-Struktur und Conditional Comments bleiben vollstaendig erhalten.
 - Vor dem finalen Write muss lokal klar unterscheidbar sein, ob der Fehler im HTML-Build, in der Payload-Vollstaendigkeit oder erst im Iterable-Write liegt.
 - Der finale HTML-Schritt endet nie mit einem unscharfen `HTML fehlgeschlagen`.
 - Vor dem finalen Write laeuft genau eine kleine lokale Payload-Pruefung fuer Subject, Preheader, modularem Block, campaign-owned HTML-Shell und finale HTML-Payload.

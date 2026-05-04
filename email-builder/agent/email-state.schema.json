@@ -56,6 +56,19 @@
       },
       "additionalProperties": false
     },
+    "salutationContext": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "enum": [
+        "generic",
+        "rle",
+        "loft-snl",
+        "loft-rnl-dev",
+        null
+      ]
+    },
     "subject": {
       "type": "string"
     },
@@ -99,6 +112,8 @@
     "Ein export-ready state muss einen eindeutigen templateContext enthalten.",
     "Bei freiem Modulbau gilt templateContext.mode = default_template und templateContext.resolvedBaseTemplateId = 569946.",
     "Bei Composition-Templates gelten templateContext.mode = composition_template, templateContext.compositionTemplateId, templateContext.iterableTemplateId und templateContext.resolvedBaseTemplateId = templateContext.iterableTemplateId.",
+    "salutationContext ist der aufgeloeste Anrede-Kontext aus agent/product-salutations.json oder aus salutation_context_id des aktiven Composition-Templates.",
+    "Neue regulaere States sollen salutationContext als registrierte ID tragen; wenn keine eindeutige Zuordnung vorliegt, gilt generic.",
     "campaignId und templateId sind nur die wiederverwendbare Campaign-Bindung; templateContext.resolvedBaseTemplateId bleibt davon getrennt.",
     "Bei Re-Export muessen campaignId, templateId und previewBranchKey eindeutig demselben fortgeschriebenen Preview-/Composition-Zweig zugeordnet sein.",
     "module_id muss in export-map.json existieren.",
@@ -108,7 +123,7 @@
     "Required Felder werden nur aus content oder Default der export-map.json befuellt.",
     "Felder ohne content und ohne Default werden nicht erfunden.",
     "Resolver-Werte sind nur zulaessig, wenn sie vor dem Export bereits konkret im state materialisiert wurden oder aus einer dokumentierten technischen Quelle fail-closed ableitbar sind.",
-    "Dokumentierte technische Resolver-Quellen sind nur: Hintergrund-Rhythmus aus builder-library.md plus preview-styles.css, Icon-Auswahl aus icon-library.md und finale Button-Farbwerte aus builder-library.md.",
+    "Dokumentierte technische Resolver-Quellen sind nur: Hintergrund-Rhythmus aus builder-library.md plus preview-styles.css, Icon-Auswahl aus icon-library.md, finale Button-Farbwerte aus builder-library.md und kontrollierte Salutation-Feld-Overrides aus product-salutations.json.",
     "Wenn modules eines der Center-Hero-Module hero-image-top-center, hero-image-top-bleed-center, hero-cta-top-center, hero-cta-top-no-bottom-center, hero-image-head-copy-bleed-center oder hero-image-textbox-cta-center enthalten, muss ein vorhandenes Logo-Modul als logo-centered vorliegen; ein plain logo ist in diesem Kontext vor dem Export zu normalisieren.",
     "Diese Logo-Normalisierung aendert nur das Logo-Modul, fuegt kein zweites Logo ein und erhaelt die Modulreihenfolge.",
     "Nur Hero-Headlines duerfen im state ueber ein kanonisches Groessenfeld steuerbar sein.",

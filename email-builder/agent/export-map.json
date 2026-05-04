@@ -1496,6 +1496,111 @@
       ]
     },
     {
+      "module_id": "loft-rnl-dev-intro",
+      "snippet_name": "emb_loft_rnl_dev_intro",
+      "fields": [
+        {
+          "name": "emb_loft_rnl_dev_intro_headline",
+          "type": "text",
+          "required": true,
+          "default": "Immobilien-Newsletter München"
+        },
+        {
+          "name": "emb_loft_rnl_dev_intro_salutation",
+          "type": "text",
+          "required": true,
+          "default": "Hallo Anrede"
+        },
+        {
+          "name": "emb_loft_rnl_dev_intro_body",
+          "type": "rich_full",
+          "required": true,
+          "default": "<p>willkommen zum aktuellen Immobilien-Newsletter für München und Umgebung.</p>"
+        }
+      ],
+      "notes": [
+        "Template-specific Loft RNL intro snippet with editable headline, controlled salutation field and rich body.",
+        "For salutationContext `loft-rnl-dev`, export materializes `emb_loft_rnl_dev_intro_salutation` from the documented salutation registry instead of exposing free Iterable variables in the snippet."
+      ]
+    },
+    {
+      "module_id": "loft-rnl-dev-teaser-1col",
+      "snippet_name": "emb_loft_rnl_dev_teaser_1col",
+      "fields": [
+        {
+          "name": "emb_loft_rnl_dev_teaser_1col_bg_color",
+          "type": "color",
+          "required": true,
+          "default": ""
+        },
+        {
+          "name": "emb_loft_rnl_dev_teaser_1col_badge_label",
+          "type": "text",
+          "required": true,
+          "default": "Wohnungen zum Kauf"
+        },
+        {
+          "name": "emb_loft_rnl_dev_teaser_1col_headline",
+          "type": "text",
+          "required": true,
+          "default": ""
+        },
+        {
+          "name": "emb_loft_rnl_dev_teaser_1col_image_url",
+          "type": "image_url",
+          "required": true,
+          "default": "https://library.eu.iterable.com/33/98/b9799c74eec5412c8fb0c995dd52f19c-emb_placeholder_16x9.png"
+        },
+        {
+          "name": "emb_loft_rnl_dev_teaser_1col_image_alt",
+          "type": "text",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "emb_loft_rnl_dev_teaser_1col_body",
+          "type": "rich_full",
+          "required": true,
+          "default": ""
+        },
+        {
+          "name": "emb_loft_rnl_dev_teaser_1col_details",
+          "type": "rich_full",
+          "required": true,
+          "default": ""
+        },
+        {
+          "name": "emb_loft_rnl_dev_teaser_1col_button_url",
+          "type": "url",
+          "required": true,
+          "default": ""
+        },
+        {
+          "name": "emb_loft_rnl_dev_teaser_1col_button_bg_color",
+          "type": "color",
+          "required": true,
+          "default": "#333333"
+        },
+        {
+          "name": "emb_loft_rnl_dev_teaser_1col_button_border_color",
+          "type": "color",
+          "required": true,
+          "default": "#333333"
+        },
+        {
+          "name": "emb_loft_rnl_dev_teaser_1col_button_label",
+          "type": "text",
+          "required": true,
+          "default": "Exposé anfordern"
+        }
+      ],
+      "notes": [
+        "Template-specific Loft RNL teaser module.",
+        "Background color is required but must be resolved from the global background rhythm, not from a free user choice.",
+        "Badge surface is derived inversely from the resolved background color inside the productive snippet."
+      ]
+    },
+    {
       "module_id": "teaser-2col-horizontal",
       "snippet_name": "emb_teaser_2col_horizontal",
       "fields": [
