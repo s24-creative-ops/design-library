@@ -829,26 +829,30 @@
 
     .token-color-columns {
       display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-template-columns: 1fr;
       gap: 34px;
       align-items: start;
     }
 
     .token-color-column {
       display: grid;
-      gap: 16px;
+      gap: 14px;
       align-content: start;
     }
 
     .token-color-list {
-      display: grid;
-      gap: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px 16px;
+      align-items: flex-start;
     }
 
     .token-card--color {
-      grid-template-columns: 150px minmax(0, 1fr);
+      width: 112px;
+      grid-template-columns: none;
       align-items: start;
-      gap: 14px;
+      align-content: start;
+      gap: 8px;
       padding: 0;
       border: 0;
       border-radius: 0;
@@ -856,38 +860,40 @@
     }
 
     .token-card__swatch--compact {
-      width: 150px;
-      height: 116px;
+      width: 100%;
+      height: 58px;
       aspect-ratio: auto;
-      border-radius: 12px;
+      border-radius: 10px;
       border: 1px solid rgba(0, 0, 0, 0.08);
     }
 
     .token-card--color .token-card__meta {
-      gap: 4px;
+      gap: 6px;
       min-width: 0;
     }
 
     .token-card--color .token-card__title {
-      font-size: 14px;
-      line-height: 1.25;
+      font-size: 13px;
+      line-height: 1.3;
     }
 
     .token-card--color .token-card__copy-row {
-      align-items: flex-start;
-      gap: 6px;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 8px;
+      flex-wrap: nowrap;
     }
 
     .token-card--color .token-copy-button {
-      width: auto;
-      justify-content: flex-start;
-      padding-right: 150px;
+      flex: 0 0 auto;
     }
 
     .token-card--color .token-card__code {
       font-size: 11px;
       line-height: 1.3;
-      word-break: break-word;
+      white-space: nowrap;
+      word-break: normal;
+      overflow-wrap: normal;
     }
 
     .token-section-group__title {
