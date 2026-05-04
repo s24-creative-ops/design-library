@@ -661,9 +661,16 @@
     }
 
     .token-button-preview__row {
-      display: grid;
-      gap: 50px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px 32px;
       justify-items: start;
+    }
+
+    .token-button-preview__item {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
     }
 
     .token-button-chip {
@@ -4147,14 +4154,20 @@
                 ';color:' + getTokenValue(config.text) +
                 ';border:1px solid ' + getTokenValue(config.border) + ';"';
             }
-            return '<div class="token-button-chip"' + attrs + '>' + label + '</div>';
+            return '<div class="token-button-preview__item">' +
+              '<div class="token-button-chip"' + attrs + '>' + label + '</div>' +
+              createCopyButton(label, label) +
+            '</div>';
           }
 
           function renderChevronLink(label) {
-            return '<a class="token-chevron-link" href="#0">' +
-              '<img class="token-chevron-link__icon" src="https://library.eu.iterable.com/33/98/a178a6459c3c432291d8c25be0f40928-emb_chevron-icon.png" width="8" height="16" alt="">' +
-              '<span>' + label + '</span>' +
-            '</a>';
+            return '<div class="token-button-preview__item">' +
+              '<a class="token-chevron-link" href="#0">' +
+                '<img class="token-chevron-link__icon" src="https://library.eu.iterable.com/33/98/a178a6459c3c432291d8c25be0f40928-emb_chevron-icon.png" width="8" height="16" alt="">' +
+                '<span>' + label + '</span>' +
+              '</a>' +
+              createCopyButton(label, label) +
+            '</div>';
           }
 
           var lpButtons = TOKENS.buttons.canonical_types.map(function (key) {
@@ -4166,6 +4179,7 @@
 
           buttonHost.innerHTML =
             '<div class="token-button-preview__row">' + lpButtons.join('') + '</div>';
+          bindCopyButtons(buttonHost);
         }
 
         var typeHost = document.querySelector('[data-token-typography]');
