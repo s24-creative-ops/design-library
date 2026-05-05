@@ -1000,30 +1000,7 @@
       line-height: 1.55;
     }
 
-    .email-service-library__meta {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 10px;
-      color: var(--text-soft);
-      font-size: 13px;
-      line-height: 1.4;
-    }
-
-    .email-service-library__count {
-      display: inline-flex;
-      align-items: center;
-      min-height: 28px;
-      padding: 0 10px;
-      border-radius: 999px;
-      background: #f2f2f2;
-      color: var(--text);
-      font-size: 12px;
-      line-height: 1;
-      font-weight: 700;
-    }
-
-    .email-service-library__source code {
+    .email-service-library__intro code {
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
       font-size: 12px;
       color: var(--text);
@@ -1032,175 +1009,8 @@
       padding: 2px 6px;
     }
 
-    .email-service-library__list {
-      display: grid;
-      gap: 16px;
-    }
-
-    .email-service-doc {
-      display: grid;
-      grid-template-columns: minmax(220px, 252px) minmax(0, 1fr);
-      gap: 20px;
-      padding: 20px;
-      border: 1px solid var(--stroke);
-      border-radius: 16px;
-      background: #ffffff;
-    }
-
-    .email-service-doc__preview {
-      display: grid;
-      align-content: start;
-    }
-
-    .email-service-doc__tile {
-      display: grid;
-      gap: 0;
-      padding: 16px;
-      border: 1px solid #eaeaea;
-      border-radius: 8px;
-      background: #ffffff;
-    }
-
-    .email-service-doc__icon-row {
-      margin-bottom: 16px;
-    }
-
-    .email-service-doc__icon-shell {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
-      background: #333333;
-    }
-
-    .email-service-doc__icon {
-      display: block;
-      width: 32px;
-      height: 32px;
-      object-fit: contain;
-    }
-
-    .email-service-doc__title {
-      margin: 0 0 8px;
-      color: var(--text);
-      font-size: 18px;
-      line-height: 1.55;
-      font-weight: 700;
-      overflow-wrap: anywhere;
-      hyphens: auto;
-    }
-
-    .email-service-doc__description {
-      margin: 0;
-      color: #adadad;
-      font-size: 14px;
-      line-height: 1.35;
-      overflow-wrap: anywhere;
-      hyphens: auto;
-    }
-
-    .email-service-doc__content {
-      display: grid;
-      gap: 14px;
-      min-width: 0;
-    }
-
-    .email-service-doc__headline {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .email-service-doc__id {
-      display: inline-flex;
-      align-items: center;
-      min-height: 28px;
-      padding: 0 10px;
-      border-radius: 999px;
-      background: #f2f2f2;
-      color: var(--text);
-      font-size: 12px;
-      line-height: 1;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
-    .email-service-doc__snippet {
-      color: #8b8b8b;
-      font-size: 13px;
-      line-height: 1.4;
-      overflow-wrap: anywhere;
-    }
-
-    .email-service-doc__snippet code {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size: 12px;
-      color: var(--text);
-      background: #f7f7f7;
-      border-radius: 6px;
-      padding: 2px 6px;
-    }
-
-    .email-service-doc__details {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px 16px;
-      margin: 0;
-    }
-
-    .email-service-doc__details-item {
-      display: grid;
-      gap: 4px;
-      min-width: 0;
-      margin: 0;
-    }
-
-    .email-service-doc__details-item--full {
-      grid-column: 1 / -1;
-    }
-
-    .email-service-doc__details dt {
-      color: #8b8b8b;
-      font-size: 12px;
-      line-height: 1.3;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
-    .email-service-doc__details dd {
-      margin: 0;
-      color: var(--text);
-      font-size: 14px;
-      line-height: 1.5;
-      overflow-wrap: anywhere;
-      word-break: break-word;
-    }
-
-    .email-service-doc__details code {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size: 12px;
-      color: var(--text);
-      background: #f7f7f7;
-      border-radius: 6px;
-      padding: 2px 6px;
-    }
-
-    .email-service-doc__link {
-      color: var(--text);
-      text-decoration: underline;
-      text-decoration-thickness: 1px;
-      text-underline-offset: 2px;
-    }
-
-    .email-service-doc__link:hover,
-    .email-service-doc__link:focus-visible {
-      color: #000000;
-      outline: none;
+    .email-service-library__grid {
+      margin-top: 0;
     }
 
     @media (max-width: 1500px) {
@@ -1212,16 +1022,6 @@
     @media (max-width: 1200px) {
       .token-image-ratios {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-    }
-
-    @media (max-width: 900px) {
-      .email-service-doc {
-        grid-template-columns: 1fr;
-      }
-
-      .email-service-doc__details {
-        grid-template-columns: 1fr;
       }
     }
 
@@ -3857,14 +3657,10 @@
                 <div class="email-service-library">
                   <div class="email-service-library__header">
                     <p class="email-service-library__eyebrow">E-Mail Builder / Servicetiles</p>
-                    <h2 class="email-service-library__title">Alle verfuegbaren Service-Produkte</h2>
-                    <p class="email-service-library__intro">Diese Sektion dokumentiert die EMB-Servicetiles auf Basis der zentralen Registry. Jede Zeile zeigt die sichtbare Tile-Struktur sowie die fachlichen Quelldaten aus dem E-Mail Builder.</p>
-                    <div class="email-service-library__meta">
-                      <span class="email-service-library__count" data-email-service-products-count>Wird geladen...</span>
-                      <span class="email-service-library__source">Quelle: <code>email-builder/agent/service-products.json</code></span>
-                    </div>
+                    <h2 class="email-service-library__title">Verfuegbare Service-Produkte</h2>
+                    <p class="email-service-library__intro">Im EMB muessen User nur sagen, welche Produkte sie im Modul <code>servicetiles</code> haben moechten. Icon, Titel, Description und Link werden automatisch aus der Service-Produkt-Registry aufgeloest.</p>
                   </div>
-                  <div class="email-service-library__list" data-email-service-products></div>
+                  <div class="servicetiles-grid email-service-library__grid" data-email-service-products></div>
                 </div>
               </div>
             </div>
@@ -4320,7 +4116,6 @@
         '[data-token-colors], [data-token-buttons], [data-token-typography], [data-token-radius], [data-token-spacing], [data-token-borders], [data-token-ratios]'
       ));
       var serviceProductHost = document.querySelector('[data-email-service-products]');
-      var serviceProductCount = document.querySelector('[data-email-service-products-count]');
 
       function renderTokenState(message) {
         tokenHosts.forEach(function (host) {
@@ -4357,96 +4152,33 @@
           .replace(/'/g, '&#39;');
       }
 
-      function renderServiceProductState(message, countLabel) {
+      function renderServiceProductState(message) {
         if (serviceProductHost) {
           serviceProductHost.innerHTML = '<p style="margin:0;color:#6d6d6d;font-size:14px;line-height:1.5;">' + escapeHtml(message) + '</p>';
         }
-        if (serviceProductCount) {
-          serviceProductCount.textContent = countLabel || message;
-        }
-      }
-
-      function formatServiceAliases(product) {
-        if (!product || !Array.isArray(product.aliases)) return [];
-        var title = String(product.title || '').toLowerCase();
-        var snippetName = String(product.original_snippet_name || '').toLowerCase();
-        var id = String(product.id || '').toLowerCase();
-        return product.aliases.filter(function (alias) {
-          var normalized = String(alias || '').trim();
-          if (!normalized) return false;
-          var comparable = normalized.toLowerCase();
-          return comparable !== title && comparable !== snippetName && comparable !== id;
-        });
       }
 
       function renderServiceProductCards(products) {
         if (!serviceProductHost) return;
 
         serviceProductHost.innerHTML = products.map(function (product) {
-          var aliases = formatServiceAliases(product);
-          var targetUrl = String(product.target_url || '');
-
-          return '<article class="email-service-doc">' +
-            '<div class="email-service-doc__preview">' +
-              '<div class="email-service-doc__tile">' +
-                '<div class="email-service-doc__icon-row">' +
-                  '<span class="email-service-doc__icon-shell">' +
-                    '<img class="email-service-doc__icon" src="' + escapeHtml(product.icon_url || '') + '" alt="" width="32" height="32" loading="lazy" />' +
-                  '</span>' +
+          return '<article class="servicetiles-card">' +
+            '<a class="servicetiles-card__link" href="' + escapeHtml(product.target_url || '') + '" target="_blank" rel="noopener noreferrer">' +
+              '<div class="servicetiles-card__panel">' +
+                '<div class="servicetiles-card__header">' +
+                  '<img class="servicetiles-card__icon" src="' + escapeHtml(product.icon_url || '') + '" alt="" width="32" height="32" loading="lazy" />' +
                 '</div>' +
-                '<h3 class="email-service-doc__title">' + escapeHtml(product.title || '') + '</h3>' +
-                '<p class="email-service-doc__description">' + escapeHtml(product.description || '') + '</p>' +
+                '<h3 class="servicetiles-card__title">' + escapeHtml(product.title || '') + '</h3>' +
+                '<p class="module__body servicetiles-card__body">' + escapeHtml(product.description || '') + '</p>' +
               '</div>' +
-            '</div>' +
-            '<div class="email-service-doc__content">' +
-              '<div class="email-service-doc__headline">' +
-                '<span class="email-service-doc__id">' + escapeHtml(product.id || '') + '</span>' +
-                '<span class="email-service-doc__snippet"><code>' + escapeHtml(product.original_snippet_name || '') + '</code></span>' +
-              '</div>' +
-              '<dl class="email-service-doc__details">' +
-                '<div class="email-service-doc__details-item">' +
-                  '<dt>ID / Kuerzel</dt>' +
-                  '<dd><code>' + escapeHtml(product.id || '') + '</code></dd>' +
-                '</div>' +
-                '<div class="email-service-doc__details-item">' +
-                  '<dt>Original Snippet</dt>' +
-                  '<dd><code>' + escapeHtml(product.original_snippet_name || '') + '</code></dd>' +
-                '</div>' +
-                '<div class="email-service-doc__details-item">' +
-                  '<dt>Titel</dt>' +
-                  '<dd>' + escapeHtml(product.title || '') + '</dd>' +
-                '</div>' +
-                '<div class="email-service-doc__details-item">' +
-                  '<dt>Description</dt>' +
-                  '<dd>' + escapeHtml(product.description || '') + '</dd>' +
-                '</div>' +
-                '<div class="email-service-doc__details-item email-service-doc__details-item--full">' +
-                  '<dt>Icon URL</dt>' +
-                  '<dd><a class="email-service-doc__link" href="' + escapeHtml(product.icon_url || '') + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(product.icon_url || '') + '</a></dd>' +
-                '</div>' +
-                '<div class="email-service-doc__details-item email-service-doc__details-item--full">' +
-                  '<dt>Ziel-URL</dt>' +
-                  '<dd><a class="email-service-doc__link" href="' + escapeHtml(targetUrl) + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(targetUrl) + '</a></dd>' +
-                '</div>' +
-                (aliases.length ? (
-                  '<div class="email-service-doc__details-item email-service-doc__details-item--full">' +
-                    '<dt>Aliases</dt>' +
-                    '<dd>' + escapeHtml(aliases.join(', ')) + '</dd>' +
-                  '</div>'
-                ) : '') +
-              '</dl>' +
-            '</div>' +
+            '</a>' +
           '</article>';
         }).join('');
-
-        if (serviceProductCount) {
-          serviceProductCount.textContent = products.length + ' Services';
-        }
       }
 
       function loadServiceProducts() {
         if (!serviceProductHost) return Promise.resolve();
-        renderServiceProductState('Servicetiles werden geladen...', 'Wird geladen...');
+        renderServiceProductState('Servicetiles werden geladen...');
 
         return fetch(SERVICE_PRODUCT_SOURCE)
           .then(function (response) {
@@ -4464,10 +4196,7 @@
           })
           .catch(function (error) {
             console.warn('design-library service-products load failed', error);
-            renderServiceProductState(
-              'Servicetiles konnten nicht geladen werden. Bitte pruefe die Datei ' + SERVICE_PRODUCT_SOURCE + '.',
-              'Fehler beim Laden'
-            );
+            renderServiceProductState('Servicetiles konnten nicht geladen werden. Bitte pruefe die Datei ' + SERVICE_PRODUCT_SOURCE + '.');
           });
       }
 
