@@ -68,6 +68,11 @@ Die technische Export-Wahrheit liegt in `export-map.json`.
     - `template-loft-rnl-dev.preview.html`
     - Iterable Template-ID `618734`
     - Preview-first bleibt Pflicht; Iterable-Export startet erst nach expliziter User-Freigabe.
+  - `loft-regio-resi`
+    - `template-loft-regio-resi.definition.json`
+    - `template-loft-regio-resi.preview.html`
+    - Iterable Template-ID `619002`
+    - Preview-first bleibt Pflicht; Iterable-Export startet erst nach expliziter User-Freigabe.
 
 ## Startlogik
 
@@ -202,12 +207,15 @@ Wenn kein Thema genannt ist:
 | `loft-snl-copy-sections-cta` | `emb_loft_snl_copy_sections_cta` |
 | `loft-rnl-dev-intro` | `emb_loft_rnl_dev_intro` |
 | `loft-rnl-dev-teaser-1col` | `emb_loft_rnl_dev_teaser_1col` |
+| `loft-regio-resi-intro` | `emb_loft_regio_resi_intro` |
+| `loft-regio-resi-teaser-1col` | `emb_loft_regio_resi_teaser_1col` |
 | `teaser-2col-horizontal` | `emb_teaser_2col_horizontal` |
 | `teaser-2col-vertical` | `emb_teaser_2col_vertical` |
 | `teaser-2col-alternating` | `emb_teaser_2col_alternating` |
 | `teaser-2col-listing` | `emb_teaser_2col_listing` |
 | `teaser-2col-gallery` | `emb_teaser_2col_gallery` |
 | `benefits-3col` | `emb_benefits_3col` |
+| `servicetiles` | `emb_servicetiles` |
 | `steps-3col` | `emb_steps_3col` |
 | `steps-horizontal` | `emb_steps_horizontal` |
 | `table` | `emb_table` |
@@ -218,6 +226,23 @@ Wenn kein Thema genannt ist:
 Bewusst nicht angebunden:
 
 - `servicetiles-4up`
+
+## Service Products Registry
+
+- Die zentrale Produktquelle fuer das spaetere Modul `servicetiles` ist `agent/service-products.json`.
+- Diese Registry enthaelt pro Service genau:
+  - `id`
+  - `original_snippet_name`
+  - `aliases`
+  - `title`
+  - `description`
+  - `icon_url`
+  - `target_url`
+- User nennen im EMB fachlich genau `4` Services; die Aufloesung erfolgt nur ueber `id` oder `aliases` der Registry.
+- Wenn weniger oder mehr als `4` Services genannt werden, muss der Agent nachfragen statt still zu normalisieren.
+- Wenn ein genannter Service nicht eindeutig in `agent/service-products.json` vorhanden ist, muss der Agent nachfragen und darf nicht raten.
+- Die bestehenden `servicetile_*`-Snippets bleiben nur Migrations- und Datenquelle; sie sind nicht das technische Zielmodell des spaeteren `servicetiles`-Moduls.
+- User sehen im regulaeren EMB-Flow keine Iterable-Snippetnamen.
 
 ## CTA-Button-Typen
 
@@ -791,6 +816,22 @@ Bewusst nicht angebunden:
   - graues Modul `#F5F5F5` => `module__badge module__badge--surface-white`
   - weisses Modul `#FFFFFF` => `module__badge module__badge--surface-gray`
 - Die finale EMB-Preview materialisiert die Teaser-Headline im Markup explizit als `font-heading-large-bold`, damit die bestehende `heading-l`-Typografie ohne groessere Hero-/XL-Klassen im Preview-Pfad landet.
+- `loft-regio-resi-intro` ist ein template-spezifisches Loft-Regio-Resi-Intro mit editierbarer `heading-l`-Headline, kontrolliertem Salutation-Feld und einem frei editierbaren `rich_full`-Body.
+- Das Modul nutzt genau diese Builder-Felder:
+  - `emb_loft_regio_resi_intro_headline`
+  - `emb_loft_regio_resi_intro_salutation`
+  - `emb_loft_regio_resi_intro_body`
+- In der Preview bleibt `emb_loft_regio_resi_intro_salutation` menschenlesbarer Plain Text `Hallo Anrede`.
+- Die finale EMB-Preview materialisiert die Intro-Headline im Markup explizit als `font-heading-large-bold`, damit die bestehende `heading-l`-Typografie ohne Loft-Sonderannahmen im Preview-Pfad landet.
+- Fuer `salutationContext = loft-regio-resi` wird der produktive Exportwert von `emb_loft_regio_resi_intro_salutation` kontrolliert aus `agent/product-salutations.json` materialisiert.
+- `loft-regio-resi-teaser-1col` ist ein template-spezifisches Loft-Regio-Residential-Modul mit `heading-l`-Headline, Richtext-Body, Bild, drei editierbaren Kennzahlen und CTA.
+- `loft-regio-resi-teaser-1col` ist repeatable; neue Instanzen werden direkt nach der letzten vorhandenen Instanz derselben `module_id` eingefuegt.
+- `loft-regio-resi-teaser-1col` nutzt fuer `emb_loft_regio_resi_teaser_1col_bg_color` immer den globalen Hintergrund-Rhythmus:
+  - erste Instanz nach dem Intro = grau `#F5F5F5`
+  - zweite Instanz = weiss `#FFFFFF`
+  - danach strikt weiter grau, weiss, grau, weiss
+- Die Kennzahlen von `loft-regio-resi-teaser-1col` sind keine getrennten Desktop-/Mobile-Felder; dieselben `metric_1..3_label`- und `metric_1..3_value`-Felder speisen die Desktop-Dreispalter und die mobile Bullet-Liste.
+- Die finale EMB-Preview materialisiert die Teaser-Headline im Markup explizit als `font-heading-large-bold`, damit die bestehende `heading-l`-Typografie ohne groessere Hero-/XL-Klassen im Preview-Pfad landet.
 - `teaser-2col-horizontal` nutzt bis zu vier Items; `show_item_2..4` folgen exakt der sichtbaren Item-Anzahl.
 - `teaser-2col-vertical` nutzt genau zwei Spalten.
 - `teaser-2col-alternating` nutzt genau zwei Zeilen.
@@ -862,6 +903,33 @@ Bewusst nicht angebunden:
 - Erlaubte Icon-URLs duerfen nur aus `icon-library.md` kommen.
 - Wenn kein Bucket klar passt, den kanonischen `general-positive`-Fallback aus `icon-library.md` verwenden.
 - Die drei Benefit-Texte sollen visuell aehnliche Textmengen ergeben.
+
+### `servicetiles`
+
+- Snippet: `emb_servicetiles`
+- Das Modul rendert genau eine Headline und genau vier Service-Cards.
+- Fachlich genannte Services werden vor Preview und Export ausschliesslich ueber `agent/service-products.json` via `id` oder `aliases` aufgeloest.
+- Wenn nicht genau `4` Services eindeutig aufloesbar sind, muss der Agent nachfragen und darf das Modul nicht stillschweigend normalisieren.
+- Der produktive Snippet-Vertrag rendert nur die aufgeloesten Card-Felder:
+  - `emb_servicetiles_headline`
+  - `emb_servicetiles_col_1_url`
+  - `emb_servicetiles_col_1_icon_url`
+  - `emb_servicetiles_col_1_title`
+  - `emb_servicetiles_col_1_description`
+  - `emb_servicetiles_col_2_url`
+  - `emb_servicetiles_col_2_icon_url`
+  - `emb_servicetiles_col_2_title`
+  - `emb_servicetiles_col_2_description`
+  - `emb_servicetiles_col_3_url`
+  - `emb_servicetiles_col_3_icon_url`
+  - `emb_servicetiles_col_3_title`
+  - `emb_servicetiles_col_3_description`
+  - `emb_servicetiles_col_4_url`
+  - `emb_servicetiles_col_4_icon_url`
+  - `emb_servicetiles_col_4_title`
+  - `emb_servicetiles_col_4_description`
+- Fachliche Service-Namen und `original_snippet_name` sind Resolver-Eingaben, aber keine direkten Snippet-Parameter des finalen Moduls.
+- Das E-Mail-Markup bleibt ein einzelnes Modul mit `2 x 2` auf Desktop und `1` Spalte auf Mobile; diese Layoutlogik ist reine Renderlogik und kein zweites Export-Signal.
 
 ### `steps-3col`
 

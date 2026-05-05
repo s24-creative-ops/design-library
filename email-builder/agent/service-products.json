@@ -1,0 +1,277 @@
+{
+  "version": 1,
+  "products": [
+    {
+      "id": "ppa",
+      "original_snippet_name": "servicetile_PPA",
+      "aliases": [
+        "PPA",
+        "Ab 0\u20ac inserieren",
+        "servicetile_PPA"
+      ],
+      "title": "Ab 0\u20ac inserieren",
+      "description": "Mieter oder K\u00e4ufer finden",
+      "icon_url": "https://d15k2d11r6t6rl.cloudfront.net/pub/bfra/tgru1zsx/1u4/6b3/i28/board_sign_white.png",
+      "target_url": "https://www.immobilienscout24.de/anbieten/anzeige-schalten/start/"
+    },
+    {
+      "id": "kwatt",
+      "original_snippet_name": "servicetile_KWATT",
+      "aliases": [
+        "KWATT",
+        "Dynamischer Stromtarif",
+        "servicetile_KWATT"
+      ],
+      "title": "Dynamischer Stromtarif",
+      "description": "Stromkosten sparen, monatlich k\u00fcndbar",
+      "icon_url": "https://d15k2d11r6t6rl.cloudfront.net/pub/bfra/tgru1zsx/feo/2fr/t9a/flash.png",
+      "target_url": "https://www.immobilienscout24.de/lp/klarwatt.html"
+    },
+    {
+      "id": "ea48",
+      "original_snippet_name": "servicetile_EA48",
+      "aliases": [
+        "EA48",
+        "Energieausweis bestellen",
+        "servicetile_EA48"
+      ],
+      "title": "Energieausweis bestellen",
+      "description": "Pflicht f\u00fcr Vermietung & Verkauf",
+      "icon_url": "https://d15k2d11r6t6rl.cloudfront.net/pub/bfra/tgru1zsx/1is/2t3/zqq/Energieausweiss.png",
+      "target_url": "https://www.immobilienscout24.de/energieausweis.html"
+    },
+    {
+      "id": "wplus",
+      "original_snippet_name": "servicetile_WPLUS",
+      "aliases": [
+        "WPLUS",
+        "Wohnen+",
+        "servicetile_WPLUS"
+      ],
+      "title": "Wohnen+",
+      "description": "Mieterschutz von der Nr. 1",
+      "icon_url": "https://d15k2d11r6t6rl.cloudfront.net/pub/bfra/tgru1zsx/kzm/k6m/thb/mietrechtsberatung_white.png",
+      "target_url": "https://www.immobilienscout24.de/lp/wohnen-plus.html"
+    },
+    {
+      "id": "kplus",
+      "original_snippet_name": "servicetile_KPLUS",
+      "aliases": [
+        "KPLUS",
+        "Suchen+ f\u00fcr Kauf",
+        "servicetile_KPLUS"
+      ],
+      "title": "Suchen+ f\u00fcr Kauf",
+      "description": "Das Plus an Informationen",
+      "icon_url": "https://d15k2d11r6t6rl.cloudfront.net/pub/bfra/tgru1zsx/ak4/08b/dag/mietzahlungs-einkommensnachweis_white.png",
+      "target_url": "https://www.immobilienscout24.de/premium-mitgliedschaft-kauf/leistungen/"
+    },
+    {
+      "id": "mplus",
+      "original_snippet_name": "servicetile_MPLUS",
+      "aliases": [
+        "MPLUS",
+        "Suchen+ f\u00fcr Miete",
+        "servicetile_MPLUS"
+      ],
+      "title": "Suchen+ f\u00fcr Miete",
+      "description": "Schneller ins Traumzuhause",
+      "icon_url": "https://d15k2d11r6t6rl.cloudfront.net/pub/bfra/tgru1zsx/85i/1f7/63k/plus_oben_im_postfach_white.png",
+      "target_url": "https://www.immobilienscout24.de/meinkonto/premium-mitgliedschaft/"
+    },
+    {
+      "id": "ibw",
+      "original_snippet_name": "servicetile_IBW",
+      "aliases": [
+        "IBW",
+        "Immobilie bewerten",
+        "servicetile_IBW"
+      ],
+      "title": "Immobilie bewerten",
+      "description": "Kostenlos Wert berechnen",
+      "icon_url": "https://d15k2d11r6t6rl.cloudfront.net/pub/bfra/tgru1zsx/ouv/5d4/0ql/chart_bars_vertical_white.png",
+      "target_url": "https://www.immobilienscout24.de/immobilie-bewerten/"
+    },
+    {
+      "id": "ele",
+      "original_snippet_name": "servicetile_ELE",
+      "aliases": [
+        "ELE",
+        "Energieberatung",
+        "servicetile_ELE"
+      ],
+      "title": "Energieberatung",
+      "description": "Bis zu 70% F\u00f6rderung erhalten",
+      "icon_url": "https://d15k2d11r6t6rl.cloudfront.net/pub/bfra/tgru1zsx/txv/cq2/g2k/money_house_white.png",
+      "target_url": "https://www.immobilienscout24.de/lp/energieberatung.html"
+    },
+    {
+      "id": "hle",
+      "original_snippet_name": "servicetile_HLE",
+      "aliases": [
+        "HLE",
+        "W\u00e4rmepumpe",
+        "servicetile_HLE"
+      ],
+      "title": "W\u00e4rmepumpe",
+      "description": "Kostensparend heizen",
+      "icon_url": "https://d15k2d11r6t6rl.cloudfront.net/pub/bfra/tgru1zsx/32f/0ps/7hk/gas_pump_white.png",
+      "target_url": "https://www.immobilienscout24.de/heizung/"
+    },
+    {
+      "id": "rle",
+      "original_snippet_name": "servicetile_RLE",
+      "aliases": [
+        "RLE",
+        "Makler finden",
+        "servicetile_RLE"
+      ],
+      "title": "Makler finden",
+      "description": "Passenden Profi finden",
+      "icon_url": "https://d15k2d11r6t6rl.cloudfront.net/pub/bfra/tgru1zsx/62q/092/p9h/user_tie_white.png",
+      "target_url": "https://www.immobilienscout24.de/maklervergleich/"
+    },
+    {
+      "id": "vplus",
+      "original_snippet_name": "servicetile_VPLUS",
+      "aliases": [
+        "VPLUS",
+        "Digital verwalten",
+        "servicetile_VPLUS"
+      ],
+      "title": "Digital verwalten",
+      "description": "Mit VermietenPlus",
+      "icon_url": "https://d15k2d11r6t6rl.cloudfront.net/pub/bfra/tgru1zsx/9m0/meh/ui2/document_white.png",
+      "target_url": "https://www.immobilienscout24.de/anbieten/private-anbieter/lp/vermietetde.html"
+    },
+    {
+      "id": "schufa",
+      "original_snippet_name": "servicetile_SCHUFA",
+      "aliases": [
+        "SCHUFA",
+        "SCHUFA-Bonit\u00e4tscheck",
+        "servicetile_SCHUFA"
+      ],
+      "title": "SCHUFA-Bonit\u00e4tscheck",
+      "description": "In 3 Minuten online erhalten",
+      "icon_url": "https://d15k2d11r6t6rl.cloudfront.net/pub/bfra/tgru1zsx/kgh/edg/68q/plus_SCHUFA_BonitaetsCheck_white.png",
+      "target_url": "https://bonitaetscheck.immobilienscout24.de/"
+    },
+    {
+      "id": "relo",
+      "original_snippet_name": "servicetile_RELO",
+      "aliases": [
+        "RELO",
+        "Umziehen",
+        "servicetile_RELO"
+      ],
+      "title": "Umziehen",
+      "description": "Kostenlose Umzugsangebote",
+      "icon_url": "https://d15k2d11r6t6rl.cloudfront.net/pub/bfra/tgru1zsx/8vu/r3t/ero/truck_side_moving_white.png",
+      "target_url": "https://www.immobilienscout24.de/umzug/umzugsunternehmen/vergleichen/a.html"
+    },
+    {
+      "id": "ndg",
+      "original_snippet_name": "servicetile_NDG",
+      "aliases": [
+        "NDG",
+        "Nutzungsdauer-Rechner",
+        "servicetile_NDG"
+      ],
+      "title": "Nutzungsdauer-Rechner",
+      "description": "Kostenlos berechnen",
+      "icon_url": "https://d15k2d11r6t6rl.cloudfront.net/pub/bfra/tgru1zsx/t7v/n1z/j9p/calculator_white.png",
+      "target_url": "https://www.immobilienscout24.de/lp/nutzungsdauer-quickcheck.html"
+    },
+    {
+      "id": "how",
+      "original_snippet_name": "servicetile_HOW",
+      "aliases": [
+        "HOW",
+        "Deine Immobilie im Blick",
+        "servicetile_HOW"
+      ],
+      "title": "Deine Immobilie im Blick",
+      "description": "Wert, Prognose, Markttrends",
+      "icon_url": "https://d15k2d11r6t6rl.cloudfront.net/pub/bfra/tgru1zsx/4d3/4ar/bip/meine_immobilie_white.png",
+      "target_url": "https://www.immobilienscout24.de/lp/meine-immobilien.html"
+    },
+    {
+      "id": "mod",
+      "original_snippet_name": "servicetile_MOD",
+      "aliases": [
+        "MOD",
+        "Modernisierungsrechner",
+        "servicetile_MOD"
+      ],
+      "title": "Modernisierungsrechner",
+      "description": "Kosten-Nutzen-Rechnung",
+      "icon_url": "https://d15k2d11r6t6rl.cloudfront.net/pub/bfra/tgru1zsx/t7v/n1z/j9p/calculator_white.png",
+      "target_url": "https://www.immobilienscout24.de/modernisierungsrechner/start/"
+    },
+    {
+      "id": "checkliste",
+      "original_snippet_name": "servicetile_Checkliste",
+      "aliases": [
+        "Checkliste",
+        "servicetile_Checkliste"
+      ],
+      "title": "Checkliste",
+      "description": "Tipps zu deiner Besichtigung",
+      "icon_url": "https://d15k2d11r6t6rl.cloudfront.net/pub/bfra/tgru1zsx/ypc/e78/4lu/list_white.png",
+      "target_url": "https://www.immobilienscout24.de/wissen/mieten/wohnungsbesichtigung.html"
+    },
+    {
+      "id": "klub",
+      "original_snippet_name": "servicetile_KLUB",
+      "aliases": [
+        "KLUB",
+        "ImmoKlub",
+        "servicetile_KLUB"
+      ],
+      "title": "ImmoKlub",
+      "description": "Schutz f\u00fcr dein Zuhause",
+      "icon_url": "https://d15k2d11r6t6rl.cloudfront.net/pub/bfra/tgru1zsx/ned/1h4/ruj/umbrella_white.png",
+      "target_url": "https://www.immobilienscout24.de/lp/immoklub.html"
+    },
+    {
+      "id": "isba",
+      "original_snippet_name": "servicetile_ISBA",
+      "aliases": [
+        "ISBA",
+        "Bonit\u00e4tsauskunft",
+        "servicetile_ISBA"
+      ],
+      "title": "Bonit\u00e4tsauskunft",
+      "description": "von ImmoScout24",
+      "icon_url": "https://d15k2d11r6t6rl.cloudfront.net/pub/bfra/tgru1zsx/roq/5bs/m40/bonitaetsauskunft_white.png",
+      "target_url": "https://www.immobilienscout24.de/lp/bonitaetsauskunft.html"
+    },
+    {
+      "id": "sle",
+      "original_snippet_name": "servicetile_SLE",
+      "aliases": [
+        "SLE",
+        "PV-Vergleich",
+        "servicetile_SLE"
+      ],
+      "title": "PV-Vergleich",
+      "description": "PV-Anlage berechnen",
+      "icon_url": "https://d15k2d11r6t6rl.cloudfront.net/pub/bfra/tgru1zsx/2lw/wxu/ws3/solar_panel_white.png",
+      "target_url": "https://www.immobilienscout24.de/solaranlage/?SME=true"
+    },
+    {
+      "id": "is24ac",
+      "original_snippet_name": "servicetile_IS24AC",
+      "aliases": [
+        "IS24AC",
+        "Adresswechsel-Service",
+        "servicetile_IS24AC"
+      ],
+      "title": "Adresswechsel-Service",
+      "description": "von ImmoScout24",
+      "icon_url": "https://d15k2d11r6t6rl.cloudfront.net/pub/bfra/tgru1zsx/7ey/s3h/1wu/map_magnifier_white.png",
+      "target_url": "https://www.immobilienscout24.de/lp/adresswechsel/"
+    }
+  ]
+}

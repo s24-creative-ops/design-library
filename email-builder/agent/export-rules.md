@@ -47,6 +47,7 @@ Die uebrigen operativen Agent-Dateien liegen direkt daneben in `agent/`.
 - Dokumentierte technische Resolver-Quellen sind nur:
   - Hintergrund-Rhythmus aus `builder-library.md` plus `preview-styles.css`
   - Icon-Auswahl aus `icon-library.md`
+  - kontrollierte Service-Produkt-Aufloesung fuer `servicetiles` aus `agent/service-products.json`
   - finale Button-Farbwerte aus `builder-library.md`
   - kontrollierte Salutation-Feld-Overrides aus `product-salutations.json`
 - Der Export-Happy-Path prueft nur den vorhandenen export-ready State gegen `export-map.json`.
@@ -104,6 +105,10 @@ Die uebrigen operativen Agent-Dateien liegen direkt daneben in `agent/`.
 - Fuer `salutationContext = loft-rnl-dev` gilt genau eine dokumentierte Feld-Materialisierung:
   - wenn das Modul `loft-rnl-dev-intro` exportiert wird, muss `emb_loft_rnl_dev_intro_salutation` als Snippet-Parameterwert kontrolliert auf den in `agent/product-salutations.json` dokumentierten festen Handlebars-Ausdruck gesetzt werden
   - `emb_loft_rnl_dev_intro_headline` und `emb_loft_rnl_dev_intro_body` bleiben normale Builder-Felder
+  - der feste Handlebars-Ausdruck darf nie als freier User-Content, nie als Preview-Text und nie als direkt editierbares Feld exponiert werden
+- Fuer `salutationContext = loft-regio-resi` gilt genau eine dokumentierte Feld-Materialisierung:
+  - wenn das Modul `loft-regio-resi-intro` exportiert wird, muss `emb_loft_regio_resi_intro_salutation` als Snippet-Parameterwert kontrolliert auf den in `agent/product-salutations.json` dokumentierten festen Handlebars-Ausdruck gesetzt werden
+  - `emb_loft_regio_resi_intro_headline` und `emb_loft_regio_resi_intro_body` bleiben normale Builder-Felder
   - der feste Handlebars-Ausdruck darf nie als freier User-Content, nie als Preview-Text und nie als direkt editierbares Feld exponiert werden
 - `rich_inline`-Felder im `email_state.content` duerfen nur sanitisiertes builder-eigenes Inline-HTML enthalten.
 - `rich_full`-Felder im `email_state.content` duerfen nur sanitisiertes builder-eigenes Richtext-HTML enthalten.
@@ -427,6 +432,8 @@ Im direkten Happy Path laeuft der Export genau in dieser Reihenfolge:
 - Wenn ein required `*_bg_color` im `email_state.content` fehlt, scheitert der Export.
 - Wenn ein required `*_bg_color` im `email_state.content` nur als `theme-*`-Klasse, semantischer Farbname oder anderer nicht-konkreter Marker vorliegt, scheitert der Export.
 - Wenn nach dem einmaligen Recovery-Fallback weiterhin kein vollstaendiger `email_state` vorliegt, scheitert der Export.
+- `servicetiles` wird genau einmal ueber `module_id`, `snippet_name` und `content` exportiert; Desktop- und Mobile-Markup im Snippet sind reine Renderdetails.
+- Fuer `servicetiles` muessen vor dem Snippet-Build genau vier Services bereits kontrolliert gegen `agent/service-products.json` auf die finalen Felder `emb_servicetiles_col_1..4_(icon_url|title|description|url)` materialisiert sein; fachliche Service-Namen oder `original_snippet_name` sind keine direkten Snippet-Parameter.
 - `steps-3col` wird genau einmal ueber `module_id`, `snippet_name` und `content` exportiert; Desktop- und Mobile-Markup im Snippet sind reine Renderdetails.
 - Wenn keine vollstaendige finale HTML-Payload lokal vorliegt, scheitert der Export.
 - Wenn nur nackte `SNIPPET_CALLS` oder ein isolierter Modulblock geschrieben wuerden, scheitert der Export.

@@ -98,6 +98,8 @@ Regeln:
   - `emb_teaser_1col_image_url`
 - `loft-rnl-dev-teaser-1col`
   - `emb_loft_rnl_dev_teaser_1col_image_url`
+- `loft-regio-resi-teaser-1col`
+  - `emb_loft_regio_resi_teaser_1col_image_url`
 - `teaser-2col-vertical`
   - `emb_teaser_2col_vertical_col_1_image_url`
   - `emb_teaser_2col_vertical_col_2_image_url`
@@ -127,6 +129,14 @@ Regeln:
 
 - `contact`
   - `emb_contact_image_url`
+
+### Service-Produkt-Slots
+
+- `servicetiles`
+  - `emb_servicetiles_col_1_icon_url`
+  - `emb_servicetiles_col_2_icon_url`
+  - `emb_servicetiles_col_3_icon_url`
+  - `emb_servicetiles_col_4_icon_url`
 
 ## Unterstuetzte Module
 
@@ -654,6 +664,50 @@ Regeln:
   - Die Badge-Flaeche ist immer invers zur finalen Modul-Flaeche und wird technisch aus dem konkreten `*_bg_color` abgeleitet.
   - Die finale EMB-Preview muss diese Inversion im Markup explizit ueber `module__badge--surface-white` oder `module__badge--surface-gray` materialisieren; eine reine Ableitung ueber statische `theme-*`-Wrapper ist nicht ausreichend.
 
+### `loft-regio-resi-intro`
+
+- Snippet: `emb_loft_regio_resi_intro`
+- Preview-Quelle: `preview-modules.html`, Block `data-module="loft-regio-resi-intro"`
+- Sichtbare Felder:
+  - Headline
+  - Preview-Anrede
+  - Introtext
+- Fuellhinweis: template-spezifischer fixer Introblock fuer Loft | Regio (Resi) ohne CTA und ohne freie Background-Variation
+- Technische Regel:
+  - Die Hauptheadline dieses Moduls ist eine dokumentierte modulspezifische Ausnahme und nutzt fest `heading-l`.
+  - Die finale EMB-Preview muss diese Headline im Markup explizit als `font-heading-large-bold` materialisieren; ein reiner Loft-Sonderselector ohne `heading-l`-Klasse ist nicht ausreichend.
+  - `emb_loft_regio_resi_intro_headline` ist ein normales Textfeld und kein `rich_full`.
+  - `emb_loft_regio_resi_intro_salutation` ist in der Preview ein menschenlesbares Textfeld und kein freier Raw-Logic-Slot.
+  - `emb_loft_regio_resi_intro_body` ist ein `rich_full`-Kontext hinter der sichtbaren Preview-Anrede.
+  - Fuer `salutationContext = loft-regio-resi` materialisiert der Export den produktiven Wert von `emb_loft_regio_resi_intro_salutation` kontrolliert aus `agent/product-salutations.json`.
+
+### `loft-regio-resi-teaser-1col`
+
+- Snippet: `emb_loft_regio_resi_teaser_1col`
+- Preview-Quelle: `preview-modules.html`, Block `data-module="loft-regio-resi-teaser-1col"`
+- Sichtbare Felder:
+  - Headline
+  - Body
+  - Bild-URL
+  - Bild-Alt
+  - Kennzahl 1 Label
+  - Kennzahl 1 Wert
+  - Kennzahl 2 Label
+  - Kennzahl 2 Wert
+  - Kennzahl 3 Label
+  - Kennzahl 3 Wert
+  - Button-Label
+  - Button-URL
+- Bildformat in der Preview: `16:9 | 960 x 540 px`
+- Fuellhinweis: template-spezifisches Loft-Regio-Residential-Projektmodul mit wiederholbarer Einspalten-Struktur fuer Objekt-Highlights
+- Technische Regel:
+  - Die Hauptheadline dieses Moduls ist eine dokumentierte modulspezifische Ausnahme und nutzt fest `heading-l`.
+  - Die finale EMB-Preview muss diese Headline im Markup explizit als `font-heading-large-bold` materialisieren; groessere Hero- oder XL-Klassen sind fuer dieses Modul unzulaessig.
+  - `emb_loft_regio_resi_teaser_1col_body` ist ein `rich_full`-Kontext und muss Richtext fuer Absaetze, Listen, Hervorhebungen und Links transportieren.
+  - Die Modulhintergruende folgen nicht einem User-Feld, sondern dem globalen Hintergrund-Rhythmus.
+  - Die drei Desktop-Kennzahlen und die mobile Bullet-Liste muessen dieselben Felder `metric_1..3_label` und `metric_1..3_value` nutzen; die mobile Liste zeigt das Label normal und den Wert fett.
+  - Die mobile Liste ist nur Darstellung und darf keine zweite fachliche Pflege eigener Inhalte einfuehren.
+
 ### `teaser-2col-vertical`
 
 - Snippet: `emb_teaser_2col_vertical`
@@ -720,6 +774,22 @@ Regeln:
   - Button-Label
   - Button-URL
 - Fuellhinweis: Dreierkarten-Struktur mit einem CTA darunter beibehalten; Icons nie leer lassen
+
+### `servicetiles`
+
+- Snippet: `emb_servicetiles`
+- Preview-Quelle: `preview-modules.html`, Block `data-module="servicetiles"`
+- Sichtbare Felder:
+  - Headline
+  - vier Card-Icon-URLs
+  - vier Card-Titel
+  - vier Card-Descriptions
+  - vier Card-URLs
+- Fuellhinweis: feste Viererkarten-Struktur mit `2 x 2` auf Desktop und `1` Spalte auf Mobile beibehalten
+- Technische Regel:
+  - Vor dem Preview-Render muessen fachlich genannte Services zuerst eindeutig ueber `agent/service-products.json` aufgeloest werden.
+  - Wenn nicht genau `4` Services eindeutig aufloesbar sind, darf das Modul nicht stillschweigend gerendert werden.
+  - Der finale Preview-/State-Vertrag materialisiert nur `emb_servicetiles_headline` sowie die vier konkreten Card-Feldsets `emb_servicetiles_col_1..4_(icon_url|title|description|url)`.
 
 ### `steps-3col`
 

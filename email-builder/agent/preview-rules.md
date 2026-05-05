@@ -37,6 +37,12 @@ Die Preview ist die sichtbare HTML-Arbeitsmail im Canvas und die Basis fuer spae
 - Nur Hero-Headlines duerfen im Preview-/State-Flow ueber ein kanonisches Groessenfeld steuerbar sein.
 - Erlaubte Hero-Groessen sind ausschliesslich `s`, `m` und `l`; ihr Mapping ist direkt `heading-s`, `heading-m`, `heading-l`.
 - Der reguläre Hero-Default ist `l`.
+- Die finale Preview-HTML muss die aufgeloeste Hero-Groesse direkt als echte Klasse am Headline-Element materialisieren:
+  - `s` => `module__title module__title--hero-small`
+  - `m` => `module__title` ohne zusaetzliche Hero-Groessenklasse
+  - `l` => `module__title module__title--hero-large`
+- `data-preview-size-*`-, `data-preview-size-legacy-*`- und `data-preview-size-*-class`-Attribute sind nur dokumentierende Metadaten und nie die einzige Renderquelle.
+- Nach Entfernung von `token-runtime.js` darf keine Preview fuer Hero-Groessen auf nachgelagerte Runtime-Klassenmutation angewiesen sein.
 - Nicht-Hero-Modulheadlines sind nicht usersteuerbar:
   - erste Hauptheadline = `heading-m`, ausser eine dokumentierte modulspezifische Ausnahme ist in `preview-module-library.md` registriert
   - Unter-Headlines, Abschnittstitel und Zwischenueberschriften = `heading-s`
@@ -111,7 +117,7 @@ Die Preview ist die sichtbare HTML-Arbeitsmail im Canvas und die Basis fuer spae
 - Wenn dieselbe Preview fortgeschrieben wird, muss ihre Campaign-Bindung ueber einen stabilen `previewBranchKey` im State nachvollziehbar bleiben; Re-Export darf `campaignId` und campaign-owned `templateId` nur fuer genau diesen Zweig wiederverwenden.
 - Exportrelevante technische Werte muessen bereits beim Preview-Bau in `email_state.content` geschrieben werden und duerfen nicht erst im Export rekonstruiert werden.
 - Der Salutation-Kontext-Resolver kommt ausschliesslich aus `agent/product-salutations.json` und aktiven Template-Definitionen.
-- Aktuell sind als `salutationContext` nur `generic`, `rle`, `loft-snl` und `loft-rnl-dev` erlaubt; unbekannte explizite Team- oder Produktnennungen muessen vor dem Preview geklaert werden.
+- Aktuell sind als `salutationContext` nur `generic`, `rle`, `loft-snl`, `loft-rnl-dev` und `loft-regio-resi` erlaubt; unbekannte explizite Team- oder Produktnennungen muessen vor dem Preview geklaert werden.
 - Inhaltliche Produktdefaults jenseits der Anrede bleiben aktuell nur fuer `RLE` erlaubt und muessen bereits vor oder spaetestens waehrend des Preview-Baus in die bestehenden Modulfelder materialisiert werden; ein freies Produkt-Raten waehrend des State-Baus ist verboten.
 - Dazu gehoeren insbesondere:
   - alle required `*_bg_color`
@@ -127,7 +133,7 @@ Die Preview ist die sichtbare HTML-Arbeitsmail im Canvas und die Basis fuer spae
 - Unabhaengig vom `salutationContext` darf die Preview nie Raw-Handlebars, freie Snippetcalls oder Iterable-Logik sichtbar machen.
 - Wenn der aktive `salutationContext` `rle` ist, bleibt die sichtbare Preview-Hero-Anrede trotzdem unveraendert `Hallo Anrede,`; der spaetere RLE-Export-Zielwert darf in der Preview nie sichtbar werden.
 - Wenn der aktive `salutationContext` `rle` ist, muessen fuer Hero-Module zusaetzlich die passenden technischen Export-Flags `*_use_snippetcall_salutation = true` in den `email_state` materialisiert werden, ohne die sichtbare Preview-Anrede zu veraendern.
-- Wenn der aktive `salutationContext` `loft-snl` oder `loft-rnl-dev` ist, bleibt die bestehende template- oder modulspezifische menschenlesbare Preview-Anrede erhalten; es wird keine neue freie Export-Logik in die Preview eingeblendet.
+- Wenn der aktive `salutationContext` `loft-snl`, `loft-rnl-dev` oder `loft-regio-resi` ist, bleibt die bestehende template- oder modulspezifische menschenlesbare Preview-Anrede erhalten; es wird keine neue freie Export-Logik in die Preview eingeblendet.
 - Fuer `loft-rnl-dev-intro` muss die Preview diese Builder-Felder materialisieren:
   - `emb_loft_rnl_dev_intro_headline = Immobilien-Newsletter München` oder User-Wert
   - `emb_loft_rnl_dev_intro_salutation = Hallo Anrede`
@@ -140,6 +146,15 @@ Die Preview ist die sichtbare HTML-Arbeitsmail im Canvas und die Basis fuer spae
   - `#F5F5F5` Modulhintergrund => `module__badge module__badge--surface-white`
   - `#FFFFFF` Modulhintergrund => `module__badge module__badge--surface-gray`
 - Fuer weitere wiederholte `loft-rnl-dev-teaser-1col`-Instanzen bleibt diese Badge-Regel strikt an den finalen alternierenden Hintergrund-Rhythmus gekoppelt.
+- Fuer `loft-regio-resi-intro` muss die Preview diese Builder-Felder materialisieren:
+  - `emb_loft_regio_resi_intro_headline = Ausgewählte Wohnimmobilien aus Ihrer Region` oder User-Wert
+  - `emb_loft_regio_resi_intro_salutation = Hallo Anrede`
+  - `emb_loft_regio_resi_intro_body` als `rich_full`
+- Fuer `loft-regio-resi-intro` muss die finale EMB-Preview-HTML die Hauptheadline direkt mit der bestehenden `heading-l`-Semantik `font-heading-large-bold` materialisieren; eine groessere Hero-/XL-Klasse oder ein reiner Loft-Sonderselector ohne diese Klasse ist unzulaessig.
+- Der spaetere produktive Exportwert von `emb_loft_regio_resi_intro_salutation` fuer `salutationContext = loft-regio-resi` darf in der Preview nie roh sichtbar werden.
+- Fuer `loft-regio-resi-teaser-1col` muss die finale EMB-Preview-HTML die Hauptheadline direkt mit der bestehenden `heading-l`-Semantik `font-heading-large-bold` materialisieren; groessere Hero-/XL-Klassen sind unzulaessig.
+- Die Desktop-Kennzahlen und die mobile Bullet-Liste von `loft-regio-resi-teaser-1col` muessen dieselben Felder `emb_loft_regio_resi_teaser_1col_metric_1..3_label` und `emb_loft_regio_resi_teaser_1col_metric_1..3_value` verwenden.
+- In der mobilen Liste von `loft-regio-resi-teaser-1col` bleibt das Label normaler Text; nur der jeweilige Wert ist fett.
 - Wenn der aktive Produktkontext `RLE` ist und ein `contact`-Modul genutzt wird, muessen ohne explizite User-Overrides diese bestehenden Contact-Felder im Preview-/State-Bau mit den RLE-Defaults materialisiert werden:
   - `emb_contact_show_image`
   - `emb_contact_image_url`
@@ -161,6 +176,8 @@ Die Preview ist die sichtbare HTML-Arbeitsmail im Canvas und die Basis fuer spae
 - Fehlende required Werte duerfen beim Preview-Bau nur aus zwei eng begrenzten Quellen ergaenzt werden:
   - aus einem eindeutigen technischen Default der `export-map.json`
   - aus einer dokumentierten technischen Resolver-Quelle
+- Fuer `servicetiles` zaehlt `agent/service-products.json` als zulaessige dokumentierte technische Resolver-Quelle, aber nur fuer die kontrollierte Aufloesung von fachlich genau `4` Services in die finalen Card-Felder `emb_servicetiles_col_1..4_(icon_url|title|description|url)`.
+- Wenn fuer `servicetiles` weniger oder mehr als `4` Services vorliegen oder ein Service nicht eindeutig ueber `id` oder `aliases` der Registry aufloesbar ist, ist die Preview nicht export-ready und der Agent muss vor dem Rendern nachfragen.
 - Wenn eine Felddefinition in `export-map.json` `allowed_values` definiert, muss der beim Preview-Bau materialisierte Feldwert exakt einem dieser erlaubten Werte entsprechen; jeder andere Wert ist ein lokaler State-Fehler und die Preview ist nicht export-ready.
 - Wenn ein required Wert weder aus dem State-Inhalt noch aus einem eindeutigen technischen Default der `export-map.json` noch aus einer dokumentierten technischen Resolver-Quelle konkret befuellt werden kann, ist die Preview nicht export-ready und der Agent muss vor dem Export stoppen.
 - Fuer `hero-image-top` ist `emb_hero_image_top_headline_size` das einzige kanonische Groessenfeld fuer die Headline und darf nur `s`, `m` oder `l` tragen.

@@ -22,6 +22,7 @@ Lade fuer den Standard-Agent mindestens diese Quellen:
 - `email-builder/agent/template-definition.contract.md`
 - `email-builder/agent/email-state.schema.json`
 - `email-builder/agent/product-salutations.json`
+- `email-builder/agent/service-products.json`
 - `email-builder/agent/preview-rules.md`
 - `email-builder/agent/preview-module-library.md`
 - `email-builder/agent/preview-template.html`
@@ -36,6 +37,9 @@ Lade fuer den Standard-Agent mindestens diese Quellen:
 - `email-builder/agent/template-loft-rnl-dev.definition.json`
 - `email-builder/agent/template-loft-rnl-dev.preview.html`
 - `email-builder/email/templates/loft-rnl-dev.html`
+- `email-builder/agent/template-loft-regio-resi.definition.json`
+- `email-builder/agent/template-loft-regio-resi.preview.html`
+- `email-builder/email/templates/loft-regio-resi.html`
 
 ## Regelprioritaet
 
@@ -49,10 +53,11 @@ Lade fuer den Standard-Agent mindestens diese Quellen:
 8. `email-builder/agent/template-definition.contract.md`
 9. `email-builder/agent/email-state.schema.json`
 10. `email-builder/agent/product-salutations.json`
-11. `email-builder/agent/icon-library.md`
-12. `email-builder/agent/tone-of-voice.md`
-13. `email-builder/agent/content-rules.md`
-14. aktive `agent/template-<template_id>.*` und `email-builder/email/templates/<template_id>.html`
+11. `email-builder/agent/service-products.json`
+12. `email-builder/agent/icon-library.md`
+13. `email-builder/agent/tone-of-voice.md`
+14. `email-builder/agent/content-rules.md`
+15. aktive `agent/template-<template_id>.*` und `email-builder/email/templates/<template_id>.html`
 
 ## Kernregeln
 
@@ -72,6 +77,7 @@ Lade fuer den Standard-Agent mindestens diese Quellen:
 - Wenn der User explizit ein Team oder Produkt nennt, muss die Zuordnung case-insensitive ueber die dokumentierten Registry-Aliases oder Template-IDs erfolgen; unnoetige Rueckfragen sind verboten.
 - Wenn bei From-scratch oder Blank kein Team oder Produkt erkennbar ist, fragt der Agent genau einmal `Fuer welches Team oder Produkt ist die Mail gedacht? Zum Beispiel RLE, Loft SNL oder Loft RNL (Dev).` und nutzt sonst `generic`.
 - Zusaetzliche Produktdefaults jenseits der Anrede duerfen weiter nur aus dokumentierten Produkt-Resolvern in `builder-library.md` kommen; aktuell ist das nur `RLE`.
+- Das spaetere Modul `servicetiles` loest genannte Services ausschliesslich ueber `email-builder/agent/service-products.json` auf; unbekannte Services oder andere als genau `4` genannte Services muessen eine Rueckfrage ausloesen.
 - Produktdefaults gelten nur als Start-Defaults; explizite spaetere User-Vorgaben fuer konkrete Felder haben immer Vorrang.
 - Im normalen Preview-/Export-Flow darf der Agent keine komplette HTML-Preview oder komplette Export-HTML ungefragt als grossen Chat-Block ausgeben.
 - Vollstaendiges HTML darf nur ausgegeben werden, wenn der User ausdruecklich danach fragt.

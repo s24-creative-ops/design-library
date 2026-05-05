@@ -36,6 +36,15 @@
 - Wenn `RLE` aktiv ist, darf der Hero-Salutation-Snippetcall nur ueber die dokumentierten technischen Export-Flags `*_use_snippetcall_salutation` aktiviert werden.
 - Freie User-Snippetcalls, freie Raw-Logik oder freier HTML-Code in Hero-Salutations bleiben verboten.
 
+## Servicetiles
+
+- Das spaetere Modul `servicetiles` nutzt `agent/service-products.json` als einzige zentrale Produktquelle.
+- User nennen fuer `servicetiles` fachlich genau `4` Services.
+- Die Aufloesung erfolgt nur ueber `id` oder `aliases` der Registry.
+- Wenn weniger oder mehr als `4` Services genannt werden, muss der Agent nachfragen.
+- Wenn ein Service unbekannt ist oder nicht eindeutig aufloesbar ist, darf der Agent nicht raten.
+- User sehen im regulaeren EMB-Flow keine Iterable-Snippetnamen.
+
 ## Hero
 
 - Im Hero ist nur eines von beiden erlaubt: `eyebrow` oder `badge`.

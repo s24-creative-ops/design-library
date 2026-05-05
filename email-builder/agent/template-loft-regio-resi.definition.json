@@ -1,0 +1,45 @@
+{
+  "template_id": "loft-regio-resi",
+  "template_name": "Loft | Regio (Resi)",
+  "version": 1,
+  "status": "active",
+  "preview_file": "template-loft-regio-resi.preview.html",
+  "iterable_template_id": 619002,
+  "salutation_context_id": "loft-regio-resi",
+  "rules": {
+    "order_locked": true,
+    "forbid_new_modules": true,
+    "allow_remove_modules": true,
+    "allow_duplicate_modules": true
+  },
+  "slots": [
+    {
+      "slot_id": "logo-1",
+      "module_id": "logo",
+      "locked": true,
+      "removable": false,
+      "repeatable": false
+    },
+    {
+      "slot_id": "intro-1",
+      "module_id": "loft-regio-resi-intro",
+      "locked": true,
+      "removable": false,
+      "repeatable": false
+    },
+    {
+      "slot_id": "teaser-1",
+      "module_id": "loft-regio-resi-teaser-1col",
+      "locked": false,
+      "removable": true,
+      "repeatable": true
+    },
+    {
+      "slot_id": "footer-1",
+      "module_id": "footer",
+      "locked": true,
+      "removable": false,
+      "repeatable": false
+    }
+  ]
+}

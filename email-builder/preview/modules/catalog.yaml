@@ -79,6 +79,10 @@ active_modules:
     snippet: emb_benefits_3col
     preview: preview/modules/benefits-3col.html
     email: email/modules/emb_benefits_3col.html
+  - id: servicetiles
+    snippet: emb_servicetiles
+    preview: preview/modules/servicetiles.html
+    email: email/modules/emb_servicetiles.html
   - id: steps-3col
     snippet: emb_steps_3col
     preview: preview/modules/steps-3col.html
