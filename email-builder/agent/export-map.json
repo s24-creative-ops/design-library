@@ -786,6 +786,209 @@
       ]
     },
     {
+      "module_id": "hero-fakeform-buttons-image",
+      "snippet_name": "emb_hero_fakeform_buttons_image",
+      "fields": [
+        {
+          "name": "emb_hero_fakeform_buttons_image_bg_color",
+          "type": "color",
+          "required": true,
+          "default": "#FFFFFF"
+        },
+        {
+          "name": "emb_hero_fakeform_buttons_image_headline_size",
+          "type": "text",
+          "required": true,
+          "default": "l",
+          "allowed_values": [
+            "s",
+            "m",
+            "l"
+          ]
+        },
+        {
+          "name": "emb_hero_fakeform_buttons_image_show_small_headline",
+          "type": "boolean",
+          "required": true,
+          "default": false
+        },
+        {
+          "name": "emb_hero_fakeform_buttons_image_show_large_headline",
+          "type": "boolean",
+          "required": true,
+          "default": true
+        },
+        {
+          "name": "emb_hero_fakeform_buttons_image_headline",
+          "type": "text",
+          "required": true,
+          "default": "Reicht dein Eigenkapital für deine Wunschimmobilie?"
+        },
+        {
+          "name": "emb_hero_fakeform_buttons_image_choice_button_1_url",
+          "type": "url",
+          "required": true,
+          "default": "https://www.immobilienscout24.de/"
+        },
+        {
+          "name": "emb_hero_fakeform_buttons_image_choice_button_1_label",
+          "type": "text",
+          "required": true,
+          "default": "unter 10.000 €"
+        },
+        {
+          "name": "emb_hero_fakeform_buttons_image_show_item_2",
+          "type": "boolean",
+          "required": true,
+          "default": true
+        },
+        {
+          "name": "emb_hero_fakeform_buttons_image_choice_button_2_url",
+          "type": "url",
+          "required": true,
+          "default": "https://www.immobilienscout24.de/"
+        },
+        {
+          "name": "emb_hero_fakeform_buttons_image_choice_button_2_label",
+          "type": "text",
+          "required": true,
+          "default": "10.000–50.000 €"
+        },
+        {
+          "name": "emb_hero_fakeform_buttons_image_show_item_3",
+          "type": "boolean",
+          "required": true,
+          "default": true
+        },
+        {
+          "name": "emb_hero_fakeform_buttons_image_choice_button_3_url",
+          "type": "url",
+          "required": true,
+          "default": "https://www.immobilienscout24.de/"
+        },
+        {
+          "name": "emb_hero_fakeform_buttons_image_choice_button_3_label",
+          "type": "text",
+          "required": true,
+          "default": "50.000–100.000 €"
+        },
+        {
+          "name": "emb_hero_fakeform_buttons_image_show_item_4",
+          "type": "boolean",
+          "required": true,
+          "default": true
+        },
+        {
+          "name": "emb_hero_fakeform_buttons_image_choice_button_4_url",
+          "type": "url",
+          "required": true,
+          "default": "https://www.immobilienscout24.de/"
+        },
+        {
+          "name": "emb_hero_fakeform_buttons_image_choice_button_4_label",
+          "type": "text",
+          "required": true,
+          "default": "100.000–250.000 €"
+        },
+        {
+          "name": "emb_hero_fakeform_buttons_image_show_item_5",
+          "type": "boolean",
+          "required": true,
+          "default": true
+        },
+        {
+          "name": "emb_hero_fakeform_buttons_image_choice_button_5_url",
+          "type": "url",
+          "required": true,
+          "default": "https://www.immobilienscout24.de/"
+        },
+        {
+          "name": "emb_hero_fakeform_buttons_image_choice_button_5_label",
+          "type": "text",
+          "required": true,
+          "default": "über 250.000 €"
+        },
+        {
+          "name": "emb_hero_fakeform_buttons_image_show_item_6",
+          "type": "boolean",
+          "required": true,
+          "default": false
+        },
+        {
+          "name": "emb_hero_fakeform_buttons_image_choice_button_6_url",
+          "type": "url",
+          "required": true,
+          "default": "https://www.immobilienscout24.de/"
+        },
+        {
+          "name": "emb_hero_fakeform_buttons_image_choice_button_6_label",
+          "type": "text",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "emb_hero_fakeform_buttons_image_image_url",
+          "type": "image_url",
+          "required": true,
+          "default": "https://library.eu.iterable.com/33/98/b9799c74eec5412c8fb0c995dd52f19c-emb_placeholder_16x9.png"
+        },
+        {
+          "name": "emb_hero_fakeform_buttons_image_image_alt",
+          "type": "text",
+          "required": false,
+          "default": ""
+        },
+        {
+          "name": "emb_hero_fakeform_buttons_image_show_salutation",
+          "type": "boolean",
+          "required": true,
+          "default": true
+        },
+        {
+          "name": "emb_hero_fakeform_buttons_image_use_snippetcall_salutation",
+          "type": "boolean",
+          "required": true,
+          "default": false
+        },
+        {
+          "name": "emb_hero_fakeform_buttons_image_salutation",
+          "type": "text",
+          "required": true,
+          "default": "Hallo Anrede,"
+        },
+        {
+          "name": "emb_hero_fakeform_buttons_image_body",
+          "type": "rich_full",
+          "required": true,
+          "default": "<p>Wähle aus, wie viel Eigenkapital du einplanst – wir zeigen dir passende nächste Schritte für deine Finanzierung.</p>"
+        },
+        {
+          "name": "emb_hero_fakeform_buttons_image_button_url",
+          "type": "url",
+          "required": true,
+          "default": "https://www.immobilienscout24.de/"
+        },
+        {
+          "name": "emb_hero_fakeform_buttons_image_button_bg_color",
+          "type": "color",
+          "required": true,
+          "default": "#74FFDF"
+        },
+        {
+          "name": "emb_hero_fakeform_buttons_image_button_border_color",
+          "type": "color",
+          "required": true,
+          "default": "#74FFDF"
+        },
+        {
+          "name": "emb_hero_fakeform_buttons_image_button_label",
+          "type": "text",
+          "required": true,
+          "default": "Jetzt prüfen"
+        }
+      ]
+    },
+    {
       "module_id": "hero-cta-top",
       "snippet_name": "emb_hero_cta_top",
       "fields": [
@@ -2992,6 +3195,14 @@
           "required": true,
           "default": ""
         }
+      ]
+    },
+    {
+      "module_id": "contact-signoff",
+      "snippet_name": "emb_contact_signoff",
+      "fields": [],
+      "notes": [
+        "Static signoff snippet without parameters."
       ]
     },
     {

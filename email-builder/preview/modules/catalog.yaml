@@ -35,6 +35,10 @@ active_modules:
     snippet: emb_hero_image_textbox_cta_center
     preview: preview/modules/hero-image-textbox-cta-center.html
     email: email/modules/emb_hero_image_textbox_cta_center.html
+  - id: hero-fakeform-buttons-image
+    snippet: emb_hero_fakeform_buttons_image
+    preview: preview/modules/hero-fakeform-buttons-image.html
+    email: email/modules/emb_hero_fakeform_buttons_image.html
   - id: hero-cta-top
     snippet: emb_hero_cta_top
     preview: preview/modules/hero-cta-top.html
@@ -103,6 +107,10 @@ active_modules:
     snippet: emb_contact
     preview: preview/modules/contact.html
     email: email/modules/emb_contact.html
+  - id: contact-signoff
+    snippet: emb_contact_signoff
+    preview: preview/modules/contact-signoff.html
+    email: email/modules/emb_contact_signoff.html
   - id: footer
     snippet: emb_footer_marketing
     preview: preview/modules/footer.html
