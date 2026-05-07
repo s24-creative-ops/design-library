@@ -651,15 +651,6 @@
       color: var(--text-soft);
     }
 
-    .token-card__code--truncate {
-      display: block;
-      min-width: 0;
-      width: 100%;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
     .token-card__copy-row {
       display: flex;
       align-items: center;
@@ -962,18 +953,19 @@
       gap: 32px;
     }
 
-    .token-card--icon {
-      align-content: start;
+    .token-grid--icons {
+      grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
+      gap: 20px 24px;
     }
 
-    .token-card__icon-preview {
+    .token-icon-item {
       display: grid;
       place-items: center;
-      min-height: 120px;
-      padding: 24px;
-      border: 1px solid rgba(0, 0, 0, 0.06);
-      border-radius: 12px;
-      background: var(--surface-soft);
+      justify-items: center;
+      gap: 10px;
+      min-width: 0;
+      padding: 0;
+      background: #ffffff;
     }
 
     .token-card__icon-image {
@@ -983,11 +975,14 @@
       object-fit: contain;
     }
 
-    .token-card__description {
-      margin: 0;
-      color: var(--text-soft);
-      font-size: 13px;
-      line-height: 1.45;
+    .token-icon-item .token-card__copy-row {
+      justify-content: center;
+      gap: 0;
+    }
+
+    .token-icon-item .token-copy-button {
+      width: 24px;
+      height: 24px;
     }
 
     .token-image-ratios {
@@ -4634,24 +4629,14 @@
               return '<section class="token-section-group">' +
                 '<h3 class="token-section-group__title">' + escapeHtml(formatTokenName(bucket.key)) + '</h3>' +
                 '<p class="token-section-group__intro"><code>' + escapeHtml(bucket.key) + '</code>' + (bucket.description ? ' ' + escapeHtml(bucket.description) : '') + '</p>' +
-                '<div class="token-grid">' +
+                '<div class="token-grid token-grid--icons">' +
                   bucket.icons.map(function (icon) {
                     var iconSize = extractSquarePixelSize(icon.url);
-                    var sizeLabel = iconSize ? iconSize + ' x ' + iconSize + ' px' : '';
-                    return '<article class="token-card token-card--icon">' +
-                      '<div class="token-card__icon-preview">' +
+                    return '<article class="token-icon-item">' +
                         '<img class="token-card__icon-image" src="' + escapeHtml(icon.url) + '" alt="" width="' + (iconSize || 48) + '" height="' + (iconSize || 48) + '" loading="lazy" />' +
-                      '</div>' +
-                      '<div class="token-card__meta">' +
-                        '<span class="token-card__label">' + escapeHtml(bucket.key) + '</span>' +
-                        '<h3 class="token-card__title">' + escapeHtml(icon.key) + '</h3>' +
-                        '<p class="token-card__description">' + escapeHtml(icon.meaning) + '</p>' +
-                        (sizeLabel ? createMetaRow('Size', sizeLabel) : '') +
                         '<div class="token-card__copy-row">' +
-                          '<code class="token-card__code token-card__code--truncate" title="' + escapeHtml(icon.url) + '">' + escapeHtml(icon.url) + '</code>' +
                           createCopyButton(icon.url, icon.key) +
                         '</div>' +
-                      '</div>' +
                     '</article>';
                   }).join('') +
                 '</div>' +
