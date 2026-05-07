@@ -948,11 +948,6 @@
       color: var(--text);
     }
 
-    .token-icons-columns {
-      display: grid;
-      gap: 32px;
-    }
-
     .token-grid--icons {
       grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
       gap: 20px 24px;
@@ -4623,24 +4618,26 @@
       function renderIconCards() {
         if (!iconHost || !ICON_LIBRARY || !Array.isArray(ICON_LIBRARY.buckets)) return;
 
+        var seenUrls = {};
+        var uniqueIcons = [];
+        ICON_LIBRARY.buckets.forEach(function (bucket) {
+          bucket.icons.forEach(function (icon) {
+            if (!icon.url || seenUrls[icon.url]) return;
+            seenUrls[icon.url] = true;
+            uniqueIcons.push(icon);
+          });
+        });
+
         iconHost.innerHTML =
-          '<div class="token-icons-columns">' +
-            ICON_LIBRARY.buckets.map(function (bucket) {
-              return '<section class="token-section-group">' +
-                '<h3 class="token-section-group__title">' + escapeHtml(formatTokenName(bucket.key)) + '</h3>' +
-                '<p class="token-section-group__intro"><code>' + escapeHtml(bucket.key) + '</code>' + (bucket.description ? ' ' + escapeHtml(bucket.description) : '') + '</p>' +
-                '<div class="token-grid token-grid--icons">' +
-                  bucket.icons.map(function (icon) {
-                    var iconSize = extractSquarePixelSize(icon.url);
-                    return '<article class="token-icon-item">' +
-                        '<img class="token-card__icon-image" src="' + escapeHtml(icon.url) + '" alt="" width="' + (iconSize || 48) + '" height="' + (iconSize || 48) + '" loading="lazy" />' +
-                        '<div class="token-card__copy-row">' +
-                          createCopyButton(icon.url, icon.key) +
-                        '</div>' +
-                    '</article>';
-                  }).join('') +
-                '</div>' +
-              '</section>';
+          '<div class="token-grid token-grid--icons">' +
+            uniqueIcons.map(function (icon) {
+              var iconSize = extractSquarePixelSize(icon.url);
+              return '<article class="token-icon-item">' +
+                  '<img class="token-card__icon-image" src="' + escapeHtml(icon.url) + '" alt="" width="' + (iconSize || 48) + '" height="' + (iconSize || 48) + '" loading="lazy" />' +
+                  '<div class="token-card__copy-row">' +
+                    createCopyButton(icon.url, icon.key) +
+                  '</div>' +
+              '</article>';
             }).join('') +
           '</div>';
 
