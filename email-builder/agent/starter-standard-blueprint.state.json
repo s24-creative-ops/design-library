@@ -1,0 +1,71 @@
+{
+  "campaignId": null,
+  "templateId": null,
+  "previewBranchKey": null,
+  "templateContext": {
+    "mode": "default_template",
+    "resolvedBaseTemplateId": "569946",
+    "compositionTemplateId": null,
+    "iterableTemplateId": null
+  },
+  "salutationContext": "generic",
+  "subject": "Digitale Immobilienvermarktung klar organisiert",
+  "preheader": "Ein neutraler Startpunkt für Ihre erste Vorschau mit Hero, Schritten und Standard-CTA.",
+  "modules": [
+    {
+      "instance_id": "logo-1",
+      "module_id": "logo",
+      "snippet_name": "emb_logo",
+      "content": {}
+    },
+    {
+      "instance_id": "hero-image-top-1",
+      "module_id": "hero-image-top",
+      "snippet_name": "emb_hero_image_top",
+      "content": {
+        "emb_hero_image_top_bg_color": "#FFFFFF",
+        "emb_hero_image_top_show_preheadline": true,
+        "emb_hero_image_top_preheadline": "Digitales Immobilienprodukt",
+        "emb_hero_image_top_show_badge": false,
+        "emb_hero_image_top_headline_size": "l",
+        "emb_hero_image_top_show_small_headline": false,
+        "emb_hero_image_top_show_large_headline": true,
+        "emb_hero_image_top_headline": "Vermarkten Sie Ihre Immobilie digital, klar und zeitsparend",
+        "emb_hero_image_top_image_url": "https://library.eu.iterable.com/33/98/b9799c74eec5412c8fb0c995dd52f19c-emb_placeholder_16x9.png",
+        "emb_hero_image_top_image_alt": "",
+        "emb_hero_image_top_show_salutation": true,
+        "emb_hero_image_top_use_snippetcall_salutation": false,
+        "emb_hero_image_top_salutation": "Hallo Anrede,",
+        "emb_hero_image_top_body": "<p>Mit einem digitalen Vermarktungspaket gewinnen Sie mehr Übersicht und bringen Ihre Vermarktung einfacher in den Alltag.</p>",
+        "emb_hero_image_top_button_url": "https://www.immobilienscout24.de/",
+        "emb_hero_image_top_button_bg_color": "#74FFDF",
+        "emb_hero_image_top_button_border_color": "#74FFDF",
+        "emb_hero_image_top_button_label": "Mehr erfahren"
+      }
+    },
+    {
+      "instance_id": "steps-3col-1",
+      "module_id": "steps-3col",
+      "snippet_name": "emb_steps_3col",
+      "content": {
+        "emb_steps_3col_bg_color": "#F5F5F5",
+        "emb_steps_3col_show_headline": true,
+        "emb_steps_3col_headline": "So starten Sie in drei klaren Schritten",
+        "emb_steps_3col_col_1_body": "Definieren Sie Thema, Ziel und den zentralen Mehrwert Ihrer Nachricht.",
+        "emb_steps_3col_col_2_body": "Ordnen Sie Inhalte und CTAs so an, dass die Mail klar und gut lesbar bleibt.",
+        "emb_steps_3col_col_3_body": "Passen Sie Texte und Module nach der ersten Vorschau gezielt an Ihren Bedarf an.",
+        "emb_steps_3col_show_button": true,
+        "emb_steps_3col_button_url": "https://www.immobilienscout24.de/",
+        "emb_steps_3col_button_bg_color": "#FFFFFF",
+        "emb_steps_3col_button_border_color": "#333333",
+        "emb_steps_3col_button_label": "Jetzt starten"
+      }
+    },
+    {
+      "instance_id": "footer-1",
+      "module_id": "footer",
+      "snippet_name": "emb_footer_marketing",
+      "content": {}
+    }
+  ]
+}

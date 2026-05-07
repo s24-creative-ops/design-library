@@ -497,6 +497,24 @@
       color: var(--text);
     }
 
+    .token-section__text {
+      margin: 0;
+      max-width: 52em;
+      color: var(--text-soft);
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    .token-section__text code,
+    .token-section-group__intro code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 12px;
+      color: var(--text);
+      background: #f7f7f7;
+      border-radius: 6px;
+      padding: 2px 6px;
+    }
+
     .token-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -631,6 +649,15 @@
       font-size: 12px;
       line-height: 1.2;
       color: var(--text-soft);
+    }
+
+    .token-card__code--truncate {
+      display: block;
+      min-width: 0;
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .token-card__copy-row {
@@ -841,6 +868,13 @@
       gap: 16px;
     }
 
+    .token-section-group__intro {
+      margin: -8px 0 0;
+      color: var(--text-soft);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
     [data-token-colors] {
       display: grid;
       gap: 32px;
@@ -921,6 +955,39 @@
       line-height: 1.2;
       font-weight: 700;
       color: var(--text);
+    }
+
+    .token-icons-columns {
+      display: grid;
+      gap: 32px;
+    }
+
+    .token-card--icon {
+      align-content: start;
+    }
+
+    .token-card__icon-preview {
+      display: grid;
+      place-items: center;
+      min-height: 120px;
+      padding: 24px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      border-radius: 12px;
+      background: var(--surface-soft);
+    }
+
+    .token-card__icon-image {
+      display: block;
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+    }
+
+    .token-card__description {
+      margin: 0;
+      color: var(--text-soft);
+      font-size: 13px;
+      line-height: 1.45;
     }
 
     .token-image-ratios {
@@ -2122,6 +2189,7 @@
             <a class="test-nav__link" href="#tokens-colors"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-tiles"></use></svg><span>Colors</span></a>
             <a class="test-nav__link" href="#tokens-buttons"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-action"></use></svg><span>Buttons</span></a>
             <a class="test-nav__link" href="#tokens-typography"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-text"></use></svg><span>Typography</span></a>
+            <a class="test-nav__link" href="#tokens-icons"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-logo"></use></svg><span>Icons</span></a>
             <a class="test-nav__link" href="#tokens-radius"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-logo"></use></svg><span>Radius</span></a>
             <a class="test-nav__link" href="#tokens-spacing"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-steps"></use></svg><span>Spacing</span></a>
             <a class="test-nav__link" href="#tokens-borders"><svg class="test-nav__link-icon" viewBox="0 0 16 16"><use href="#nav-icon-table"></use></svg><span>Borders</span></a>
@@ -2234,6 +2302,14 @@
                 <h2 class="token-section__title">Typography</h2>
               </div>
               <div class="token-typography-list" data-token-typography></div>
+            </section>
+
+            <section class="token-section" id="tokens-icons">
+              <div class="token-section__header">
+                <h2 class="token-section__title">Icons</h2>
+                <p class="token-section__text">Die sichtbaren Benefit-Icons werden direkt aus <code>email-builder/agent/icon-library.md</code> geladen.</p>
+              </div>
+              <div data-token-icons></div>
             </section>
 
             <section class="token-section" id="tokens-radius">
@@ -4239,8 +4315,10 @@
   <script>
     (function () {
       var TOKEN_SOURCE = '../tokens/brands/immoscout24.json';
+      var ICON_LIBRARY_SOURCE = '../../email-builder/agent/icon-library.md';
       var SERVICE_PRODUCT_SOURCE = '../../email-builder/agent/service-products.json';
       var TOKENS = null;
+      var ICON_LIBRARY = null;
       var DEFAULT_ROUTE = { page: 'home', sectionId: 'home' };
       var FRAME_LOADING_HEIGHT = 120;
       var shell = document.querySelector('[data-shell]');
@@ -4263,6 +4341,7 @@
       var tokenHosts = Array.from(document.querySelectorAll(
         '[data-token-colors], [data-token-buttons], [data-token-typography], [data-token-radius], [data-token-spacing], [data-token-borders], [data-token-ratios]'
       ));
+      var iconHost = document.querySelector('[data-token-icons]');
       var serviceProductHost = document.querySelector('[data-email-service-products]');
 
       function renderTokenState(message) {
@@ -4298,6 +4377,127 @@
           .replace(/>/g, '&gt;')
           .replace(/"/g, '&quot;')
           .replace(/'/g, '&#39;');
+      }
+
+      function renderIconState(message) {
+        if (iconHost) {
+          iconHost.innerHTML = '<p style="margin:0;color:#6d6d6d;font-size:14px;line-height:1.5;">' + escapeHtml(message) + '</p>';
+        }
+      }
+
+      function parseIconLibrary(markdown) {
+        var buckets = [];
+        var bucketDescriptions = {};
+        var currentSection = '';
+        var currentBucket = null;
+        var currentIcon = null;
+
+        markdown.split(/\r?\n/).forEach(function (line) {
+          if (line === '# Buckets') {
+            currentSection = 'buckets';
+            currentBucket = null;
+            currentIcon = null;
+            return;
+          }
+
+          if (line === '# Icons') {
+            currentSection = 'icons';
+            currentBucket = null;
+            currentIcon = null;
+            return;
+          }
+
+          if (currentSection === 'buckets') {
+            var bucketMatch = line.match(/^- `([^`]+)`: (.+)$/);
+            if (!bucketMatch) return;
+            bucketDescriptions[bucketMatch[1]] = bucketMatch[2].trim();
+            return;
+          }
+
+          if (currentSection !== 'icons') return;
+
+          var bucketHeadingMatch = line.match(/^##\s+(.+)$/);
+          if (bucketHeadingMatch) {
+            currentBucket = {
+              key: bucketHeadingMatch[1].trim(),
+              description: '',
+              icons: []
+            };
+            buckets.push(currentBucket);
+            currentIcon = null;
+            return;
+          }
+
+          if (!currentBucket) return;
+
+          var iconKeyMatch = line.match(/^- `([^`]+)`$/);
+          if (iconKeyMatch) {
+            currentIcon = {
+              key: iconKeyMatch[1],
+              url: '',
+              meaning: ''
+            };
+            currentBucket.icons.push(currentIcon);
+            return;
+          }
+
+          if (!currentIcon) return;
+
+          var iconUrlMatch = line.match(/^  - url: `([^`]+)`$/);
+          if (iconUrlMatch) {
+            currentIcon.url = iconUrlMatch[1];
+            return;
+          }
+
+          var iconMeaningMatch = line.match(/^  - meaning: `([^`]+)`$/);
+          if (iconMeaningMatch) {
+            currentIcon.meaning = iconMeaningMatch[1];
+          }
+        });
+
+        buckets = buckets.map(function (bucket) {
+          return {
+            key: bucket.key,
+            description: bucketDescriptions[bucket.key] || '',
+            icons: bucket.icons.filter(function (icon) {
+              return icon.key && icon.url && icon.meaning;
+            })
+          };
+        }).filter(function (bucket) {
+          return bucket.icons.length > 0;
+        });
+
+        if (!buckets.length) {
+          throw new Error('missing icon entries');
+        }
+
+        return { buckets: buckets };
+      }
+
+      function extractSquarePixelSize(url) {
+        var match = String(url || '').match(/_(\d+)\.(?:png|svg|jpg|jpeg|webp)(?:[?#].*)?$/i);
+        return match ? Number(match[1]) : 0;
+      }
+
+      function loadIconLibrary() {
+        if (!iconHost) return Promise.resolve();
+        renderIconState('Icons werden geladen...');
+
+        return fetch(ICON_LIBRARY_SOURCE)
+          .then(function (response) {
+            if (!response.ok) {
+              throw new Error('HTTP ' + response.status);
+            }
+            return response.text();
+          })
+          .then(function (markdown) {
+            ICON_LIBRARY = parseIconLibrary(markdown);
+            renderIconCards();
+          })
+          .catch(function (error) {
+            console.warn('design-library icon-library load failed', error);
+            renderIconState('Icons konnten nicht geladen werden. Bitte pruefe die Datei ' + ICON_LIBRARY_SOURCE + '.');
+          });
       }
 
       function renderServiceProductState(message) {
@@ -4349,17 +4549,18 @@
       }
 
       function createMetaRow(label, value) {
-        return '<div class="token-card__meta-row"><span>' + label + '</span><code>' + value + '</code></div>';
+        return '<div class="token-card__meta-row"><span>' + escapeHtml(label) + '</span><code>' + escapeHtml(value) + '</code></div>';
       }
 
       function createCodeValue(value) {
-        return '<code class="token-card__code">' + value + '</code>';
+        return '<code class="token-card__code">' + escapeHtml(value) + '</code>';
       }
 
       function createColorCopyRow(value) {
+        var safeValue = escapeHtml(value);
         return '<div class="token-card__copy-row">' +
-          '<code class="token-card__code">' + value + '</code>' +
-          '<button class="token-copy-button" type="button" data-copy-value="' + value + '" aria-label="' + value + ' kopieren" title="' + value + ' kopieren">' +
+          '<code class="token-card__code">' + safeValue + '</code>' +
+          '<button class="token-copy-button" type="button" data-copy-value="' + safeValue + '" aria-label="' + safeValue + ' kopieren" title="' + safeValue + ' kopieren">' +
             '<svg class="token-copy-button__icon" viewBox="0 0 24 24" aria-hidden="true">' +
               '<rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>' +
               '<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>' +
@@ -4370,7 +4571,9 @@
       }
 
       function createCopyButton(value, label) {
-        return '<button class="token-copy-button" type="button" data-copy-value="' + value + '" aria-label="' + label + ' kopieren" title="' + label + ' kopieren">' +
+        var safeValue = escapeHtml(value);
+        var safeLabel = escapeHtml(label);
+        return '<button class="token-copy-button" type="button" data-copy-value="' + safeValue + '" aria-label="' + safeLabel + ' kopieren" title="' + safeLabel + ' kopieren">' +
           '<svg class="token-copy-button__icon" viewBox="0 0 24 24" aria-hidden="true">' +
             '<rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>' +
             '<path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>' +
@@ -4422,7 +4625,47 @@
         '</div>';
       }
 
+      function renderIconCards() {
+        if (!iconHost || !ICON_LIBRARY || !Array.isArray(ICON_LIBRARY.buckets)) return;
+
+        iconHost.innerHTML =
+          '<div class="token-icons-columns">' +
+            ICON_LIBRARY.buckets.map(function (bucket) {
+              return '<section class="token-section-group">' +
+                '<h3 class="token-section-group__title">' + escapeHtml(formatTokenName(bucket.key)) + '</h3>' +
+                '<p class="token-section-group__intro"><code>' + escapeHtml(bucket.key) + '</code>' + (bucket.description ? ' ' + escapeHtml(bucket.description) : '') + '</p>' +
+                '<div class="token-grid">' +
+                  bucket.icons.map(function (icon) {
+                    var iconSize = extractSquarePixelSize(icon.url);
+                    var sizeLabel = iconSize ? iconSize + ' x ' + iconSize + ' px' : '';
+                    return '<article class="token-card token-card--icon">' +
+                      '<div class="token-card__icon-preview">' +
+                        '<img class="token-card__icon-image" src="' + escapeHtml(icon.url) + '" alt="" width="' + (iconSize || 48) + '" height="' + (iconSize || 48) + '" loading="lazy" />' +
+                      '</div>' +
+                      '<div class="token-card__meta">' +
+                        '<span class="token-card__label">' + escapeHtml(bucket.key) + '</span>' +
+                        '<h3 class="token-card__title">' + escapeHtml(icon.key) + '</h3>' +
+                        '<p class="token-card__description">' + escapeHtml(icon.meaning) + '</p>' +
+                        (sizeLabel ? createMetaRow('Size', sizeLabel) : '') +
+                        '<div class="token-card__copy-row">' +
+                          '<code class="token-card__code token-card__code--truncate" title="' + escapeHtml(icon.url) + '">' + escapeHtml(icon.url) + '</code>' +
+                          createCopyButton(icon.url, icon.key) +
+                        '</div>' +
+                      '</div>' +
+                    '</article>';
+                  }).join('') +
+                '</div>' +
+              '</section>';
+            }).join('') +
+          '</div>';
+
+        bindCopyButtons(iconHost);
+      }
+
       function renderTokenCards() {
+        renderIconCards();
+        if (!TOKENS) return;
+
         var colorsHost = document.querySelector('[data-token-colors]');
         if (colorsHost) {
           function renderColorGroup(title, entries) {
@@ -4970,6 +5213,7 @@
       applyRoute();
       applyFrameSourceMode();
       loadTokens();
+      loadIconLibrary();
       loadServiceProducts();
     }());
   </script>

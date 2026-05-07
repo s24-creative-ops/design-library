@@ -1,0 +1,122 @@
+{
+  "campaignId": null,
+  "templateId": null,
+  "previewBranchKey": null,
+  "templateContext": {
+    "mode": "default_template",
+    "resolvedBaseTemplateId": "569946",
+    "compositionTemplateId": null,
+    "iterableTemplateId": null
+  },
+  "salutationContext": "generic",
+  "subject": "Ihre Vorlage für Energie- und Immobilienservices",
+  "preheader": "Eine kurze Beispielmail mit passenden Services rund um Ihre Immobilie.",
+  "modules": [
+    {
+      "instance_id": "logo-centered-1",
+      "module_id": "logo-centered",
+      "snippet_name": "emb_logo_centered",
+      "content": {}
+    },
+    {
+      "instance_id": "hero-image-top-center-1",
+      "module_id": "hero-image-top-center",
+      "snippet_name": "emb_hero_image_top_center",
+      "content": {
+        "emb_hero_image_top_center_bg_color": "#FFFFFF",
+        "emb_hero_image_top_center_show_preheadline": true,
+        "emb_hero_image_top_center_preheadline": "Homeowner Services",
+        "emb_hero_image_top_center_show_badge": false,
+        "emb_hero_image_top_center_headline_size": "l",
+        "emb_hero_image_top_center_show_small_headline": false,
+        "emb_hero_image_top_center_show_large_headline": true,
+        "emb_hero_image_top_center_headline": "Hilfreiche Services rund um Ihre Immobilie",
+        "emb_hero_image_top_center_image_url": "https://library.eu.iterable.com/33/98/b9799c74eec5412c8fb0c995dd52f19c-emb_placeholder_16x9.png",
+        "emb_hero_image_top_center_image_alt": "",
+        "emb_hero_image_top_center_show_salutation": true,
+        "emb_hero_image_top_center_use_snippetcall_salutation": false,
+        "emb_hero_image_top_center_salutation": "Hallo Anrede,",
+        "emb_hero_image_top_center_body": "<p>Diese Vorlage zeigt eine mögliche Struktur für Ihre E-Mail.</p>",
+        "emb_hero_image_top_center_button_url": "https://www.immobilienscout24.de/",
+        "emb_hero_image_top_center_button_bg_color": "#74FFDF",
+        "emb_hero_image_top_center_button_border_color": "#74FFDF",
+        "emb_hero_image_top_center_button_label": "Mehr erfahren"
+      }
+    },
+    {
+      "instance_id": "benefits-3col-1",
+      "module_id": "benefits-3col",
+      "snippet_name": "emb_benefits_3col",
+      "content": {
+        "emb_benefits_3col_bg_color": "#F5F5F5",
+        "emb_benefits_3col_show_headline": true,
+        "emb_benefits_3col_headline": "Ihre Vorteile auf einen Blick",
+        "emb_benefits_3col_col_1_icon_url": "https://www.static-immobilienscout24.de/fro/emb/_/s24_lightbulb_48.png",
+        "emb_benefits_3col_col_1_body": "<strong>Orientierung gewinnen</strong><br>Erhalten Sie einen schnellen Überblick über passende Services.",
+        "emb_benefits_3col_col_2_icon_url": "https://www.static-immobilienscout24.de/fro/emb/_/s24_calendar_checkmark_48.png",
+        "emb_benefits_3col_col_2_body": "<strong>Nächste Schritte planen</strong><br>Nutzen Sie die Vorlage als klaren Startpunkt für Ihre Mail.",
+        "emb_benefits_3col_col_3_icon_url": "https://www.static-immobilienscout24.de/fro/emb/_/s24_checkmark_circle_48.png",
+        "emb_benefits_3col_col_3_body": "<strong>Services direkt anbieten</strong><br>Binden Sie relevante Angebote einfach in die Kommunikation ein.",
+        "emb_benefits_3col_show_cta": true,
+        "emb_benefits_3col_button_url": "https://www.immobilienscout24.de/meinsuchprofil/meinsuchprofilanlage/",
+        "emb_benefits_3col_button_bg_color": "#FFFFFF",
+        "emb_benefits_3col_button_border_color": "#333333",
+        "emb_benefits_3col_button_label": "Suchprofil anlegen"
+      }
+    },
+    {
+      "instance_id": "teaser-1col-1",
+      "module_id": "teaser-1col",
+      "snippet_name": "emb_teaser_1col",
+      "content": {
+        "emb_teaser_1col_bg_color": "#FFFFFF",
+        "emb_teaser_1col_headline": "Alles Wichtige kompakt gebündelt",
+        "emb_teaser_1col_image_link_url": "https://www.immobilienscout24.de/",
+        "emb_teaser_1col_image_url": "https://library.eu.iterable.com/33/98/b9799c74eec5412c8fb0c995dd52f19c-emb_placeholder_16x9.png",
+        "emb_teaser_1col_image_alt": "",
+        "emb_teaser_1col_body": "<p>Die Vorlage kann nach der ersten Vorschau frei angepasst und mit weiteren Modulen erweitert werden.</p>",
+        "emb_teaser_1col_button_url": "https://www.immobilienscout24.de/",
+        "emb_teaser_1col_button_bg_color": "#FFFFFF",
+        "emb_teaser_1col_button_border_color": "#333333",
+        "emb_teaser_1col_button_label": "Mehr erfahren"
+      }
+    },
+    {
+      "instance_id": "servicetiles-1",
+      "module_id": "servicetiles",
+      "snippet_name": "emb_servicetiles",
+      "content": {
+        "emb_servicetiles_bg_color": "#F5F5F5",
+        "emb_servicetiles_headline": "Passende Services für Ihre Immobilie",
+        "emb_servicetiles_col_1_url": "https://www.immobilienscout24.de/lp/energieberatung.html",
+        "emb_servicetiles_col_1_icon_url": "https://d15k2d11r6t6rl.cloudfront.net/pub/bfra/tgru1zsx/txv/cq2/g2k/money_house_white.png",
+        "emb_servicetiles_col_1_title": "Energieberatung",
+        "emb_servicetiles_col_1_description": "Bis zu 70% Förderung erhalten",
+        "emb_servicetiles_col_2_url": "https://www.immobilienscout24.de/lp/nutzungsdauer-quickcheck.html",
+        "emb_servicetiles_col_2_icon_url": "https://d15k2d11r6t6rl.cloudfront.net/pub/bfra/tgru1zsx/t7v/n1z/j9p/calculator_white.png",
+        "emb_servicetiles_col_2_title": "Nutzungsdauer-Rechner",
+        "emb_servicetiles_col_2_description": "Kostenlos berechnen",
+        "emb_servicetiles_col_3_url": "https://www.immobilienscout24.de/energieausweis.html",
+        "emb_servicetiles_col_3_icon_url": "https://d15k2d11r6t6rl.cloudfront.net/pub/bfra/tgru1zsx/1is/2t3/zqq/Energieausweiss.png",
+        "emb_servicetiles_col_3_title": "Energieausweis bestellen",
+        "emb_servicetiles_col_3_description": "Pflicht für Vermietung & Verkauf",
+        "emb_servicetiles_col_4_url": "https://www.immobilienscout24.de/lp/klarwatt.html",
+        "emb_servicetiles_col_4_icon_url": "https://d15k2d11r6t6rl.cloudfront.net/pub/bfra/tgru1zsx/feo/2fr/t9a/flash.png",
+        "emb_servicetiles_col_4_title": "Dynamischer Stromtarif",
+        "emb_servicetiles_col_4_description": "Strom sparen, monatlich kündbar"
+      }
+    },
+    {
+      "instance_id": "contact-signoff-1",
+      "module_id": "contact-signoff",
+      "snippet_name": "emb_contact_signoff",
+      "content": {}
+    },
+    {
+      "instance_id": "footer-1",
+      "module_id": "footer",
+      "snippet_name": "emb_footer_marketing",
+      "content": {}
+    }
+  ]
+}

@@ -18,12 +18,28 @@ Die Preview ist die sichtbare HTML-Arbeitsmail im Canvas und die Basis fuer spae
 
 - Starte jede Preview mit einer exakten Kopie von `preview-template.html`.
 - Ersetze nur `[data-preview-subject-text]`, `[data-preview-preheader-text]` und den Bereich zwischen den Modul-Slot-Kommentaren.
-- Modulbloecke duerfen nur aus `preview-modules.html` stammen.
+- `agent/preview-modules.html` ist die kanonische Quelle fuer bestehende Preview-Modulbloecke.
 - Die Modulwahl muss in `preview-module-library.md` registriert sein.
 - Wenn ein Modul dort nicht angebunden ist, klar fehlschlagen statt Ersatz-HTML zu bauen.
-- Vorhandene Marker in `preview-modules.html` duerfen zur konsistenten Preview-Befuellung und fuer Debug oder Recovery genutzt werden, sind aber nicht die regulaere Exportquelle.
+- `preview-module-library.md` dient nur fuer Auswahl, Beschreibung und Feldlogik, nie als Quelle fuer frei rekonstruiertes Markup.
+- Vorhandene Marker in `preview-modules.html` duerfen zur konsistenten Preview-Befuellung und fuer Debugging genutzt werden, sind aber nicht die regulaere Exportquelle.
+- Vor jeder Preview intern Completeness-Check anwenden:
+  - Modulblock anhand `data-module` vollstaendig aus `agent/preview-modules.html` uebernehmen.
+  - Wrapper, Tabellenstruktur, Klassen, Responsive-Klassen und Inline-Styles nie frei rekonstruieren, kuerzen, neu sortieren oder ersetzen.
+  - Nur Feldwerte und Inhalte austauschen.
+  - Bestehende Module nie aus Beschreibung, Erinnerung oder aehnlichen Modulen neu konstruieren.
+  - Pflichtbestandteile eines Moduls nie auslassen.
+  - `footer` immer vollstaendig rendern; es ist ein Strukturmodul und darf nie vereinfacht oder teilweise ausgelassen werden.
+  - `logo`, `footer`, `contact` und `contact-signoff` immer weiss halten.
+  - Normale Content-Module strikt nach dem operativen Hintergrund-Rhythmus materialisieren.
+  - Nach Einfuegen, Entfernen oder Umsortieren von Modulen den gesamten Hintergrund-Rhythmus neu materialisieren.
+  - Beim Einfuegen, Entfernen oder Umsortieren angeforderter Module duerfen umliegende bestehende Module nicht neu konstruiert oder vereinfacht werden.
+  - Wenn ein Modul bereits korrekt in der Preview existiert, bleibt seine Struktur bei spaeteren Aenderungen zustandsbasiert erhalten.
+  - Nach dem Einsetzen pruefen, dass die responsive Struktur des Moduls erhalten ist.
+  - Wenn ein Modul nicht sicher vollstaendig renderbar ist, kurz nachfragen statt ein gekuertztes Modul auszugeben.
 - Nach dem Einsetzen der finalen Modulfolge muessen die Modulhintergruende in der Preview exakt dem operativen Hintergrund-Rhythmus aus `builder-library.md` folgen.
 - Statische `theme-white`- oder `theme-gray`-Annahmen einzelner Quellbloecke aus `preview-modules.html` sind dafuer nicht bindend und muessen bei Bedarf fuer die finale Preview normalisiert werden.
+- `logo`, `footer`, `contact` und `contact-signoff` sind feste weisse Struktur-/Utility-Module; sie nehmen in der Preview nie an der Hintergrund-Alternierung teil und muessen immer weiss bleiben.
 - Die konkrete technische Aufloesung dieses Rhythmus erfolgt ueber `agent/preview-styles.css`:
   - weiss / white = `#FFFFFF` aus `--surface-white`
   - grau / gray = `#F5F5F5` aus `--surface-gray`
@@ -31,6 +47,7 @@ Die Preview ist die sichtbare HTML-Arbeitsmail im Canvas und die Basis fuer spae
 - `agent/preview-styles.css` bleibt dabei die interne Repo-Quelldatei; die oeffentliche Preview darf nicht auf `/agent/preview-styles.css` zeigen.
 - Finale EMB-Previews duerfen kein externes Design-Library- oder `preview/token-runtime.js`-Script laden.
 - Token-, Link- und Asset-Werte fuer finale EMB-Previews muessen bereits statisch im Preview-Markup oder ueber die geladene EMB-Preview-CSS vorliegen; eine nachgelagerte Runtime darf weder Tokens noch Typography noch Badge-Surfaces ueberschreiben.
+- Auch bei schnellem Modellbetrieb gilt: Vollstaendigkeit der Preview vor Kuerze der Antwort.
 
 ## Typography-Regeln
 
@@ -79,17 +96,67 @@ Die Preview ist die sichtbare HTML-Arbeitsmail im Canvas und die Basis fuer spae
 
 - Im Initiallauf darf Preview, Composition oder State noch fehlen.
 - Der Initiallauf ist ein Erzeugungsfall, kein Validierungsfall.
+- Beim allerersten Start ist der Creation-Mode geschlossen:
+  - explizit angefordertes Fixed Composition Template oder dokumentierter Starter Blueprint
+  - sonst Standard-Blueprint
+- Wenn der User `Create from scratch`, `from scratch`, `blank`, `frei starten` oder ohne Template-Vorgabe eine neue Mail starten will, beginnt die erste Preview immer sofort mit dem Standard-Blueprint.
+- Fuer diesen freien Initialstart stellt der Agent keine Rueckfragen zu Produkt, Thema, Ziel, Tonalitaet oder Inhalt.
+- Fuer diesen freien Initialstart nutzt die erste Preview neutrale Blindtexte oder lorem-ipsum-nahe Platzhalter, neutrale Subject-/Preheader-Werte, das bestehende Hero-CTA-Default und nur bestehende Moduldefaults.
+- Die sichtbare Startantwort fuer diesen freien Initialstart ist nur: `Ich starte nun mit dem Blueprint-Aufbau und erstelle die erste Vorschau.`
+- Wenn der User `Start mit Template`, `Choose template` oder sinngemaess eine Template-Auswahl anfragt, baut der Agent noch keine freie Mail, sondern sagt sichtbar exakt nur:
+  - `Bitte nenne mir die Nummer des Templates, mit dem du starten möchtest:`
+  - `1. Loft | SNL`
+  - `2. Loft | RNL (Dev)`
+  - `3. Loft | Regio (Resi)`
+  - `4. Homeowner | ESG`
+  - `5. Seeker | MLE`
+- Wenn der User `1`, `2`, `3`, `4`, `5`, einen dieser Anzeigenamen oder die zugehoerige technische ID nennt, startet der Agent direkt mit dem passenden Template und nutzt sichtbar nur: `Ich starte nun mit dem Template „<Anzeigename>“ und erstelle die erste Vorschau.`
+- Beim initialen Start eines aktiven Templates ist nur die zugehoerige `template-<template_id>.preview.html` die visuelle Quelle der ersten Template-Preview:
+  - `loft-snl` -> `template-loft-snl.preview.html`
+  - `loft-rnl-dev` -> `template-loft-rnl-dev.preview.html`
+  - `loft-regio-resi` -> `template-loft-regio-resi.preview.html`
+- In diesem initialen Template-Start sind freie Modulplanung, Einzelmodulsuche, Modulrekonstruktion, generische Ersatzmodule und `preview-modules.html` als primaere Quelle verboten.
+- Starter Blueprints nutzen keine `template-*.preview.html`, keine Composition-Template-Pruefung, keine neue Copy-Generierung und keine sichtbare State-Ausgabe oder `EMB_EMAIL_STATE`-Kommentare in der Preview.
+- Fuer `Start mit Blueprint`, `Create from scratch`, `from scratch`, `blank`, `frei starten` oder sinngemaess freien Start muss der Agent direkt `starter-standard-blueprint.preview.html` als erste Preview und `starter-standard-blueprint.state.json` als ersten State verwenden.
+- Wenn fuer einen Starter Blueprint ein fertiges `starter-<id>.preview.html` und `starter-<id>.state.json` vorliegen, nutzt der Agent diese beiden Artefakte direkt als ersten Preview-/State-Stand.
+- Beim Start des Standard-Blueprints muss der zugehoerige `starter-standard-blueprint.state.json` dabei sofort als aktueller operativer `email_state` genau dieser bestehenden Mail gesetzt werden.
+- Beim Start von `ho-esg` oder `seeker-mle` muss der zugehoerige `starter-*.state.json` dabei sofort als aktueller operativer `email_state` genau dieser bestehenden Mail gesetzt werden.
+- Diese erste Preview und dieser direkt gesetzte Starter-State sind ab dem Start eine zusammengehoerige Mail und dieselbe operative Arbeitsbasis.
+- `1` bis `3` bleiben die einzigen Fixed Composition Templates in der Startauswahl. `4` und `5` sind immer Editable Starter Blueprints im `default_template`-Flow.
+- Fuer `ho-esg` sind diese Fast-Path-Artefakte die einzige kanonische Quelle fuer die erste Preview, die festen Preset-Texte und die bereits aufgeloesten `servicetiles`-Services `ELE`, `NDG`, `EA48`, `KWATT`.
+- Beim `ho-esg`-Start darf der Agent deshalb weder Module neu zusammensuchen noch Services neu aufloesen noch die erste Copy neu formulieren.
+- Fuer `seeker-mle` sind diese Fast-Path-Artefakte die einzige kanonische Quelle fuer die erste Preview, die festen Preset-Texte und die feste Modulfolge `logo-centered`, `hero-fakeform-buttons-image`, `benefits-3col`, `teaser-1col`, `contact-signoff`, `footer`.
+- Beim `seeker-mle`-Start darf der Agent deshalb weder Module neu zusammensuchen noch die erste Copy neu formulieren.
+- `5` / `Seeker | MLE` / `seeker-mle` ist ein absoluter Fast-Path:
+  - keine Composition-Template-Pruefung
+  - keine Suche nach `template-*.preview.html`
+  - keine Modulplanung
+  - keine Modulherleitung
+  - keine Copy-Generierung
+  - kein Lesen aus `preview-modules.html` als primaere Quelle
+  - sofort `starter-seeker-mle.preview.html` als erste Preview
+  - sofort `starter-seeker-mle.state.json` als erster State
+- Solange nach dieser ersten Preview keine Aenderung erfolgt, bleibt genau dieser Starter-State unveraendert der aktuelle `email_state`; spaetere Aenderungen muessen diesen State fortschreiben statt einen neuen Herleitungsweg zu beginnen.
+- Dieser `ho-esg`-Start bleibt im normalen `default_template`-Flow und ist kein Composition-Template.
+- Dieser `seeker-mle`-Start bleibt im normalen `default_template`-Flow und ist kein Composition-Template.
+- Erst nach der ersten erfolgreichen Template-Preview gelten fuer Modul-Aenderungen wieder die normalen Source-Fidelity-Regeln ueber bestehende Modulquellen.
+- Bei Template- oder Starter-Blueprint-Starts gibt der Agent nie HTML, Quelltext, sichtbaren State oder Modulmarkup im Chat aus; sichtbar bleibt nur der kurze Startsatz, danach folgt die Preview im Canvas.
+- Wenn der User beim allerersten Start nur eine freie Modulliste nennt, darf diese Struktur noch nicht direkt in die erste Preview uebernommen werden; stattdessen klaert der Agent kurz: Standard-Blueprint oder aktives Composition-Template.
+- Erst nach dem ersten erfolgreichen Preview-Render darf die bestehende Preview frei um Module erweitert, reduziert, ersetzt oder umsortiert werden.
 - Nach jeder inhaltlichen oder strukturellen Aenderung wird genau die bestehende Preview fortgeschrieben.
 
 ## email_state
 
 - Nach jedem erfolgreichen Preview-Render muss der Agent unmittelbar einen strukturierten `email_state` parallel direkt mitschreiben.
 - Dieser `email_state` ist die leichte, feldnahe Arbeitskopie der aktuellen E-Mail und die vorgesehene Happy-Path-Quelle fuer den Export.
-- Der `email_state` muss nicht nur konzeptionell bestehen, sondern als eigene strukturierte JSON-Arbeitsdatei neben der aktuellen Preview fortgeschrieben werden.
-- Diese JSON-Arbeitsdatei muss nach jedem erfolgreichen Preview-Render denselben Stand wie die sichtbare Preview haben und im spaeteren Export-Lauf direkt wiederverwendbar sein.
+- Der `email_state` muss nicht nur konzeptionell bestehen, sondern als strukturierte operative State-Basis zur aktuellen Preview fortgeschrieben werden.
+- Bei dokumentierten Starter-Artefakten ist der direkt geladene `starter-*.state.json` diese State-Basis bereits ab der ersten Preview.
+- Bei unveraendertem dokumentierten Starter erfuellt der direkt gesetzte `starter-*.state.json` diese Rolle ohne zusaetzliche separate Arbeitsdatei.
+- Beim unveraenderten Standard-Blueprint-Start erfuellt `starter-standard-blueprint.state.json` diese Rolle ebenfalls ohne zusaetzliche separate Arbeitsdatei.
+- Diese State-Basis muss nach jedem erfolgreichen Preview-Render denselben Stand wie die sichtbare Preview haben und im spaeteren Export-Lauf direkt wiederverwendbar sein.
 - Bei blueprintbasierter Startkomposition muessen die Blueprint-Module vor oder spaetestens mit dem ersten erfolgreichen Preview-Render in einen vollstaendigen `email_state` normalisiert werden.
 - Vor dem ersten erfolgreichen Preview-Render muss die Modulfolge auf Logo-Hero-Konsistenz normalisiert werden:
-  - Wenn die finale Modulfolge eines der Center-Hero-Module `hero-image-top-center`, `hero-image-top-bleed-center`, `hero-cta-top-center`, `hero-cta-top-no-bottom-center`, `hero-image-head-copy-bleed-center` oder `hero-image-textbox-cta-center` enthaelt, wird ein vorhandenes `logo` an derselben Position zu `logo-centered` normalisiert.
+  - Wenn die finale Modulfolge eines der Center-Hero-Module `hero-image-top-center`, `hero-image-top-bleed-center`, `hero-cta-top-center`, `hero-cta-top-no-bottom-center`, `hero-image-head-copy-bleed-center`, `hero-image-textbox-cta-center` oder `hero-fakeform-buttons-image` enthaelt, wird ein vorhandenes `logo` an derselben Position zu `logo-centered` normalisiert.
   - Wenn in diesem Center-Hero-Kontext bereits `logo-centered` vorhanden ist, darf kein zweites Logo eingefuegt werden.
   - Wenn in diesem Center-Hero-Kontext kein Logo vorhanden ist, darf nur die bestehende Pflichtmodul-Logik das passende Logo ergaenzen.
   - Ohne Center-Hero-Kontext bleibt `logo` regulaer zulaessig.
@@ -107,12 +174,13 @@ Die Preview ist die sichtbare HTML-Arbeitsmail im Canvas und die Basis fuer spae
   - die aktuell zugeordnete Iterable-`campaignId` und das campaign-owned `templateId`, sobald fuer genau diese Preview bereits ein erfolgreicher Export vorliegt
 - Fuer exportfaehige States muessen `subject` und `preheader` bereits vor dem Export als konkrete String-Werte im State vorliegen.
 - Der aktive Template-Kontext muss bereits beim Preview-Bau eindeutig im State stehen:
-  - freier Modulbau oder Blueprint -> `templateContext.mode = default_template` und `templateContext.resolvedBaseTemplateId = 569946`
+  - Standard-Blueprint oder spaetere freie Moduliteration -> `templateContext.mode = default_template` und `templateContext.resolvedBaseTemplateId = 569946`
+  - editable Starter Blueprints wie `ho-esg` oder `seeker-mle` -> `templateContext.mode = default_template` und `templateContext.resolvedBaseTemplateId = 569946`; kein `compositionTemplateId`, kein `iterableTemplateId`
   - Composition-Template -> `templateContext.mode = composition_template`, `templateContext.compositionTemplateId`, `templateContext.iterableTemplateId` und `templateContext.resolvedBaseTemplateId = iterable_template_id`
 - Der aufgeloeste Salutation-Kontext soll bereits beim Preview-Bau eindeutig im State stehen:
   - aktives Composition-Template mit `salutation_context_id` -> exakt dieser Wert
   - explizite User-Nennung -> Resolver ueber `agent/product-salutations.json`
-  - freier Start ohne erkennbare Zuordnung -> genau eine Rueckfrage `Fuer welches Team oder Produkt ist die Mail gedacht? Zum Beispiel RLE, Loft SNL oder Loft RNL (Dev).`; wenn danach weiter nichts Eindeutiges vorliegt -> `generic`
+  - freier Initialstart ohne erkennbare Zuordnung -> `generic`
 - `salutationContext` steuert nur dokumentierte Anrede-Resolver und ist nie ein freies User-HTML-, Handlebars- oder Snippet-Feld.
 - Wenn dieselbe Preview fortgeschrieben wird, muss ihre Campaign-Bindung ueber einen stabilen `previewBranchKey` im State nachvollziehbar bleiben; Re-Export darf `campaignId` und campaign-owned `templateId` nur fuer genau diesen Zweig wiederverwenden.
 - Exportrelevante technische Werte muessen bereits beim Preview-Bau in `email_state.content` geschrieben werden und duerfen nicht erst im Export rekonstruiert werden.
@@ -125,7 +193,7 @@ Die Preview ist die sichtbare HTML-Arbeitsmail im Canvas und die Basis fuer spae
   - alle required `*_icon_url`
   - alle required finalen `*_button_bg_color`- und `*_button_border_color`-Werte
   - getrennte `salutation`- und `rich_*`-Werte, wenn ein Modul beides nutzt
-- Fuer alle zehn Hero-Module ist die Anrede ein optionaler eigener Textblock vor dem Body:
+- Fuer alle elf Hero-Module ist die Anrede ein optionaler eigener Textblock vor dem Body:
   - `*_show_salutation` ist das kanonische Show-/Hide-Feld
   - `*_salutation` bleibt Plain Text
   - `*_use_snippetcall_salutation` ist nur ein technisches Export-Flag fuer freigegebene Produktkontexte und wird in der Preview nie roh sichtbar
@@ -172,6 +240,7 @@ Die Preview ist die sichtbare HTML-Arbeitsmail im Canvas und die Basis fuer spae
   - `emb_contact_show_image = true`
   - `emb_contact_image_url = https://library.eu.iterable.com/33/98/732ff156cb6b4fc188b76f0e07b2744e-avatar-woman.png`
   - `emb_contact_image_alt = Beraterin aus dem ImmoScout24-Team`
+- Das Contact-Modul bleibt dabei immer auf weissem Hintergrund und bekommt kein alternierendes oder usersteuerbares `bg_color`-Feld.
 - Finale required Button-Farbwerte muessen beim Preview-Bau ueber die dokumentierte Button-Farbaufloesung aus `builder-library.md` konkret in `email_state.content` materialisiert werden.
 - Fehlende required Werte duerfen beim Preview-Bau nur aus zwei eng begrenzten Quellen ergaenzt werden:
   - aus einem eindeutigen technischen Default der `export-map.json`
@@ -180,27 +249,28 @@ Die Preview ist die sichtbare HTML-Arbeitsmail im Canvas und die Basis fuer spae
 - Wenn fuer `servicetiles` weniger oder mehr als `4` Services vorliegen oder ein Service nicht eindeutig ueber `id` oder `aliases` der Registry aufloesbar ist, ist die Preview nicht export-ready und der Agent muss vor dem Rendern nachfragen.
 - Wenn eine Felddefinition in `export-map.json` `allowed_values` definiert, muss der beim Preview-Bau materialisierte Feldwert exakt einem dieser erlaubten Werte entsprechen; jeder andere Wert ist ein lokaler State-Fehler und die Preview ist nicht export-ready.
 - Wenn ein required Wert weder aus dem State-Inhalt noch aus einem eindeutigen technischen Default der `export-map.json` noch aus einer dokumentierten technischen Resolver-Quelle konkret befuellt werden kann, ist die Preview nicht export-ready und der Agent muss vor dem Export stoppen.
-- Fuer `hero-image-top` ist `emb_hero_image_top_headline_size` das einzige kanonische Groessenfeld fuer die Headline und darf nur `s`, `m` oder `l` tragen.
-- Neue reguläre Default-States fuer `hero-image-top` muessen schon beim Preview-Bau `emb_hero_image_top_headline_size = l`, `emb_hero_image_top_show_small_headline = false` und `emb_hero_image_top_show_large_headline = true` materialisieren.
-- Legacy-Normalisierung fuer `hero-image-top` ist nur waehrend des Preview-Baus zulaessig:
-  - wenn `emb_hero_image_top_headline_size` fehlt oder leer ist und `emb_hero_image_top_show_large_headline = true`, wird kanonisch zu `l` normalisiert
-  - wenn `emb_hero_image_top_headline_size` fehlt oder leer ist und `emb_hero_image_top_show_large_headline = false` oder leer ist, wird kanonisch zu `m` normalisiert
-- Nach der kanonischen Aufloesung von `emb_hero_image_top_headline_size` muessen die technischen Bridge-Felder fuer `hero-image-top` direkt in `email_state.content` materialisiert werden:
-  - `s` => `emb_hero_image_top_show_small_headline = true` und `emb_hero_image_top_show_large_headline = false`
-  - `m` => `emb_hero_image_top_show_small_headline = false` und `emb_hero_image_top_show_large_headline = false`
-  - `l` => `emb_hero_image_top_show_small_headline = false` und `emb_hero_image_top_show_large_headline = true`
-- Wenn bei `hero-image-top` `emb_hero_image_top_show_small_headline = true` und `emb_hero_image_top_show_large_headline = true` gleichzeitig vorliegen, ist die Preview nicht export-ready und der Agent muss vor dem Export stoppen.
-- Wenn die Bridge-Felder von `hero-image-top` nicht exakt zur kanonischen `emb_hero_image_top_headline_size` passen, ist das ein lokaler State-Fehler und die Preview ist nicht export-ready.
-- Fuer `hero-image-top-center`, `hero-image-top-bleed`, `hero-image-top-bleed-center`, `hero-cta-top`, `hero-cta-top-center`, `hero-cta-top-no-bottom` und `hero-cta-top-no-bottom-center` gilt dasselbe kanonische Hero-Modell:
-  - genau ein `*_headline_size`-Feld mit nur `s`, `m` oder `l`
-  - neue reguläre Default-States muessen `headline_size = l`, `show_small_headline = false` und `show_large_headline = true` materialisieren
-  - die technischen Bridge-Felder muessen exakt aus dem kanonischen `headline_size` abgeleitet werden
+- Fuer alle elf Hero-Module gilt dasselbe kanonische Headline-Size-Modell:
+  - `hero-image-top`
+  - `hero-image-top-center`
+  - `hero-image-top-bleed`
+  - `hero-image-top-bleed-center`
+  - `hero-image-head-copy-bleed-center`
+  - `hero-image-textbox-cta-center`
+  - `hero-fakeform-buttons-image`
+  - `hero-cta-top`
+  - `hero-cta-top-center`
+  - `hero-cta-top-no-bottom`
+  - `hero-cta-top-no-bottom-center`
+  - `*_headline_size` ist das einzige kanonische Groessenfeld und darf nur `s`, `m` oder `l` tragen
+  - neue regulaere Default-States muessen `headline_size = l`, `show_small_headline = false` und `show_large_headline = true` materialisieren
+  - fehlt `*_headline_size` im aktuellen Hero-State oder ist es leer, nimmt die Preview direkt `l` als kanonischen Default an und materialisiert daraus die Bridge-Felder
+  - die technischen Bridge-Felder muessen exakt aus dem kanonischen oder per Default angenommenen `headline_size` abgeleitet werden:
+    - `s` => `show_small_headline = true` und `show_large_headline = false`
+    - `m` => `show_small_headline = false` und `show_large_headline = false`
+    - `l` => `show_small_headline = false` und `show_large_headline = true`
   - `show_small_headline = true` und `show_large_headline = true` gleichzeitig ist ungueltig und macht die Preview nicht export-ready
-- Fuer `hero-image-head-copy-bleed-center` gilt dasselbe kanonische Hero-Modell:
-  - genau ein `emb_hero_image_head_copy_bleed_center_headline_size`-Feld mit nur `s`, `m` oder `l`
-  - neue reguläre Default-States muessen `headline_size = l`, `show_small_headline = false` und `show_large_headline = true` materialisieren
-  - die technischen Bridge-Felder muessen exakt aus dem kanonischen `headline_size` abgeleitet werden
-  - `show_small_headline = true` und `show_large_headline = true` gleichzeitig ist ungueltig und macht die Preview nicht export-ready
+  - ein fehlendes `*_headline_size` allein macht einen sonst gueltigen Hero-State nicht unvollstaendig und darf keinen Preview-, Starter- oder Modul-Rebuild ausloesen
+  - wenn bereits materialisierte Bridge-Felder dem kanonischen oder per Default angenommenen `headline_size` widersprechen, ist das ein lokaler State-Fehler und die Preview ist nicht export-ready
 - Fuer jedes Modul mit required `*_bg_color` in `export-map.json` muss der `email_state` dieses Feld direkt aus dem operativen Hintergrund-Rhythmus in `content` mitschreiben.
 - Required `*_bg_color`-Felder muessen dabei immer als konkrete produktive Hexwerte in `content` stehen, nicht als semantische Farbnamen, nicht als `theme-*`-Klassen und nicht als offene Rhythmus-Markierung.
 - Wenn ein required `*_bg_color` fuer ein Modul nicht gesetzt werden kann, ist das ein Fehler und kein Default-Fallback-Fall.
@@ -226,18 +296,16 @@ Die Preview ist die sichtbare HTML-Arbeitsmail im Canvas und die Basis fuer spae
 - Andere Tags, freie Wrapper, Skripte, Styles, Event-Handler, Klassen und freie Attribute sind verboten.
 - Erlaubte Attribute in Richtext-Feldern sind auf sichere Link-Attribute begrenzt:
   - bei `a`: `href`, `target`, `rel`
-- Recovery-Fallback aus der letzten sichtbaren Preview darf fuer `rich_inline` und `rich_full` genau diese erlaubten HTML-Fragmente rekonstruieren.
+- `rich_inline` und `rich_full` duerfen nur genau diese erlaubten HTML-Fragmente enthalten; eine automatische Rekonstruktion aus der letzten sichtbaren Preview ist dafuer nicht zulaessig.
 - Die technische Felddefinition je Modul kommt ausschliesslich aus `export-map.json`.
 - Bei Multi-Item-Modulen folgen Feldzuordnung und sichtbare Item-Anzahl direkt den markierten sichtbaren Items mit ihren Indizes.
 - Bei blueprintbasierten Mails muessen alle required Felder pro Modul direkt aus Blueprint-Inhalt, erlaubten Defaults aus `export-map.json`, dem operativen Hintergrund-Rhythmus oder den kanonischen Builder-Defaults befuellt werden.
 - Bei blueprintbasierten Mails duerfen required `*_bg_color`-Felder nicht als `theme-white`, `theme-gray` oder aehnliche Preview-Zustaende im `email_state` verbleiben; sie muessen vor dem Speichern konkret zu `#FFFFFF` oder `#F5F5F5` aus der verbindlichen Farbquelle aufgeloest sein.
-- Fuer `hero-image-top` im Standard-Blueprint muessen mindestens `emb_hero_image_top_headline_size`, `emb_hero_image_top_show_small_headline`, `emb_hero_image_top_show_large_headline`, `emb_hero_image_top_show_salutation`, `emb_hero_image_top_headline`, `emb_hero_image_top_salutation`, `emb_hero_image_top_body`, `emb_hero_image_top_button_label`, `emb_hero_image_top_button_url` und `emb_hero_image_top_bg_color` sicher im `email_state` vorliegen; `image_url`, `image_alt` und Button-Farben duerfen ueber die erlaubten Defaults aus `export-map.json` kommen.
-- Fuer `hero-image-textbox-cta-center` muessen mindestens `emb_hero_image_textbox_cta_center_bg_color`, `emb_hero_image_textbox_cta_center_headline_size`, `emb_hero_image_textbox_cta_center_show_small_headline`, `emb_hero_image_textbox_cta_center_show_large_headline`, `emb_hero_image_textbox_cta_center_show_salutation`, `emb_hero_image_textbox_cta_center_headline`, `emb_hero_image_textbox_cta_center_image_url`, `emb_hero_image_textbox_cta_center_salutation`, `emb_hero_image_textbox_cta_center_body`, `emb_hero_image_textbox_cta_center_question`, `emb_hero_image_textbox_cta_center_entry_url`, `emb_hero_image_textbox_cta_center_entry_text`, `emb_hero_image_textbox_cta_center_button_label` und `emb_hero_image_textbox_cta_center_button_url` sicher im `email_state` vorliegen; `image_alt`, `button_bg_color` und `button_border_color` duerfen ueber die erlaubten Defaults aus `export-map.json` kommen.
-- Fuer `hero-image-textbox-cta-center` gilt dasselbe kanonische Hero-Modell:
-  - genau ein `emb_hero_image_textbox_cta_center_headline_size`-Feld mit nur `s`, `m` oder `l`
-  - neue reguläre Default-States muessen `headline_size = l`, `show_small_headline = false` und `show_large_headline = true` materialisieren
-  - die technischen Bridge-Felder muessen exakt aus dem kanonischen `headline_size` abgeleitet werden
-  - `show_small_headline = true` und `show_large_headline = true` gleichzeitig ist ungueltig und macht die Preview nicht export-ready
+- Fuer `hero-image-top` im Standard-Blueprint muessen mindestens `emb_hero_image_top_show_small_headline`, `emb_hero_image_top_show_large_headline`, `emb_hero_image_top_show_salutation`, `emb_hero_image_top_headline`, `emb_hero_image_top_salutation`, `emb_hero_image_top_body`, `emb_hero_image_top_button_label`, `emb_hero_image_top_button_url` und `emb_hero_image_top_bg_color` sicher im `email_state` vorliegen; `emb_hero_image_top_headline_size`, `image_url`, `image_alt` und Button-Farben duerfen ueber die erlaubten Defaults aus `export-map.json` kommen.
+- Fuer `hero-image-textbox-cta-center` muessen mindestens `emb_hero_image_textbox_cta_center_bg_color`, `emb_hero_image_textbox_cta_center_show_small_headline`, `emb_hero_image_textbox_cta_center_show_large_headline`, `emb_hero_image_textbox_cta_center_show_salutation`, `emb_hero_image_textbox_cta_center_headline`, `emb_hero_image_textbox_cta_center_image_url`, `emb_hero_image_textbox_cta_center_salutation`, `emb_hero_image_textbox_cta_center_body`, `emb_hero_image_textbox_cta_center_question`, `emb_hero_image_textbox_cta_center_entry_url`, `emb_hero_image_textbox_cta_center_entry_text`, `emb_hero_image_textbox_cta_center_button_label` und `emb_hero_image_textbox_cta_center_button_url` sicher im `email_state` vorliegen; `emb_hero_image_textbox_cta_center_headline_size`, `image_alt`, `button_bg_color` und `button_border_color` duerfen ueber die erlaubten Defaults aus `export-map.json` kommen.
+- Fuer `hero-fakeform-buttons-image` muessen mindestens `emb_hero_fakeform_buttons_image_bg_color`, `emb_hero_fakeform_buttons_image_show_small_headline`, `emb_hero_fakeform_buttons_image_show_large_headline`, `emb_hero_fakeform_buttons_image_show_item_2`, `emb_hero_fakeform_buttons_image_show_item_3`, `emb_hero_fakeform_buttons_image_show_item_4`, `emb_hero_fakeform_buttons_image_show_item_5`, `emb_hero_fakeform_buttons_image_show_item_6`, `emb_hero_fakeform_buttons_image_show_salutation`, `emb_hero_fakeform_buttons_image_headline`, `emb_hero_fakeform_buttons_image_choice_button_1_label`, `emb_hero_fakeform_buttons_image_choice_button_1_url`, `emb_hero_fakeform_buttons_image_choice_button_2_label`, `emb_hero_fakeform_buttons_image_choice_button_2_url`, `emb_hero_fakeform_buttons_image_image_url`, `emb_hero_fakeform_buttons_image_salutation`, `emb_hero_fakeform_buttons_image_body`, `emb_hero_fakeform_buttons_image_button_label` und `emb_hero_fakeform_buttons_image_button_url` sicher im `email_state` vorliegen; `emb_hero_fakeform_buttons_image_headline_size`, `image_alt`, spaetere sichtbare Choice-Button-Felder sowie `button_bg_color` und `button_border_color` duerfen ueber die erlaubten Defaults aus `export-map.json` kommen.
+  - Default sichtbar sind genau `5` Auswahlbuttons; `show_item_6` bleibt initial `false`
+  - Button `1` bleibt immer sichtbar und `show_item_2` darf nie `false` werden, weil die Mindestanzahl `2` verbindlich bleibt
 - Fuer die regulare Standard-Testkombination `logo`, `hero-image-top`, `steps-3col`, `footer` muss der `email_state` nach dem Preview-Bau mindestens sicher enthalten:
   - fuer `logo`: leeres `content` ist zulaessig, weil `emb_logo` aktuell als statisches Snippet ohne Export-Parameter aufgerufen wird
   - fuer `hero-image-top`: alle required Content-Felder plus `emb_hero_image_top_bg_color`
@@ -246,11 +314,9 @@ Die Preview ist die sichtbare HTML-Arbeitsmail im Canvas und die Basis fuer spae
 - Nach einem erfolgreichen ersten Export wird die erzeugte `campaignId` fest an genau diese bestehende Preview und ihren aktuellen `email_state` gebunden.
 - Solange dieselbe Preview nur fortgeschrieben wird, bleibt diese Campaign-Bindung erhalten und ist beim Re-Export wiederzuverwenden.
 - Wenn eine wirklich neue Preview oder neue Startkomposition begonnen wird, darf keine alte Campaign-Bindung uebernommen werden; der neue Preview-Zweig startet ohne `campaignId`.
-- Preview-DOM oder markierte Preview-Knoten duerfen nur als Debug- oder Recovery-Fallback erwaehnt werden, nicht als regulaerer Happy Path.
-- Wenn kein vollstaendiger `email_state` vorhanden ist, darf genau einmal ein enger Recovery-Fallback aus der letzten sichtbaren Preview erzeugt werden.
-- Dieser Recovery-Fallback darf nur aus der letzten sichtbaren Preview, ihren markierten Knoten, markierten URL-Feldern ueber `data-export-url-field`, den registrierten Icon-Slots, den Bild-Slots, den Moduldefaults aus `export-map.json` und dem operativen Hintergrund-Rhythmus ableiten.
-- Auch im Recovery-Fallback muessen required `*_bg_color`-Felder vor dem Fortschreiben des reparierten `email_state` wieder als konkrete Hexwerte und nie als `theme-*`-Klassen vorliegen.
-- Danach muss der reparierte `email_state` wieder als JSON-Arbeitsdatei fortgeschrieben werden.
+- Preview-DOM oder markierte Preview-Knoten duerfen nur fuer Debugging erwaehnt werden, nicht als regulaerer Happy Path und nicht als automatische Export-Recovery-Quelle.
+- Wenn fuer eine bestehende Preview kein vollstaendiger oder valider `email_state` mehr vorliegt, muss der Agent stoppen und die fehlenden oder ungueltigen State-Bestandteile klar benennen.
+- Eine bestehende Mail darf in diesem Fall nicht automatisch aus der letzten sichtbaren Preview, aus `starter-*.state.json`, `starter-*.preview.html`, `preview-modules.html`, `template-*.preview.html` oder der Modulbibliothek rekonstruiert werden.
 
 ## Erfolg
 
@@ -263,10 +329,7 @@ Die Preview ist die sichtbare HTML-Arbeitsmail im Canvas und die Basis fuer spae
 - Wenn die Laufzeit eine kompakte Preview-Karte, Canvas-Preview oder andere kurze Vorschauform bietet, soll diese statt eines grossen HTML-Blocks genutzt werden.
 - Wenn keine kompakte Kartenansicht verfuegbar ist, bleibt die Chat-Ausgabe bei einer kurzen Bestaetigung plus Hinweis auf die erstellte Preview-Datei oder Vorschau.
 - Vollstaendiges Preview-HTML darf nur ausgegeben werden, wenn der User ausdruecklich danach fragt.
-- Vor dem eigentlichen Preview-Bau muss sichtbar dieser Statuspunkt ausgegeben werden:
-  - `1. Preview-Erstellung gestartet`
-- Nach erfolgreichem Preview-Lauf muss sichtbar dieser Statuspunkt ausgegeben werden:
-  - `2. Preview fertig`
+- Vor dem eigentlichen Preview-Bau sind keine technischen Prozessmeldungen wie `1. Preview`, `Preview-Erstellung gestartet` oder Modulauflistungen zulaessig.
 - Nach erfolgreicher Preview darf kein automatischer Exportversuch, kein automatischer Iterable-Connect und kein impliziter CreateCampaign-Start folgen.
 - Hoechstens eine kurze Anschlussfrage zum Export ist zulaessig, z. B. ob diese Version nach Iterable exportiert werden soll.
 - Deutsch:
@@ -275,4 +338,4 @@ Die Preview ist die sichtbare HTML-Arbeitsmail im Canvas und die Basis fuer spae
 - Englisch:
   - `The preview mail has been created. If you like, we can further adjust components, order, or texts.`
   - `You can find an overview of all available components here: [E-Mail component library](https://s24-creative-ops.github.io/builder-library/#email-logo)`
-- Interne Speicher-, State-, Recovery- oder Zwischenmeldungen duerfen im normalen User-Flow nicht als eigene Chat-Ereignisse sichtbar werden.
+- Interne Speicher-, State- oder Zwischenmeldungen duerfen im normalen User-Flow nicht als eigene Chat-Ereignisse sichtbar werden.

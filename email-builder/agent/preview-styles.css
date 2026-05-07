@@ -934,6 +934,44 @@ a {
   margin-top: 0;
 }
 
+.module[data-module="hero-fakeform-buttons-image"] .module__title.module__title--hero-large {
+  font-size: var(--font-size-title-large);
+  line-height: var(--line-height-title-large);
+}
+
+.module[data-module="hero-fakeform-buttons-image"] .module__head,
+.module[data-module="hero-fakeform-buttons-image"] .module__copy,
+.module[data-module="hero-fakeform-buttons-image"] .module-rich-full-body--hero,
+.module[data-module="hero-fakeform-buttons-image"] .module__body {
+  text-align: center;
+}
+
+.module[data-module="hero-fakeform-buttons-image"] .module__copy {
+  gap: 0;
+  justify-items: center;
+}
+
+.module[data-module="hero-fakeform-buttons-image"] .module__cta-row {
+  justify-content: center;
+  margin-top: 0;
+}
+
+.module[data-module="hero-fakeform-buttons-image"] .module__cta-row + .module__cta-row {
+  margin-top: var(--space-12);
+}
+
+.module[data-module="hero-fakeform-buttons-image"] .media {
+  margin: 0 auto;
+}
+
+.module[data-module="hero-fakeform-buttons-image"] .module__hero-spacer--image-compact {
+  height: var(--space-25);
+}
+
+.module[data-module="hero-fakeform-buttons-image"] .module__hero-spacer--cta-compact {
+  height: var(--space-16);
+}
+
 .module[data-module="teaser-1col"] .module__cta-row {
   margin-top: 0;
 }
@@ -1238,7 +1276,7 @@ a {
   hyphens: auto;
 }
 
-.servicetiles-card__body {
+.module__body.servicetiles-card__body {
   color: var(--text-muted);
   font-size: 14px;
   line-height: 1.35;
@@ -1355,14 +1393,17 @@ a {
 }
 
 .gallery-grid {
-  display: grid;
-  gap: var(--space-20);
+  display: block;
 }
 
 .gallery-grid__row {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: var(--space-20);
+}
+
+.gallery-grid__row + .gallery-grid__row {
+  margin-top: var(--space-20);
 }
 
 .gallery-grid__item {
@@ -1675,6 +1716,13 @@ a {
   border-color: var(--button-outline-weak-border);
   background: var(--button-outline-weak-bg);
   color: var(--button-outline-weak-text);
+}
+
+@media (max-width: 768px) {
+  .module[data-module="hero-fakeform-buttons-image"] .module__title.module__title--hero-large {
+    font-size: var(--font-size-title-mobile-hero);
+    line-height: var(--line-height-title-mobile-hero);
+  }
 }
 
 @media (max-width: 620px) {

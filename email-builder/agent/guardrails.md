@@ -29,7 +29,10 @@
 - `export-map.json` ist der technische Exportvertrag fuer erlaubte Module, Felder, Required-Flags und Defaults.
 - Export und Save duerfen nie aus alter Template-Logik oder frei erfundenen Defaults rekonstruiert werden, wenn bereits eine Preview existiert.
 - Ein strukturierter Export-State ist nur als direkt aus der letzten sichtbaren Preview abgeleitete und aktiv fortgeschriebene Arbeitskopie erlaubt.
+- Fuer dokumentierte Starter-Artefakte `standard-blueprint`, `ho-esg` und `seeker-mle` ist der direkt geladene `starter-*.state.json` ab der ersten Preview bereits diese aktive Arbeitskopie und gilt sofort als aktueller operativer `email_state` der bestehenden Mail.
+- Dafuer ist keine zusaetzliche separate operative Arbeitsdatei noetig; der direkt gesetzte Starter-State selbst ist der gueltige strukturierte Export-Stand.
 - Wenn Preview und strukturierter Export-State voneinander abweichen, ist das ein State-Drift-Fehler: Die Preview bleibt visuelle Referenz, aber der Export darf erst weiterlaufen, wenn der `email_state` wieder deckungsgleich fortgeschrieben wurde.
+- Wenn der User explizit exportieren will, ist immer diese aktuell bestehende Mail mit ihrem bestehenden `email_state` gemeint; Startlogik, Template-Auswahl und Starter-Auswahl gelten dafuer nicht erneut.
 - Wenn dieselbe Preview fortgeschrieben wird, bleibt ihre bestehende Campaign-Bindung erhalten.
 - Wenn eine neue Preview oder neue Startkomposition begonnen wird, startet sie ohne uebernommene Campaign-Bindung.
 
@@ -44,6 +47,11 @@
   - Icon-Auswahl aus `icon-library.md`
   - finale Button-Farbwerte aus `builder-library.md`
 - Werte duerfen im Export nicht aus sichtbarer Darstellung, Button-Klassen, freiem Modulkontext oder unmarkiertem Preview-Styling geraten werden.
+- Wenn fuer eine bestehende Mail kein gueltiger `email_state` vorliegt, stoppt der Export klar statt Preview-, Starter-, Template- oder Modulwissen automatisch zur Rekonstruktion zu verwenden.
+- Im normalen Exportmodus arbeitet der Agent als fester Prozess und nicht als explorativer Assistent.
+- Im normalen Exportmodus sind Spekulation, Alternativpfade, Experimente, Reparaturversuche und sichtbare Diagnoseformulierungen verboten.
+- Diagnose- und Dev-Regeln gelten nur bei explizitem Diagnoseauftrag des Users oder bei einem exakten technischen Diagnose-Trigger.
+- Wenn ein gueltiger `email_state` vorliegt, startet der normale Export ohne zusaetzliche sichtbare Analysephase direkt in den festgelegten Exportpfad bis zum ersten erlaubten externen Exportschritt.
 
 ## Preview-Basis
 
@@ -52,6 +60,11 @@
 - Setze Modulbloecke nur zwischen die beiden Modul-Slot-Kommentare.
 - Verwende ausschliesslich Modul-HTML aus `preview-modules.html`, das in `preview-module-library.md` registriert ist.
 - Kein Ersatz-HTML, keine Fantasie-Komponenten, keine improvisierten Sektionen.
+- Ausgenommen ist der allererste Start dokumentierter Starter-Artefakte aus `builder-library.md` und `preview-rules.md`.
+- Fuer den Standard-Blueprint sowie fuer `ho-esg` und `seeker-mle` darf die erste Preview direkt aus dem jeweiligen `starter-*.preview.html` kommen; der zugehoerige `starter-*.state.json` ist dabei sofort derselbe operative `email_state`.
+- Fuer `ho-esg` und `seeker-mle` darf die erste Preview nicht aus `preview-template.html` neu zusammengesetzt, nicht aus `preview-modules.html` rekonstruiert und nicht ueber zusammengesuchte Modulbloecke aufgebaut werden.
+- Fuer `ho-esg` und `seeker-mle` sind beim allerersten Start keine Copy-Generierung, keine Modulplanung und keine Modulherleitung erlaubt.
+- Stattdessen ist die komplette `starter-<id>.preview.html` direkt als erste Preview zu uebernehmen und die komplette `starter-<id>.state.json` direkt als erster State zu setzen.
 
 ## Bildregeln
 
@@ -126,7 +139,9 @@
 - Preview-HTML ist nie die Export-Payload.
 - `DEFAULT_TEMPLATE_ID = 569946`.
 - Der CreateCampaign-Schritt ist ein harter Gate-Step und erfordert mindestens eine verwertbare `campaignId`.
-- Der externe Export-Flow hat genau vier API-Schritte: `createCampaign`, genau einen `campaignRead` zum Holen der campaign-owned `templateId` und des `campaignState`, genau einen `templateRead` der aktuellen campaign-owned HTML-Shell und den finalen HTML-Write.
+- Der externe Export-Flow hat zwei regulaere sichere Varianten:
+  - `default_template` mit `resolvedBaseTemplateId = 569946`: `createCampaign`, genau einen `campaignRead`, keinen `templateRead` und den finalen HTML-Write
+  - `composition_template`: `createCampaign`, genau einen `campaignRead`, genau einen `templateRead` der aktuellen campaign-owned HTML-Shell und den finalen HTML-Write
 - Der CreateCampaign-Basispayload fuer den Builder-Export muss exakt `name` und `templateId` enthalten.
 - `listIds`, `sendAt`, `scheduleSend`, `sendMode` und `recipientTimeZone` sind im CreateCampaign-Request des Builder-Exports verboten.
 - Der Builder-Export darf keine Scheduling- oder Versandparameter an `createCampaign` uebergeben.
@@ -137,8 +152,13 @@
 - Das zugehoerige Iterable-Basistemplate fuer Composition-Templates liegt immer unter `email/templates/<template_id>.html`.
 - Dieses Basistemplate darf keine festen Module und keine festen Snippet-Calls enthalten.
 - Fuer `templateContext.mode = default_template` ist `email/templates/template-main.html` die einzige kanonische Repo-Referenz fuer die Default-Shell; andere `email/templates/*.html` sind in diesem Modus keine zulaessigen Ersatz- oder Fallback-Shells.
+- Im normalen `default_template`-Schnellpfad darf `email/templates/template-main.html` fuer `resolvedBaseTemplateId = 569946` direkt als lokale Shell verwendet werden.
+- In diesem Schnellpfad muss `template-main.html` einen eindeutigen Module-Slot enthalten; fehlt dieser Nachweis, stoppt der Export.
+- Der Export nutzt fuer registrierte Module zuerst den kompakten Vertrag aus `export-runtime.md` in Verbindung mit `export-map.json`; produktive `email/modules/*.html` bleiben Render-Referenz. Freie Snippet-Formulierungen, frei erfundene Parameterlisten oder Modul-HTML aus dem Chat sind verboten.
 - Die aktive Basis-`templateId` darf nur im CreateCampaign-Call als Basis-Template verwendet werden.
-- Nach dem Campaign-Read muss genau eine aktuelle campaign-owned HTML-Shell fuer diese `templateId` gelesen werden.
+- Nach dem Campaign-Read gilt:
+  - fuer `default_template` mit `resolvedBaseTemplateId = 569946`: lokale `email/templates/template-main.html` als Shell-Quelle verwenden und keinen `templateRead` ausfuehren
+  - fuer `composition_template`: genau eine aktuelle campaign-owned HTML-Shell fuer diese `templateId` lesen
 - Der finale CreateCampaign-Request ohne Secrets sowie HTTP-Status-Info, Raw-Response-Body-Info und die verwertbare Tool-Antwort-/Envelope-Info muessen bei jedem fehlgeschlagenen Call vollstaendig protokolliert werden.
 - Bei erfolgreichem Create ist nur ein Minimal-Log mit `campaignId` und `name` erlaubt.
 - Auf die CreateCampaign-Response muss explizit gewartet werden; ohne vollstaendig empfangene Response darf der Export nicht weiterlaufen.
@@ -154,6 +174,7 @@
 - Fuer den finalen HTML-Write ist ausschliesslich `POST /api/templates/email/update` erlaubt.
 - Der Write-Payload muss exakt `templateId`, `html`, `subject` und `preheaderText` enthalten.
 - `subject` und `preheaderText` sind vor dem Write Pflicht.
+- Im `default_template`-Schnellpfad bleiben `subject` und `preheaderText` Pflichtfelder des Write-Payloads, sind dort aber reine Metadaten und keine lokalen HTML-Replace-Zonen.
 - Wenn keine campaign-owned `templateId` verfuegbar ist, darf kein Write gestartet werden.
 - Wenn die CreateCampaign-Antwort leer, unparsebar, unvollstaendig oder ohne verwertbare extrahierbare Campaign-ID ist, endet der Export sofort.
 - Ein CreateCampaign-Fehler muss klar klassifiziert werden als Tool-Runtime-/Envelope-Fehler, Iterable-API-Fehler oder Parser-Fehler.
@@ -167,22 +188,35 @@
 - Jeder weitere Campaign-Read ausser diesem einen `campaignRead` fuer die campaign-owned `templateId` ist im Export verboten.
 - Alternative Write-Methoden, alternative Write-Endpoints oder alternative Write-Payloads sind verboten.
 - Nackte `SNIPPET_CALLS` duerfen nie als komplettes `html` geschrieben werden.
-- Die gelesene campaign-owned HTML-Shell muss ausserhalb der erlaubten Replace-Zonen unveraendert bleiben.
+- Die jeweils erlaubte HTML-Shell muss ausserhalb der erlaubten Replace-Zonen unveraendert bleiben.
 - Eine freie Minimal-Shell oder lokal neu erfundene Shell als Write-Payload ist verboten.
 - Die Default-Shell darf nie sinngemaess aus Prompt-Wissen, Tests, gekuerzten Wrapper-Beispielen oder template-fremden Shell-Dateien nachgebaut werden.
-- Im finalen Shell-Merge duerfen nur Subject, Preheader und der Module-Slot ersetzt werden; Head, CSS, Media Queries, Wrapper-Struktur und Conditional Comments bleiben vollstaendig erhalten.
+- Im `default_template`-Schnellpfad darf nur der Module-Slot ersetzt werden; `subject` und `preheaderText` bleiben Payload-Metadaten.
+- Im `composition_template`-Pfad duerfen Subject, Preheader und der Module-Slot ersetzt werden; Head, CSS, Media Queries, Wrapper-Struktur und Conditional Comments bleiben vollstaendig erhalten.
+- Python, generisches String-Replacement, manuelles Kopieren oder sinngemaess neu zusammengebautes Template-HTML sind keine zulaessigen Exportmethoden.
 - Vor dem finalen Write muss lokal klar unterscheidbar sein, ob der Fehler im HTML-Build, in der Payload-Vollstaendigkeit oder erst im Iterable-Write liegt.
 - Der finale HTML-Schritt endet nie mit einem unscharfen `HTML fehlgeschlagen`.
-- Vor dem finalen Write laeuft genau eine kleine lokale Payload-Pruefung fuer Subject, Preheader, modularem Block, campaign-owned HTML-Shell und finale HTML-Payload.
+- Vor dem finalen Write laeuft genau eine kleine lokale Payload-Pruefung fuer Subject, Preheader, modularem Block, erlaubter HTML-Shell und finaler HTML-Payload.
 - Wenn diese lokale Payload-Pruefung scheitert, wird kein Write versucht.
+- Nur im expliziten Diagnose- oder Dev-Modus sind kurze Step-Status ohne Payload erlaubt, insbesondere:
+  - `Step 1: State validiert`
+  - `Step 2: createCampaign abgeschlossen`
+  - `Step 3: campaignRead abgeschlossen`
+  - `Step 4: templateRead abgeschlossen`
+  - `Step 5: HTML-Merge abgeschlossen`
+  - `Step 6: update abgeschlossen`
+  - `Step 7: Ergebnis geprueft`
+- Im `default_template`-Schnellpfad darf `Step 4` dort stattdessen kurz als `Step 4: templateRead uebersprungen (default_template Schnellpfad)` gemeldet werden.
 - Fuer bekannte Module gilt der direkte Fast-Path aus `builder-library.md`.
-- Im Happy Path wird die letzte sichtbare Preview oder ihr direkt daraus abgeleiteter strukturierter Export-State genau einmal in die finale HTML-Payload uebersetzt.
+- Im Happy Path wird ausschliesslich der aktuelle strukturierte Export-State genau einmal in die finale HTML-Payload uebersetzt.
 - Wenn fuer die aktuelle fortgeschriebene Preview bereits eine verwertbare `campaignId` vorliegt, muss genau diese Campaign erneut beschrieben werden.
 - Wenn fuer die aktuelle Preview noch keine `campaignId` vorliegt, darf genau eine neue Campaign erzeugt werden.
 - Keine doppelte Uebersetzung, keine erneute lange Herleitung lokaler Pflichtwerte, keine Draft-Ausweichlogik und keine unnoetigen Nachschlage-Calls.
 - Keine impliziten Reparaturversuche, kein Haengenbleiben und kein erneuter best-effort-Lauf im selben Export, wenn CreateCampaign keine verwertbare Antwort liefert.
 - Kein Haengenbleiben und kein weiterer Folgeversuch im selben Export, wenn der finale HTML-Schritt lokal oder beim Write scheitert.
 - Wenn ein Modul ausserhalb des Fast-Paths liegt oder Pflichtwerte fehlen, klar fehlschlagen statt teuer zu improvisieren.
+- Wenn notwendige Exportdaten fehlen, stoppt der Export sofort und nennt exakt die fehlenden oder invaliden Daten.
+- Wenn der Export wegen fehlender oder invalider Daten stoppt, sind Reparaturversuche, Alternativvorschlaege, Preview-Rekonstruktion und Diskussion interner Moeglichkeiten verboten.
 - In allen generierten deutschen Texten sind echte Umlaute Pflicht: `ä`, `ö`, `ü`, `Ä`, `Ö`, `Ü`.
 - Schreibungen wie `ae`, `oe`, `ue`, `Ae`, `Oe`, `Ue` sind als Umlaut-Ersatz verboten, ausser bei Eigennamen, URLs, E-Mail-Adressen oder technischen Werten.
 - Diese Umlaut-Regel gilt fuer Modultexte, Preview-HTML, Template-Texte, Export-Inhalte und alle sonstigen generierten Strings.
@@ -196,3 +230,4 @@
 - Im normalen Antwortstil keine Datei-Dumps, HTML-Dumps oder aehnliche Vollausgaben ausgeben.
 - Technische Debug-Details nur auf ausdrueckliche Anforderung des Users ausgeben.
 - Wenn Information fehlt, triff eine kleine sichere Annahme statt Zusatzkomplexitaet aufzubauen.
+- Im normalen Exportmodus keine sichtbare Herleitung, keine Diskussion moeglicher Wege und keine Formulierungen wie `ich koennte`, `vielleicht`, `ich probiere`, `es scheint`, `vermutlich` oder `ich koennte testen`.

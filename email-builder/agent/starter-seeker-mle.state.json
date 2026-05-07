@@ -1,0 +1,111 @@
+{
+  "campaignId": null,
+  "templateId": null,
+  "previewBranchKey": null,
+  "templateContext": {
+    "mode": "default_template",
+    "resolvedBaseTemplateId": "569946",
+    "compositionTemplateId": null,
+    "iterableTemplateId": null
+  },
+  "salutationContext": "generic",
+  "subject": "Finanzierung prüfen für deine Wunschimmobilie",
+  "preheader": "Eine kurze Beispielmail mit Einstieg, Auswahl und passenden nächsten Schritten.",
+  "modules": [
+    {
+      "instance_id": "logo-centered-1",
+      "module_id": "logo-centered",
+      "snippet_name": "emb_logo_centered",
+      "content": {}
+    },
+    {
+      "instance_id": "hero-fakeform-buttons-image-1",
+      "module_id": "hero-fakeform-buttons-image",
+      "snippet_name": "emb_hero_fakeform_buttons_image",
+      "content": {
+        "emb_hero_fakeform_buttons_image_bg_color": "#FFFFFF",
+        "emb_hero_fakeform_buttons_image_headline_size": "l",
+        "emb_hero_fakeform_buttons_image_show_small_headline": false,
+        "emb_hero_fakeform_buttons_image_show_large_headline": true,
+        "emb_hero_fakeform_buttons_image_headline": "Reicht dein Eigenkapital für deine Wunschimmobilie?",
+        "emb_hero_fakeform_buttons_image_choice_button_1_url": "https://www.immobilienscout24.de/",
+        "emb_hero_fakeform_buttons_image_choice_button_1_label": "unter 10.000 €",
+        "emb_hero_fakeform_buttons_image_show_item_2": true,
+        "emb_hero_fakeform_buttons_image_choice_button_2_url": "https://www.immobilienscout24.de/",
+        "emb_hero_fakeform_buttons_image_choice_button_2_label": "10.000–50.000 €",
+        "emb_hero_fakeform_buttons_image_show_item_3": true,
+        "emb_hero_fakeform_buttons_image_choice_button_3_url": "https://www.immobilienscout24.de/",
+        "emb_hero_fakeform_buttons_image_choice_button_3_label": "50.000–100.000 €",
+        "emb_hero_fakeform_buttons_image_show_item_4": true,
+        "emb_hero_fakeform_buttons_image_choice_button_4_url": "https://www.immobilienscout24.de/",
+        "emb_hero_fakeform_buttons_image_choice_button_4_label": "100.000–250.000 €",
+        "emb_hero_fakeform_buttons_image_show_item_5": true,
+        "emb_hero_fakeform_buttons_image_choice_button_5_url": "https://www.immobilienscout24.de/",
+        "emb_hero_fakeform_buttons_image_choice_button_5_label": "über 250.000 €",
+        "emb_hero_fakeform_buttons_image_show_item_6": false,
+        "emb_hero_fakeform_buttons_image_choice_button_6_url": "https://www.immobilienscout24.de/",
+        "emb_hero_fakeform_buttons_image_choice_button_6_label": "",
+        "emb_hero_fakeform_buttons_image_image_url": "https://library.eu.iterable.com/33/98/b9799c74eec5412c8fb0c995dd52f19c-emb_placeholder_16x9.png",
+        "emb_hero_fakeform_buttons_image_image_alt": "",
+        "emb_hero_fakeform_buttons_image_show_salutation": true,
+        "emb_hero_fakeform_buttons_image_use_snippetcall_salutation": false,
+        "emb_hero_fakeform_buttons_image_salutation": "Hallo Anrede,",
+        "emb_hero_fakeform_buttons_image_body": "<p>Wähle aus, wie viel Eigenkapital du einplanst – wir zeigen dir passende nächste Schritte für deine Finanzierung.</p>",
+        "emb_hero_fakeform_buttons_image_button_url": "https://www.immobilienscout24.de/",
+        "emb_hero_fakeform_buttons_image_button_bg_color": "#74FFDF",
+        "emb_hero_fakeform_buttons_image_button_border_color": "#74FFDF",
+        "emb_hero_fakeform_buttons_image_button_label": "Jetzt prüfen"
+      }
+    },
+    {
+      "instance_id": "benefits-3col-1",
+      "module_id": "benefits-3col",
+      "snippet_name": "emb_benefits_3col",
+      "content": {
+        "emb_benefits_3col_bg_color": "#F5F5F5",
+        "emb_benefits_3col_show_headline": true,
+        "emb_benefits_3col_headline": "Deine Vorteile auf einen Blick",
+        "emb_benefits_3col_col_1_icon_url": "https://www.static-immobilienscout24.de/fro/emb/_/s24_lightbulb_48.png",
+        "emb_benefits_3col_col_1_body": "<strong>Finanzierung einschätzen</strong><br>Erhalte eine erste Orientierung für dein Budget.",
+        "emb_benefits_3col_col_2_icon_url": "https://www.static-immobilienscout24.de/fro/emb/_/s24_calendar_checkmark_48.png",
+        "emb_benefits_3col_col_2_body": "<strong>Nächste Schritte planen</strong><br>Nutze die Vorlage als klaren Startpunkt für deine Mail.",
+        "emb_benefits_3col_col_3_icon_url": "https://www.static-immobilienscout24.de/fro/emb/_/s24_checkmark_circle_48.png",
+        "emb_benefits_3col_col_3_body": "<strong>Passende Angebote finden</strong><br>Zeige relevante Optionen für den Weg zur Wunschimmobilie.",
+        "emb_benefits_3col_show_cta": true,
+        "emb_benefits_3col_button_url": "https://www.immobilienscout24.de/meinsuchprofil/meinsuchprofilanlage/",
+        "emb_benefits_3col_button_bg_color": "#FFFFFF",
+        "emb_benefits_3col_button_border_color": "#333333",
+        "emb_benefits_3col_button_label": "Mehr erfahren"
+      }
+    },
+    {
+      "instance_id": "teaser-1col-1",
+      "module_id": "teaser-1col",
+      "snippet_name": "emb_teaser_1col",
+      "content": {
+        "emb_teaser_1col_bg_color": "#FFFFFF",
+        "emb_teaser_1col_headline": "Gut vorbereitet zur passenden Finanzierung",
+        "emb_teaser_1col_image_link_url": "https://www.immobilienscout24.de/",
+        "emb_teaser_1col_image_url": "https://library.eu.iterable.com/33/98/b9799c74eec5412c8fb0c995dd52f19c-emb_placeholder_16x9.png",
+        "emb_teaser_1col_image_alt": "",
+        "emb_teaser_1col_body": "<p>Die Vorlage kann nach der ersten Vorschau frei angepasst und mit weiteren Modulen erweitert werden.</p>",
+        "emb_teaser_1col_button_url": "https://www.immobilienscout24.de/",
+        "emb_teaser_1col_button_bg_color": "#FFFFFF",
+        "emb_teaser_1col_button_border_color": "#333333",
+        "emb_teaser_1col_button_label": "Mehr erfahren"
+      }
+    },
+    {
+      "instance_id": "contact-signoff-1",
+      "module_id": "contact-signoff",
+      "snippet_name": "emb_contact_signoff",
+      "content": {}
+    },
+    {
+      "instance_id": "footer-1",
+      "module_id": "footer",
+      "snippet_name": "emb_footer_marketing",
+      "content": {}
+    }
+  ]
+}

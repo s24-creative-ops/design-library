@@ -5,12 +5,15 @@ Die technische Export-Wahrheit liegt ausschliesslich in `export-map.json`.
 
 ## Render-Regel
 
+- `agent/preview-modules.html` ist die kanonische strukturelle Quelle fuer bestehende Preview-Module.
+- Diese Datei dient nur fuer Auswahl, Beschreibung, sichtbare Felder und Feldlogik, nicht zum freien Nachbauen von HTML.
 - Jedes Modul muss mit seiner HTML-Struktur aus `preview-modules.html` gerendert werden.
 - Die Preview beginnt immer mit `preview-template.html`.
 - Wenn ein Modul hier nicht registriert ist, darf es nicht gerendert werden.
 - Wenn fuer einen registrierten Bild-Slot keine echte User-Bild-URL vorliegt, bleibt in der Preview die graue Placeholder-Flaeche aus `preview-modules.html` sichtbar.
 - Wenn fuer einen registrierten Bild-Slot eine echte User-Bild-URL vorliegt, ersetzt diese URL in der Preview die graue Placeholder-Flaeche fuer genau diesen Slot.
 - Die Preview dient der visuellen Iteration. Die regulaere Exportlogik arbeitet nicht aus Preview-HTML.
+- Kritische responsive Gruppen als Warnhinweis: `teaser-2col-*`, `servicetiles`, `teaser-2col-gallery` sowie Module mit Row-/Grid-/Stack-Klassen.
 
 ## Technische Trennung
 
@@ -86,6 +89,8 @@ Regeln:
   - `emb_hero_image_head_copy_bleed_center_image_url`
 - `hero-image-textbox-cta-center`
   - `emb_hero_image_textbox_cta_center_image_url`
+- `hero-fakeform-buttons-image`
+  - `emb_hero_fakeform_buttons_image_image_url`
 - `hero-cta-top`
   - `emb_hero_cta_top_image_url`
 - `hero-cta-top-center`
@@ -155,7 +160,7 @@ Regeln:
 - Preview-Quelle: `preview-modules.html`, Block `data-module="logo-centered"`
 - Sichtbare Felder:
   - Logo
-- Fuellhinweis: verwenden, wenn das Standard-Logo zentriert statt linksbuendig erscheinen soll; bei den Center-Hero-Modulen `hero-image-top-center`, `hero-image-top-bleed-center`, `hero-cta-top-center`, `hero-cta-top-no-bottom-center`, `hero-image-head-copy-bleed-center` und `hero-image-textbox-cta-center` ist dies die verbindliche Logo-Variante
+- Fuellhinweis: verwenden, wenn das Standard-Logo zentriert statt linksbuendig erscheinen soll; bei den Center-Hero-Modulen `hero-image-top-center`, `hero-image-top-bleed-center`, `hero-cta-top-center`, `hero-cta-top-no-bottom-center`, `hero-image-head-copy-bleed-center`, `hero-image-textbox-cta-center` und `hero-fakeform-buttons-image` ist dies die verbindliche Logo-Variante
 - Technische Regel: statisches Export-Snippet ohne Parameter.
 
 ### `hero-image-top`
@@ -421,6 +426,89 @@ Regeln:
   - Neue Default-States fuer dieses Modul muessen immer `headline_size = l`, `show_small_headline = false` und `show_large_headline = true` erzeugen.
   - Wenn `show_small_headline = true` und `show_large_headline = true` gleichzeitig vorliegen oder nicht exakt zur kanonischen `headline_size` passen, ist der State nicht export-ready.
   - `button_bg_color` und `button_border_color` duerfen aus den erlaubten Defaults der `export-map.json` kommen.
+
+### `hero-fakeform-buttons-image`
+
+- Snippet: `emb_hero_fakeform_buttons_image`
+- Preview-Quelle: `preview-modules.html`, Block `data-module="hero-fakeform-buttons-image"`
+- Sichtbare Felder:
+  - Hintergrundfarbe
+  - Headline
+  - Headline-Groesse: `s`, `m` oder `l`
+  - Auswahlbutton 1 bis 6
+  - Bild-URL
+  - Bild-Alt
+  - Anrede
+  - Body
+  - finales CTA-Label
+  - finale CTA-URL
+- Bildformat in der Preview: `16:9 | 960 x 540 px`
+- Fuellhinweis: Hero-Modul mit zentrierter Headline, vertikal gestapelten Auswahlbuttons, Bild, Anrede, Richtext-Body und Brand-CTA; die Preview-Anrede bleibt immer `Hallo Anrede,`
+- Sichtbarkeitsregel:
+  - Default sichtbar sind genau `5` Auswahlbuttons.
+  - Das Modul unterstuetzt insgesamt `2` bis `6` Auswahlbuttons.
+  - Button `1` bleibt immer sichtbar.
+  - `show_item_2` bleibt fuer dieses Modul verpflichtend `true`, damit die Mindestanzahl `2` nicht unterschritten wird.
+  - `show_item_3`, `show_item_4`, `show_item_5` und `show_item_6` erweitern oder reduzieren die sichtbaren spaeteren Buttons zustandsbasiert.
+- Button-Regel:
+  - Die Auswahlbuttons nutzen im ersten produktiven Stand das bestehende Pattern `button-outline-strong`.
+  - Der finale CTA nutzt das bestehende Pattern `button-filled-brand`.
+  - Freie neue Button-Styles, freie Farben, freie Formen oder freie CTA-Varianten sind unzulaessig.
+- Technische Export-Regel:
+  - Verbindlicher Snippet-Call-Vertrag: genau 31 direkt gerenderte Parameter in dieser Reihenfolge
+  - `emb_hero_fakeform_buttons_image_bg_color`
+  - `emb_hero_fakeform_buttons_image_show_small_headline`
+  - `emb_hero_fakeform_buttons_image_show_large_headline`
+  - `emb_hero_fakeform_buttons_image_headline`
+  - `emb_hero_fakeform_buttons_image_choice_button_1_url`
+  - `emb_hero_fakeform_buttons_image_choice_button_1_label`
+  - `emb_hero_fakeform_buttons_image_show_item_2`
+  - `emb_hero_fakeform_buttons_image_choice_button_2_url`
+  - `emb_hero_fakeform_buttons_image_choice_button_2_label`
+  - `emb_hero_fakeform_buttons_image_show_item_3`
+  - `emb_hero_fakeform_buttons_image_choice_button_3_url`
+  - `emb_hero_fakeform_buttons_image_choice_button_3_label`
+  - `emb_hero_fakeform_buttons_image_show_item_4`
+  - `emb_hero_fakeform_buttons_image_choice_button_4_url`
+  - `emb_hero_fakeform_buttons_image_choice_button_4_label`
+  - `emb_hero_fakeform_buttons_image_show_item_5`
+  - `emb_hero_fakeform_buttons_image_choice_button_5_url`
+  - `emb_hero_fakeform_buttons_image_choice_button_5_label`
+  - `emb_hero_fakeform_buttons_image_show_item_6`
+  - `emb_hero_fakeform_buttons_image_choice_button_6_url`
+  - `emb_hero_fakeform_buttons_image_choice_button_6_label`
+  - `emb_hero_fakeform_buttons_image_image_url`
+  - `emb_hero_fakeform_buttons_image_image_alt`
+  - `emb_hero_fakeform_buttons_image_show_salutation`
+  - `emb_hero_fakeform_buttons_image_use_snippetcall_salutation`
+  - `emb_hero_fakeform_buttons_image_salutation`
+  - `emb_hero_fakeform_buttons_image_body`
+  - `emb_hero_fakeform_buttons_image_button_url`
+  - `emb_hero_fakeform_buttons_image_button_bg_color`
+  - `emb_hero_fakeform_buttons_image_button_border_color`
+  - `emb_hero_fakeform_buttons_image_button_label`
+  - Die Hero-Anrede wird ueber `emb_hero_fakeform_buttons_image_show_salutation` und `emb_hero_fakeform_buttons_image_salutation` als eigener Plain-Text-Block vor dem Body materialisiert.
+  - `emb_hero_fakeform_buttons_image_use_snippetcall_salutation` ist ein rein technisches Export-Flag fuer freigegebene Produktkontexte und bleibt in der Preview unsichtbar.
+  - Neue Default-States fuer dieses Modul muessen `show_salutation = true` und `salutation = Hallo Anrede,` materialisieren.
+  - `emb_hero_fakeform_buttons_image_headline_size` ist das einzige kanonische Groessenfeld fuer diese Hero-Headline.
+  - Erlaubte Werte sind nur `s`, `m` und `l`; Default ist `l`.
+  - Das Groessen-Mapping folgt festen Typography-Tokens:
+    - Desktop:
+      - `s` => `heading-s` => `20px / 30px`
+      - `m` => `heading-m` => `26px / 36px`
+      - `l` => `heading-l` => `34px / 44px`
+    - Mobile:
+      - `s` => `heading-s mobile` => `20px / 30px`
+      - `m` => `heading-m mobile` => `24px / 34px`
+      - `l` => `heading-l mobile` => `28px / 36px`
+  - Die Preview materialisiert zusaetzlich die technischen Bridge-Felder `emb_hero_fakeform_buttons_image_show_small_headline` und `emb_hero_fakeform_buttons_image_show_large_headline` im `email_state.content`.
+  - Die Bridge ist fest:
+    - `s` => `show_small_headline = true`, `show_large_headline = false`
+    - `m` => `show_small_headline = false`, `show_large_headline = false`
+    - `l` => `show_small_headline = false`, `show_large_headline = true`
+  - Neue Default-States fuer dieses Modul muessen immer `headline_size = l`, `show_small_headline = false` und `show_large_headline = true` erzeugen.
+  - Wenn `show_small_headline = true` und `show_large_headline = true` gleichzeitig vorliegen oder nicht exakt zur kanonischen `headline_size` passen, ist der State nicht export-ready.
+  - `button_bg_color` und `button_border_color` des finalen CTA duerfen aus den erlaubten Defaults der `export-map.json` kommen.
 
 ### `hero-cta-top`
 
@@ -749,7 +837,7 @@ Regeln:
   - bis zu vier Items mit je Bild-URL, Bild-Alt, Body, Link-Label und Link-URL
   - optionaler Abschluss-CTA mit Button-Label und Button-URL
 - Bildformat in der Preview: `4:3 | 800 x 600 px` pro Item
-- Fuellhinweis: die hinterlegte Listing-Struktur beibehalten; den Abschluss-CTA nur bei Bedarf einblenden und sonst verborgen lassen
+- Fuellhinweis: die hinterlegte Listing-Struktur mit `listing-rows`, `listing-row`, `media--listing` und `listing-row__copy` unveraendert beibehalten; den Abschluss-CTA nur bei Bedarf einblenden und sonst verborgen lassen
 
 ### `teaser-2col-gallery`
 
@@ -842,6 +930,7 @@ Regeln:
 
 - Snippet: `emb_contact`
 - Preview-Quelle: `preview-modules.html`, Block `data-module="contact"`
+- Das Modul bleibt immer auf weissem Hintergrund und nimmt nicht an der Hintergrund-Alternierung teil.
 - Sichtbare Felder:
   - Bild-URL
   - Bild-Alt
@@ -858,10 +947,20 @@ Regeln:
 - Bei aktivem Produktkontext `RLE` muessen ohne explizite User-Overrides die dokumentierten RLE-Defaults in genau diese bestehenden Contact-Felder materialisiert werden.
 - Wenn fuer den registrierten Avatar-Slot keine echte Bild-URL vorliegt, bleibt in der Preview der graue Placeholder sichtbar.
 
+### `contact-signoff`
+
+- Snippet: `emb_contact_signoff`
+- Preview-Quelle: `preview-modules.html`, Block `data-module="contact-signoff"`
+- Das Modul bleibt immer auf weissem Hintergrund und nimmt nicht an der Hintergrund-Alternierung teil.
+- Sichtbare Felder:
+  - Abschluss
+- Fuellhinweis: feste zweizeilige Abschlussformel ohne Bild, Telefonnummer, E-Mail-Adresse oder CTA unveraendert beibehalten
+- Technische Regel: statisches Export-Snippet ohne Parameter.
+
 ### `footer`
 
 - Snippet: `emb_footer_marketing`
 - Preview-Quelle: `preview-modules.html`, Block `data-module="footer"`
 - Sichtbare Felder:
   - Footer
-- Fuellhinweis: unveraendert verwenden
+- Fuellhinweis: unveraendert und vollstaendig verwenden; nie vereinfachen, kuerzen oder teilweise auslassen

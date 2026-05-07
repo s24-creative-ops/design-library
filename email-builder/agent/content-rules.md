@@ -21,8 +21,7 @@
 - `salutationContext` ist ein technischer Resolver fuer Anrede-Logik und kein sichtbares User-Textfeld.
 - Wenn ein aktives Composition-Template eine `salutation_context_id` traegt, wird dieser Kontext automatisch gesetzt; es ist keine Rueckfrage noetig.
 - Wenn der User explizit `Mail fuer RLE`, `Loft SNL` oder `Loft RNL` sagt, muss der EMB die Zuordnung ueber `aliases` oder `template_ids` der Registry ohne unnoetige Rueckfrage aufloesen.
-- Wenn bei From-scratch oder Blank kein Team, Produkt oder Kontext erkennbar ist, fragt der EMB genau einmal: `Fuer welches Team oder Produkt ist die Mail gedacht? Zum Beispiel RLE, Loft SNL oder Loft RNL (Dev).`
-- Wenn danach weiter keine eindeutige Zuordnung moeglich ist, gilt `salutationContext = generic`.
+- Wenn beim freien Initialstart kein Team, Produkt oder Kontext erkennbar ist, gilt ohne Rueckfrage `salutationContext = generic`.
 - Sichtbare Preview-Anreden muessen menschenlesbar bleiben; Raw-Handlebars, freie Snippetcalls oder freie Iterable-Logik im User-Content bleiben verboten.
 - Fuer `salutationContext = loft-rnl-dev` bleibt die sichtbare Intro-Anrede im Builder `Hallo Anrede`; der produktive Handlebars-Ausdruck ist ein kontrollierter Exportwert und kein editierbarer User-Text.
 
@@ -33,6 +32,7 @@
 - Wenn der User einen unbekannten expliziten Produktnamen nennt, muss der Agent nachfragen statt zu raten.
 - Produktdefaults sind Start-Defaults und nie staerker als explizite spaetere User-Vorgaben fuer konkrete Felder.
 - Wenn `RLE` aktiv ist und der User keine abweichenden Contact-Werte vorgibt, muessen fuer das `contact`-Modul exakt die dokumentierten RLE-Defaults aus `builder-library.md` verwendet werden.
+- Das `contact`-Modul ist immer weiss und hat kein usersteuerbares oder alternierendes Background-Feld.
 - Wenn `RLE` aktiv ist, darf der Hero-Salutation-Snippetcall nur ueber die dokumentierten technischen Export-Flags `*_use_snippetcall_salutation` aktiviert werden.
 - Freie User-Snippetcalls, freie Raw-Logik oder freier HTML-Code in Hero-Salutations bleiben verboten.
 

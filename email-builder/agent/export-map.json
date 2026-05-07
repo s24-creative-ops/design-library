@@ -66,7 +66,7 @@
         {
           "name": "emb_hero_image_top_headline_size",
           "type": "text",
-          "required": true,
+          "required": false,
           "default": "l",
           "allowed_values": [
             "s",
@@ -203,7 +203,7 @@
         {
           "name": "emb_hero_image_top_center_headline_size",
           "type": "text",
-          "required": true,
+          "required": false,
           "default": "l",
           "allowed_values": [
             "s",
@@ -340,7 +340,7 @@
         {
           "name": "emb_hero_image_top_bleed_headline_size",
           "type": "text",
-          "required": true,
+          "required": false,
           "default": "l",
           "allowed_values": [
             "s",
@@ -477,7 +477,7 @@
         {
           "name": "emb_hero_image_top_bleed_center_headline_size",
           "type": "text",
-          "required": true,
+          "required": false,
           "default": "l",
           "allowed_values": [
             "s",
@@ -578,7 +578,7 @@
         {
           "name": "emb_hero_image_head_copy_bleed_center_headline_size",
           "type": "text",
-          "required": true,
+          "required": false,
           "default": "l",
           "allowed_values": [
             "s",
@@ -679,7 +679,7 @@
         {
           "name": "emb_hero_image_textbox_cta_center_headline_size",
           "type": "text",
-          "required": true,
+          "required": false,
           "default": "l",
           "allowed_values": [
             "s",
@@ -798,7 +798,7 @@
         {
           "name": "emb_hero_fakeform_buttons_image_headline_size",
           "type": "text",
-          "required": true,
+          "required": false,
           "default": "l",
           "allowed_values": [
             "s",
@@ -1037,7 +1037,7 @@
         {
           "name": "emb_hero_cta_top_headline_size",
           "type": "text",
-          "required": true,
+          "required": false,
           "default": "l",
           "allowed_values": [
             "s",
@@ -1174,7 +1174,7 @@
         {
           "name": "emb_hero_cta_top_center_headline_size",
           "type": "text",
-          "required": true,
+          "required": false,
           "default": "l",
           "allowed_values": [
             "s",
@@ -1311,7 +1311,7 @@
         {
           "name": "emb_hero_cta_top_no_bottom_headline_size",
           "type": "text",
-          "required": true,
+          "required": false,
           "default": "l",
           "allowed_values": [
             "s",
@@ -1448,7 +1448,7 @@
         {
           "name": "emb_hero_cta_top_no_bottom_center_headline_size",
           "type": "text",
-          "required": true,
+          "required": false,
           "default": "l",
           "allowed_values": [
             "s",
@@ -3117,12 +3117,6 @@
       "module_id": "contact",
       "snippet_name": "emb_contact",
       "fields": [
-        {
-          "name": "emb_contact_bg_color",
-          "type": "color",
-          "required": true,
-          "default": ""
-        },
         {
           "name": "emb_contact_show_image",
           "type": "boolean",
