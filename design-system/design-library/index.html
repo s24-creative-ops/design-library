@@ -950,14 +950,15 @@
 
     .token-grid--icons {
       grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
-      gap: 25px 24px;
+      row-gap: 25px;
+      column-gap: 24px;
     }
 
     .token-icon-item {
-      display: grid;
-      place-items: center;
-      justify-items: center;
-      gap: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
       min-width: 0;
       padding: 0;
       background: #ffffff;
@@ -971,6 +972,7 @@
     }
 
     .token-icon-item .token-card__copy-row {
+      align-items: center;
       justify-content: center;
       gap: 0;
     }
