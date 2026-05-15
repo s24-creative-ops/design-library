@@ -12,18 +12,14 @@ DEFAULT_OUTPUT = PROJECT_ROOT / ".publish" / "design-library-repo"
 IGNORED_NAMES = {".DS_Store", "Thumbs.db"}
 
 MANAGED_PATHS = [
-    ("design-system", PROJECT_ROOT / "design-system"),
+    ("design-system/AGENTS.md", PROJECT_ROOT / "design-system" / "AGENTS.md"),
+    ("design-system/design-library", PROJECT_ROOT / "design-system" / "design-library"),
+    ("design-system/tokens", PROJECT_ROOT / "design-system" / "tokens"),
+    ("design-system/scripts", PROJECT_ROOT / "design-system" / "scripts"),
     ("email-builder/AGENTS.md", PROJECT_ROOT / "email-builder" / "AGENTS.md"),
     ("email-builder/preview", PROJECT_ROOT / "email-builder" / "preview"),
     ("email-builder/email", PROJECT_ROOT / "email-builder" / "email"),
     ("email-builder/agent", PROJECT_ROOT / "email-builder" / "agent"),
-    ("lp-builder/AGENTS.md", PROJECT_ROOT / "lp-builder" / "AGENTS.md"),
-    ("lp-builder/preview", PROJECT_ROOT / "lp-builder" / "preview"),
-    ("lp-builder/component-library.html", PROJECT_ROOT / "lp-builder" / "component-library.html"),
-    ("lp-builder/core-foundations.css", PROJECT_ROOT / "lp-builder" / "core-foundations.css"),
-    ("lp-builder/core-buttons.css", PROJECT_ROOT / "lp-builder" / "core-buttons.css"),
-    ("lp-builder/core-components.css", PROJECT_ROOT / "lp-builder" / "core-components.css"),
-    ("lp-builder/core-interactions.js", PROJECT_ROOT / "lp-builder" / "core-interactions.js"),
 ]
 
 ROOT_FILES = {
@@ -47,9 +43,14 @@ ROOT_FILES = {
 Dieses Repository ist der Publish-Mirror der aktiven Projekt-Library unter `GPT Agents/`.
 
 Source of Truth:
-- `design-system/`
-- `email-builder/`
-- `lp-builder/`
+- `design-system/design-library/`
+- `design-system/tokens/`
+- `design-system/scripts/`
+- `email-builder/preview/`
+- `email-builder/email/`
+- `email-builder/agent/`
+
+LP-Inhalte werden aktuell nur als konservierte Snapshots innerhalb von `design-system/design-library/` gehalten.
 
 Der Mirror wird lokal aus dem Projekt synchronisiert ueber:
 
@@ -83,7 +84,6 @@ def ensure_safe_output(output_dir: Path) -> None:
     source_roots = [
         (PROJECT_ROOT / "design-system").resolve(),
         (PROJECT_ROOT / "email-builder").resolve(),
-        (PROJECT_ROOT / "lp-builder").resolve(),
     ]
     for source_root in source_roots:
         if resolved_output == source_root or resolved_output.is_relative_to(source_root):

@@ -3,9 +3,14 @@
 Dieses Repository ist der Publish-Mirror der aktiven Projekt-Library unter `GPT Agents/`.
 
 Source of Truth:
-- `design-system/`
-- `email-builder/`
-- `lp-builder/`
+- `design-system/design-library/`
+- `design-system/tokens/`
+- `design-system/scripts/`
+- `email-builder/preview/`
+- `email-builder/email/`
+- `email-builder/agent/`
+
+LP-Inhalte werden aktuell nur als konservierte Snapshots innerhalb von `design-system/design-library/` gehalten.
 
 Der Mirror wird lokal aus dem Projekt synchronisiert ueber:
 

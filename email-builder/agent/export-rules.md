@@ -9,36 +9,20 @@ Die uebrigen operativen Agent-Dateien liegen direkt daneben in `agent/`.
 - Gleichwertige explizite Trigger sind nur klare Export-/Upload-/Update-Anweisungen des Users fuer Iterable.
 - Eine Preview-Anfrage, eine Template-Auswahl oder ein erfolgreicher Preview-Lauf gelten nie als Export-Trigger.
 - Nach erfolgreicher Preview bleibt der Agent im Preview-Modus, bis der User den Export ausdruecklich bestaetigt oder selbst Export/Upload/Update verlangt.
-- Wenn der User `exportieren`, `zu Iterable exportieren`, `hochladen` oder sinngemaess den Export der aktuellen Mail verlangt, ist immer die bereits bestehende aktuelle Mail gemeint.
-- Der Export darf deshalb nie in die Startlogik, Template-Auswahl, Starter-Auswahl oder einen neuen Blueprint-Einstieg zurueckfallen.
-- Diese Anweisung bedeutet: aktuelle Preview-Komposition in den finalen modularen Snippet-Call-Block uebersetzen, diesen in die fuer den aktiven Template-Kontext erlaubte vollstaendige HTML-Shell einsetzen und genau diese finale HTML-Payload nach erfolgreichem `createCampaign` genau einmal in die zugehoerige Iterable-Campaign schreiben.
+- Diese Anweisung bedeutet: aktuelle Preview-Komposition in den finalen modularen Snippet-Call-Block uebersetzen, diesen in die vollstaendige campaign-owned HTML-Shell einsetzen und genau diese finale HTML-Payload nach erfolgreichem `createCampaign` genau einmal in die zugehoerige Iterable-Campaign schreiben.
 - Sie bedeutet nicht: Preview-HTML speichern, Preview-HTML als Template anlegen, Draft als Standardziel nutzen oder nackte Snippet-Codes als Komplett-HTML schreiben.
-- Im normalen Exportmodus arbeitet der Agent strikt prozesshaft und nicht explorativ.
-- Im normalen Exportmodus sind Spekulation, Alternativpfade, Experimente, sichtbare Herleitungen und Diagnoseformulierungen verboten.
-- Diagnose- oder Dev-Regeln gelten nur bei explizitem Diagnoseauftrag des Users oder bei einem exakten technischen Diagnose-Trigger.
 
 ## Quelle
 
 - Die operative Exportquelle ist ausschliesslich der aktuelle `email_state` zusammen mit `export-map.json`.
-- Fuer dokumentierte Starter-Artefakte `standard-blueprint`, `ho-esg` und `seeker-mle` gilt der beim Start direkt geladene `starter-*.state.json` ab der ersten Preview als aktueller `email_state` genau dieser Mail.
-- Wenn eine solche Starter-Mail seit der ersten Preview nicht veraendert wurde, darf der Export genau diesen unveraenderten Starter-State direkt als aktuellen `email_state` verwenden.
-- Wenn fuer die aktuelle Mail kein gueltiger `email_state` vorliegt, stoppt der Export sofort mit einer klaren Meldung ueber den fehlenden oder invaliden State.
-- Wenn fuer die aktuelle Mail kein gueltiger `email_state` vorliegt, nennt der Export exakt die fehlenden oder invaliden State-Bestandteile und stoppt sofort.
-- Der Export erstellt keine neue Preview, startet keine neue Mail und baut keinen State on-the-fly auf.
-- Der `email_state` muss als strukturierte operative State-Basis zur aktuellen Preview verfuegbar bleiben und im Export-Lauf direkt wiederverwendet werden.
-- Bei unveraenderten dokumentierten Starter-Artefakten erfuellt der direkt gesetzte `starter-*.state.json` diese Rolle vollstaendig; der Export darf in diesem Fall nicht wegen fehlender zusaetzlicher Arbeitsdatei oder fehlendem parallelen Export-Stand stoppen.
+- Wenn noch keine Preview existiert, wird zuerst eine Preview erstellt und dabei parallel ein `email_state` aufgebaut.
+- Der `email_state` muss als strukturierte JSON-Arbeitsdatei zur aktuellen Preview verfuegbar bleiben und im Export-Lauf direkt wiederverwendet werden.
 - Der Export darf Preview-HTML oder Snippet-HTML nicht regulaer als Quelle rekonstruieren.
-- Die direkte Nutzung eines beim Starter-Start bereits gesetzten `starter-*.state.json` ist dabei keine Preview-Rekonstruktion, kein Modul-Rebuild und keine Herleitung aus `preview-modules.html`.
-- Preview-DOM oder markierte Preview-Knoten sind nur fuer manuelles Debugging zulaessig, nicht im regulaeren Happy Path.
-- Wenn notwendige Exportdaten fehlen, sind Reparaturversuche, Alternativvorschlaege, Preview-Rekonstruktion und Diskussion interner Moeglichkeiten verboten.
+- Preview-DOM oder markierte Preview-Knoten sind nur als Debug- oder Recovery-Fallback zulaessig, nicht im regulaeren Happy Path.
 - `export-map.json` ist die einzige technische Quelle fuer erlaubte Module, Snippet-Namen, Feldnamen, Feldtypen, Required-Flags und Defaults.
-- `export-runtime.md` ist der kompakte Runtime-Vertrag fuer den Happy-Path-Lookup von `module_id`, `snippet_name`, Feldreihenfolge, Required-Flags, Defaults, Allowed-Values und der Hero-Bridge und wird direkt aus `export-map.json` abgeleitet.
-- Die produktiven Dateien unter `email/modules/<snippet_name>.html` bleiben Render-Referenz, sind im Happy Path aber keine regulaere Lookup-Quelle, solange `export-runtime.md` den benoetigten Vertrag eindeutig abdeckt.
-- Der aktive Template-Kontext kommt im Happy Path ausschliesslich aus `email_state.templateContext`; Template-Auswahl, Starter-Auswahl und Initialstart-Regeln werden im Export nie erneut ausgewertet.
 - Jedes Feld im `email_state.content`, das fuer das jeweilige Modul nicht in `export-map.json` registriert ist, ist ein Unknown Field und fuehrt zu einem Export-Fehler.
 - Required Felder duerfen nur aus `content` oder aus dem Default der Export-Map befuellt werden.
 - Felder ohne Content und ohne Default werden nie frei erfunden.
-- Fuer alle elf Hero-Module ist `*_headline_size` das kanonische Builder-/Preview-Feld und in `export-map.json` nur zur State-Validierung registriert; es wird nie als direkter Snippet-Parameter geschrieben.
 - Nur Hero-Headlines duerfen im Export-State ueber ein kanonisches Groessenfeld steuerbar sein.
 - Erlaubte Hero-Groessen sind ausschliesslich `s`, `m` und `l`; ihr Mapping ist direkt `heading-s`, `heading-m`, `heading-l`.
 - Der reguläre Hero-Default ist `l`.
@@ -68,35 +52,45 @@ Die uebrigen operativen Agent-Dateien liegen direkt daneben in `agent/`.
   - kontrollierte Salutation-Feld-Overrides aus `product-salutations.json`
 - Der Export-Happy-Path prueft nur den vorhandenen export-ready State gegen `export-map.json`.
 - Der Export darf fehlende required Werte nicht aus Preview-HTML, DOM, sichtbarer Darstellung, Button-Klassen oder freiem Modulkontext raten.
-- Vorhandene Copy, Content-Reihenfolge und Modulfolge im export-ready State werden im Export nicht neu erzeugt, nicht neu bewertet und nicht aus Wissensdateien hergeleitet; geprueft wird nur der dokumentierte Feldvertrag.
-- Fuer einen unveraenderten dokumentierten Starter darf dieser export-ready State direkt der beim Start gesetzte `starter-*.state.json` sein.
-- Snippet-Calls, Parameterreihenfolge und Feldnamen duerfen nie frei aus Chat-Kontext, Erinnerung, Python-Hilfslogik oder manuell formuliertem Komplett-HTML abgeleitet werden.
 - Wenn `email_state.modules` eines der Center-Hero-Module `hero-image-top-center`, `hero-image-top-bleed-center`, `hero-cta-top-center`, `hero-cta-top-no-bottom-center`, `hero-image-head-copy-bleed-center`, `hero-image-textbox-cta-center` oder `hero-fakeform-buttons-image` enthaelt, muss ein vorhandenes Logo-Modul im export-ready State als `logo-centered` vorliegen.
 - Ein plain `logo` ist in diesem Center-Hero-Kontext kein export-ready Endzustand und muss bereits vor dem Export auf `logo-centered` normalisiert worden sein.
 - Diese Normalisierung aendert nur das Logo-Modul, fuegt kein zusaetzliches Logo ein und erhaelt die Reihenfolge der Mail.
-- Fuer alle elf Hero-Module gilt dasselbe kanonische Headline-Size-Modell:
-  - `hero-image-top`
-  - `hero-image-top-center`
-  - `hero-image-top-bleed`
-  - `hero-image-top-bleed-center`
-  - `hero-image-head-copy-bleed-center`
-  - `hero-image-textbox-cta-center`
-  - `hero-fakeform-buttons-image`
-  - `hero-cta-top`
-  - `hero-cta-top-center`
-  - `hero-cta-top-no-bottom`
-  - `hero-cta-top-no-bottom-center`
-  - genau ein kanonisches `*_headline_size`-Feld mit nur `s`, `m` oder `l`
-  - neue regulaere Default-States muessen `headline_size = l`, `show_small_headline = false` und `show_large_headline = true` enthalten
-  - fehlt `*_headline_size` im sonst gueltigen State oder ist es leer, nimmt der Export direkt `l` als kanonischen Default an
-  - die technischen Bridge-Felder werden ausschliesslich aus dem kanonischen `headline_size` abgeleitet:
-    - `s` => `show_small_headline = true` und `show_large_headline = false`
-    - `m` => `show_small_headline = false` und `show_large_headline = false`
-    - `l` => `show_small_headline = false` und `show_large_headline = true`
-  - `*_headline_size` selbst ist kein direkter Snippet-Parameter; der Export darf fuer Hero-Module nur die materialisierten `show_small_headline`- und `show_large_headline`-Bridge-Felder in die Snippet-Payload geben
-  - ein fehlendes `*_headline_size` allein macht einen sonst gueltigen Hero-State nicht unvollstaendig und darf weder Recovery noch Preview-, Starter- oder Modul-Rebuild ausloesen
+- Fuer `hero-image-top` ist `emb_hero_image_top_headline_size` das einzige kanonische Groessenfeld fuer die Headline und darf nur `s`, `m` oder `l` tragen.
+- Neue reguläre Default-States fuer `hero-image-top` muessen vor dem Export immer `emb_hero_image_top_headline_size = l`, `emb_hero_image_top_show_small_headline = false` und `emb_hero_image_top_show_large_headline = true` enthalten.
+- Legacy-Normalisierung fuer `hero-image-top` ist nur vor dem regulären Export-Happy-Path zulaessig:
+  - wenn `emb_hero_image_top_headline_size` fehlt oder leer ist und `emb_hero_image_top_show_large_headline = true`, wird kanonisch zu `l` normalisiert
+  - wenn `emb_hero_image_top_headline_size` fehlt oder leer ist und `emb_hero_image_top_show_large_headline = false` oder leer ist, wird kanonisch zu `m` normalisiert
+- Nach der kanonischen Aufloesung von `emb_hero_image_top_headline_size` muessen die technischen Bridge-Felder fuer `hero-image-top` exakt so gesetzt sein:
+  - `s` => `emb_hero_image_top_show_small_headline = true` und `emb_hero_image_top_show_large_headline = false`
+  - `m` => `emb_hero_image_top_show_small_headline = false` und `emb_hero_image_top_show_large_headline = false`
+  - `l` => `emb_hero_image_top_show_small_headline = false` und `emb_hero_image_top_show_large_headline = true`
+- Beim aktuellen Iterable-Snippet `emb_hero_image_top` ist `emb_hero_image_top_headline_size` kein direkter Snippet-Parameter; der Export darf nur die materialisierten Bridge-Felder `emb_hero_image_top_show_small_headline` und `emb_hero_image_top_show_large_headline` in die Snippet-Payload geben.
+- Wenn bei `hero-image-top` `emb_hero_image_top_show_small_headline = true` und `emb_hero_image_top_show_large_headline = true` gleichzeitig vorliegen, ist das ein Bridge-Konflikt und der Export stoppt fail-closed vor dem Snippet-Build.
+- Wenn die Bridge-Felder von `hero-image-top` nicht exakt zur kanonischen `emb_hero_image_top_headline_size` passen, ist das ein lokaler State-Fehler und der Export stoppt vor dem Snippet-Build.
+- Fuer `hero-image-top-center`, `hero-image-top-bleed`, `hero-image-top-bleed-center`, `hero-fakeform-buttons-image`, `hero-cta-top`, `hero-cta-top-center`, `hero-cta-top-no-bottom` und `hero-cta-top-no-bottom-center` gilt dasselbe kanonische Hero-Modell:
+  - genau ein `*_headline_size`-Feld mit nur `s`, `m` oder `l`
+  - neue reguläre Default-States muessen `headline_size = l`, `show_small_headline = false` und `show_large_headline = true` enthalten
+  - die technischen Bridge-Felder muessen exakt aus dem kanonischen `headline_size` abgeleitet werden
+  - bei den aktuellen Iterable-Snippets ist `*_headline_size` kein direkter Snippet-Parameter; der Export darf fuer diese Hero-Module nur die materialisierten `show_small_headline`- und `show_large_headline`-Bridge-Felder in die Snippet-Payload geben
   - `show_small_headline = true` und `show_large_headline = true` gleichzeitig ist ein Bridge-Konflikt und stoppt fail-closed vor dem Snippet-Build
-  - wenn bereits materialisierte Bridge-Felder dem kanonischen oder per Default angenommenen `headline_size` widersprechen, ist das ein lokaler State-Fehler und der Export stoppt vor dem Snippet-Build
+- Fuer `hero-image-head-copy-bleed-center` gilt dasselbe kanonische Hero-Modell:
+  - genau ein `emb_hero_image_head_copy_bleed_center_headline_size`-Feld mit nur `s`, `m` oder `l`
+  - neue reguläre Default-States muessen `headline_size = l`, `show_small_headline = false` und `show_large_headline = true` enthalten
+  - die technischen Bridge-Felder muessen exakt aus dem kanonischen `headline_size` abgeleitet werden
+  - beim aktuellen Iterable-Snippet `emb_hero_image_head_copy_bleed_center` ist `emb_hero_image_head_copy_bleed_center_headline_size` kein direkter Snippet-Parameter; der Export darf nur die materialisierten Bridge-Felder `emb_hero_image_head_copy_bleed_center_show_small_headline` und `emb_hero_image_head_copy_bleed_center_show_large_headline` in die Snippet-Payload geben
+  - `show_small_headline = true` und `show_large_headline = true` gleichzeitig ist ein Bridge-Konflikt und stoppt fail-closed vor dem Snippet-Build
+- Fuer `hero-image-textbox-cta-center` gilt dasselbe kanonische Hero-Modell:
+  - genau ein `emb_hero_image_textbox_cta_center_headline_size`-Feld mit nur `s`, `m` oder `l`
+  - neue reguläre Default-States muessen `headline_size = l`, `show_small_headline = false` und `show_large_headline = true` enthalten
+  - die technischen Bridge-Felder muessen exakt aus dem kanonischen `headline_size` abgeleitet werden
+  - beim aktuellen Iterable-Snippet `emb_hero_image_textbox_cta_center` ist `emb_hero_image_textbox_cta_center_headline_size` kein direkter Snippet-Parameter; der Export darf nur die materialisierten Bridge-Felder `emb_hero_image_textbox_cta_center_show_small_headline` und `emb_hero_image_textbox_cta_center_show_large_headline` in die Snippet-Payload geben
+  - `show_small_headline = true` und `show_large_headline = true` gleichzeitig ist ein Bridge-Konflikt und stoppt fail-closed vor dem Snippet-Build
+- Fuer `hero-fakeform-buttons-image` gilt dasselbe kanonische Hero-Modell:
+  - genau ein `emb_hero_fakeform_buttons_image_headline_size`-Feld mit nur `s`, `m` und `l`
+  - neue reguläre Default-States muessen `headline_size = l`, `show_small_headline = false` und `show_large_headline = true` enthalten
+  - die technischen Bridge-Felder muessen exakt aus dem kanonischen `headline_size` abgeleitet werden
+  - beim aktuellen Iterable-Snippet `emb_hero_fakeform_buttons_image` ist `emb_hero_fakeform_buttons_image_headline_size` kein direkter Snippet-Parameter; der Export darf nur die materialisierten Bridge-Felder `emb_hero_fakeform_buttons_image_show_small_headline` und `emb_hero_fakeform_buttons_image_show_large_headline` in die Snippet-Payload geben
+  - `show_small_headline = true` und `show_large_headline = true` gleichzeitig ist ein Bridge-Konflikt und stoppt fail-closed vor dem Snippet-Build
 - Required `*_bg_color` Felder muessen aus dem fachlichen Hintergrund-Rhythmus bereits im `email_state.content` vorliegen; sie werden nicht durch freie Export-Defaults ersetzt.
 - Required `*_bg_color` Felder muessen im `email_state.content` bereits als konkrete produktive Hexwerte vorliegen.
 - Preview-Klassen wie `theme-white`, `theme-gray` oder andere semantische Rhythmus-Marker sind als Exportwerte fuer `*_bg_color` unzulaessig.
@@ -158,18 +152,21 @@ Die uebrigen operativen Agent-Dateien liegen direkt daneben in `agent/`.
 - Listen bleiben im allgemeinen `rich_full`-Kontext optisch auf 20px eingerueckt.
 - `p`, `ul` und `ol` tragen im allgemeinen `rich_full`-Kontext keine eigenen allgemeinen Top-/Bottom-Defaults ausserhalb der zentralen Flow-Regeln.
 - Blueprint-basierte Previews duerfen nur exportiert werden, wenn ihr `email_state` zuvor auf das vollstaendige Feldset der verwendeten Module aus `export-map.json` normalisiert wurde.
-- Wenn der `email_state` fuer die aktuelle Mail fehlt oder gegen `export-map.json` bzw. den dokumentierten Template-Kontext nicht valide ist, endet der Export sofort vor jedem Iterable-Call.
-- Ein fehlendes registriertes Hero-`*_headline_size` allein zaehlt dabei nicht als unvollstaendiger State, weil fuer alle Hero-Module direkt der dokumentierte Default `l` aus `export-map.json` gilt.
-- Bei fehlendem oder invalidem State gibt es keinen automatischen Recovery-Rebuild aus Preview-HTML, Starter-Dateien, `preview-modules.html`, `template-*.preview.html` oder Modulbibliothek.
-- In diesem Fall meldet der Export klar, welche State-Bestandteile fehlen oder ungueltig sind.
-- Snippet-HTML bleibt auch ausserhalb des Happy Paths verboten als Export-Erkennungsquelle.
+- Wenn der `email_state` fehlt oder fuer die aktuelle Preview unvollstaendig ist, darf genau einmal ein enger Recovery-Fallback aus der letzten sichtbaren Preview aufgebaut werden.
+- Dieser Recovery-Fallback bleibt streng begrenzt:
+  - nur letzte sichtbare Preview
+  - nur registrierte Module
+  - nur explizit markierte sichtbare Felder, marker-basierte URL-Felder aus `data-export-url-field`, registrierte Icon-Slots, registrierte Bild-Slots, Moduldefaults aus `export-map.json` und dokumentierte technische Resolver-Quellen
+  - kein Raten aus Button-Klassen, freiem Modulkontext, sichtbarem CSS-Styling oder unmarkierter DOM-Struktur
+  - danach vollstaendige Validierung gegen `export-map.json`
+  - anschliessend den reparierten `email_state` wieder als operative JSON-Arbeitsdatei fortschreiben
+- Snippet-HTML bleibt auch im Recovery-Fallback verboten als Export-Erkennungsquelle.
 
 ## Ziel und Save-Shell
 
 - `DEFAULT_TEMPLATE_ID = 569946`
 - Freie und Blueprint-Mails ohne aktives Composition-Template nutzen im Export immer `DEFAULT_TEMPLATE_ID`.
 - Fuer `templateContext.mode = default_template` ist `email/templates/template-main.html` die einzige kanonische Repo-Referenz fuer die erwartete Default-Shell-Vollstaendigkeit.
-- In `email/templates/template-main.html` ist lokal nur der Module-Slot als eindeutige Replace-Zone belegt; Subject und Preheader werden fuer diese Repo-Datei nicht als gesicherte lokale HTML-Replace-Zonen vorausgesetzt.
 - Andere lokale `email/templates/*.html` sind in diesem Modus ausschliesslich template-spezifische Shells fuer ihren passenden `composition_template`-Kontext und duerfen nie als Ersatz-, Fallback- oder Rekonstruktionsquelle fuer `template-main` genutzt werden.
 - Builder-Export erzeugt bewusst keine Blast-/Send-Campaign und uebergibt deshalb keine Versandliste an `createCampaign`.
 - Review-Dateien unter `development/review/` sind fuer Modul- und Template-Arbeit reine Test-Artefakte und nie operativ.
@@ -184,31 +181,24 @@ Die uebrigen operativen Agent-Dateien liegen direkt daneben in `agent/`.
 - Der erste Export einer Preview erzeugt genau eine neue Campaign.
 - Jeder Folge-Export derselben fortgeschriebenen Preview muss dieselbe bereits zugeordnete Campaign wiederverwenden und darf keine zweite Campaign erzeugen.
 - Draft ist kein Standard- und kein Fallback-Ziel.
-- Im regulaeren Export gibt es genau zwei sichere Happy-Path-Varianten:
-  - fuer `templateContext.mode = default_template` mit `resolvedBaseTemplateId = 569946`: `createCampaign`, genau einen `campaignRead` nur fuer die campaign-owned `templateId` und den `campaignState`, keinen `templateRead` und den finalen HTML-Write mit lokaler `template-main.html`
-  - fuer `templateContext.mode = composition_template`: `createCampaign`, genau einen `campaignRead` nur fuer die campaign-owned `templateId` und den `campaignState`, genau einen `templateRead` der aktuellen campaign-owned HTML-Shell und den finalen HTML-Write
+- Im regulaeren Export gibt es genau vier externe Export-Aktionen: `createCampaign`, genau einen `campaignRead` nur fuer die campaign-owned `templateId` und den `campaignState`, genau einen `templateRead` der aktuellen campaign-owned HTML-Shell und den finalen HTML-Write.
 - Campaign-Read ist nur direkt nach `createCampaign` zum Holen der campaign-owned `templateId` und zur Status-Validierung erlaubt.
-- Template-Read ist nur im `composition_template`-Pfad genau einmal erlaubt und dient dort ausschliesslich dazu, die aktuelle campaign-owned HTML-Shell fuer den finalen Shell-Merge zu lesen.
+- Template-Read ist genau einmal erlaubt und dient ausschliesslich dazu, die aktuelle campaign-owned HTML-Shell fuer den finalen Shell-Merge zu lesen.
 - `SNIPPET_CALLS` duerfen nie als nacktes Komplett-HTML gespeichert werden.
-- Das finale `html` fuer den Write-Schritt entsteht lokal genau einmal aus `email_state + export-map.json` plus der jeweils erlaubten Shell-Quelle und wird danach genau einmal auf dem campaign-owned Template geschrieben.
-- Die Default-Shell darf nie aus Prompt-Wissen, Tests, gekuerzten Wrapper-Beispielen oder anderen Template-Dateien sinngemaess neu aufgebaut werden; fuer `default_template` ist `email/templates/template-main.html` selbst die kanonische Shell-Quelle.
-- Python, generisches String-Replacement, manuelles Kopieren oder frei zusammengebautes Template-HTML sind keine zulaessigen Exportmethoden fuer diesen EMB-Pfad.
-- Wenn `export-runtime.md`, die jeweils erlaubte HTML-Shell oder die dokumentierte Payload-Struktur nicht eindeutig verfuegbar sind, stoppt der Export statt einen Ersatzpfad zu erfinden.
+- Das finale `html` fuer den Write-Schritt entsteht lokal genau einmal aus `email_state + export-map.json` plus der genau einmal gelesenen campaign-owned HTML-Shell und wird danach genau einmal auf dem campaign-owned Template geschrieben.
+- Die Default-Shell darf nie aus Prompt-Wissen, Tests, gekuerzten Wrapper-Beispielen oder anderen Template-Dateien sinngemaess neu aufgebaut werden; fuer `default_template` bleibt `email/templates/template-main.html` nur die kanonische Repo-Referenz, waehrend die Write-Payload ausschliesslich aus der gelesenen campaign-owned HTML-Shell entsteht.
 - Ein Standalone-Template-Save ist verboten, solange der User nicht ausdruecklich `Speichere als Template in Iterable` verlangt.
 
 ## Finaler HTML-Schritt
 
 - Der finale HTML-Schritt besteht genau aus zwei lokalen Teilphasen und einem Write:
   1. Modularen Snippet-Call-Block lokal exakt einmal aus `email_state + export-map.json` bauen.
-  2. In der erlaubten Shell-Quelle ausschliesslich die erlaubten Replace-Zonen identifizieren und nur dort den neuen Inhalt einsetzen.
+  2. In der genau einmal gelesenen campaign-owned HTML-Shell ausschliesslich die erlaubten Replace-Zonen fuer Subject, Preheader und den modularen Slot identifizieren und nur dort den neuen Inhalt einsetzen.
   3. Genau diese vollstaendige finale HTML-Payload nach Iterable schreiben.
-- Diese Teilphasen beschreiben den festen EMB-Exportvertrag und eroeffnen keinen freien Implementierungsraum fuer Python-Skripte, generische String-Replacements oder manuell neu zusammengesetzte Template-Strukturen.
 - Die Payload wird lokal nur einmal zusammengefuegt; doppelte HTML-Builds, Shell-Neubauten oder nachgelagerte Rebuilds sind verboten.
-- Im `default_template`-Pfad mit `resolvedBaseTemplateId = 569946` ist `email/templates/template-main.html` die Shell-Quelle und muss ausserhalb des Module-Slots byte-faithful erhalten bleiben.
-- Im `composition_template`-Pfad muss die genau einmal gelesene campaign-owned HTML-Shell ausserhalb der erlaubten Replace-Zonen byte-faithful erhalten bleiben.
-- Im regulaeren `default_template`-Full-Mail-Export ist genau eine Replace-Zone erlaubt: der Module-Slot von `template-main.html`; `subject` und `preheaderText` bleiben Write-Payload-Metadaten.
-- Im regulaeren `composition_template`-Full-Mail-Export sind genau diese Replace-Zonen erlaubt: Subject, Preheader und Module-Slot.
-- Head, CSS, Media Queries, Wrapper-Struktur und Conditional Comments der jeweils erlaubten Shell-Quelle duerfen nicht gekuerzt, ersetzt oder neu zusammengesetzt werden.
+- Die campaign-owned HTML-Shell muss ausserhalb der erlaubten Replace-Zonen byte-faithful erhalten bleiben.
+- Im regulaeren Full-Mail-Export sind genau diese Replace-Zonen erlaubt: Subject, Preheader und Module-Slot.
+- Head, CSS, Media Queries, Wrapper-Struktur und Conditional Comments der gelesenen HTML-Shell duerfen nicht gekuerzt, ersetzt oder neu zusammengesetzt werden.
 - Die finale HTML-Payload gilt nur dann als write-faehig, wenn sie lokal vollstaendig gebaut wurde, weiterhin eine vollstaendige HTML-Shell enthaelt und keine freie Minimal-Shell ist.
 - Ein lokaler Fehler beim Snippet-Block, beim Shell-Merge oder bei der Payload-Vollstaendigkeit ist kein Write-Fehler, sondern ein lokaler Build-Fehler.
 
@@ -233,14 +223,12 @@ Die uebrigen operativen Agent-Dateien liegen direkt daneben in `agent/`.
 - Bei Write-Fehlern muessen HTTP-Status und vollstaendiger Response-Body lokal geloggt werden.
 - Der Write gilt nur dann als erfolgreich, wenn kein API-Fehler zurueckkommt.
 - Alternative Write-Endpoints, alternative Write-Payloads oder implizite Write-Methoden sind verboten.
-- Das finale lange HTML darf im Chat nie vollstaendig ausgegeben werden.
-- Grosse finale Payloads duerfen nur intern an den Iterable-Write uebergeben werden; nach dem Write folgt nur eine kompakte Erfolg- oder Fehlermeldung.
 
 ## Lokale Payload-Pruefung vor dem Write
 
 - Direkt vor dem finalen Write laeuft genau eine kleine lokale Vorpruefung.
 - Diese Vorpruefung muss mindestens bestaetigen:
-  - erlaubte HTML-Shell ist vorhanden
+  - campaign-owned HTML-Shell ist vorhanden
   - Subject ist vorhanden
   - Preheader ist vorhanden
   - modularer Snippet-Call-Block ist vorhanden
@@ -249,7 +237,7 @@ Die uebrigen operativen Agent-Dateien liegen direkt daneben in `agent/`.
   - finale HTML-Payload enthaelt weiterhin eine vollstaendige HTML-Shell
   - finale HTML-Payload ist nicht nur nackter Snippet-Text
   - finale HTML-Payload enthaelt den eingesetzten modularen Block
-  - ausserhalb der erlaubten Replace-Zonen gibt es keine Abweichung zur erlaubten Shell-Quelle
+  - ausserhalb der erlaubten Replace-Zonen gibt es keine Abweichung zur gelesenen campaign-owned HTML-Shell
 - Wenn eine dieser Pruefungen scheitert, wird kein Write versucht.
 - In diesem Fall endet derselbe Export sofort mit einer klaren lokalen Fehlerklasse.
 
@@ -295,7 +283,7 @@ Die uebrigen operativen Agent-Dateien liegen direkt daneben in `agent/`.
   4. extrahierte Campaign-ID validieren und intern zu String normalisieren
   5. genau einen `campaignRead` mit dieser normalisierten `campaignId` ausfuehren
   6. aus diesem `campaignRead` ausschliesslich `response.templateId` als campaign-owned `templateId` und `response.campaignState` zur Status-Validierung lesen
-  7. nur im `composition_template`-Pfad genau einen `templateRead` der aktuellen campaign-owned HTML-Shell mit diesem `templateId` ausfuehren
+  7. genau einen `templateRead` der aktuellen campaign-owned HTML-Shell mit diesem `templateId` ausfuehren
   8. nur dann den HTML-Write starten, wenn `campaignState` explizit editierbar ist; `Ready` ist der bevorzugte erwartete Status
 - `campaignId` identifiziert die Campaign-Bindung und darf nie als `templateId` interpretiert oder weitergereicht werden.
 - Der finale HTML-Write braucht die campaign-owned `templateId` der neu erstellten oder bereits gebundenen Campaign.
@@ -310,7 +298,7 @@ Die uebrigen operativen Agent-Dateien liegen direkt daneben in `agent/`.
 - Ein erneuter Exportversuch ist erst nach neuer expliziter User-Freigabe zulaessig.
 - Im Export-Flow sind automatische Send-, Schedule- und weitere Template-Read-Schritte nach `createCampaign` verboten.
 - Nach `createCampaign` ist genau ein `campaignRead` erlaubt, und zwar ausschliesslich zum Holen der campaign-owned `templateId` und zur Status-Validierung.
-- Nach bekanntem `templateId` ist nur im `composition_template`-Pfad genau ein `templateRead` der aktuellen campaign-owned HTML-Shell erlaubt.
+- Nach bekanntem `templateId` ist genau ein `templateRead` der aktuellen campaign-owned HTML-Shell erlaubt.
 - Der Builder-Export erwartet nach `createCampaign` bevorzugt `campaignState = Ready`.
 - Bei `Scheduled`, `Running`, `Finished`, `Archived`, `Recurring`, `Aborted` oder jedem anderen nicht explizit als editierbar belegten Status stoppt der Export sofort vor dem Write.
 - Ein zusaetzlicher Status-Reset-Call ist im Export nicht erlaubt, solange Iterable dafuer keinen offiziell dokumentierten Endpoint fuer `Ready` oder `Draft` bereitstellt.
@@ -320,127 +308,70 @@ Die uebrigen operativen Agent-Dateien liegen direkt daneben in `agent/`.
 - Freie generische Namen wie `Test Mail`, `Preview Mail` oder aehnliche Platzhalter sind fuer neue Campaigns nicht zulaessig.
 - Wenn fuer die aktuelle Preview bereits eine verwertbare `campaignId` im aktuellen Export-State vorliegt, ist ein erneuter CreateCampaign-Schritt verboten; dann muss genau diese bestehende Campaign aktualisiert werden.
 
-## Produktiver Exportmodus
-
-- Im normalen Exportmodus gilt exakt diese sichtbare Verhaltensreihenfolge:
-  - State validieren
-  - Exportpfad bestimmen
-  - Export ausfuehren
-  - Ergebnis kompakt melden
-- Im normalen Exportmodus sind diese Formulierungen verboten:
-  - `ich koennte`
-  - `vielleicht`
-  - `ich probiere`
-  - `es scheint`
-  - `vermutlich`
-  - `ich koennte testen`
-- Im normalen Exportmodus sind alternative Exportwege, Vergleichspfade, Experimente und sichtbare Diskussion interner Moeglichkeiten ohne expliziten User-Auftrag verboten.
-- Wenn notwendige Daten fehlen, wird nur die konkrete Fehlstelle genannt; danach stoppt der Export ohne Reparaturversuch und ohne weitere Diskussion.
-- Wenn ein gueltiger `email_state` vorliegt, beginnt der normale Export ohne weitere sichtbare Vorpruefungs- oder Analysekommunikation direkt mit dem festgelegten Exportpfad bis zum ersten erlaubten externen Exportschritt.
-
 ## Verbindlicher Happy Path
 
 Im direkten Happy Path laeuft der Export genau in dieser Reihenfolge:
 
 1. Aktuellen `email_state` lesen.
-2. Wenn dieser `email_state` fehlt oder gegen `export-map.json` bzw. den dokumentierten Template-Kontext nicht valide ist: Export sofort mit klarer State-Fehlermeldung abbrechen. Ein fehlendes Hero-`*_headline_size` allein triggert diesen Schritt nicht.
+2. Wenn dieser `email_state` fehlt oder unvollstaendig ist: genau einmal einen engen Recovery-Fallback aus der letzten sichtbaren Preview aufbauen und anschliessend als `email_state` fortschreiben.
 3. Gegen `export-map.json` jedes Modul, `snippet_name` und jedes Feld validieren.
 4. Required Felder aus `content` oder den Defaults der Export-Map befuellen.
 5. Nur wenn keine verwertbare `campaignId` fuer diese Mail vorliegt: den CreateCampaign-Request exakt mit `name` und der aktiven Basis-`templateId` aus dem Exportkontext bauen.
 6. Wenn Schritt `5` lief: genau einen CreateCampaign-Call ausfuehren, explizit auf die vollstaendige Response warten und bei Fehlern finalen Request ohne Secrets, HTTP-Status-Info, Raw-Body-Info und Tool-Antwort-/Envelope-Info lokal erfassen.
 7. Wenn Schritt `6` lief: aus der vollstaendig empfangenen Create-Antwort nur die erlaubten ID-Kandidaten pruefen, die erste verwertbare Campaign-ID extrahieren, validieren und intern als String normalisieren. Wenn keine verwertbare ID extrahierbar ist oder die Antwort leer, unparsebar oder unvollstaendig ist: Export sofort abbrechen.
 8. Wenn Schritt `6` lief: genau einen `campaignRead` mit dieser `campaignId` ausfuehren und daraus ausschliesslich `response.templateId` als campaign-owned `templateId` sowie `response.campaignState` lesen. Wenn `templateId` fehlt, `campaignState` nicht explizit editierbar ist oder `campaignState` nicht als `Ready` oder anderer belegter editierbarer Status akzeptiert werden kann: Export sofort abbrechen. Bei `Scheduled`, `Running`, `Finished`, `Archived`, `Recurring` oder `Aborted` stoppt der Export immer sofort. Wenn Schritt `6` nicht lief, muss die bereits gebundene campaign-owned `templateId` fuer genau diese Mail im aktuellen Export-State vorliegen; fehlt sie, Export sofort abbrechen.
-9. Wenn `templateContext.mode = default_template` und `resolvedBaseTemplateId = 569946`: `email/templates/template-main.html` als einzige Shell-Quelle verwenden, bestaetigen, dass der eindeutige Module-Slot vorhanden ist, und keinen `templateRead` ausfuehren.
-10. Wenn `templateContext.mode = composition_template`: mit diesem verfuegbaren campaign-owned `templateId` genau einen `templateRead` der aktuellen campaign-owned HTML-Shell ausfuehren. Wenn die Shell leer, unvollstaendig oder nicht lesbar ist, Export sofort abbrechen.
-11. Modularen Snippet-Call-Block lokal genau einmal aus `email_state + export-map.json` bauen und nur in die erlaubten Replace-Zonen der jeweils erlaubten Shell-Quelle einsetzen.
-12. Finale HTML-Payload lokal kurz pruefen.
-13. Nur wenn `templateId`, `html`, `subject` und `preheaderText` vollstaendig vorliegen, `campaignState` explizit editierbar ist, `campaignState` nicht `Scheduled`, `Running`, `Finished`, `Archived`, `Recurring` oder `Aborted` ist und die jeweils erlaubte Shell-Quelle ausserhalb der erlaubten Replace-Zonen unveraendert blieb: genau einen Write ueber `POST /api/templates/email/update` mit `templateId`, `html`, `subject` und `preheaderText` ausfuehren.
-14. Beim Write den HTTP-Status pruefen; bei Fehlern HTTP-Status und vollstaendigen Response-Body loggen und Export sofort abbrechen.
-15. Nach einem erfolgreichen erstmaligen Export die `campaignId` und die campaign-owned `templateId` an genau diese aktuelle Mail und ihren `email_state` zurueckschreiben.
+9. Mit diesem verfuegbaren campaign-owned `templateId` genau einen `templateRead` der aktuellen campaign-owned HTML-Shell ausfuehren. Wenn die Shell leer, unvollstaendig oder nicht lesbar ist, Export sofort abbrechen.
+10. Modularen Snippet-Call-Block lokal genau einmal aus `email_state + export-map.json` bauen und nur in die erlaubten Replace-Zonen der gelesenen campaign-owned HTML-Shell einsetzen.
+11. Finale HTML-Payload lokal kurz pruefen.
+12. Nur wenn `templateId`, `html`, `subject` und `preheaderText` vollstaendig vorliegen, `campaignState` explizit editierbar ist, `campaignState` nicht `Scheduled`, `Running`, `Finished`, `Archived`, `Recurring` oder `Aborted` ist und die campaign-owned HTML-Shell ausserhalb der Replace-Zonen unveraendert blieb: genau einen Write ueber `POST /api/templates/email/update` mit `templateId`, `html`, `subject` und `preheaderText` ausfuehren.
+13. Beim Write den HTTP-Status pruefen; bei Fehlern HTTP-Status und vollstaendigen Response-Body loggen und Export sofort abbrechen.
+14. Nach einem erfolgreichen erstmaligen Export die `campaignId` und die campaign-owned `templateId` an genau diese aktuelle Mail und ihren `email_state` zurueckschreiben.
 
 - Ein zusaetzlicher QA-Read ist optional, nicht verpflichtend.
-- Weitere Iterable-Calls ausser `createCampaign`, genau einem `campaignRead` fuer die campaign-owned `templateId`, dem optional genau einen `templateRead` nur im `composition_template`-Pfad und dem finalen HTML-Write sind im Happy Path verboten.
+- Weitere Iterable-Calls ausser `createCampaign`, genau einem `campaignRead` fuer die campaign-owned `templateId`, genau einem `templateRead` der campaign-owned HTML-Shell und dem finalen HTML-Write sind im Happy Path verboten.
 
 ## Happy Path
 
 - Fuer die unterstuetzten Module gilt das statische Export-Mapping aus `export-map.json`.
-- Im direkten Happy Path wird der aktuelle `email_state` genau einmal lokal in den modularen Snippet-Call-Block uebersetzt und genau einmal mit der jeweils erlaubten Shell-Quelle zusammengefuehrt.
+- Im direkten Happy Path wird der aktuelle `email_state` genau einmal lokal in den modularen Snippet-Call-Block uebersetzt und genau einmal mit der gelesenen campaign-owned HTML-Shell zusammengefuehrt.
 - Der `email_state` ist dabei die einzige feldnahe Arbeitskopie fuer den Export.
 - `export-map.json` ist die einzige technische Feld- und Modulwahrheit fuer den Export.
 - Bekannte Snippet-Namen, Pflichtparameter, feste Werte und Defaults werden nicht erneut lang hergeleitet.
 - Keine doppelte Uebersetzung, keine doppelte Rekonstruktion, keine schrittweise Technik-Erklaerung im Chat.
-- Im `default_template`-Pfad mit `resolvedBaseTemplateId = 569946` gibt es keinen regulaeren `templateRead`; die lokale `template-main.html` ist dort die Shell-Quelle.
-- Keine unnoetigen Iterable-Read-Backs fuer Informationen, die lokal bereits feststehen; nur im `composition_template`-Pfad bleibt der eine verpflichtende `templateRead` der campaign-owned HTML-Shell erhalten.
+- Keine unnoetigen Iterable-Read-Backs fuer Informationen, die lokal bereits feststehen, ausser dem verpflichtenden einen `templateRead` der campaign-owned HTML-Shell.
 - Keine Snippet-Inspection-Schleifen fuer bekannte Module im Fast-Path.
 - Keine erneute Signatur-Pruefung einzelner Fast-Path-Module waehrend des Exports.
 - Wenn `export-map.json` fuer ein Modul ein vollstaendiges Feldset definiert, ist genau dieses Feldset direkt auszufuehren.
 - Preview-HTML oder Snippet-HTML werden im Happy Path nicht gescannt.
-- Wenn ein gueltiger `email_state` vorliegt, bleibt der Export vollstaendig im Happy Path und wechselt nie in Preview-, Starter-, Template- oder Modul-Rebuild-Logik.
-- Wenn kein gueltiger `email_state` vorliegt, stoppt der Export statt in einen zweiten technischen Herleitungsweg zu wechseln.
-- Solange ein sonst gueltiger Hero-State nur ueber ein fehlendes oder leeres `*_headline_size` verfuegt, bleibt der Export im Happy Path und materialisiert direkt den Default `l` samt Bridge-Feldern.
+- Der Recovery-Fallback ist kein zweiter Happy Path, sondern nur ein einmaliger Reparaturschritt, wenn `email_state` fehlt oder unvollstaendig ist.
 
 ## Export Fast Path
 
 - Der normale Export-Happy-Path ist ein Runtime-Fast-Path und bewertet nur die fuer den Write unmittelbar noetigen Quellen und Schritte.
 - Dieser Runtime-Fast-Path veraendert den fachlichen Export-Flow nicht, sondern begrenzt nur den regulaeren Pruefkontext im fehlerfreien Exportfall.
-- Im normalen Export mit gueltigem `email_state` gilt genau diese operative Reihenfolge:
+- Im normalen Export ohne Fehler und ohne Recovery-Fallback gilt genau diese operative Reihenfolge:
   1. vorhandenen `email_state` verwenden
   2. gegen `export-map.json` validieren
   3. `createCampaign` nur mit `name` und `templateId`, falls keine verwertbare `campaignId` existiert
   4. genau einen `campaignRead`
-  5. fuer `default_template` mit `resolvedBaseTemplateId = 569946`: keinen `templateRead`, sondern lokale `template-main.html` als Shell-Quelle verwenden
-  6. fuer `composition_template`: genau einen `templateRead` der campaign-owned `templateId`
-  7. Snippet-Block und finale HTML-Payload lokal bauen
-  8. finale Payload lokal pruefen
-  9. genau einen HTML-Write ausfuehren
-  10. kurze Abschlussmeldung ausgeben
-- Solange ein gueltiger `email_state` fuer die aktuelle Mail vorliegt, wertet der Agent fuer den normalen Export-Happy-Path diese Quellen und Kontexte nicht erneut aus:
+  5. genau einen `templateRead` der campaign-owned `templateId`
+  6. Snippet-Block und finale HTML-Payload lokal bauen
+  7. finale Payload lokal pruefen
+  8. genau einen HTML-Write ausfuehren
+  9. kurze Abschlussmeldung ausgeben
+- Solange kein Fehler, kein fehlender `email_state` und kein ausdruecklich benoetigter Recovery-Fallback vorliegt, wertet der Agent fuer den normalen Export-Happy-Path diese Quellen und Kontexte nicht erneut aus:
   - `preview-modules.html`
   - `preview-module-library.md`
   - `preview-template.html`
   - `template-*.preview.html`
-  - `starter-*.preview.html`
-  - `starter-*.state.json`
   - Preview-HTML-Strukturen der letzten sichtbaren Mail
-  - Template- oder Blueprint-Startauswahl
   - Modul-Design-Dokumentation
   - Parity-, Integrations- oder Modulpflege-Regeln
   - Design-Library-Regeln
 - Diese Ausschluesse gelten nur fuer den normalen Export-Happy-Path.
-- Fuer Preview-Erstellung, Modulpflege, Template-Arbeit, Integrationsarbeit und Fehleranalyse bleiben diese Dateien und Regelbereiche weiterhin gueltige Agent-Quellen.
-- Wenn der normale Export-Happy-Path wegen fehlendem oder invalidem `email_state`, Mapping-Fehlern, Payload-Fehlern oder API-/Status-Fehlern verlassen werden muss, greifen die regulaeren Fail-Closed- und Fehlerregeln dieser Datei.
+- Fuer Preview-Erstellung, Recovery-Fallback, Modulpflege, Template-Arbeit, Integrationsarbeit und Fehleranalyse bleiben diese Dateien und Regelbereiche weiterhin gueltige Agent-Quellen.
+- Wenn der normale Export-Happy-Path wegen fehlendem oder unvollstaendigem `email_state`, Mapping-Fehlern, Payload-Fehlern oder API-/Status-Fehlern verlassen werden muss, greifen wieder die regulaeren Fail-Closed-, Recovery- und Fehlerregeln dieser Datei.
 - Auch im Runtime-Fast-Path bleiben alle Sicherheitsstopps, Pflichtvalidierungen, Statuspruefungen, Write-Voraussetzungen und Fail-Closed-Regeln vollstaendig aktiv.
-
-## Default-Template-Schnellpfad
-
-- Fuer `templateContext.mode = default_template` mit `resolvedBaseTemplateId = 569946` ist der normale Happy Path jetzt der schnelle Pfad ohne `templateRead`.
-- Dieser Pfad ist nur erlaubt, wenn gleichzeitig ein gueltiger `email_state` vorliegt und `email/templates/template-main.html` genau einen eindeutigen Module-Slot enthaelt.
-- Die Shell-Quelle ist dort ausschliesslich die lokale Repo-Datei `email/templates/template-main.html`.
-- Lokal wird nur der Module-Slot mit dem modularen Snippet-Call-Block ersetzt.
-- `subject` und `preheaderText` werden in diesem Pfad ausschliesslich als Write-Payload-Metadaten gesetzt und nicht als lokale HTML-Replace-Zonen behandelt.
-- Expandiertes Modul-HTML bleibt verboten; in den Module-Slot duerfen nur die aus `email_state + export-map.json` gebauten Snippet-Calls geschrieben werden.
-- Fixed Composition Templates `1`, `2` und `3` sowie alle regulaeren `composition_template`-Exporte bleiben unveraendert im sicheren Pfad mit `templateRead`.
-
-## Export-Diagnose
-
-- Dieser Abschnitt gilt nur bei explizitem Diagnoseauftrag des Users oder bei einem exakten technischen Diagnose-Trigger.
-- Fuer Diagnose, Laufzeittransparenz oder kompakte technische Statusmeldungen darf der Export intern oder in kurzer User-Form genau diese sieben Fortschrittspunkte verwenden:
-  - `Step 1: State validiert`
-  - `Step 2: createCampaign abgeschlossen`
-  - `Step 3: campaignRead abgeschlossen`
-  - `Step 4: templateRead abgeschlossen`
-  - `Step 5: HTML-Merge abgeschlossen`
-  - `Step 6: update abgeschlossen`
-  - `Step 7: Ergebnis geprueft`
-- Diese Diagnosepunkte sind reine Fortschrittsmarker und veraendern weder Reihenfolge noch Fachlogik des Exportpfads.
-- Wenn eine bestehende `campaignId` wiederverwendet wird und deshalb kein neuer Create-Schritt noetig ist, bleibt `Step 2` als technischer Gate-Punkt erhalten und darf kompakt als wiederverwendeter Create-/Campaign-Gate gemeldet werden statt einen neuen Create zu behaupten.
-- Im `default_template`-Schnellpfad mit `resolvedBaseTemplateId = 569946` darf `Step 4` kompakt als `Step 4: templateRead uebersprungen (default_template Schnellpfad)` gemeldet werden.
-- Der fruehere Hinweis `DEV_TEST_DEFAULT_EXPORT_WITHOUT_TEMPLATEREAD` darf nur noch als isolierter technischer Diagnoseverweis auftauchen und ist fuer den normalen Exportpfad bedeutungslos.
-- Die Diagnose bleibt immer kurzzeilig; keine langen HTML-Bloecke, keine finalen Payloads und keine Tool-Antworten mit vollem HTML wiederholen.
-- Im `composition_template`-Pfad bleiben `templateRead` und `POST /api/templates/email/update` die regulaeren Voll-HTML-Schritte und damit die primaeren Kandidaten fuer spuerbare Laufzeit.
-- Im `default_template`-Schnellpfad entfaellt `templateRead`; dort bleibt `POST /api/templates/email/update` der einzige regulaere Voll-HTML-Schritt.
-- `createCampaign` und `campaignRead` sind regulaere Metadaten-/Statusschritte und typischerweise deutlich kleiner als `templateRead` und `update`.
-- Der lokale Snippet-Build, der lokale Shell-Merge und die lokale Payload-Pruefung laufen genau einmal und duerfen im Happy Path nicht doppelt ausgefuehrt werden.
 
 ## Exporttreue
 
@@ -488,12 +419,10 @@ Im direkten Happy Path laeuft der Export genau in dieser Reihenfolge:
 - Wenn keine verwertbare Campaign-ID extrahiert werden kann, muss die Fehlerausgabe exakt `Iterable createCampaign hat keine gueltige campaignId zurueckgegeben` enthalten, die Fehlerklasse benennen, den finalen Request ohne Secrets, die HTTP-Status-Info, die Raw-Body-Info, die geprueften ID-Kandidaten, den Ablehnungsgrund und den Hinweis `Kein Campaign-Read und kein HTML-Write wurden ausgefuehrt.` enthalten.
 - Wenn `campaignId` nach CreateCampaign fehlt, darf der Agent nicht automatisch eine weitere Kampagne anlegen und nicht selbststaendig in einen neuen Exportlauf wechseln.
 - Wenn fuer einen Folge-Export mit bereits vorhandener `campaignId` keine bereits gebundene campaign-owned `templateId` im aktuellen Export-State vorliegt, scheitert der Export sofort.
-- Wenn im `composition_template`-Pfad kein `templateRead` der aktuellen campaign-owned HTML-Shell ausgefuehrt wurde, scheitert der Export sofort.
-- Wenn im `default_template`-Schnellpfad mit `resolvedBaseTemplateId = 569946` trotzdem ein `templateRead` ausgefuehrt wurde, scheitert der Export sofort.
+- Wenn kein `templateRead` der aktuellen campaign-owned HTML-Shell ausgefuehrt wurde, scheitert der Export sofort.
 - Wenn mehr als ein `templateRead` im selben Export-Lauf ausgefuehrt wurde, scheitert der Export sofort.
 - Im selben Export-Lauf ist nur genau ein `campaignRead` erlaubt, und zwar ausschliesslich direkt nach `createCampaign` zum Holen der campaign-owned `templateId`.
-- Im `composition_template`-Export-Lauf ist nur genau ein `templateRead` erlaubt, und zwar ausschliesslich zum Lesen der aktuellen campaign-owned HTML-Shell.
-- Im `default_template`-Schnellpfad ist `templateRead` genau nullmal erlaubt.
+- Im selben Export-Lauf ist nur genau ein `templateRead` erlaubt, und zwar ausschliesslich zum Lesen der aktuellen campaign-owned HTML-Shell.
 - Vor dem Write muss ein gueltiger `email_state` vorliegen.
 - Wenn die finale HTML-Payload lokal mehr als einmal zusammengefuegt wuerde, scheitert der Export sofort.
 - Wenn keine Campaign-ID sauber aus den erlaubten ID-Kandidaten der vollstaendig empfangenen CreateCampaign-Response extrahiert und als String normalisiert werden kann, scheitert der Export sofort.
@@ -502,8 +431,7 @@ Im direkten Happy Path laeuft der Export genau in dieser Reihenfolge:
 - Wenn der Write-Payload nicht exakt `templateId`, `html`, `subject` und `preheaderText` enthaelt, scheitert der Export sofort.
 - Wenn `subject` oder `preheaderText` vor dem Write fehlen, scheitert der Export sofort.
 - Wenn die finale HTML-Payload lokal leer, unvollstaendig oder ohne vollstaendige HTML-Shell ist, scheitert der Export sofort.
-- Wenn die finale HTML-Payload im `composition_template`-Pfad die gelesene campaign-owned HTML-Shell ausserhalb der erlaubten Replace-Zonen veraendert, scheitert der Export sofort.
-- Wenn die finale HTML-Payload im `default_template`-Schnellpfad ausserhalb des lokalen Module-Slots von `email/templates/template-main.html` veraendert wurde, scheitert der Export sofort.
+- Wenn die finale HTML-Payload die gelesene campaign-owned HTML-Shell ausserhalb der erlaubten Replace-Zonen veraendert, scheitert der Export sofort.
 - Wenn die finale HTML-Payload eine freie Minimal-Shell, eine lokal neu erfundene Shell oder nur einen modularen Block ohne vollstaendige Template-Shell enthaelt, scheitert der Export sofort.
 - Wenn die finale HTML-Payload lokal nur aus nacktem Snippet-Text besteht, scheitert der Export sofort.
 - Wenn die lokale Payload-Pruefung scheitert, wird kein Write versucht.
@@ -514,7 +442,7 @@ Im direkten Happy Path laeuft der Export genau in dieser Reihenfolge:
 - Wenn Modultyp, Mapping, Pflichtfelder oder `snippet_name` nicht sauber zusammenpassen, scheitert der Export.
 - Wenn ein required `*_bg_color` im `email_state.content` fehlt, scheitert der Export.
 - Wenn ein required `*_bg_color` im `email_state.content` nur als `theme-*`-Klasse, semantischer Farbname oder anderer nicht-konkreter Marker vorliegt, scheitert der Export.
-- Wenn fuer die aktuelle Mail kein vollstaendiger und gueltiger `email_state` vorliegt, scheitert der Export vor jedem Iterable-Call.
+- Wenn nach dem einmaligen Recovery-Fallback weiterhin kein vollstaendiger `email_state` vorliegt, scheitert der Export.
 - `servicetiles` wird genau einmal ueber `module_id`, `snippet_name` und `content` exportiert; Desktop- und Mobile-Markup im Snippet sind reine Renderdetails.
 - Fuer `servicetiles` muessen vor dem Snippet-Build genau vier Services bereits kontrolliert gegen `agent/service-products.json` auf die finalen Felder `emb_servicetiles_col_1..4_(icon_url|title|description|url)` materialisiert sein; fachliche Service-Namen oder `original_snippet_name` sind keine direkten Snippet-Parameter.
 - `steps-3col` wird genau einmal ueber `module_id`, `snippet_name` und `content` exportiert; Desktop- und Mobile-Markup im Snippet sind reine Renderdetails.
@@ -541,30 +469,31 @@ Im direkten Happy Path laeuft der Export genau in dieser Reihenfolge:
 - Im normalen Exportmodus nur userfreundliche Kurzmeldungen ausgeben.
 - Die komplette Preview-HTML oder finale Export-HTML darf im normalen Export-Flow nicht automatisch als grosser Chat-Block ausgegeben werden.
 - Vollstaendiges HTML darf nur ausgegeben werden, wenn der User ausdruecklich danach fragt.
-- Im normalen Exportmodus darf der sichtbare Exportbericht nur aus kompakten Statuszeilen und dem Ergebnis bestehen.
-- Die sichtbaren Statuszeilen muessen sich am produktiven Happy Path orientieren und duerfen keine Preview-, Analyse- oder Experiment-Formulierungen enthalten.
-- Vor dem ersten blockierenden externen Exportschritt ist im normalen Exportmodus hoechstens eine knappe Statuszeile zulaessig; sichtbare Voranalyse, Erkundung oder Entscheidungsdiskussion sind verboten.
+- Bei jedem regulären Iterable-Export muessen diese sichtbaren Statuspunkte in genau dieser Reihenfolge ausgegeben werden:
+  - `1. Preview-Erstellung gestartet`
+  - `2. Preview fertig`
+  - `3. Export-Vorbereitung gestartet`
+  - `4. Iterable-Export gestartet`
+  - `5. Iterable-Export abgeschlossen`
+  - `6. Iterable-Ergebnis bereit`
+- `4. Iterable-Export gestartet` muss direkt vor dem ersten blockierenden externen Iterable-Schritt sichtbar ausgegeben werden und darf nicht uebersprungen werden.
+- Wenn ein Export ohne neue Preview startet, bleiben die Statuspunkte `1` und `2` trotzdem als kurze Referenz auf den bereits vorhandenen Preview-Stand sichtbar; Punkt `4` bleibt weiterhin direkt vor dem eigentlichen Iterable-Call verpflichtend.
+- Fuer die Chat-Ausgabe soll die Exportdauer lokal als Wandzeit des Export-Laufs von `3. Export-Vorbereitung gestartet` bis `6. Iterable-Ergebnis bereit` gemessen und nach erfolgreichem Abschluss genannt werden.
 - Nach erfolgreichem Export muss die Ergebnis-Ausgabe kompakt bleiben und mindestens enthalten:
-  - `State validiert`
-  - `Exportpfad gewaehlt`
-  - `createCampaign ok`
-  - `campaignRead ok`
-  - `templateRead uebersprungen` oder `templateRead ok` je nach Pfad
-  - `update ok`
-  - `Ergebnis geprueft`
   - `campaignId=<id>`
   - `templateId=<id>`
-  - `Erfolg` oder eine klare Fehlermeldung
+  - `name=<name>`
+  - `exportdauer=<dauer>`
+  - einen kurzen Hinweis, wenn von der API kein direkter Iterable-UI-Link geliefert wurde
+- Optionale technische Kurzpunkte wie `createCampaign: ok`, `campaignRead: ok`, `templateRead: ok` und `htmlWrite: ok` duerfen zusaetzlich erscheinen, aber nur nachgelagert und ohne die Pflicht-Statuspunkte zu ersetzen.
 - Bei Fehlern:
   - `Der Export konnte nicht abgeschlossen werden. Grund: <kurze verstaendliche Ursache>.`
-  - Wenn der Export wegen fehlendem oder invalidem `email_state` stoppt, muessen die fehlenden oder ungueltigen State-Bestandteile konkret benannt werden.
-- Wenn der Export wegen fehlender Daten stoppt, endet die sichtbare Meldung nach der konkreten Fehlstelle; keine Reparaturvorschlaege, keine Alternativen und keine Rekonstruktionsdiskussion.
 - Ausnahme fuer CreateCampaign-Fehler:
   - Wenn `createCampaign` keine gueltige `campaignId` liefert, muessen die Fehlermeldung `Iterable createCampaign hat keine gueltige campaignId zurueckgegeben`, die Fehlerklasse, der finale Request ohne Secrets, die HTTP-Status-Info, die Raw-Response-Body-Info, die geprueften ID-Kandidaten, der Ablehnungsgrund und der Hinweis `Kein Campaign-Read und kein HTML-Write wurden ausgefuehrt.` ausgegeben werden.
 - Im normalen Exportmodus keine technischen Zwischenmeldungen ausgeben wie:
   - API-Hostnames
   - Endpoint-Namen
-  - automatische State-Rekonstruktion
+  - Recovery-Fallback
   - `export-map.json`
   - `email_state`
   - campaign-owned Template
@@ -574,6 +503,7 @@ Im direkten Happy Path laeuft der Export genau in dieser Reihenfolge:
   - Snippet-Call-Block
   - HTML-Shell
   - interne IDs, ausser sie sind fuer den User wirklich noetig
-  - technische Aussagen wie `ich lese jetzt`, `ich schreibe nun`, `ich koennte`, `vielleicht`, `ich probiere`, `es scheint`, `vermutlich` oder aehnliche Debug- oder Diagnose-Schritte
+  - technische Aussagen wie `ich lese jetzt`, `ich schreibe nun` oder aehnliche Debug-Schritte
+- Auch wenn intern der Recovery-Fallback genutzt wurde, bleibt die Chat-Ausgabe im normalen User-Modus bei denselben kurzen Statusmeldungen und nennt diesen technischen Sonderfall nicht.
 - Wenn der User ausdruecklich technische Details anfordert, duerfen Debug-Infos getrennt vom normalen Exportprozess erklaert werden, zum Beispiel zu API-Schritten, Ursache langer Laufzeiten oder technischer Fehleranalyse.
-- Interne Speicher-, State- oder Zwischenmeldungen duerfen im normalen User-Flow nicht mehrfach oder ungefiltert sichtbar werden.
+- Interne Speicher-, State-, Recovery- oder Zwischenmeldungen duerfen im normalen User-Flow nicht mehrfach oder ungefiltert sichtbar werden.

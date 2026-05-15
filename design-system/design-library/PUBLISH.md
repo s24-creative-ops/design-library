@@ -2,7 +2,15 @@
 
 ## Ziel
 
-`s24-creative-ops/design-library` soll die echte Projekt-Library spiegeln und nicht als separat nachgebaute Web-Version gepflegt werden.
+`s24-creative-ops/design-library` soll die offizielle Projekt-Library spiegeln und nicht als separat nachgebaute Web-Version gepflegt werden.
+
+Die aktive sichtbare Quelle ist:
+
+`design-system/design-library/index.html`
+
+Die zentrale Token-Wahrheit bleibt:
+
+`design-system/tokens/brands/immoscout24.json`
 
 ## Mirror-Ordner
 
@@ -14,7 +22,21 @@ Am besten ist dieser Ordner ein lokaler Git-Checkout von:
 
 `https://github.com/s24-creative-ops/design-library`
 
-## Sync-Befehl
+## Source-Sync vor Publish
+
+Wenn Builder- oder Token-Quellen in die sichtbare Library einfliessen, zuerst die generierten Library-Artefakte aktualisieren:
+
+```bash
+python3 design-system/scripts/sync_design_library_sources.py
+```
+
+Nur pruefen:
+
+```bash
+python3 design-system/scripts/sync_design_library_sources.py --check
+```
+
+## Mirror-Sync
 
 Aus dem Projekt-Root:
 
@@ -36,34 +58,49 @@ bash design-system/scripts/publish_design_library.sh
 
 ## Was gespiegelt wird
 
-Der Sync zieht die aktive Projektstruktur fuer die Library nach:
+Der Mirror zieht die aktive Projektstruktur fuer die Library nach:
 
-- `design-system/`
+- `design-system/AGENTS.md`
+- `design-system/design-library/`
+- `design-system/tokens/`
+- `design-system/scripts/`
 - `email-builder/AGENTS.md`
 - `email-builder/preview/`
 - `email-builder/email/`
 - `email-builder/agent/`
-- `lp-builder/AGENTS.md`
-- `lp-builder/preview/`
-- `lp-builder/component-library.html`
-- `lp-builder/core-foundations.css`
-- `lp-builder/core-buttons.css`
-- `lp-builder/core-components.css`
-- `lp-builder/core-interactions.js`
 
 Zusätzlich erzeugt der Sync im Publish-Repo:
 
 - `.nojekyll`
-- `index.html` als Root-Redirect auf die Library
+- `index.html` als Root-Redirect auf die offizielle Library
 - `README.md` mit kurzer Mirror-Erklaerung
+
+## LP-Hinweis
+
+`lp-builder/` ist die aktive Quelle fuer LP-Module.
+
+LP-Inhalte in `design-system/design-library/` werden aus `lp-builder/` ueber `python3 design-system/scripts/sync_lp_builder_to_design_library.py` in generierte LP-Artefakte ueberfuehrt.
+
+Produktive LP-Interaktionen werden dabei nicht vollstaendig in die Preview uebernommen.
+Preview-tauglich und offiziell freigegeben sind aktuell nur:
+- `accordion`
+- `counter-animated`
+- `video--youtube`
+
+`lp-sticky-footer` wird in der Preview statisch oder entschaerft gezeigt.
+`lp-builder/runtime/integrations/*` sowie Legacy-Carousel-/jQuery-Logik bleiben ausserhalb der aktiven Library-Preview.
+
+Die Library darf erst published werden, wenn sie visuell und inhaltlich final geprueft ist.
+Ein Publish bleibt bis dahin blockiert und ist zusaetzlich nur nach ausdruecklichem User-Go erlaubt.
 
 ## Update-Regel
 
-Wenn Tokens, Library-Dateien oder Modulquellen geaendert werden:
+Wenn Tokens, Library-Dateien oder relevante Builder-Quellen geaendert werden:
 1. echte Projektdateien aktualisieren
-2. `python3 design-system/scripts/sync_design_library_publish.py` ausfuehren
-3. pruefen, ob der Mirror-Worktree sauber ist oder nur erwartete Sync-Aenderungen enthaelt
-4. den Mirror-Checkout nur nach ausdruecklicher User-Freigabe fuer Live-Publish committen und nach GitHub pushen
+2. bei Bedarf `python3 design-system/scripts/sync_design_library_sources.py` ausfuehren
+3. `python3 design-system/scripts/sync_design_library_publish.py` ausfuehren
+4. pruefen, ob der Mirror-Worktree sauber ist oder nur erwartete Sync-Aenderungen enthaelt
+5. den Mirror-Checkout nur nach ausdruecklicher User-Freigabe fuer Live-Publish committen und nach GitHub pushen
 
 ## Verbindliche Agent-Regel
 

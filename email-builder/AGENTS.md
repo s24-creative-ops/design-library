@@ -32,16 +32,7 @@ Gilt ausschließlich für email-builder/.
 * `agent/` ist die kanonische Quelle fuer Systemprompt, Regeldateien, Templates und Export-Basis.
 * Der Standardordner fuer den Agent-Upload ist `agent-upload/email-builder-agent/`.
 * Dieses Upload-Paket ist eine abgeleitete Kopie aus `agent/`.
-* In diesem Standardordner liegen standardmaessig `systemprompt.md` und `emb_knowledge.md`.
-* Dokumentierte Fast-Path-Starter duerfen zusaetzlich als direkte Upload-Artefakte im gleichen Ordner liegen.
-* Aktuell betrifft das:
-  * `starter-ho-esg.preview.html`
-  * `starter-ho-esg.state.json`
-  * `starter-seeker-mle.preview.html`
-  * `starter-seeker-mle.state.json`
-* Fuer Auswahl `4` und `5` sind diese direkten Starter-Dateien die primaere Quelle.
-* `emb_knowledge.md` bleibt allgemeine Wissensquelle, ist fuer lange Starter-HTMLs aber nicht mehr die einzige Quelle.
-* Wenn ein dokumentierter Fast-Path-Starter ausgewaehlt ist und seine direkte Upload-Datei fehlt, muss der Agent stoppen statt den Starter aus Bundle- oder Modulwissen neu zu rekonstruieren.
+* In diesem Standardordner liegen genau `systemprompt.md` und `emb_knowledge.md`.
 * Nach produktiven Aenderungen an Modulen, Templates, Regeldateien oder `agent/export-map.json` muss dieses Agent-Upload-Bundle neu erzeugt werden.
 
 ---

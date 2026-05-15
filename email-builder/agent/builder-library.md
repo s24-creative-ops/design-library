@@ -6,20 +6,9 @@ Die technische Export-Wahrheit liegt in `export-map.json`.
 ## Agent-Upload-Bundle
 
 - Fuer Custom-GPT-/Agent-Setups ist das Standard-Knowledge-Format eine einzelne gebuendelte Markdown-Datei mit exakten Repo-Pfadueberschriften als virtuelle Dateien.
-- Der EMB Custom GPT nutzt ausschliesslich die kuratierten Runtime-Dateien aus `agent-upload/email-builder-agent/`.
-- Der Upload-Ordner enthaelt:
-  - `systemprompt.md`
-  - `emb_knowledge.md`
-- Dokumentierte Fast-Path-Starter duerfen dort zusaetzlich als direkte Upload-Dateien liegen.
-- Aktuell sind das:
-  - `starter-standard-blueprint.preview.html`
-  - `starter-standard-blueprint.state.json`
-  - `starter-ho-esg.preview.html`
-  - `starter-ho-esg.state.json`
-  - `starter-seeker-mle.preview.html`
-  - `starter-seeker-mle.state.json`
+- Der Standardordner dafuer ist `agent-upload/email-builder-agent/` mit `systemprompt.md` und `emb_knowledge.md`.
 - `agent/` bleibt die kanonische Quelle; der Upload-Ordner ist nur das daraus abgeleitete Paket.
-- Dieses Bundle muss die aktiven Kern-, Preview- und Export-Regeln, die Export-Basis, den kompakten Export-Runtime-Vertrag `export-runtime.md`, den Template-Contract, den `email_state`-Contract, die zentrale Salutation-Registry `product-salutations.json`, operative Icon- und Tonalitaetsquellen, `email/templates/template-main.html` sowie alle aktiven `template-<id>.definition.json`, `template-<id>.preview.html` und `email/templates/<id>.html` enthalten.
+- Dieses Bundle muss die aktiven Kern-, Preview- und Export-Regeln, die Export-Basis, den Template-Contract, den `email_state`-Contract, die zentrale Salutation-Registry `product-salutations.json`, operative Icon- und Tonalitaetsquellen, `email/templates/template-main.html` sowie alle aktiven `template-<id>.definition.json`, `template-<id>.preview.html` und `email/templates/<id>.html` enthalten.
 - Nach produktiven Aenderungen an Modulen, Templates, Regeldateien oder `export-map.json` muss das Bundle neu erzeugt werden.
 
 ## Typography-Regeln
@@ -112,8 +101,7 @@ Nutze beim allerersten Start genau diese Reihenfolge:
   - `loft-snl`
   - `loft-rnl-dev`
   - `loft-regio-resi`
-- Dokumentierte editable Starter Blueprints sind aktuell:
-  - `standard-blueprint`
+- Dokumentierte editable Starter Blueprints sind aktuell nur:
   - `ho-esg`
   - `seeker-mle`
 - Die Wahl eines Composition-Templates bestimmt nur die Startkomposition und bedeutet nie automatisch Export oder Iterable-Update.
@@ -121,8 +109,6 @@ Nutze beim allerersten Start genau diese Reihenfolge:
 - Wenn der User `Create from scratch`, `from scratch`, `blank`, `frei starten` oder ohne Template-Vorgabe eine neue Mail starten will, startet der normale Mail-Flow immer sofort mit dem Standard-Blueprint.
 - Fuer diesen freien Initialstart sind keine Rueckfragen zu Produkt, Thema, Ziel, Tonalitaet oder Inhalt erlaubt; die erste Preview nutzt neutrale Blindtexte und bestehende Moduldefaults.
 - Fuer `Start mit Blueprint`, `Create from scratch`, `from scratch`, `blank`, `frei starten` oder sinngemaess freien Start nutzt der Agent als einzige sichtbare Startnachricht: `Ich starte nun mit dem Blueprint-Aufbau und erstelle die erste Vorschau.`
-- Wenn fuer den Standard-Blueprint ein fertiges `starter-standard-blueprint.preview.html` und `starter-standard-blueprint.state.json` vorliegen, uebernimmt der Agent diese beiden Artefakte direkt als erste Preview und als ersten State.
-- Dieser erste Standard-Blueprint-State ist nicht nur Referenz, sondern sofort der aktuelle operative `email_state` genau dieser Mail.
 - Wenn der User `Start mit Template`, `Choose template` oder sinngemaess eine Template-Auswahl anfragt, baut der Agent noch keine freie Mail, sondern sagt genau oder sinngemaess:
   - `Bitte nenne mir die Nummer des Templates, mit dem du starten möchtest:`
   - `1. Loft | SNL`
@@ -141,12 +127,6 @@ Nutze beim allerersten Start genau diese Reihenfolge:
 - In diesem initialen Template-Start sind freie Modulplanung, Einzelmodulsuche, Modulrekonstruktion, generische Ersatzmodule und `preview-modules.html` als primaere visuelle Quelle verboten.
 - Starter Blueprints nutzen keine `template-*.preview.html`, keine Composition-Template-Pruefung und keine neue Copy-Generierung.
 - Wenn fuer einen Starter Blueprint ein fertiges `starter-<id>.preview.html` und `starter-<id>.state.json` vorliegen, uebernimmt der Agent diese beiden Artefakte direkt als erste Preview und als ersten State.
-- Dieser erste Starter-State ist nicht nur Referenz, sondern sofort der aktuelle operative `email_state` genau dieser Mail.
-- Preview und Starter-State gelten damit sofort als zusammengehoerige Arbeitsbasis derselben Mail; ein zusaetzlicher separater Export-State wird fuer diesen unveraenderten Startfall nicht erwartet.
-- Fuer den Standard-Blueprint sowie fuer Auswahl `4` und `5` sind im Upload-Paket die separaten `starter-*.preview.html`- und `starter-*.state.json`-Dateien die primaere Quelle; `emb_knowledge.md` bleibt allgemeines Wissen, ist fuer diese Langartefakte aber nicht mehr die primaere Upload-Quelle.
-- Wenn diese direkten Starter-Dateien fuer `4` oder `5` im Upload-Paket fehlen, stoppt der Agent statt aus `emb_knowledge.md`, `preview-modules.html` oder anderen Quellen neu zu rekonstruieren.
-- `1` bis `3` bleiben die einzigen Fixed Composition Templates in der Startauswahl. `4` und `5` sind immer Editable Starter Blueprints im `default_template`-Flow.
-- Diese Startauswahl gilt nur fuer den ersten Start einer neuen Mail; ein spaeterer Export derselben Mail nutzt nie erneut diese Auswahl, sondern immer den aktuellen `email_state`.
 - Fuer `ho-esg` sind diese Fast-Path-Artefakte die einzige kanonische Quelle fuer:
   - die erste sichtbare Preview
   - die feste Erstkomposition
@@ -159,17 +139,6 @@ Nutze beim allerersten Start genau diese Reihenfolge:
   - die festen Preset-Texte
   - die feste Modulfolge `logo-centered`, `hero-fakeform-buttons-image`, `benefits-3col`, `teaser-1col`, `contact-signoff`, `footer`
 - Beim `seeker-mle`-Start darf der Agent deshalb weder Module neu zusammensuchen noch die erste Copy neu formulieren.
-- `5` / `Seeker | MLE` / `seeker-mle` ist ein absoluter Fast-Path:
-  - keine Composition-Template-Pruefung
-  - keine Suche nach `template-*.preview.html`
-  - keine Modulplanung
-  - keine Modulherleitung
-  - keine Copy-Generierung
-  - kein Lesen aus `preview-modules.html` als primaere Quelle
-  - sofort `starter-seeker-mle.preview.html` als erste Preview
-  - sofort `starter-seeker-mle.state.json` als erster State
-- Solange nach dem Starter-Start keine inhaltliche oder strukturelle Aenderung erfolgt, bleibt der direkt gesetzte `starter-*.state.json` unveraendert der aktuelle `email_state` und damit die Exportquelle.
-- Dasselbe gilt fuer den unveraenderten Standard-Blueprint-Start: `starter-standard-blueprint.state.json` bleibt Exportquelle, bis der User diese Mail aendert.
 - Dieser Starter Blueprint ist kein Composition-Template:
   - `templateContext.mode = default_template`
   - `templateContext.resolvedBaseTemplateId = 569946`
@@ -447,7 +416,6 @@ Bewusst nicht angebunden:
 
 - Freie oder Blueprint-Mails nutzen das Basis-Template `569946`.
 - `Exportiere die Mail zu Iterable` nutzt fuer die aktuelle Preview immer genau die bereits zu dieser Preview gehoerende Campaign oder erzeugt beim ersten Export genau eine neue Campaign auf Basis des festen Iterable-Basis-Templates.
-- `Exportiere die Mail zu Iterable` bedeutet immer Export der aktuell bestehenden Mail; diese Anweisung startet nie erneut Blueprint-, Starter- oder Template-Auswahl.
 - Draft ist kein Standard- und kein Fallback-Ziel.
 
 ## Technische Export-Hinweise
@@ -462,7 +430,6 @@ Bewusst nicht angebunden:
   - Defaults
 - Der Export arbeitet im Happy Path nicht aus Preview-HTML oder Snippet-HTML.
 - Der Export nutzt nur den parallel gefuehrten `email_state`.
-- Starter-Artefakte und Template-Preview-Dateien sind Startquellen, aber keine regulaeren Exportquellen fuer eine bereits bestehende Mail mit gueltigem State.
 - Unknown Fields sind Export-Fehler.
 - Felder ohne Content und ohne Default werden nicht frei erfunden.
 - Detaillierte Export- und Shell-Logik steht in `export-rules.md`.
@@ -537,7 +504,7 @@ Bewusst nicht angebunden:
     - `m` => `emb_hero_image_top_show_small_headline = false` und `emb_hero_image_top_show_large_headline = false`
     - `l` => `emb_hero_image_top_show_small_headline = false` und `emb_hero_image_top_show_large_headline = true`
   - Neue Default-States fuer dieses Modul muessen immer `emb_hero_image_top_headline_size = l`, `emb_hero_image_top_show_small_headline = false` und `emb_hero_image_top_show_large_headline = true` erzeugen.
-  - Wenn das kanonische `emb_hero_image_top_headline_size` in einem bestehenden State fehlt oder leer ist, wird fuer Builder, Preview und Export direkt der Default `l` angenommen und die Bridge-Felder werden daraus auf `false / true` materialisiert.
+  - `emb_hero_image_top_show_large_headline` ist nur noch ein Legacy-/Bridge-Feld; wenn es ohne kanonisches `headline_size` auf `true` steht, wird zu `headline_size = l` normalisiert, sonst zu `headline_size = m`.
   - `emb_hero_image_top_show_small_headline = true` und `emb_hero_image_top_show_large_headline = true` gleichzeitig sind ungueltig und muessen fail-closed stoppen.
   - Es gibt kein freies Headline-Style-, HTML- oder CSS-Feld fuer dieses Modul.
 
@@ -584,7 +551,7 @@ Bewusst nicht angebunden:
     - `m` => `emb_hero_image_top_center_show_small_headline = false` und `emb_hero_image_top_center_show_large_headline = false`
     - `l` => `emb_hero_image_top_center_show_small_headline = false` und `emb_hero_image_top_center_show_large_headline = true`
   - Neue Default-States fuer dieses Modul muessen immer `emb_hero_image_top_center_headline_size = l`, `emb_hero_image_top_center_show_small_headline = false` und `emb_hero_image_top_center_show_large_headline = true` erzeugen.
-  - Wenn das kanonische `emb_hero_image_top_center_headline_size` in einem bestehenden State fehlt oder leer ist, wird fuer Builder, Preview und Export direkt der Default `l` angenommen und die Bridge-Felder werden daraus auf `false / true` materialisiert.
+  - `emb_hero_image_top_center_show_large_headline` ist nur noch ein Legacy-/Bridge-Feld; wenn es ohne kanonisches `headline_size` auf `true` steht, wird zu `headline_size = l` normalisiert, sonst zu `headline_size = m`.
   - `emb_hero_image_top_center_show_small_headline = true` und `emb_hero_image_top_center_show_large_headline = true` gleichzeitig sind ungueltig und muessen fail-closed stoppen.
   - Es gibt kein freies Headline-Style-, HTML- oder CSS-Feld fuer dieses Modul.
 
@@ -630,7 +597,6 @@ Bewusst nicht angebunden:
     - `m` => `emb_hero_image_top_bleed_show_small_headline = false` und `emb_hero_image_top_bleed_show_large_headline = false`
     - `l` => `emb_hero_image_top_bleed_show_small_headline = false` und `emb_hero_image_top_bleed_show_large_headline = true`
   - Neue Default-States fuer dieses Modul muessen immer `emb_hero_image_top_bleed_headline_size = l`, `emb_hero_image_top_bleed_show_small_headline = false` und `emb_hero_image_top_bleed_show_large_headline = true` erzeugen.
-  - Wenn das kanonische `emb_hero_image_top_bleed_headline_size` in einem bestehenden State fehlt oder leer ist, wird fuer Builder, Preview und Export direkt der Default `l` angenommen und die Bridge-Felder werden daraus auf `false / true` materialisiert.
   - Legacy-Bridge-Felder sind nur technische Kompatibilitaetsfelder; `true/true` gleichzeitig ist ungueltig und muss fail-closed stoppen.
   - Es gibt kein freies Headline-Style-, HTML- oder CSS-Feld fuer dieses Modul.
 
@@ -677,7 +643,6 @@ Bewusst nicht angebunden:
     - `m` => `emb_hero_image_top_bleed_center_show_small_headline = false` und `emb_hero_image_top_bleed_center_show_large_headline = false`
     - `l` => `emb_hero_image_top_bleed_center_show_small_headline = false` und `emb_hero_image_top_bleed_center_show_large_headline = true`
   - Neue Default-States fuer dieses Modul muessen immer `emb_hero_image_top_bleed_center_headline_size = l`, `emb_hero_image_top_bleed_center_show_small_headline = false` und `emb_hero_image_top_bleed_center_show_large_headline = true` erzeugen.
-  - Wenn das kanonische `emb_hero_image_top_bleed_center_headline_size` in einem bestehenden State fehlt oder leer ist, wird fuer Builder, Preview und Export direkt der Default `l` angenommen und die Bridge-Felder werden daraus auf `false / true` materialisiert.
   - Legacy-Bridge-Felder sind nur technische Kompatibilitaetsfelder; `true/true` gleichzeitig ist ungueltig und muss fail-closed stoppen.
   - Es gibt kein freies Headline-Style-, HTML- oder CSS-Feld fuer dieses Modul.
 
@@ -717,7 +682,6 @@ Bewusst nicht angebunden:
     - `m` => `emb_hero_image_head_copy_bleed_center_show_small_headline = false` und `emb_hero_image_head_copy_bleed_center_show_large_headline = false`
     - `l` => `emb_hero_image_head_copy_bleed_center_show_small_headline = false` und `emb_hero_image_head_copy_bleed_center_show_large_headline = true`
   - Neue Default-States fuer dieses Modul muessen immer `emb_hero_image_head_copy_bleed_center_headline_size = l`, `emb_hero_image_head_copy_bleed_center_show_small_headline = false` und `emb_hero_image_head_copy_bleed_center_show_large_headline = true` erzeugen.
-  - Wenn das kanonische `emb_hero_image_head_copy_bleed_center_headline_size` in einem bestehenden State fehlt oder leer ist, wird fuer Builder, Preview und Export direkt der Default `l` angenommen und die Bridge-Felder werden daraus auf `false / true` materialisiert.
   - Legacy-Bridge-Felder sind nur technische Kompatibilitaetsfelder; `true/true` gleichzeitig ist ungueltig und muss fail-closed stoppen.
   - Es gibt kein freies Headline-Style-, HTML- oder CSS-Feld fuer dieses Modul.
 
@@ -760,7 +724,6 @@ Bewusst nicht angebunden:
     - `m` => `emb_hero_image_textbox_cta_center_show_small_headline = false` und `emb_hero_image_textbox_cta_center_show_large_headline = false`
     - `l` => `emb_hero_image_textbox_cta_center_show_small_headline = false` und `emb_hero_image_textbox_cta_center_show_large_headline = true`
   - Neue Default-States fuer dieses Modul muessen immer `emb_hero_image_textbox_cta_center_headline_size = l`, `emb_hero_image_textbox_cta_center_show_small_headline = false` und `emb_hero_image_textbox_cta_center_show_large_headline = true` erzeugen.
-  - Wenn das kanonische `emb_hero_image_textbox_cta_center_headline_size` in einem bestehenden State fehlt oder leer ist, wird fuer Builder, Preview und Export direkt der Default `l` angenommen und die Bridge-Felder werden daraus auf `false / true` materialisiert.
   - Legacy-Bridge-Felder sind nur technische Kompatibilitaetsfelder; `true/true` gleichzeitig ist ungueltig und muss fail-closed stoppen.
   - Es gibt kein freies Headline-Style-, HTML- oder CSS-Feld fuer dieses Modul.
 - Export-Hinweis:
@@ -821,7 +784,6 @@ Bewusst nicht angebunden:
     - `m` => `emb_hero_fakeform_buttons_image_show_small_headline = false` und `emb_hero_fakeform_buttons_image_show_large_headline = false`
     - `l` => `emb_hero_fakeform_buttons_image_show_small_headline = false` und `emb_hero_fakeform_buttons_image_show_large_headline = true`
   - Neue Default-States fuer dieses Modul muessen immer `emb_hero_fakeform_buttons_image_headline_size = l`, `emb_hero_fakeform_buttons_image_show_small_headline = false` und `emb_hero_fakeform_buttons_image_show_large_headline = true` erzeugen.
-  - Wenn das kanonische `emb_hero_fakeform_buttons_image_headline_size` in einem bestehenden State fehlt oder leer ist, wird fuer Builder, Preview und Export direkt der Default `l` angenommen und die Bridge-Felder werden daraus auf `false / true` materialisiert.
   - Legacy-Bridge-Felder sind nur technische Kompatibilitaetsfelder; `true/true` gleichzeitig ist ungueltig und muss fail-closed stoppen.
   - Es gibt kein freies Headline-Style-, HTML- oder CSS-Feld fuer dieses Modul.
 - Button-Regel:
@@ -874,7 +836,6 @@ Bewusst nicht angebunden:
     - `m` => `emb_hero_cta_top_show_small_headline = false` und `emb_hero_cta_top_show_large_headline = false`
     - `l` => `emb_hero_cta_top_show_small_headline = false` und `emb_hero_cta_top_show_large_headline = true`
   - Neue Default-States fuer dieses Modul muessen immer `emb_hero_cta_top_headline_size = l`, `emb_hero_cta_top_show_small_headline = false` und `emb_hero_cta_top_show_large_headline = true` erzeugen.
-  - Wenn das kanonische `emb_hero_cta_top_headline_size` in einem bestehenden State fehlt oder leer ist, wird fuer Builder, Preview und Export direkt der Default `l` angenommen und die Bridge-Felder werden daraus auf `false / true` materialisiert.
   - Legacy-Bridge-Felder sind nur technische Kompatibilitaetsfelder; `true/true` gleichzeitig ist ungueltig und muss fail-closed stoppen.
   - Es gibt kein freies Headline-Style-, HTML- oder CSS-Feld fuer dieses Modul.
 
@@ -921,7 +882,6 @@ Bewusst nicht angebunden:
     - `m` => `emb_hero_cta_top_center_show_small_headline = false` und `emb_hero_cta_top_center_show_large_headline = false`
     - `l` => `emb_hero_cta_top_center_show_small_headline = false` und `emb_hero_cta_top_center_show_large_headline = true`
   - Neue Default-States fuer dieses Modul muessen immer `emb_hero_cta_top_center_headline_size = l`, `emb_hero_cta_top_center_show_small_headline = false` und `emb_hero_cta_top_center_show_large_headline = true` erzeugen.
-  - Wenn das kanonische `emb_hero_cta_top_center_headline_size` in einem bestehenden State fehlt oder leer ist, wird fuer Builder, Preview und Export direkt der Default `l` angenommen und die Bridge-Felder werden daraus auf `false / true` materialisiert.
   - Legacy-Bridge-Felder sind nur technische Kompatibilitaetsfelder; `true/true` gleichzeitig ist ungueltig und muss fail-closed stoppen.
   - Es gibt kein freies Headline-Style-, HTML- oder CSS-Feld fuer dieses Modul.
 
@@ -967,7 +927,6 @@ Bewusst nicht angebunden:
     - `m` => `emb_hero_cta_top_no_bottom_show_small_headline = false` und `emb_hero_cta_top_no_bottom_show_large_headline = false`
     - `l` => `emb_hero_cta_top_no_bottom_show_small_headline = false` und `emb_hero_cta_top_no_bottom_show_large_headline = true`
   - Neue Default-States fuer dieses Modul muessen immer `emb_hero_cta_top_no_bottom_headline_size = l`, `emb_hero_cta_top_no_bottom_show_small_headline = false` und `emb_hero_cta_top_no_bottom_show_large_headline = true` erzeugen.
-  - Wenn das kanonische `emb_hero_cta_top_no_bottom_headline_size` in einem bestehenden State fehlt oder leer ist, wird fuer Builder, Preview und Export direkt der Default `l` angenommen und die Bridge-Felder werden daraus auf `false / true` materialisiert.
   - Legacy-Bridge-Felder sind nur technische Kompatibilitaetsfelder; `true/true` gleichzeitig ist ungueltig und muss fail-closed stoppen.
   - Es gibt kein freies Headline-Style-, HTML- oder CSS-Feld fuer dieses Modul.
 
@@ -1060,7 +1019,6 @@ Bewusst nicht angebunden:
     - `m` => `emb_hero_cta_top_no_bottom_center_show_small_headline = false` und `emb_hero_cta_top_no_bottom_center_show_large_headline = false`
     - `l` => `emb_hero_cta_top_no_bottom_center_show_small_headline = false` und `emb_hero_cta_top_no_bottom_center_show_large_headline = true`
   - Neue Default-States fuer dieses Modul muessen immer `emb_hero_cta_top_no_bottom_center_headline_size = l`, `emb_hero_cta_top_no_bottom_center_show_small_headline = false` und `emb_hero_cta_top_no_bottom_center_show_large_headline = true` erzeugen.
-  - Wenn das kanonische `emb_hero_cta_top_no_bottom_center_headline_size` in einem bestehenden State fehlt oder leer ist, wird fuer Builder, Preview und Export direkt der Default `l` angenommen und die Bridge-Felder werden daraus auf `false / true` materialisiert.
   - Legacy-Bridge-Felder sind nur technische Kompatibilitaetsfelder; `true/true` gleichzeitig ist ungueltig und muss fail-closed stoppen.
   - Es gibt kein freies Headline-Style-, HTML- oder CSS-Feld fuer dieses Modul.
 
