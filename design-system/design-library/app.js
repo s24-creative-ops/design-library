@@ -1,15 +1,33 @@
-const data = window.designLibraryData;
+const data = mergeLibraryData(window.designLibraryData, window.designLibraryAgentDashboardData);
 
 const state = {
   section: "home",
   item: null,
+  agentActiveStatuses: [],
+  agentActiveTags: [],
+  agentActiveTargetUsers: [],
+  agentOpenFilterPanel: null,
 };
+
+const AGENT_TARGET_USER_FILTERS = [
+  "Creative Studio",
+  "Brand",
+  "Seeker",
+  "Homeowner",
+  "Professional",
+  "Media",
+  "Loft",
+  "Content",
+  "Social Media",
+  "Event",
+];
+
+const AGENT_STATUS_ORDER = ["idea", "prototype", "testing", "live", "paused", "archived"];
 
 const topNavLinks = Array.from(document.querySelectorAll("[data-main-nav]"));
 const homeTrigger = document.querySelector("[data-home-trigger]");
 const sidebarEyebrow = document.getElementById("ft-sidebar-eyebrow");
 const sidebarNav = document.getElementById("ft-sidebar-nav");
-const sidebarToggle = document.getElementById("ft-sidebar-toggle");
 const contentRoot = document.getElementById("ft-content");
 const layoutRoot = document.getElementById("ft-layout");
 
@@ -17,7 +35,38 @@ const LP_BLEED_MODULES = new Set(["hero-bleed-flex", "hero-bleed-flex-centered",
 const LP_REMOTE_STYLESHEETS = ["https://www.static-immobilienscout24.de/fro/core/8.5.0/css/core.min.css"];
 const EMAIL_HERO_SIDEBAR_ITEMS = new Set(["heros-left", "heros-center", "heros-fakeforms"]);
 const DEFAULT_ROUTE = { section: "home", item: null };
-state.sidebarCollapsed = false;
+let agentFilterCloseTimeoutId = null;
+const animatedAgentCircleIds = new Set();
+
+function mergeLibraryData(baseData, agentData) {
+  const safeBaseData = baseData || {};
+  const quickLinks = Array.isArray(safeBaseData.homePage?.quickLinks) ? [...safeBaseData.homePage.quickLinks] : [];
+  const sections = { ...(safeBaseData.sections || {}) };
+
+  if (agentData?.homeQuickLink) {
+    quickLinks.push({ ...agentData.homeQuickLink });
+  }
+
+  if (agentData?.section?.id) {
+    sections[agentData.section.id] = {
+      label: agentData.section.label || agentData.section.id,
+      items: Array.isArray(agentData.section.items) ? agentData.section.items.map((item) => ({ ...item })) : [],
+    };
+  }
+
+  return {
+    ...safeBaseData,
+    homePage: {
+      ...(safeBaseData.homePage || {}),
+      quickLinks,
+    },
+    sections,
+    agentDashboard: {
+      statusMeta: { ...(agentData?.statusMeta || {}) },
+      agents: Array.isArray(agentData?.agents) ? agentData.agents.map((agent) => ({ ...agent })) : [],
+    },
+  };
+}
 
 function escapeHtml(value) {
   return String(value)
@@ -93,18 +142,6 @@ function renderTopNav() {
       link.removeAttribute("aria-current");
     }
   });
-}
-
-function syncSidebarToggleState() {
-  if (!sidebarToggle) return;
-
-  const isExpanded = !state.sidebarCollapsed;
-  const label = isExpanded ? "Sidebar einklappen" : "Sidebar ausklappen";
-
-  layoutRoot.classList.toggle("is-sidebar-collapsed", state.sidebarCollapsed);
-  sidebarToggle.setAttribute("aria-expanded", String(isExpanded));
-  sidebarToggle.setAttribute("aria-label", label);
-  sidebarToggle.setAttribute("title", label);
 }
 
 // Hash routes stay intentionally small: #home or #<section>/<item>.
@@ -389,6 +426,475 @@ function renderPlainRow(title, metaHtml, previewHtml, copyValue, extraClass = ""
   `;
 }
 
+function getAgentDashboardConfig() {
+  return data.agentDashboard || { statusMeta: {}, agents: [] };
+}
+
+function getAgentStatusMeta(statusKey) {
+  const fallbackLabel = statusKey ? statusKey.charAt(0).toUpperCase() + statusKey.slice(1) : "Unknown";
+  return getAgentDashboardConfig().statusMeta[statusKey] || { label: fallbackLabel, rangeLabel: null, progress: null };
+}
+
+function normalizeTargetUserLabel(value) {
+  const normalized = String(value || "").trim().toLowerCase();
+
+  const mapping = {
+    ho: "Homeowner",
+    homeowner: "Homeowner",
+    b2b: "Professional",
+    professional: "Professional",
+    seeker: "Seeker",
+    loft: "Loft",
+    "creative support": "Creative Studio",
+    "creative studio": "Creative Studio",
+  };
+
+  return mapping[normalized] || String(value || "").trim();
+}
+
+function getAgentTargetUserFilterOptions() {
+  const availableTargetUsers = new Set();
+
+  getAgentsForTargetUserFilterOptions().forEach((agent) => {
+    getNormalizedAgentTargetUsers(agent).forEach((targetUser) => {
+      availableTargetUsers.add(targetUser);
+    });
+  });
+
+  state.agentActiveTargetUsers.forEach((targetUser) => {
+    availableTargetUsers.add(targetUser);
+  });
+
+  return AGENT_TARGET_USER_FILTERS.filter((targetUser) => availableTargetUsers.has(targetUser));
+}
+
+function getNormalizedAgentTargetUsers(agent) {
+  return normalizeAgentList(agent.targetUsers).map((value) => normalizeTargetUserLabel(value));
+}
+
+function normalizeAgentList(values) {
+  return Array.isArray(values)
+    ? values.map((value) => String(value || "").trim()).filter(Boolean)
+    : [];
+}
+
+function hasActiveAgentFilters() {
+  return Boolean(
+    state.agentActiveStatuses.length ||
+      state.agentActiveTags.length ||
+      state.agentActiveTargetUsers.length,
+  );
+}
+
+function matchesAgentFilters(agent, filters = {}) {
+  const activeStatuses = Object.prototype.hasOwnProperty.call(filters, "statuses")
+    ? filters.statuses
+    : state.agentActiveStatuses;
+  const activeTags = Object.prototype.hasOwnProperty.call(filters, "tags") ? filters.tags : state.agentActiveTags;
+  const activeTargetUsers = Object.prototype.hasOwnProperty.call(filters, "targetUsers")
+    ? filters.targetUsers
+    : state.agentActiveTargetUsers;
+  const matchesStatus = !activeStatuses.length || activeStatuses.includes(agent.status);
+  const matchesTag = !activeTags.length || normalizeAgentList(agent.tags).some((tag) => activeTags.includes(tag));
+  const matchesTargetUser =
+    !activeTargetUsers.length || getNormalizedAgentTargetUsers(agent).some((targetUser) => activeTargetUsers.includes(targetUser));
+
+  return matchesStatus && matchesTag && matchesTargetUser;
+}
+
+function getAgentsForTagFilterOptions() {
+  const { agents } = getAgentDashboardConfig();
+
+  return agents.filter((agent) =>
+    matchesAgentFilters(agent, {
+      statuses: state.agentActiveStatuses,
+      tags: [],
+      targetUsers: state.agentActiveTargetUsers,
+    }),
+  );
+}
+
+function getAgentsForTargetUserFilterOptions() {
+  const { agents } = getAgentDashboardConfig();
+
+  return agents.filter((agent) =>
+    matchesAgentFilters(agent, {
+      statuses: state.agentActiveStatuses,
+      tags: state.agentActiveTags,
+      targetUsers: [],
+    }),
+  );
+}
+
+function getAgentsForStatusFilterOptions() {
+  const { agents } = getAgentDashboardConfig();
+
+  return agents.filter((agent) =>
+    matchesAgentFilters(agent, {
+      statuses: [],
+      tags: state.agentActiveTags,
+      targetUsers: state.agentActiveTargetUsers,
+    }),
+  );
+}
+
+function getAgentTagFilterOptions() {
+  const uniqueTags = new Set();
+
+  getAgentsForTagFilterOptions().forEach((agent) => {
+    normalizeAgentList(agent.tags).forEach((tag) => {
+      uniqueTags.add(tag);
+    });
+  });
+
+  state.agentActiveTags.forEach((tag) => {
+    uniqueTags.add(tag);
+  });
+
+  return Array.from(uniqueTags).sort((left, right) => left.localeCompare(right));
+}
+
+function getAgentStatusFilterOptions() {
+  const availableStatuses = new Set();
+
+  getAgentsForStatusFilterOptions().forEach((agent) => {
+    if (agent.status) {
+      availableStatuses.add(agent.status);
+    }
+  });
+
+  state.agentActiveStatuses.forEach((statusKey) => {
+    availableStatuses.add(statusKey);
+  });
+
+  return AGENT_STATUS_ORDER.filter((statusKey) => availableStatuses.has(statusKey)).map((statusKey) => ({
+    value: statusKey,
+    label: getAgentStatusMeta(statusKey).label,
+  }));
+}
+
+function getFilteredAgents() {
+  const { agents } = getAgentDashboardConfig();
+  return agents.filter((agent) => matchesAgentFilters(agent));
+}
+
+function renderAgentChipList(values) {
+  const items = normalizeAgentList(values);
+
+  if (!items.length) {
+    return `<span class="ft-agent-card__meta-inline-item">No tags yet</span>`;
+  }
+
+  return `
+    <div class="ft-agent-chip-list">
+      ${items.map((value) => `<span class="ft-agent-chip">${escapeHtml(value)}</span>`).join("")}
+    </div>
+  `;
+}
+
+function renderAgentFilterPanel(panelKey, options, selectedValues) {
+  const isOpen = state.agentOpenFilterPanel === panelKey;
+  const panelLabel = panelKey === "status" ? "Status" : panelKey === "targetUsers" ? "Target Users" : "Tags";
+
+  return `
+    <div
+      class="ft-agent-filterbar__group${isOpen ? " is-open" : ""}"
+      data-agent-filter-group="${escapeAttribute(panelKey)}"
+    >
+      <button
+        class="ft-agent-filterbar__trigger${selectedValues.length ? " is-active" : ""}${isOpen ? " is-open" : ""}"
+        type="button"
+        data-agent-filter-trigger="${escapeAttribute(panelKey)}"
+        aria-expanded="${isOpen ? "true" : "false"}"
+        aria-haspopup="dialog"
+      >
+        <span>${escapeHtml(panelLabel)}</span>
+        <svg viewBox="0 0 12 12" aria-hidden="true">
+          <path d="M2.25 4.5 6 8.25 9.75 4.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"></path>
+        </svg>
+      </button>
+      ${
+        isOpen
+          ? `
+            <div class="ft-agent-filterbar__panel" role="dialog" aria-label="${escapeHtml(panelLabel)} filter">
+              <div class="ft-agent-filterbar__options">
+                ${
+                  options.length
+                    ? options
+                        .map(
+                          (option) => `
+                            <label class="ft-agent-filterbar__option">
+                              <input
+                                class="ft-agent-filterbar__checkbox"
+                                type="checkbox"
+                                data-agent-filter-option="${escapeAttribute(panelKey)}"
+                                value="${escapeAttribute(option.value)}"
+                                ${selectedValues.includes(option.value) ? "checked" : ""}
+                              />
+                              <span>${escapeHtml(option.label)}</span>
+                            </label>
+                          `,
+                        )
+                        .join("")
+                    : `<p class="ft-agent-filterbar__empty">Keine passenden Optionen</p>`
+                }
+              </div>
+            </div>
+          `
+          : ""
+      }
+    </div>
+  `;
+}
+
+function renderAgentFilterBar() {
+  const statusOptions = getAgentStatusFilterOptions();
+  const targetUserOptions = getAgentTargetUserFilterOptions().map((value) => ({ value, label: value }));
+  const tagOptions = getAgentTagFilterOptions().map((value) => ({ value, label: value }));
+
+  return `
+    <div class="ft-agent-filterbar" data-agent-filterbar>
+      ${renderAgentFilterPanel("status", statusOptions, state.agentActiveStatuses)}
+      ${renderAgentFilterPanel("targetUsers", targetUserOptions, state.agentActiveTargetUsers)}
+      ${renderAgentFilterPanel("tags", tagOptions, state.agentActiveTags)}
+      ${
+        hasActiveAgentFilters()
+          ? `
+            <button class="ft-agent-filterbar__clear" type="button" data-agent-filter-clear>
+              <span aria-hidden="true">X</span>
+              <span>Alle Filter löschen</span>
+            </button>
+          `
+          : ""
+      }
+    </div>
+  `;
+}
+
+function getAgentCircleProgress(statusKey) {
+  const progressMap = {
+    idea: 15,
+    prototype: 63,
+    testing: 80,
+    live: 100,
+  };
+
+  return progressMap[statusKey] ?? null;
+}
+
+function getAgentLastKnownProgress(agent) {
+  const value = Number(agent?.lastKnownProgress);
+  return Number.isFinite(value) ? Math.max(0, Math.min(100, value)) : null;
+}
+
+function getAgentCircleAnimationId(agent) {
+  const baseValue = String(agent?.id || agent?.title || "").trim().toLowerCase();
+  return baseValue.replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "";
+}
+
+function formatAgentOwnerName(owner) {
+  const normalized = String(owner || "").trim();
+  const ownerMap = {
+    Dominik: "Dominik Böhme",
+    Peter: "Peter Sijtsma",
+  };
+
+  return ownerMap[normalized] || normalized || "Keine Angabe";
+}
+
+function renderAgentCardAction(agent, statusMeta) {
+  if (agent.status === "live") {
+    if (agent.links?.agent) {
+      return `
+        <div class="ft-agent-card__action ft-agent-card__action--live">
+          <a class="button-filled-brand ft-agent-card__cta" href="${escapeHtml(agent.links.agent)}" target="_blank" rel="noopener noreferrer" aria-label="${escapeHtml(agent.title || "Agent")} im Browser öffnen" title="${escapeHtml(agent.title || "Agent")} im Browser öffnen">
+            Open Agent in Browser
+          </a>
+        </div>
+      `;
+    }
+
+    return `
+      <div class="ft-agent-card__action ft-agent-card__action--live-disabled">
+        <span class="button-filled-brand ft-agent-card__cta ft-agent-card__cta--disabled" aria-disabled="true">
+          Open Agent in Browser
+        </span>
+      </div>
+    `;
+  }
+
+  const progressValue = getAgentCircleProgress(agent.status);
+
+  if (progressValue === null) {
+    const lastKnownProgress = getAgentLastKnownProgress(agent);
+    return `
+      <div class="ft-agent-card__action ft-agent-card__action--neutral">
+        <div class="ft-agent-circle ft-agent-circle--neutral">
+          <svg class="ft-agent-circle__svg" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
+            <circle class="ft-agent-circle__track" cx="60" cy="60" r="54" pathLength="100"></circle>
+            <circle class="ft-agent-circle__progress" cx="60" cy="60" r="54" pathLength="100" data-agent-circle-path></circle>
+          </svg>
+          <div class="ft-agent-circle__inner">
+            <span class="ft-agent-circle__value">${escapeHtml(String(lastKnownProgress ?? 0))}%</span>
+            <span class="ft-agent-circle__status">${escapeHtml(statusMeta.label)}</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="ft-agent-card__action">
+      <div
+        class="ft-agent-circle ft-agent-circle--${escapeHtml(agent.status || "unknown")}"
+        data-agent-circle-progress="${escapeAttribute(String(progressValue))}"
+        data-agent-circle-id="${escapeAttribute(getAgentCircleAnimationId(agent))}"
+        style="--agent-progress-target:${escapeHtml(String(progressValue))};"
+      >
+        <svg class="ft-agent-circle__svg" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
+          <circle class="ft-agent-circle__track" cx="60" cy="60" r="54" pathLength="100"></circle>
+          <circle class="ft-agent-circle__progress" cx="60" cy="60" r="54" pathLength="100" data-agent-circle-path></circle>
+        </svg>
+        <div class="ft-agent-circle__inner">
+          <span class="ft-agent-circle__value">${escapeHtml(String(progressValue))}%</span>
+          <span class="ft-agent-circle__status">${escapeHtml(statusMeta.label)}</span>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function escapeAttribute(value) {
+  return escapeHtml(value);
+}
+
+function renderAgentCard(agent) {
+  const statusMeta = getAgentStatusMeta(agent.status);
+  const asideClass = agent.status === "live" ? " ft-agent-card__aside--live" : "";
+
+  return `
+    <article class="ft-agent-card">
+      <div class="ft-agent-card__content">
+        <div class="ft-agent-card__top">
+          <div class="ft-agent-card__header">
+            <h3 class="ft-agent-card__title">${escapeHtml(agent.title || "Unbenannter Agent")}</h3>
+          </div>
+          <div class="ft-agent-card__headline">
+            <p class="ft-agent-card__description">${escapeHtml(agent.shortDescription || "Keine Beschreibung hinterlegt.")}</p>
+          </div>
+        </div>
+
+        <div class="ft-agent-card__tags">
+          ${renderAgentChipList(agent.tags)}
+        </div>
+
+        <div class="ft-agent-card__meta-inline">
+          <span class="ft-agent-card__meta-inline-item">${escapeHtml(formatAgentOwnerName(agent.owner))}</span>
+          ${
+            agent.links?.onboarding
+              ? `
+                <a class="ft-agent-card__meta-inline-link" href="${escapeHtml(agent.links.onboarding)}" target="_blank" rel="noopener noreferrer">
+                  Open Onboarding
+                </a>
+              `
+              : ""
+          }
+        </div>
+      </div>
+
+      <div class="ft-agent-card__aside${asideClass}">
+        ${renderAgentCardAction(agent, statusMeta)}
+      </div>
+    </article>
+  `;
+}
+
+function renderAgentResultsMarkup() {
+  const filteredAgents = getFilteredAgents();
+
+  if (!filteredAgents.length) {
+    return `
+      <div class="ft-agent-empty">
+        <h3 class="ft-agent-empty__title">Keine Agents gefunden</h3>
+        <p class="ft-agent-empty__text">Passe die aktiven Filter an, um wieder Ergebnisse zu sehen.</p>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="ft-agent-grid">
+      ${filteredAgents.map((agent) => renderAgentCard(agent)).join("")}
+    </div>
+  `;
+}
+
+function renderAgentsSection(item) {
+  return `
+    <div class="ft-agent-dashboard">
+      <header class="ft-agent-dashboard__header">
+        <div class="ft-agent-dashboard__header-copy">
+          <h2 class="ft-agent-dashboard__title">${escapeHtml(item.title || item.label)}</h2>
+          ${item.intro ? `<p class="ft-agent-dashboard__intro">${escapeHtml(item.intro)}</p>` : ""}
+        </div>
+      </header>
+
+      ${renderAgentFilterBar()}
+
+      <div class="ft-agent-results" data-agent-results>
+        ${renderAgentResultsMarkup()}
+      </div>
+    </div>
+  `;
+}
+
+function updateAgentDashboardResults() {
+  if (state.section !== "agents") return;
+  renderSection();
+}
+
+function toggleAgentFilterValue(groupKey, value) {
+  if (!value) return;
+
+  const groupMap = {
+    status: "agentActiveStatuses",
+    tags: "agentActiveTags",
+    targetUsers: "agentActiveTargetUsers",
+  };
+  const stateKey = groupMap[groupKey];
+  if (!stateKey) return;
+
+  const currentValues = state[stateKey];
+  state[stateKey] = currentValues.includes(value)
+    ? currentValues.filter((entry) => entry !== value)
+    : [...currentValues, value];
+}
+
+function toggleAgentFilterPanel(panelKey) {
+  state.agentOpenFilterPanel = state.agentOpenFilterPanel === panelKey ? null : panelKey;
+}
+
+function clearAgentFilters() {
+  state.agentActiveStatuses = [];
+  state.agentActiveTags = [];
+  state.agentActiveTargetUsers = [];
+  state.agentOpenFilterPanel = null;
+}
+
+function clearAgentFilterCloseTimer() {
+  if (agentFilterCloseTimeoutId === null) return;
+  window.clearTimeout(agentFilterCloseTimeoutId);
+  agentFilterCloseTimeoutId = null;
+}
+
+function scheduleAgentFilterClose(panelKey) {
+  clearAgentFilterCloseTimer();
+  agentFilterCloseTimeoutId = window.setTimeout(() => {
+    if (state.agentOpenFilterPanel !== panelKey) return;
+    state.agentOpenFilterPanel = null;
+    updateAgentDashboardResults();
+  }, 120);
+}
+
 function renderTokenContent(itemId) {
   const { tokens } = data;
 
@@ -655,6 +1161,10 @@ function renderLpSection(item) {
 }
 
 function renderSectionContent(sectionKey, item) {
+  if (sectionKey === "agents") {
+    return renderAgentsSection(item);
+  }
+
   if (sectionKey === "tokens") {
     return renderTokenContent(item.id);
   }
@@ -692,6 +1202,8 @@ function renderSection() {
 
   bindCopyButtons();
   bindModuleCopyButtons();
+  bindAgentDashboardControls();
+  hydrateAgentProgressAnimations();
   hydrateEmailPreviewScopes();
   hydrateEmailServiceProducts();
   hydrateLpModulePreviews();
@@ -699,15 +1211,16 @@ function renderSection() {
 
 function render() {
   renderTopNav();
-  syncSidebarToggleState();
 
   if (state.section === "home") {
     layoutRoot.classList.add("ft-layout--home");
+    layoutRoot.classList.remove("ft-layout--agents");
     renderHome();
     return;
   }
 
   layoutRoot.classList.remove("ft-layout--home");
+  layoutRoot.classList.toggle("ft-layout--agents", state.section === "agents");
   renderSection();
 }
 
@@ -755,6 +1268,160 @@ function bindModuleCopyButtons() {
     });
   });
 }
+
+function bindAgentDashboardControls() {
+  contentRoot.querySelectorAll("[data-agent-filter-group]").forEach((group) => {
+    if (group.dataset.hoverBound === "true") return;
+    group.dataset.hoverBound = "true";
+
+    const panelKey = group.dataset.agentFilterGroup || "";
+    if (!panelKey) return;
+
+    group.addEventListener("mouseenter", () => {
+      clearAgentFilterCloseTimer();
+      if (state.agentOpenFilterPanel === panelKey) return;
+      state.agentOpenFilterPanel = panelKey;
+      updateAgentDashboardResults();
+    });
+
+    group.addEventListener("mouseleave", () => {
+      scheduleAgentFilterClose(panelKey);
+    });
+  });
+
+  contentRoot.querySelectorAll("[data-agent-filter-trigger]").forEach((button) => {
+    if (button.dataset.bound === "true") return;
+    button.dataset.bound = "true";
+
+    button.addEventListener("click", () => {
+      clearAgentFilterCloseTimer();
+      toggleAgentFilterPanel(button.dataset.agentFilterTrigger || "");
+      updateAgentDashboardResults();
+    });
+  });
+
+  contentRoot.querySelectorAll("[data-agent-filter-option]").forEach((input) => {
+    if (input.dataset.bound === "true") return;
+    input.dataset.bound = "true";
+
+    input.addEventListener("change", () => {
+      clearAgentFilterCloseTimer();
+      toggleAgentFilterValue(input.dataset.agentFilterOption || "", input.value || "");
+      state.agentOpenFilterPanel = input.dataset.agentFilterOption || null;
+      updateAgentDashboardResults();
+    });
+  });
+
+  contentRoot.querySelectorAll("[data-agent-filter-clear]").forEach((button) => {
+    if (button.dataset.bound === "true") return;
+    button.dataset.bound = "true";
+
+    button.addEventListener("click", () => {
+      clearAgentFilterCloseTimer();
+      clearAgentFilters();
+      updateAgentDashboardResults();
+    });
+  });
+}
+
+function hydrateAgentProgressAnimations() {
+  const circles = Array.from(contentRoot.querySelectorAll("[data-agent-circle-progress]"));
+
+  if (!circles.length) return;
+
+  const prefersReducedMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const activateCircle = (circle) => {
+    const targetValue = Number(circle.dataset.agentCircleProgress || "0");
+    const safeValue = Number.isFinite(targetValue) ? Math.max(0, Math.min(100, targetValue)) : 0;
+    const path = circle.querySelector("[data-agent-circle-path]");
+    const animationId = circle.dataset.agentCircleId || "";
+
+    if (!path) return;
+
+    if (animationId) {
+      animatedAgentCircleIds.add(animationId);
+    }
+
+    circle.dataset.agentCircleAnimated = "true";
+    path.style.transition = "stroke-dasharray 860ms cubic-bezier(0.22, 1, 0.36, 1)";
+    path.style.strokeDasharray = `${safeValue} 100`;
+  };
+
+  const prepareCircle = (circle) => {
+    const targetValue = Number(circle.dataset.agentCircleProgress || "0");
+    const safeValue = Number.isFinite(targetValue) ? Math.max(0, Math.min(100, targetValue)) : 0;
+    const path = circle.querySelector("[data-agent-circle-path]");
+    const animationId = circle.dataset.agentCircleId || "";
+    const hasAnimated = Boolean(animationId && animatedAgentCircleIds.has(animationId));
+
+    if (!path) return false;
+
+    path.style.transition = "none";
+
+    if (prefersReducedMotion || hasAnimated) {
+      circle.dataset.agentCircleAnimated = "true";
+      path.style.strokeDasharray = `${safeValue} 100`;
+
+      if (animationId) {
+        animatedAgentCircleIds.add(animationId);
+      }
+
+      return false;
+    }
+
+    circle.dataset.agentCircleAnimated = "false";
+    path.style.strokeDasharray = "0 100";
+    return true;
+  };
+
+  const pendingCircles = circles.filter((circle) => prepareCircle(circle));
+
+  if (!pendingCircles.length) return;
+
+  if (!("IntersectionObserver" in window)) {
+    pendingCircles.forEach((circle) => {
+      window.requestAnimationFrame(() => {
+        activateCircle(circle);
+      });
+    });
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries, currentObserver) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        activateCircle(entry.target);
+        currentObserver.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.45 },
+  );
+
+  pendingCircles.forEach((circle) => observer.observe(circle));
+}
+
+document.addEventListener("click", (event) => {
+  if (state.section !== "agents" || !state.agentOpenFilterPanel) return;
+
+  const target = event.target;
+  if (!(target instanceof Element)) return;
+  if (target.closest("[data-agent-filterbar]")) return;
+
+  clearAgentFilterCloseTimer();
+  state.agentOpenFilterPanel = null;
+  updateAgentDashboardResults();
+});
+
+document.addEventListener("keydown", (event) => {
+  if (state.section !== "agents" || !state.agentOpenFilterPanel) return;
+  if (event.key !== "Escape") return;
+
+  clearAgentFilterCloseTimer();
+  state.agentOpenFilterPanel = null;
+  updateAgentDashboardResults();
+});
 
 function hydrateEmailServiceProducts() {
   const host = contentRoot.querySelector("[data-email-service-products]");
@@ -979,13 +1646,6 @@ homeTrigger.addEventListener("click", (event) => {
   event.preventDefault();
   navigateTo("home");
 });
-
-if (sidebarToggle) {
-  sidebarToggle.addEventListener("click", () => {
-    state.sidebarCollapsed = !state.sidebarCollapsed;
-    syncSidebarToggleState();
-  });
-}
 
 window.addEventListener("hashchange", syncRouteFromHash);
 
