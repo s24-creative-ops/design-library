@@ -607,9 +607,9 @@ function renderAgentFilterBar() {
 
   return `
     <div class="ft-agent-filterbar" data-agent-filterbar>
-      ${renderAgentFilterPanel("status", statusOptions, state.agentActiveStatuses)}
-      ${renderAgentFilterPanel("targetUsers", targetUserOptions, state.agentActiveTargetUsers)}
       ${renderAgentFilterPanel("tags", tagOptions, state.agentActiveTags)}
+      ${renderAgentFilterPanel("targetUsers", targetUserOptions, state.agentActiveTargetUsers)}
+      ${renderAgentFilterPanel("status", statusOptions, state.agentActiveStatuses)}
       ${
         hasActiveAgentFilters()
           ? `
