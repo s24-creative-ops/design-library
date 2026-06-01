@@ -84,7 +84,7 @@ window.designLibraryAgentDashboardData = {
       owner: "Peter Sijtsma",
       status: "live",
       targetUsers: ["Brand", "Creative Studio"],
-      tags: ["Brand", "Support"],
+      tags: ["Brand"],
       links: {
         agent: "https://chatgpt.com/agents/a/agt_6a0c854b60748191a8a2863d9d2237ea",
         onboarding: "",
@@ -97,7 +97,7 @@ window.designLibraryAgentDashboardData = {
       owner: "Peter Sijtsma",
       status: "testing",
       targetUsers: ["Homeowner", "Professional", "Seeker", "Content", "Social Media"],
-      tags: ["Image Creation", "Automation", "Marketing"],
+      tags: ["Image", "Automation", "Marketing"],
       links: {
         agent: "https://chatgpt.com/agents/a/agt_6a01c8992f848191b3f2957bc09bfaf3",
         onboarding: "",
@@ -110,7 +110,7 @@ window.designLibraryAgentDashboardData = {
       owner: "Peter Sijtsma",
       status: "testing",
       targetUsers: ["Loft", "Media", "Social Media"],
-      tags: ["Sales", "Automation", "Ads"],
+      tags: ["Ads", "Automation"],
       links: {
         agent: "https://www.figma.com/make/lT2AJ1LQJXw1ZOFLRJtL0v/ImmoScout24-Ad-Generator?t=zr1qdYdrzbS6zM2D-1",
         onboarding: "",
@@ -123,7 +123,7 @@ window.designLibraryAgentDashboardData = {
       owner: "Peter Sijtsma",
       status: "idea",
       targetUsers: ["Homeowner", "Professional", "Seeker", "Content", "Social Media", "Media"],
-      tags: ["Illustration"],
+      tags: ["Design"],
       links: {
         agent: "https://chatgpt.com/agents/a/agt_6a0192990a988191a6dc47ce51db8c4e",
         onboarding: "",
@@ -136,7 +136,7 @@ window.designLibraryAgentDashboardData = {
       owner: "Peter Sijtsma",
       status: "idea",
       targetUsers: ["Creative Studio", "Homeowner", "Professional", "Seeker", "Content", "Social Media", "Media"],
-      tags: ["Icon", "Library"],
+      tags: ["Design", "Design System"],
       links: {
         agent: "https://chatgpt.com/agents/a/agt_6a0192990a988191a6dc47ce51db8c4e",
         onboarding: "",
@@ -149,7 +149,7 @@ window.designLibraryAgentDashboardData = {
       owner: "Peter Sijtsma",
       status: "prototype",
       targetUsers: ["Creative Studio"],
-      tags: ["Brainstorm", "Ideation"],
+      tags: ["Marketing"],
       links: {
         agent: "https://chatgpt.com/agents/a/agt_6a0475a7db288191bf1c3bba456c1d5b",
         onboarding: "",
@@ -162,7 +162,7 @@ window.designLibraryAgentDashboardData = {
       owner: "Peter Sijtsma",
       status: "idea",
       targetUsers: ["Brand", "Professional", "Creative Studio"],
-      tags: ["Tokens", "Scalable Design", "Design System"],
+      tags: ["Design System", "Design"],
       links: {
         agent: "https://chatgpt.com/agents/a/agt_6a10268bb3808191b1824a95f5bcf6c4",
         onboarding: "",
@@ -175,7 +175,7 @@ window.designLibraryAgentDashboardData = {
       owner: "Nadja De Col",
       status: "testing",
       targetUsers: ["Creative Studio", "Content"],
-      tags: ["Email", "Marketing"],
+      tags: ["Video", "Marketing"],
       links: {
         agent: "https://chatgpt.com/agents/a/agt_6a16fdd863108191802a67e7cb7e4d83",
         onboarding: "",
@@ -188,7 +188,7 @@ window.designLibraryAgentDashboardData = {
       owner: "Nadja De Col",
       status: "prototype",
       targetUsers: ["Media", "Social Media", "Professional"],
-      tags: ["PPC", "Paid Ads", "Social Media"],
+      tags: ["Ads"],
       links: {
         agent: "https://chatgpt.com/agents/a/agt_6a18363bc9248191a74e77441afed202",
         onboarding: "",
@@ -201,7 +201,7 @@ window.designLibraryAgentDashboardData = {
       owner: "Nadja De Col",
       status: "idea",
       targetUsers: ["Media", "Social Media", "Professional"],
-      tags: ["PPC", "Paid Ads", "Social Media"],
+      tags: ["Video", "Ads"],
       links: {
         agent: "https://chatgpt.com/agents/a/agt_6a1851f335908191b1c465f1a13a1a49",
         onboarding: "",
@@ -214,7 +214,7 @@ window.designLibraryAgentDashboardData = {
       owner: "Henrik Östergaard",
       status: "testing",
       targetUsers: ["Creative Studio", "Content", "Media"],
-      tags: ["After Effects", "Motion", "Expressions"],
+      tags: ["Video"],
       links: {
         agent: "https://chatgpt.com/agents/a/agt_6a183ef7e3a88191a23bf8a7664c5d74",
         onboarding: "",
