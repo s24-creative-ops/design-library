@@ -327,61 +327,14 @@ function renderSidebar(items, label, sectionKey = state.section) {
 
 function renderHome() {
   const { homePage } = data;
-  const quickLinks = Array.isArray(homePage.quickLinks) ? homePage.quickLinks : [];
 
   contentRoot.innerHTML = `
     <header class="ft-page-header ft-page-header--home">
       <h1 class="ft-page-header__title">${escapeHtml(homePage.label)}</h1>
       <p class="ft-page-header__intro">${escapeHtml(homePage.intro)}</p>
+      <p class="ft-page-header__meta">Owner: Dominik Böhme</p>
     </header>
-
-    <section class="ft-home-links" aria-label="Builder-Bereiche">
-      ${quickLinks
-        .map((link) => {
-          const sectionKey = typeof link.section === "string" ? link.section : "";
-          const itemId = getDefaultItem(sectionKey);
-          const href = getHashForRoute({ section: sectionKey, item: itemId });
-          const gptHref = typeof link.gptHref === "string" ? link.gptHref : "";
-          const gptLabel = typeof link.gptLabel === "string" ? link.gptLabel : "";
-
-          return `
-            <article class="ft-home-link-card" data-home-section="${escapeHtml(sectionKey)}" data-home-item="${escapeHtml(itemId || "")}" tabindex="0" role="link" aria-label="${escapeHtml(link.label || sectionKey)} öffnen">
-              <span class="ft-home-link-card__label">${escapeHtml(link.label || sectionKey)}</span>
-              <div class="ft-home-link-card__actions">
-                ${
-                  gptHref && gptLabel
-                    ? `<a class="button-outline-strong ft-home-link-card__gpt" href="${escapeHtml(gptHref)}" target="_blank" rel="noopener noreferrer">${escapeHtml(gptLabel)}</a>`
-                    : ""
-                }
-              </div>
-            </article>
-          `;
-        })
-        .join("")}
-    </section>
   `;
-
-  contentRoot.querySelectorAll("[data-home-section]").forEach((card) => {
-    const sectionKey = card.getAttribute("data-home-section") || "";
-    const itemId = card.getAttribute("data-home-item") || null;
-
-    const openSection = () => {
-      if (!sectionKey) return;
-      navigateTo(sectionKey, itemId);
-    };
-
-    card.addEventListener("click", (event) => {
-      const target = event.target;
-      if (target instanceof Element && target.closest("a")) return;
-      openSection();
-    });
-
-    card.addEventListener("keydown", (event) => {
-      if (event.key !== "Enter" && event.key !== " ") return;
-      event.preventDefault();
-      openSection();
-    });
-  });
 }
 
 function renderNote(note) {
@@ -771,39 +724,48 @@ function escapeAttribute(value) {
 function renderAgentCard(agent) {
   const statusMeta = getAgentStatusMeta(agent.status);
   const asideClass = agent.status === "live" ? " ft-agent-card__aside--live" : "";
+  const metaMarkup = `
+    <div class="ft-agent-card__meta-inline">
+      <span class="ft-agent-card__meta-inline-item">${escapeHtml(formatAgentOwnerName(agent.owner))}</span>
+      ${
+        agent.links?.onboarding
+          ? `
+            <a class="ft-agent-card__meta-inline-link" href="${escapeHtml(agent.links.onboarding)}" target="_blank" rel="noopener noreferrer">
+              Open Onboarding
+            </a>
+          `
+          : ""
+      }
+    </div>
+  `;
+  const actionMarkup = `
+    <div class="ft-agent-card__aside${asideClass}">
+      ${renderAgentCardAction(agent, statusMeta)}
+    </div>
+  `;
 
   return `
     <article class="ft-agent-card">
-      <div class="ft-agent-card__content">
-        <div class="ft-agent-card__top">
-          <div class="ft-agent-card__header">
-            <h3 class="ft-agent-card__title">${escapeHtml(agent.title || "Unbenannter Agent")}</h3>
-          </div>
-          <div class="ft-agent-card__headline">
-            <p class="ft-agent-card__description">${escapeHtml(agent.shortDescription || "Keine Beschreibung hinterlegt.")}</p>
-          </div>
+      <div class="ft-agent-card__top">
+        <div class="ft-agent-card__header">
+          <h3 class="ft-agent-card__title">${escapeHtml(agent.title || "Unbenannter Agent")}</h3>
         </div>
-
-        <div class="ft-agent-card__tags">
-          ${renderAgentChipList(agent.tags)}
-        </div>
-
-        <div class="ft-agent-card__meta-inline">
-          <span class="ft-agent-card__meta-inline-item">${escapeHtml(formatAgentOwnerName(agent.owner))}</span>
-          ${
-            agent.links?.onboarding
-              ? `
-                <a class="ft-agent-card__meta-inline-link" href="${escapeHtml(agent.links.onboarding)}" target="_blank" rel="noopener noreferrer">
-                  Open Onboarding
-                </a>
-              `
-              : ""
-          }
+        <div class="ft-agent-card__headline">
+          <p class="ft-agent-card__description">${escapeHtml(agent.shortDescription || "Keine Beschreibung hinterlegt.")}</p>
         </div>
       </div>
 
-      <div class="ft-agent-card__aside${asideClass}">
-        ${renderAgentCardAction(agent, statusMeta)}
+      <div class="ft-agent-card__tags">
+        ${renderAgentChipList(agent.tags)}
+      </div>
+
+      <div class="ft-agent-card__footer">
+        <div class="ft-agent-card__footer-meta">
+          ${metaMarkup}
+        </div>
+        <div class="ft-agent-card__footer-action">
+          ${actionMarkup}
+        </div>
       </div>
     </article>
   `;
@@ -829,12 +791,15 @@ function renderAgentResultsMarkup() {
 }
 
 function renderAgentsSection(item) {
+  const agentLibraryIntro =
+    "A shared overview of GPT Agents and AI-powered workflows built or maintained by Creative Studio. The library is available to all teams and helps make agents easier to find, access, and reuse.";
+
   return `
     <div class="ft-agent-dashboard">
       <header class="ft-agent-dashboard__header">
         <div class="ft-agent-dashboard__header-copy">
           <h2 class="ft-agent-dashboard__title">${escapeHtml(item.title || item.label)}</h2>
-          ${item.intro ? `<p class="ft-agent-dashboard__intro">${escapeHtml(item.intro)}</p>` : ""}
+          <p class="ft-agent-dashboard__intro">${escapeHtml(agentLibraryIntro)}</p>
         </div>
       </header>
 

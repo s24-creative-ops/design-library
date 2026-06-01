@@ -2,20 +2,25 @@
 // Do not edit manually.
 window.designLibraryData = {
   "homePage": {
-    "label": "Design Library",
-    "intro": "Die Library ist die zentrale Quelle fuer die GPT Builder. Sie buendelt Design Tokens, E-Mail-Builder-Module und LP-Builder-Module und dient als Referenz fuer konsistente Builder-Ausgaben.",
+    "label": "Creative Ops – AI Hub",
+    "intro": "The Creative Ops – AI Hub is the single source of truth for AI-powered workflows, GPT Agents, builder systems, and reusable design foundations created or maintained by Creative Ops & Creative Studio. It helps Marketing teams find, access, reuse, and scale tools and workflows across teams.",
     "quickLinks": [
+      {
+        "label": "Design Tokens",
+        "section": "tokens",
+        "text": "Core tokens and reusable design foundations used across Creative Studio systems."
+      },
       {
         "label": "E-Mail Builder",
         "section": "email",
-        "text": "Module, Templates und Preview-Bausteine fuer den E-Mail-Bereich.",
+        "text": "Reusable email modules, templates, and preview building blocks for Marketing workflows.",
         "gptLabel": "E-Mail Builder öffnen",
         "gptHref": "https://chatgpt.com/g/g-69c248087a7c819188ed0fe9f4ee2e14-e-mail-builder-beta"
       },
       {
         "label": "LP Builder",
         "section": "lp",
-        "text": "Landingpage-Module aus den synchronisierten LP-Artefakten.",
+        "text": "Reusable landing page modules and synced builder artifacts for scalable campaign work.",
         "gptLabel": "LP Builder öffnen",
         "gptHref": "https://chatgpt.com/g/g-69839550ac988191bd3a3838d2b00d02-landing-page-builder"
       }
