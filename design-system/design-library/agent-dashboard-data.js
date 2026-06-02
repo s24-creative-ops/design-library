@@ -62,7 +62,7 @@ window.designLibraryAgentDashboardData = {
       tags: ["Landing Page", "Marketing"],
       links: {
         agent: "https://chatgpt.com/g/g-69839550ac988191bd3a3838d2b00d02-landing-page-builder",
-        onboarding: "https://scout24.slack.com/docs/T02B63WEX/F0A8U5M1F7T",
+        onboarding: "https://www.static-immobilienscout24.de/statpic/_/23606c2767ad64fda238d341e166ca0f_Onboarding_LP-Builder+AEM.mp4",
       },
     },
     {

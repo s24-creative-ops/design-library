@@ -1125,9 +1125,68 @@ function renderLpSection(item) {
   `;
 }
 
+function renderLearningSection(item) {
+  const resources = Array.isArray(item.resources) ? item.resources : [];
+
+  return `
+    <div class="ft-learning">
+      <header class="ft-learning__header">
+        <h2 class="ft-learning__title">${escapeHtml(item.title || item.label || "Learning")}</h2>
+        ${item.intro ? `<p class="ft-learning__intro">${escapeHtml(item.intro)}</p>` : ""}
+      </header>
+
+      <div class="ft-learning-grid">
+        ${resources
+          .map((resource) => {
+            const href = typeof resource.videoUrl === "string" ? resource.videoUrl : "";
+            const title = resource.title || "Learning resource";
+            const description = resource.description || "";
+            const type = resource.type || "Resource";
+            const language = resource.language ? ` · ${resource.language}` : "";
+            const owner = resource.owner || "";
+
+            return `
+              <article class="ft-learning-card">
+                <a
+                  class="ft-learning-card__link"
+                  href="${escapeHtml(href)}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="${escapeHtml(title)} in neuem Tab öffnen"
+                >
+                  <div class="ft-learning-card__preview" aria-hidden="true">
+                    <span class="ft-learning-card__play">
+                      <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                        <path d="M8 6.5v11l9-5.5-9-5.5Z" fill="currentColor"></path>
+                      </svg>
+                    </span>
+                  </div>
+                  <div class="ft-learning-card__body">
+                    <h3 class="ft-learning-card__title">${escapeHtml(title)}</h3>
+                    <p class="ft-learning-card__description">${escapeHtml(description)}</p>
+                    <div class="ft-learning-card__meta">
+                      <span class="ft-learning-card__type">${escapeHtml(`${type}${language}`)}</span>
+                      ${owner ? `<span class="ft-learning-card__owner">${escapeHtml(owner)}</span>` : ""}
+                    </div>
+                    <span class="button-outline-strong ft-learning-card__cta">Watch video</span>
+                  </div>
+                </a>
+              </article>
+            `;
+          })
+          .join("")}
+      </div>
+    </div>
+  `;
+}
+
 function renderSectionContent(sectionKey, item) {
   if (sectionKey === "agents") {
     return renderAgentsSection(item);
+  }
+
+  if (sectionKey === "learning") {
+    return renderLearningSection(item);
   }
 
   if (sectionKey === "tokens") {

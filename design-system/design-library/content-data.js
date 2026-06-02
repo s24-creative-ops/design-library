@@ -27,6 +27,38 @@ window.designLibraryData = {
     ]
   },
   "sections": {
+    "learning": {
+      "label": "Learning",
+      "items": [
+        {
+          "id": "all-learning",
+          "label": "All Learning",
+          "kind": "learning",
+          "title": "Learning",
+          "intro": "Guides, onboarding videos, and learning resources for GPT Agents, builder workflows, and AI-powered tools maintained by Creative Ops and Creative Studio.",
+          "resources": [
+            {
+              "id": "intro-to-gpt-agents",
+              "title": "Intro to GPT Agents",
+              "description": "General introduction to how GPT Agents are structured, maintained, and used in Creative Ops workflows.",
+              "type": "Video",
+              "language": "German",
+              "owner": "Dominik Böhme",
+              "videoUrl": "https://www.static-immobilienscout24.de/statpic/_/1983425ef1aac1808bda6b7d3d4ad1f4_GMT20260527-140257_Recording_1926x1254.mp4"
+            },
+            {
+              "id": "lp-builder-onboarding",
+              "title": "LP Builder Onboarding",
+              "description": "Onboarding video for using the LP Builder and understanding the landing page module workflow.",
+              "type": "Video",
+              "language": "English",
+              "owner": "Dominik Böhme",
+              "videoUrl": "https://www.static-immobilienscout24.de/statpic/_/23606c2767ad64fda238d341e166ca0f_Onboarding_LP-Builder+AEM.mp4"
+            }
+          ]
+        }
+      ]
+    },
     "tokens": {
       "label": "Design Tokens",
       "items": [
