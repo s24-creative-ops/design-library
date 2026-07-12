@@ -90,6 +90,14 @@ Preview-tauglich und offiziell freigegeben sind aktuell nur:
 `lp-sticky-footer` wird in der Preview statisch oder entschaerft gezeigt.
 `lp-builder/runtime/integrations/*` sowie Legacy-Carousel-/jQuery-Logik bleiben ausserhalb der aktiven Library-Preview.
 
+### B2B Package List
+
+- **Kategorie:** LP Builder / Tiles
+- **Einsatzbereich:** Drei B2B-Mitgliedschafts- oder Leistungspakete vergleichbar darstellen.
+- **Aufbau:** Optionaler Heading-Block, drei Pakete in der Reihenfolge Silber, Gold, Bronze und ein optionaler CTA-Block.
+- **Regeln:** Gold bleibt visuell hervorgehoben; jedes Paket verwendet eine Checkmark-Liste fuer seine Leistungen.
+- **Technik:** Das sichtbare Markup und die Preview-CSS werden aus dem aktiven `lp-builder` generiert. Die produktive Runtime bleibt im `lp-builder`.
+
 Die Library darf erst published werden, wenn sie visuell und inhaltlich final geprueft ist.
 Ein Publish bleibt bis dahin blockiert und ist zusaetzlich nur nach ausdruecklichem User-Go erlaubt.
 

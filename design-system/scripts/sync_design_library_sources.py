@@ -13,6 +13,7 @@ from typing import Any
 # Die hier verbleibende LP-Fallback-Logik ist Legacy und soll die allgemeinen
 # Design-Library-Checks nicht an veraltete LP-Status-Texte binden.
 from sync_lp_builder_to_design_library import (
+    DEFERRED_LP_MODULE_IDS,
     build_lp_content_section as build_lp_content_section_via_lp_sync,
     build_lp_shadow_styles as build_lp_shadow_styles_via_lp_sync,
     extract_module_markup as extract_lp_module_markup_via_lp_sync,
@@ -588,7 +589,11 @@ def validate_design_library_compatibility(
 
 def generate_outputs() -> dict[Path, str]:
     content_data = update_content_data()
-    lp_metadata = load_lp_module_metadata_via_lp_sync()
+    lp_metadata = [
+        module
+        for module in load_lp_module_metadata_via_lp_sync()
+        if module["id"] not in DEFERRED_LP_MODULE_IDS
+    ]
     content_data["sections"]["lp"] = build_lp_content_section_via_lp_sync(
         lp_metadata,
         content_data.get("sections", {}).get("lp"),

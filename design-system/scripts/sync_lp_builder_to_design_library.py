@@ -61,9 +61,13 @@ LEGACY_LP_PAGE_SPECS = [
     {"id": "lp-sticky-footer", "label": "Sticky Footer", "modules": ["lp-sticky-footer"]},
     {"id": "lp-content-cards", "label": "Content Cards", "modules": ["content-cards-2col", "content-cards-3col"]},
     {"id": "lp-pricing-list", "label": "Pricing List", "modules": ["pricing-list"]},
+    {"id": "lp-b2b-package-list", "label": "B2B Package List", "modules": ["b2b-package-list"]},
     {"id": "lp-action-tiles", "label": "Action Tiles", "modules": ["action-tiles_rle"]},
     {"id": "lp-video", "label": "Video", "modules": ["video--youtube"]},
 ]
+
+# Active Builder modules that are intentionally not shown in the Design Library yet.
+DEFERRED_LP_MODULE_IDS = {"video--youtube-carousel"}
 
 EMBEDDED_PREVIEW_FRAME_CSS = """\
 :root {
@@ -529,7 +533,7 @@ def extract_module_markup(module_ids: list[str]) -> dict[str, str]:
     marker_ids = set(extracted.keys())
     metadata_ids = set(module_ids)
 
-    unknown_markers = sorted(marker_ids - metadata_ids)
+    unknown_markers = sorted(marker_ids - metadata_ids - DEFERRED_LP_MODULE_IDS)
     if unknown_markers:
         fail(
             "component-library.html enthaelt Marker ohne Metadaten in module-metadata.json: "
@@ -577,7 +581,9 @@ def render_shadow_assignment(shadow_css: str) -> str:
 
 
 def generate_outputs() -> dict[Path, str]:
-    metadata = load_module_metadata()
+    metadata = [
+        module for module in load_module_metadata() if module["id"] not in DEFERRED_LP_MODULE_IDS
+    ]
     module_ids = [module["id"] for module in metadata]
     markup_map = extract_module_markup(module_ids)
     shadow_css = build_lp_shadow_styles()
