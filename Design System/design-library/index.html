@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Design Library</title>
+    <link rel="stylesheet" href="./email-preview-styles.css" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="ft-shell">
+      <header class="ft-topbar">
+        <div class="ft-topbar__inner">
+          <a class="ft-brand" href="#" aria-label="Zur Startseite" data-home-trigger>
+            <img
+              class="ft-brand__image"
+              src="https://www.static-immobilienscout24.de/fro/ite/_/IS24-Logo_horizontal_left_white.png"
+              alt="Logo ImmoScout24"
+              width="185"
+              height="47"
+            />
+          </a>
+
+          <nav class="ft-topnav" aria-label="Hauptnavigation">
+            <button class="ft-topnav__link is-active" type="button" data-main-nav="agents">
+              Agent Library
+            </button>
+            <button class="ft-topnav__link" type="button" data-main-nav="learning">
+              Learning
+            </button>
+            <button class="ft-topnav__link" type="button" data-main-nav="lp">
+              LP Builder
+            </button>
+            <button class="ft-topnav__link" type="button" data-main-nav="email">
+              E-Mail Builder
+            </button>
+            <button class="ft-topnav__link" type="button" data-main-nav="tokens">
+              Design Tokens
+            </button>
+          </nav>
+        </div>
+      </header>
+
+      <main class="ft-layout ft-layout--home" id="ft-layout" aria-live="polite">
+        <div class="ft-sidebar-rail">
+          <aside class="ft-sidebar" id="ft-sidebar" aria-label="Unterkategorien">
+            <p class="ft-sidebar__eyebrow" id="ft-sidebar-eyebrow"></p>
+            <nav class="ft-sidebar__nav" id="ft-sidebar-nav"></nav>
+          </aside>
+        </div>
+
+        <section class="ft-content" id="ft-content"></section>
+      </main>
+    </div>
+
+    <script src="./content-data.js"></script>
+    <script src="./agent-dashboard-data.js"></script>
+    <script src="./lp-module-markup.js"></script>
+    <script src="./lp-shadow-styles.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
