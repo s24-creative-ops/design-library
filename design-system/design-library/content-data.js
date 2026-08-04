@@ -235,7 +235,9 @@ window.designLibraryData = {
             "teaser-3col",
             "teaser-4col",
             "teaser-split-image-right",
-            "teaser-split-image-left"
+            "teaser-split-image-left",
+            "teaser-split-colour-image-right",
+            "teaser-split-colour-image-left"
           ]
         },
         {
@@ -329,6 +331,14 @@ window.designLibraryData = {
           "kind": "lpModules",
           "modules": [
             "pricing-list"
+          ]
+        },
+        {
+          "id": "lp-choice-card-list",
+          "label": "Choice Card List",
+          "kind": "lpModules",
+          "modules": [
+            "choice-card-list"
           ]
         },
         {
