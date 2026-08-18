@@ -258,6 +258,14 @@ window.designLibraryData = {
           ]
         },
         {
+          "id": "lp-carousels",
+          "label": "Carousels",
+          "kind": "lpModules",
+          "modules": [
+            "card-carousel"
+          ]
+        },
+        {
           "id": "lp-counter",
           "label": "Counter",
           "kind": "lpModules",
@@ -326,14 +334,6 @@ window.designLibraryData = {
           ]
         },
         {
-          "id": "lp-pricing-list",
-          "label": "Pricing List",
-          "kind": "lpModules",
-          "modules": [
-            "pricing-list"
-          ]
-        },
-        {
           "id": "lp-choice-card-list",
           "label": "Choice Card List",
           "kind": "lpModules",
@@ -343,11 +343,11 @@ window.designLibraryData = {
           ]
         },
         {
-          "id": "lp-carousels",
-          "label": "Carousels",
+          "id": "lp-pricing-list",
+          "label": "Pricing List",
           "kind": "lpModules",
           "modules": [
-            "card-carousel"
+            "pricing-list"
           ]
         },
         {
