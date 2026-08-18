@@ -1582,6 +1582,77 @@ function initLpAccordion(root) {
   });
 }
 
+function initLpCardCarousel(root) {
+  root.querySelectorAll("[data-card-carousel]").forEach((carousel) => {
+    if (carousel.dataset.ftCarouselBound === "true") return;
+
+    const track = carousel.querySelector("[data-card-carousel-track]");
+    const slides = Array.from(carousel.querySelectorAll(".card-carousel__slide"));
+    const previous = carousel.querySelector("[data-card-carousel-prev]");
+    const next = carousel.querySelector("[data-card-carousel-next]");
+    const dots = carousel.querySelector("[data-card-carousel-dots]");
+    if (!track || !slides.length || !previous || !next || !dots) return;
+
+    carousel.dataset.ftCarouselBound = "true";
+    let index = 0;
+
+    const visibleCount = () => {
+      if (window.matchMedia("(max-width: 767px)").matches) return 1;
+      if (window.matchMedia("(max-width: 1023px)").matches) return 2;
+      return 3;
+    };
+    const maximumIndex = () => Math.max(0, slides.length - visibleCount());
+    const update = () => {
+      const maximum = maximumIndex();
+      index = Math.max(0, Math.min(index, maximum));
+      const isMobile = window.matchMedia("(max-width: 767px)").matches;
+      const gap = Number.parseFloat(window.getComputedStyle(track).gap) || 0;
+      const step = slides[0].getBoundingClientRect().width + gap;
+
+      track.style.transform = isMobile ? "" : `translateX(${-index * step}px)`;
+      previous.disabled = index === 0;
+      next.disabled = index === maximum;
+      Array.from(dots.children).forEach((dot, dotIndex) => {
+        dot.classList.toggle("card-carousel__dot--active", dotIndex === index);
+      });
+    };
+    const buildDots = () => {
+      dots.replaceChildren();
+      for (let dotIndex = 0; dotIndex <= maximumIndex(); dotIndex += 1) {
+        const dot = document.createElement("button");
+        dot.type = "button";
+        dot.className = "card-carousel__dot";
+        dot.setAttribute("aria-label", `Carousel position ${dotIndex + 1}`);
+        dot.addEventListener("click", () => {
+          index = dotIndex;
+          update();
+        });
+        dots.appendChild(dot);
+      }
+    };
+    const rebuild = () => {
+      buildDots();
+      update();
+    };
+
+    previous.addEventListener("click", () => {
+      index -= 1;
+      update();
+    });
+    next.addEventListener("click", () => {
+      index += 1;
+      update();
+    });
+
+    if (typeof ResizeObserver === "function") {
+      new ResizeObserver(rebuild).observe(carousel);
+    } else {
+      window.addEventListener("resize", rebuild, { passive: true });
+    }
+    rebuild();
+  });
+}
+
 function initLpVideo(root) {
   if (root.dataset.ftVideoBound === "true") return;
   root.dataset.ftVideoBound = "true";
@@ -1653,6 +1724,7 @@ function hydrateLpModulePreviews() {
 
     initLpAccordion(wrapper);
     initLpCounterAnimated(wrapper);
+    initLpCardCarousel(wrapper);
     initLpVideo(wrapper);
 
     host.dataset.lpRendered = "true";
