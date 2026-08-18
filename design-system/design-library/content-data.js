@@ -338,7 +338,16 @@ window.designLibraryData = {
           "label": "Choice Card List",
           "kind": "lpModules",
           "modules": [
-            "choice-card-list"
+            "choice-card-list",
+            "choice-card-expand-list"
+          ]
+        },
+        {
+          "id": "lp-carousels",
+          "label": "Carousels",
+          "kind": "lpModules",
+          "modules": [
+            "card-carousel"
           ]
         },
         {
