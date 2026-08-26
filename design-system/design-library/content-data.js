@@ -309,6 +309,14 @@ window.designLibraryData = {
           ]
         },
         {
+          "id": "lp-tables",
+          "label": "Tables",
+          "kind": "lpModules",
+          "modules": [
+            "plan-compare"
+          ]
+        },
+        {
           "id": "lp-checkmark-list",
           "label": "Checkmark List",
           "kind": "lpModules",
