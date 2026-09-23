@@ -33,6 +33,7 @@ const layoutRoot = document.getElementById("ft-layout");
 
 const LP_BLEED_MODULES = new Set(["hero-bleed-flex", "hero-bleed-flex-centered"]);
 const LP_REMOTE_STYLESHEETS = ["https://www.static-immobilienscout24.de/fro/core/8.5.0/css/core.min.css"];
+const LP_DESKTOP_TYPOGRAPHY_QUERY = window.matchMedia("(min-width: 669px)");
 const EMAIL_HERO_SIDEBAR_ITEMS = new Set(["heros-left", "heros-center", "heros-fakeforms"]);
 const DEFAULT_ROUTE = { section: "lp", item: "heros" };
 let agentFilterCloseTimeoutId = null;
@@ -1620,6 +1621,22 @@ function initLpVideo(root) {
   });
 }
 
+function getLpResponsiveSizeClass() {
+  return LP_DESKTOP_TYPOGRAPHY_QUERY.matches ? "sizes-desktop" : "sizes-palm";
+}
+
+function syncLpResponsiveSizeClasses() {
+  const activeClass = getLpResponsiveSizeClass();
+  const inactiveClass = activeClass === "sizes-desktop" ? "sizes-palm" : "sizes-desktop";
+
+  contentRoot.querySelectorAll(".ft-lp-shadow-host").forEach((host) => {
+    const frameRoot = host.shadowRoot?.querySelector(".frame-root");
+    if (!frameRoot) return;
+    frameRoot.classList.remove(inactiveClass);
+    frameRoot.classList.add(activeClass);
+  });
+}
+
 function hydrateLpModulePreviews() {
   const markupMap = window.designLibraryLpModuleMarkup || {};
   const elementMap = data.lpElements || {};
@@ -1660,7 +1677,7 @@ function hydrateLpModulePreviews() {
 
     const wrapper = document.createElement("div");
     wrapper.className = "ft-lp-shadow-scope";
-    wrapper.innerHTML = `<main class="frame-root${elementId ? " frame-root--element" : ""}">${markup}</main>`;
+    wrapper.innerHTML = `<main class="frame-root ${getLpResponsiveSizeClass()}${elementId ? " frame-root--element" : ""}">${markup}</main>`;
     shadowRoot.appendChild(wrapper);
 
     initLpAccordion(wrapper);
@@ -1682,6 +1699,8 @@ homeTrigger.addEventListener("click", (event) => {
   event.preventDefault();
   navigateTo("lp", "heros");
 });
+
+LP_DESKTOP_TYPOGRAPHY_QUERY.addEventListener("change", syncLpResponsiveSizeClasses);
 
 window.addEventListener("hashchange", syncRouteFromHash);
 

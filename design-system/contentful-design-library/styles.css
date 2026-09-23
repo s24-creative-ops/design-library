@@ -1435,7 +1435,14 @@ body {
 .ft-lp-library {
   width: 100%;
   color: initial;
+}
+
+.ft-email-library {
   font-family: initial;
+}
+
+.ft-lp-library {
+  font-family: var(--font-base);
 }
 
 .ft-email-library {
